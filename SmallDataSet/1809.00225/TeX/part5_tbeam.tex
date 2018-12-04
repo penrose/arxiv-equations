@@ -1,0 +1,163 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Performance with particle beams}
+\label{sec:TestBeamResults}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The 24 prototype FATALIC were tested in the reconstruction of real energy deposits of hadrons, electrons and muons,
+provided by the H8 secondary particle beam of CERN. Two mini-drawers, equipped with 12 \gls{fatalic} \gls{fe} electronics 
+each, were inserted into a demonstrator Tile module, providing full readout of Tile cells A1-5, BC1-5, D1 and partial readout
+of Tile cells A6 and D0. First, the detection chains by running \gls{cs} scans, using the slow channel. The fast channels 
+performance was then probed with particle beams of different energies and compositions.
+
+%Fig.\,\ref{fig:tb:setup} demonstrates the mini-drawer assembly, before insertion, as well as a three 
+%of the TileCal modules at the beam hall.
+
+%\begin{figure}[!b]
+%  \centering
+%  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/testbeam/tb_minidrawer.jpg}\label{fig:tb:minidrawer}}
+ % \hspace{4pt}
+%  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/testbeam/tb_module.jpg}\label{fig:tb:module}}
+%  \caption{(a) A TileCal mini-drawer, equipped with 12 FATALIC FEs, before insertion into the TileCal module. (b) Three of the TileCal demonstrator modules in the beam hall. }
+%  \label{fig:tb:setup}
+%\end{figure}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Inter-calibration of readout channels}
+\label{subsec:Calibration}
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+As the \gls{cs} source traverses a Tile cell, the response of the respective \glspl{pmt} exhibits a characteristic
+plateau (Fig.\,\ref{fig:pl_a}), which reflects the sequential excitation of the tiles, with local maxima (minima), 
+generated when the source traverses scintillator tiles (steel plates).
+%
+\begin{figure}[!tb]
+  \centering
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/testbeam/integrator_plateau}\label{fig:pl_a}}
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/testbeam/integrator_calib}\label{fig:pl_b}}
+  \caption{(a) Characteristic plateau, showing the response of one \gls{pmt} to the \gls{cs} source signal.
+  (b) Plateau variations before and after adjustment of the high voltage of each \gls{pmt}.}
+  \label{fig:pl}
+\end{figure}
+%
+Since the energy deposited by the source is uniform, variations of the measured responses can be used to inter-calibrate 
+the detection chains. This is performed by equalising each plateau $p_{i}$ to the overall mean $\langle p \rangle$. Since 
+the dependence of the \gls{pmt} gain on the applied high voltage is $\sim$$V^{\beta}$, where $\beta\simeq 7$ for the 
+particular \glspl{pmt}, the high voltage is corrected to $V^{'}_{i} = V_{i}\cdot(\langle p \rangle/p_{i})^{-7}$. 
+Fig.\,\ref{fig:pl_b} demonstrates the plateaus before and after equalisation. As shown, residual variations are 
+successfully reduced to the noise level and can be used to derive correction factors for each channel's response.
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Measurement of particle deposits}
+\label{subsec:TBparticles}
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The following paragraphs present the results of data analysis, using electron, muon and hadron beams, targeting the center of
+each A-cell at 20$^{\circ}$ incidence. The deposited energy is reconstructed using Optimal Filtering, as described in 
+Section\,\ref{sec:EnergyReco}, and is expressed in units of input charge by applying the fC/ADC conversion factors, derived using 
+the \gls{cis}. Unless specified otherwise, the deposited energy is estimated from the sum of the measurements in the targeted 
+A and BC cell. Adjacent cells are also taken into account for containment. The average energy, deposited by a specific beam 
+constituent, is obtained from the mean of a gaussian line-shape interpolated around the respective characteristic peak.
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsubsection*{Electrons}
+
+The reconstruction of \SI{20}{GeV}, \SI{50}{GeV} and \SI{100}{GeV} electron signal is tested with the beam targeting Tile cells 
+A2-A5. Since the electromagnetic shower is contained within a short distance in the Tile module, the electron energy is obtained
+from the respective distribution in each targeted A-cell. The results are summarised in Table\,\ref{tab:elecs} and displayed 
+graphically in Fig.\,\ref{fig:elec_reso} as a function of the beam energy. Using these measurements (from 11\,Tile cells), the 
+EM scale constant is estimated $1.04\pm 0.1$\si{pC/GeV}, which is consistent with the nominal value of $1.05\pm 0.1$\si{pC/GeV}, 
+derived in precise test-beam studies\,\cite{Adragna:2009zz}, based on more than 200 Tile Cells, using electrons of different
+energies with $20^{\circ}$ incidence. Finally, an example showing the total reconstructed energy distribution (A and BC cells 
+combined) is presented in Fig.\,\ref{fig:ereco_a}, while Fig.\,\ref{fig:ereco_b} displays the two-dimensional distribution in 
+the A/BC cell plane, where the characteristic deposits of the different beam constituents (electrons, muons and pions) can be distinguished.
+
+\begin{figure}[tb]
+  \centering
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/testbeam/elec_linearity}}
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/testbeam/elec_reso}}
+  \caption{Relative mean (a) and standard deviation (b) of the reconstructed electron energy in A-cells as a function of 
+  the beam energy. Error bars represent statistical uncertainties from the gaussian fit to the energy distribution in each cell.}
+  \label{fig:elec_reso}
+\end{figure}
+
+\begin{table}[h]
+  \begin{center}{\small
+  \begin{tabular}{ r c c c c c c c c }
+  {\bfseries Beam} & \multicolumn{2}{c}{\bfseries Cell A2} & \multicolumn{2}{c}{\bfseries Cell A3} & \multicolumn{2}{c}{\bfseries Cell A4} & \multicolumn{2}{c}{\bfseries Cell A5}\\
+  \toprule
+  GeV & $Q_\text{reco}$\,[pC] & $\sigma$\,[pC] & $Q_\text{reco}$\,[pC] & $\sigma$\,[pC] & $Q_\text{reco}$\,[pC] & $\sigma$\,[pC] & $Q_\text{reco}$\,[pC] & $\sigma$\,[pC]\\
+   20   & 23.2 & 2.3  &  20.1 & 2.4  &  21.6 & 2.5  &  19.7 & 2.2\\
+   50   & 54.3 & 3.5  &  50.1 & 3.5  &  52.5 & 3.7  &  -    & -  \\ 
+  100   & 98.2 & 5.6  &  98.7 & 5.5  & 103.1 & 4.8  &  95.1 & 5.1\\ 
+  \bottomrule
+  \end{tabular}}
+  \end{center}
+  \caption{\label{tab:elecs}Reconstructed electron energy in the targeted A-cells. }
+\end{table}
+
+\begin{figure}[t]
+  \centering
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/testbeam/T4_E100}\label{fig:ereco_a}}
+  \subfloat[][]{\includegraphics[width=0.508\textwidth]{figures/testbeam/elec2D_black}\label{fig:ereco_b}}\\
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/testbeam/T4_M165}\label{fig:ereco_c}}
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/testbeam/T3_H30}\label{fig:ereco_d}}
+  \caption{(a) Reconstructed energy distribution with 100\,GeV electron beam targeting cell A4. (b) Two-dimensional distribution
+  in the A/BC-cell plane, demonstrating the characteristic deposits of the different beam consituents. (c) 165 GeV muon beam 
+  targeting cell A4. (d) 30 GeV\,hadron beam targeting cell A3 (adjacent towers are also included for containment).\label{fig:ereco}}
+\end{figure}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsubsection*{Muons}
+
+The reconstruction of muon signal is tested with \SI{165}{GeV} muon beams targeting cells A2-A5. The reconstructed energy distribution
+for a characteristic case is shown in Fig.\,\ref{fig:ereco_c}. The most probable values (mpv), estimated for each targeted Tile tower 
+(A- and BC-cells), are listed in Table\,\ref{tab:muons}. The results are also expressed in terms of energy loss per unit distance (\dedx), 
+using the track-length in each Tile cell (\SI{31.925}{cm} for A-cells and \SI{89.391}{cm} for BC-cells, for 20$^\circ$ incidence). The 
+overal energy loss is $14.2\pm 1.9$ \si{fC/cm}, which corresponds to $15.0\pm 2.0$ \si{MeV/cm} considering the EM calibration 
+constant of \SI{1.04}{MeV/pC} estimated above and the $e/\mu$ response ratio of 0.91. The result is consistent with the estimate of
+\SI{15.2}{MeV/cm}, reported in previous test-beam studies using \SI{180}{GeV} muons at projective angles.
+
+\begin{table}[h]
+\begin{center}{\small
+\begin{tabular}{ r c c c c  }
+{\bfseries Cell Type} & {\bfseries Tower 2(+3)} & {\bfseries Tower 3(+4)} & {\bfseries Tower 4(+5)} & {\bfseries Tower 5}\\
+\toprule
+          & $Q_\text{reco}$\,[pC] & $Q_\text{reco}$\,[pC] & $Q_\text{reco}$\,[pC] & $Q_\text{reco}$\,[pC]\\
+A         &     0.49 &  0.41 & 0.47 & 0.41\\
+BC        &     1.66 &  1.17 & 1.11 & 1.22\\ 
+A+BC      &     2.21 &  1.60 & 1.60 & 1.67\\
+\midrule
+          &   $dQ/dx$\,[fC/cm] & $dQ/dx$\,[fC/cm] & $dQ/dx$\,[fC/cm] & $dQ/dx$\,[fC/cm]\\
+A         &   15.3 & 12.8 & 14.7 & 12.8\\
+BC        &   18.6 & 13.1 & 12.4 & 13.6\\ 
+A+BC      &   18.2 & 13.2 & 13.2 & 13.8\\ 
+\bottomrule
+\end{tabular}}
+\end{center}
+\caption{\label{tab:muons}Reconstructed energy and energy loss per unit distance of 165\,GeV muons targeting cells A2-A5.}
+\end{table}
+
+\begin{table}[h]
+  \begin{center}{\small
+  \begin{tabular}{ r c c c }
+  {\bfseries Beam} & {\bfseries Tower 2+3+4} & {\bfseries Tower 3} & {\bfseries Tower 2+4}\\
+  \toprule
+  GeV   & $Q_\text{reco}$\,[pC] & $Q_\text{reco}$\,[pC] & $Q_\text{reco}$\,[pC]\\
+   30   &     24.4 &   20.1 &  2.8\\
+  180   &    150.9 &  121.4 & 27.9\\ 
+  \bottomrule
+  \end{tabular}}
+  \end{center}
+  \caption{\label{tab:hadrons}Reconstructed energy of 30\,GeV and 180\,GeV pions in the targeted tower\,3 and adjacent towers\,2,4.}
+\end{table}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsubsection*{Hadrons}
+
+Hadron signal is studied with beams of \SI{30}{GeV} and \SI{180}{GeV} pions targeting Tile cell A3. To account for energy leakage
+towards adjacent Tile cells of the same module, deposits measured in Tile cells A2, BC2, A4, BC4 are also added to the measurement. 
+The results are summarised in Table\,\ref{tab:hadrons}, while the reconstructed energy distribution for the case of \SI{30}{GeV} pions is
+shown in Fig.\,\ref{fig:ereco_d}. As expected, the measured energy is lower than the beam energy, since a single Tile module 
+cannot provide full coverage, in solid angle, of the hadronic shower. The energy leakage towards neighbouring Tile cells of the 
+same module is found approximately 11\% and 18\% in the cases of \SI{30}{GeV} and \SI{180}{GeV}, respectively.
+

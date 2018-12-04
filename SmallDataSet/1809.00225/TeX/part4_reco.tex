@@ -1,0 +1,240 @@
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Simulation and performance}
+\label{subsec:SimAndPerf}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The following paragraphs describe the performance of \gls{fatalic} in terms of noise, linearity and radiation
+tolerance, based on both simulation and experimental measurements with 24 prototype units. It is noted however 
+that the current All-in-One cards, used to accomodate \gls{fatalic} for the purposes of these studies, are not
+adequate to support the slow channel. Specifically, due to the particularly large gain of this channel, the resistance 
+range of the respective on-board potensiometer is not sufficient for the adjustment of the pedestal within the input 
+dynamic range. As a workaround, it was decided to reduce the biasing current in the input stage, from the nominal value 
+of \SI{0.5}{mA} to \SI{0.2}{mA}. This however affected the performance of the fast channels, causing dynamic amplification 
+of the signal depending on its amplitude, with significant impact on the linearity. This effect would normally be eliminated 
+by equipping the All-in-One cards with potentiometers of larger resistance range or by implementing slow control 
+functionalities in \gls{fatalic}.
+
+%---------------------------------
+\subsection{Noise measurements}
+\label{subsec:ped}
+%---------------------------------
+
+The dominant noise introduced in fast channels is white noise from the input stage expected, from simulation results, 
+to be approximately \SI{8}{fC} in the high-gain channel. On the other hand, the dominant noise in the slow channel is 
+$\sfrac{1}{f}$ noise from the input stage, estimated at the level of \SI{7}{nA}. This substantially exceeds the 
+specification of \SI{0.25}{nA} (see Table\,\ref{tab:f5_specs}) initially defined for \gls{fatalic} because the lowest
+region of the noise frequency spectrum was not properly included in the simulations used to define the design.
+%due to overlooking the lower region of the noise frequency spectrum.
+The spectral density of the noise for the fast and slow channels is given in Fig.\,\ref{fig:gnoise}.
+
+%
+\begin{figure}[!bt]
+\centering
+\subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/simu_hg_noise}\label{fig:gnoise_a}}
+\subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/simu_slow_noise}\label{fig:gnoise_b}}
+\caption{Simulation of the noise spectral density in the (a) fast channels (high gain) and (b) slow channel.}
+\label{fig:gnoise}
+\end{figure}
+
+Experimental measurements of the noise were taken with the All-in-One cards connected to \glspl{pmt} under high voltage, 
+without signal. Fig.\,\ref{fig:ped_sum_c},\,\ref{fig:ped_sum_d} present the mean and standard deviation of the pedestal
+distribution in the fast channels, obtained by fit of a gaussian. The noise, estimated from the standard deviation and 
+using the fC/ADC conversion factors of Section~\ref{subsec:linearity}, averages to $(6.1\pm 0.9)$\,fC in the high-gain 
+channel, $(26.5\pm 3.1)$\,fC in the medium-gain channel and $(260.0\pm 21.1)$\,fC in the low-gain channel. Respective 
+results for the case of the slow channel are presented in Fig.\,\ref{fig:ped_sum_e},\,\ref{fig:ped_sum_f}. In this case 
+the average noise is found $(26.2\pm 0.7)$\,counts which, considering the design ratio of 0.25\,nA/count, corresponds to 
+$(6.6\pm 0.8)$\,nA.
+
+\begin{figure}[!t]
+  \centering
+  %\subfloat[][]{\includegraphics[width=0.4\textwidth]{figures/development/Pedestal_CH2_HighGain}\label{fig:ped_sum_a}}
+  %\subfloat[][]{\includegraphics[width=0.4\textwidth]{figures/development/CorrMatrix}\label{fig:ped_sum_b}}\\
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/ped_mean}\label{fig:ped_sum_c}}
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/ped_rms}\label{fig:ped_sum_d}}\\
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/integrator_ped_mean}\label{fig:ped_sum_e}}
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/integrator_ped_rms}\label{fig:ped_sum_f}}
+  \caption{Pedestal measurements, based on 24 prototype \gls{fatalic} units. (a) Mean and (b) standard deviation 
+           of the pedestal in the high-, medium- and low-gain channels. (c) Mean and (d) standard 
+           deviation of the pedestal in the slow channels.\label{fig:ped_sum}}
+\end{figure}
+
+%---------------------------------
+\subsection{Linearity measurements}
+\label{subsec:linearity}
+%---------------------------------
+
+Fig.\,\ref{fig:glin_a}, \ref{fig:glin_b} and \ref{fig:glin_c}, present the deviation from linearity, obtained by
+simulation, of the analog pulse peak amplitude (in millivolt) as a function of the input charge. The non-linearity, 
+defined as the deviation from a linear fit over the maximum channel response (\SI{1}{V}), does not exceed 0.3\% in 
+the input charge range up to \SI{850}{pC}, while at higher charge values it increases to approximately 0.6\% at 
+\SI{1.2}{nC}. In the case of the slow channel, the deviation from linearity is expected to be less than 0.2\% over 
+the entire input current range, as shown in Fig.~\ref{fig:glin_d}.
+
+\begin{figure}[!tbh]
+  \centering
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/simu_hg_linearity}\label{fig:glin_a}}
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/simu_mg_linearity}\label{fig:glin_b}}\\
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/simu_lg_linearity}\label{fig:glin_c}}
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/simu_slow_linearity}\label{fig:glin_d}}
+  \caption{Simulation results, showing the deviation from linearity in the (a) high-gain, (b) medium-gain, 
+           (c) low-gain and (d) slow channel.\label{fig:glin}}
+\end{figure}
+
+Experimental studies of the linearity are carried out using the \gls{cis}. Since the linearity of the CIS has not been
+verified, the response in this case is obtained from the sum of the selected digitised samples, which is less sensitive 
+to the shape of the injected pulse. Fig.\,\ref{fig:lin_ex_a}, \ref{fig:lin_ex_b} and \ref{fig:lin_ex_c} present the measured response 
+as a function of the injected charge for one unit. The maximum deviation from linearity (average from the tested prototype 
+units, relative to the maximum response) in the high-gain channel is $(0.3\pm 0.1)\%$ above \SI{2}{pC}, increasing to 
+$(1.3\pm 0.2)\%$ for lower charge values. In the medium-gain channel the deviation is $(1.4\pm 0.6)\%$, while in the low-gain 
+channel it is $(0.4\pm 0.1)\%$, below \SI{800}{pC}, reaching $(3.5\pm 0.7)\%$ at \SI{1.2}{nC}. The fC/ADC conversion factors, 
+summarised in Fig.\,\ref{fig:lin_ex_d}, are finally obtained from the slope of the linear interpolation and average to 
+$(2.46 \pm 0.03)$\,fC/ADC, $(20.4 \pm 0.7)$\,fC/ADC and $(211.3 \pm 6.4)$\,fC/ADC, respectively.
+
+\begin{figure}[!tbh]
+  \centering
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/Linearity_CH2_MD1_high_FF}\label{fig:lin_ex_a}}
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/Linearity_CH2_MD1_medium_FF}\label{fig:lin_ex_b}}\\
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/Linearity_CH2_MD1_low_FF}\label{fig:lin_ex_c}}
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/performance/QperADC_FF}\label{fig:lin_ex_d}}
+  \caption{ Linearity measurements using the \gls{cis}. Response as a function of injected charge for one \gls{fatalic} unit
+            in the (a) high, (b) medium and (c) low gain channel. (d) fC/ADC conversion factors for the 24 prototype units.
+            \label{fig:lin_ex}}
+\end{figure}
+
+%---------------------------------
+\subsection{Radiation Tolerance}
+\label{subsec:rad}
+%---------------------------------
+
+The \SI{130}{nm} GF CMOS technology is recommendated by ATLAS due to its high radiation tolerance in terms of Total Ionising 
+Dose (TID). It is suitable for the development of radiation-hard chips, up to at least \SI{100}{Mrad} with, however, a peak of
+leakage current at $\sim$\SI{1}{Mrad}. The expected radiation level, based on both Monte Carlo and in-situ measurements is \SI{50}{krad}
+(including conservative safety factors), well below the \SI{1}{Mrad} peak. Hence, no further assessment for TID or Non Ionising 
+Energy Loss (NIEL) is deemed necessary for \gls{fatalic} (it is necessary though for the associated cards). 
+%Single Event Effects (SEE) still need to be tested for hadron fluxes up to $\SI{6.45e12}{particles/cm^2}$
+%(typically using \SI{200}{MeV} protons), which includes a safety factor of 2 to account for the various types of SEEs.
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Energy reconstruction}
+\label{sec:EnergyReco}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+As described in Section\,\ref{sec:strategy}, the fast channel shapers deliver an asymmetric pulse, the amplitude $A$ 
+of which has to be reconstructed from the set of digitised samples (typically using seven samples), collected after
+trigger decision. At the \SI{40}{MHz} sampling rate, the second sample is expected to coincide with the pulse peak. 
+Small time-shifts $\tau$, of the order of a few nanoseconds, are however possible. Both $A$ and $\tau$ are reconstructed 
+by Optimal Filtering~\cite{Fullana:2005dwa}, a weighted sum of the digitised samples with minimum sensitivity to both
+correlated (e.g. pile-up) and uncorrelated noise.
+
+\begin{figure}[!tb]
+  \centering
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/energyreco/fatalic_sampraw}\label{fig:pulses_b}}
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/energyreco/fatalic_sampeff}\label{fig:pulses_c}}
+  \caption{(a) \gls{adc} measurements from a \SI{100}{GeV} electron beam event. (b) Selected samples, normalised to the high-gain 
+  channel scale, used to reconstruct the analog pulse by Optimal Filtering (superimposed).
+  \label{fig:pulses}}
+\end{figure}
+
+%-------------------------------------------------
+\subsection{Selection of digitised samples}
+\label{sec:samples}
+%-------------------------------------------------
+
+The dynamic gain switch of \gls{fatalic} is exploited in order to ensure the best possible resolution for the acquisition of 
+each digitised sample $S_i$. If the high-gain channel does not saturate, the \gls{adc} measurement is acquired from the alternative 
+gain output. Otherwise, the switch turns to low gain, in which case the medium gain output is preferred. If, however, the medium-gain 
+channel also saturates, then the alternative, low-gain measurement is used. It is noted that, once the high-gain channel saturates, 
+the switch remains to low gain for the next seven samples (low-gain block). This is imposed through the Mainboard FPGAs to allow the 
+high-gain channel to recover from the saturation state.
+%The same treatment is followed by the reconstruction algorithm for the medium gain channel; in case it saturates, the 
+%alternative (low) gain readout is exclusively used for the next seven samples.
+Once the \gls{adc} value has been acquired, the pedestal $p_i$ of the selected channel is subtracted and the sample is normalised to 
+the high-gain channel scale. Fig.\,\ref{fig:pulses} demonstrates a characteristic case in which digitised samples from different
+channels are selected.
+
+%-------------------------------------------------
+\subsection{Simulated effects}
+\label{sec:simeffects}
+%-------------------------------------------------
+
+Simulation studies have been carried out in order to test the impact of different experimental effects on the energy resolution, 
+defined as the standard deviation of the $(E_{\text{reco}}-E_{\text{true}})/E_{\text{true}}$ distribution, where $E$ refers to 
+the Tile cell energy corresponding to one of two \glspl{pmt} and the label \textit{true} (\textit{reco}) refers to the input
+(reconstructed) energy. In these studies, the Optimal Filter is calibrated with respect to the measured output pulse shape of a 
+prototype unit, while, to simulate charge-injection, this reference pulse is given random amplitudes and is subsequently sampled 
+and digitised, as described in Section~\ref{sec:samples}. Random noise is then added to each digitised sample, based on measurements 
+with the same prototype unit; \SI{1.5}{ADC} counts for the low- and medium-gain channels (which correspond to \SI{8.4}{fC} and 
+\SI{32}{fC}, respectively), and \SI{3.5}{ADC} counts for the high-gain channel (\SI{256}{fC}). As shown in Fig.\,\ref{fig:simu1}, 
+the expected resolution is kept below 2\% in the input range above \SI{2}{pC}, while for lower values it increases up to $\sim$7\%.
+
+\begin{figure}[t]
+  \centering
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/energyreco/simu1}\label{fig:simu_a}}
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/energyreco/simu2}\label{fig:simu_b}}\\
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/energyreco/simu_pulses}\label{fig:simu_pulses}}
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/energyreco/simu3}\label{fig:simu_c}}
+  \caption{(a,b) Energy resolution as a function of the true energy in different scenarios probing the impact of various
+           experimental effects. (c) Variation of the fast channel shaper output with the input charge and (d) its impact
+           on the energy resolution.\label{fig:simu1}}
+\end{figure}
+
+\paragraph*{Electronic noise and gain saturation:} The reference scenario described above is first compared
+     to the ideal case where no electronic noise and/or no low-gain block is applied. The results are presented in 
+     Fig.\,\ref{fig:simu_a}. The impact of noise on the intrinsic 18-bit resolution is about one order of
+     magnitude, whereas the cost of the low gain block is less than 1\% over the entire input range.
+
+\paragraph*{Phase variations:} The arrival time of the pulse, with respect to the digitising clock, may vary 
+      by a few nanoseconds. To simulate this effect, the generated pulses are shifted by a random phase 
+      $\tau\in[-8,8]$\,ns. The results (Fig.\,\ref{fig:simu_a}) show that such time-shifts are accounted for 
+      by Optimal Filtering, affecting the resolution by $\sim$1\%.
+
+%\paragraph*{Pedestal variations:} Pileup interactions introduce a continuous signal to the \glspl{pmt}, which 
+%      is added to the pedestals, altering the relative gain of the fast channels. To simulate this effect, each pedestal
+%      is convoluted with a gaussian distribution of mean 0 and standard deviation 0.20. The observed impact on the 
+%      resolution is $\sim$3\% (Fig.\,\ref{fig:simu_a}).
+
+\paragraph*{Gain variations:} The impact of gain variations is tested by shifting the gain of each channel by 5\% 
+      or 10\%. Such variations do not affect the resolution (Fig.\,\ref{fig:simu_b}) but rather introduce a shift to 
+      the reconstructed energy, which can be recovered by calibration using the \gls{cis}.
+
+\paragraph*{Pulse shape variations:} Imperfections of the electronics are found to distort the output pulse shape
+      depending on the input charge. Fig.\,\ref{fig:simu_pulses} compares simulated pulses obtained with different
+      injected charges. These variations of the pulse shape have less than 0.5\% impact on the resolution 
+      (Fig.\,\ref{fig:simu_c}). However, they introduce a shift to the reconstructed energy (of less than 1\%), which 
+      can be accounted for by applying a scale factor to the gain as a function of the input charge.
+
+\paragraph*{Pile-up:} Inelastic $pp$ interactions taking place in the same (in-time pile-up) and adjacent (out-of-time pile-up) 
+      bunch crossings introduce parasitic pulses, which contaminate the signal of the actual hard scattering. In the years 
+      2015-2017 the average number of inelastic interactions per bunch-crossing was measured $\langle\mu\rangle=32$. In the 
+      HL-LHC the nominal expected rate is $\langle\mu\rangle=140$, but it is foreseen to increase as much as $\langle\mu\rangle\approx 200$. 
+      To test the performance of \gls{fatalic} in the presence of pile-up background, random in-time and out-of-time pile-up 
+      pulses are added to the signal according to the energy spectrum of minimum-bias events, obtained after full simulation 
+      of the detector for different values of $\langle\mu\rangle$. The impact on the resolution is prominent in the low energy 
+      range, as presented in Fig.\,\ref{fig:simu_pu} for the readout cell A13 (the most exposed to radiation from $pp$ collisions) 
+      and cell D1 (the least exposed). It can however be reduced by calibrating the Optimal Filter against the correlation matrix 
+      of the pile-up background~\cite{Fullana:2005dwa}.
+
+%-------------------------------------------------
+\subsection{Two-gain scenario}
+\label{sec:2gain}
+%-------------------------------------------------
+
+In order to quantify the benefit of having three gains, the scenario of using two gains with a gain ratio of 32
+is explored, based on the simulation described above. Considering digitisation with 12-bit \glspl{adc}, the effective 
+output range in this case is 17-bits. The noise is assumed to be \SI{1.8}{ADC} counts for both channels. As seen in 
+Fig.\,\ref{fig:simu_2gain} the resolution drops by $\sim$8\% in the intermediate range (\SI{40}{MeV}-\SI{180}{MeV})
+which, in the case of \gls{fatalic}, is recovered by the medium-gain channel.
+
+\clearpage
+
+\begin{figure}[h]
+  \centering
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/energyreco/simu_pu}\label{fig:simu_pu}}
+  \subfloat[][]{\includegraphics[width=0.48\textwidth]{figures/energyreco/simu4}\label{fig:simu_2gain}}
+  \caption{(a) Energy resolution as a function of the true energy for $\langle\mu\rangle=30$,140 and 200, in Tile cells 
+           D1 and A13. (b) Energy resolution achieved with \gls{fatalic}, as a function of the true energy, compared to 
+           the scenario of using only two fast channels with a gain ratio of 32.\label{fig:simu2}}
+\end{figure}

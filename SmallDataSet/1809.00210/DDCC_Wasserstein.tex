@@ -1,0 +1,1541 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Author template for Operations Research (opre) for articles with e-companion (EC)
+%% Mirko Janc, Ph.D., INFORMS, mirko.janc@informs.org
+%% ver. 0.96, 11/30/2012
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\documentclass[opre,blindrev]{informs3} % current default for manuscript submission
+\documentclass[nonblindrev]{informs2017}
+%\documentclass[opre,nonblindrev]{informs3}
+%\DoubleSpacedXI % Made default 4/4/2014 at request
+\OneAndAHalfSpacedXI % current default line spacing
+%%\OneAndAHalfSpacedXII
+%%\DoubleSpacedXII
+
+%%\documentclass[opre,nonblindrev]{informs3}
+%\DoubleSpacedXI % Made default 4/4/2014 at request
+%%\OneAndAHalfSpacedXI % current default line spacing
+%%%\OneAndAHalfSpacedXII
+%\usepackage{geometry}
+%\geometry{letterpaper, left = 1in, right = 1in, top = 1in, bottom = 1in, margin=1in}
+%%\DoubleSpacedXII
+
+% If hyperref is used, dvi-to-ps driver of choice must be declared as
+%   an additional option to the \documentclass. For example
+%\documentclass[dvips,opre]{informs3}      % if dvips is used
+%\documentclass[dvipsone,opre]{informs3}   % if dvipsone is used, etc.
+
+%%% OPRE uses endnotes
+\usepackage{endnotes}
+\let\footnote=\endnote
+\let\enotesize=\normalsize
+\def\notesname{Endnotes}%
+\def\makeenmark{\hbox to1.275em{\theenmark.\enskip\hss}}
+\def\enoteformat{\rightskip0pt\leftskip0pt\parindent=1.275em
+\leavevmode\llap{\makeenmark}}
+
+% Private macros here (check that there is no clash with the style)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage{amsmath}
+%\usepackage{amsfonts}
+%\usepackage{amssymb}
+%\usepackage{mathrsfs}
+%\usepackage{graphicx}
+%\usepackage{subfig}
+%\usepackage{epsfig}
+%\usepackage{bbm}
+%\usepackage{color}
+\usepackage{multirow}
+%\usepackage{longtable}
+\usepackage{float}
+\usepackage{epstopdf}
+\usepackage{appendix}
+\usepackage{bm}
+\usepackage{dsfont}
+
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{caption}
+\usepackage{enumitem}
+\usepackage{array}
+
+%%%%%%%% Table cell stretch %%%%%%%%
+\renewcommand{\arraystretch}{1.5}
+\newcommand{\tabincell}[2]{\begin{tabular}{@{}#1@{}}#2\end{tabular}}
+
+
+%%%%%%%% usage of the package {bm} %%%%%%%%
+\newcommand{\bmt}[1]{\tilde{\bm{#1}}}
+\newcommand{\bmh}[1]{\hat{\bm{#1}}}
+\newcommand{\bmb}[1]{\bar{\bm{#1}}}
+\newcommand{\nmbs}[1]{{\mbox{\scriptsize{$#1$}}}}
+\newcommand{\nmbst}[1]{{\mbox{\scriptsize{$\tilde{#1}$}}}}
+\newcommand{\nmbss}[1]{{\mbox{\tiny{$#1$}}}}
+
+%%%%%%%% expectation and probability %%%%%%%%
+\newcommand{\ep}[1]{\mathbb{E}_{\mathbb{P}}\left[#1\right]}
+\newcommand{\eq}[1]{\mathbb{E}_{\mathbb{Q}}\left[#1\right]}
+\newcommand{\epbar}[1]{\mathbb{E}_{\bar{\mathbb{P}}}\left[#1\right]}
+\newcommand{\epo}[1]{\mathbb{E}_{\mathbb{P}_0}\left[#1\right]}
+\newcommand{\epl}[1]{\mathbb{E}_{\mathbb{P}_l}\left[#1\right]}
+\newcommand{\epn}[1]{\mathbb{E}_{\mathbb{P}_n}\left[#1\right]}
+\newcommand{\epv}[1]{\mathbb{E}_{\mathbb{P}_v}\left[#1\right]}
+\newcommand{\pp}[1]{\mathbb{P}\left[#1\right]}
+\newcommand{\ppo}[1]{\mathbb{P}_0\left[#1\right]}
+\newcommand{\ppl}[1]{\mathbb{P}_l\left[#1\right]}
+\newcommand{\ppn}[1]{\mathbb{P}_n\left[#1\right]}
+\newcommand{\ppv}[1]{\mathbb{P}_v\left[#1\right]}
+\newcommand{\ppdag}[1]{\mathbb{P}^\dag\left[#1\right]}
+\newcommand{\pq}[1]{\mathbb{Q}\left[#1\right]}
+\newcommand{\ppbar}[1]{\bar{\mathbb{P}}\left[#1\right]}
+
+
+%%%%%%%% indicator function, need the package ''dsfont'' %%%%%%%%
+\newcommand{\1}[1]{\mathds{1}{\left(#1\right)}}
+
+%%%%%%%%% closure & convex hull & relative interior %%%%%%%%
+%\newcommand{\cls}[1]{{\rm{cl}\left(#1\right)}}
+%\newcommand{\cvxh}[1]{{\rm{CH}\left(#1\right)}}
+%\newcommand{\relint}[1]{{\rm{ri}\left(#1\right)}}
+
+%%%%%%%% vectorization, argsup & argmin %%%%%%%%
+\def\vec{\text{vec}}
+\DeclareMathOperator*{\argsup}{\arg\!\sup}
+\DeclareMathOperator*{\arginf}{\arg\!\inf}
+
+%%%%%%%%% Box at the end of the proof %%%%%%%%%
+\renewcommand{\Box}{\hfill \rule{2.3mm}{2.3mm}}
+
+%%%%%%%%% Tabular %%%%%%%%% 
+\usepackage{tabularx}
+%\usepackage{slashbox}
+\usepackage{pict2e}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% code package %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{color}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{strcolor}{rgb}{0.6, 0.2, 0.6}
+\definecolor{commentcolor}{rgb}{0.3125, 0.5, 0.3125}
+\definecolor{keycol}{rgb}{0, 0, 1}
+
+% Code package
+\usepackage{listings}
+\lstset{
+emph={julia},emphstyle={\color{strcolor}\bfseries},
+keywordstyle={\color{blue}\bfseries},
+commentstyle={\color{commentcolor}},
+stringstyle={\color{strcolor}\bfseries},
+language=Python,                % choose the language of the code
+basicstyle={\ttfamily\footnotesize}, % the size of the fonts that are used for the code
+%numbers=left,                   % where to put the line-numbers
+%numberstyle=\footnotesize,      % the size of the fonts that are used for the line-numbers
+%stepnumber=1,                   % the step between two line-numbers. If it's 1 each line will be numbered
+%numbersep=5pt,                  % how far the line-numbers are from the code
+backgroundcolor=\color{white},  % choose the background color. You must add \usepackage{color}
+showspaces=false,               % show spaces adding particular underscores
+showstringspaces=false,         % underline spaces within strings
+showtabs=false,                 % show tabs within strings adding particular underscores
+frame=single,	                	% adds a frame around the code
+tabsize=2,	                		% sets default tabsize to 2 spaces
+captionpos=b,                   % sets the caption-position to bottom
+breaklines=true,                % sets automatic line breaking
+breakatwhitespace=false,        % sets if automatic breaks should only happen at whitespace
+escapeinside={\#*}{*)},         % if you want to add a comment within your code
+keywords=[1]{for, end, if, else, function}
+}
+\lstdefinelanguage{Julia}%
+{morekeywords={abstract,break,case,catch,const,continue,do,else,elseif,%
+		end,export,false,for,function,immutable,import,importall,if,in,%
+		macro,module,otherwise,quote,return,switch,true,try,type,typealias,%
+		using,while},%
+sensitive=true,%
+alsoother={\$},%
+morecomment=[l]\#,%
+morecomment=[n]{\#=}{=\#},%
+morestring=[s]{"}{"},%
+morestring=[m]{'}{'},%
+}[keywords,comments,strings]%
+
+\lstset{%
+language         = Julia,
+basicstyle       = \ttfamily,
+keywordstyle     = \bfseries\color{blue},
+stringstyle      = \color{magenta},
+commentstyle     = \color{ForestGreen},
+showstringspaces = false,
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% code package %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% reference & bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Natbib setup for author-year style
+\usepackage{natbib}
+ \bibpunct[, ]{(}{)}{,}{a}{}{,}%
+ \def\bibfont{\small}%
+ \def\bibsep{\smallskipamount}%
+ \def\bibhang{24pt}%
+ \def\newblock{\ }%
+ \def\BIBand{and}%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% reference & bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% number of theorem and equation %%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Setup of theorem styles. Outcomment only one.
+%% Preferred default is the first option.
+\TheoremsNumberedThrough     % Preferred (Theorem 1, Lemma 1, Theorem 2)
+%\TheoremsNumberedByChapter  % (Theorem 1.1, Lema 1.1, Theorem 1.2)
+\ECRepeatTheorems
+
+%% Setup of the equation numbering system. Outcomment only one.
+%% Preferred default is the first option.
+\EquationsNumberedThrough    % Default: (1), (2), ...
+%\EquationsNumberedBySection % (1.1), (1.2), ...
+
+% In the reviewing and copyediting stage enter the manuscript number.
+%\MANUSCRIPTNO{} % When the article is logged in and DOI assigned to it,
+                 %   this manuscript number is no longer necessary
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% number of theorem and equation %%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%
+
+% Outcomment only when entries are known. Otherwise leave as is and
+%   default values will be used.
+%\setcounter{page}{1}
+%\VOLUME{00}%
+%\NO{0}%
+%\MONTH{Xxxxx}% (month or a similar seasonal id)
+%\YEAR{0000}% e.g., 2005
+%\FIRSTPAGE{000}%
+%\LASTPAGE{000}%
+%\SHORTYEAR{00}% shortened year (two-digit)
+%\ISSUE{0000} %
+%\LONGFIRSTPAGE{0001} %
+%\DOI{10.1287/xxxx.0000.0000}%
+
+% Author's names for the running heads
+% Sample depending on the number of authors;
+% \RUNAUTHOR{Jones}
+% \RUNAUTHOR{Jones and Wilson}
+% \RUNAUTHOR{Jones, Miller, and Wilson}
+% \RUNAUTHOR{Jones et al.} % for four or more authors
+% Enter authors following the given pattern:
+\RUNAUTHOR{Chen, Kuhn, and Wiesemann}
+
+% Title or shortened title suitable for running heads. Sample:
+% \RUNTITLE{Bundling Information Goods of Decreasing Value}
+% Enter the (shortened) title:
+\RUNTITLE{Data-Driven Chance Constrained Programs over Wasserstein Balls}
+
+% Full title. Sample:
+% \TITLE{Bundling Information Goods of Decreasing Value}
+% Enter the full title:
+\TITLE{Data-Driven Chance Constrained Programs \\ over Wasserstein Balls}
+
+% Block of authors and their affiliations starts here:
+% NOTE: Authors with same affiliation, if the order of authors allows,
+%   should be entered in ONE field, separated by a comma.
+%   \EMAIL field can be repeated if more than one author
+\ARTICLEAUTHORS{%
+\AUTHOR{Zhi Chen}
+\AFF{Imperial College Business School, Imperial College London, London, United Kingdom, \\ zhi.chen@imperial.ac.uk}
+\AUTHOR{Daniel Kuhn}
+\AFF{Risk Analytics and Optimization Chair, \'{E}cole Polytechnique F\'{e}d\'{e}rale de Lausanne, Lausanne, Switzerland, \\ daniel.kuhn@epfl.ch}
+\AUTHOR{Wolfram Wiesemann}
+\AFF{Imperial College Business School, Imperial College London, London, United Kingdom, \\ ww@imperial.ac.uk}
+}
+\ABSTRACT{We provide an exact deterministic reformulation for data-driven chance constrained programs over Wasserstein balls. For individual chance constraints as well as joint chance constraints with right-hand side uncertainty, our reformulation amounts to a mixed-integer conic program. In the special case of a Wasserstein ball with the $1$-norm or the $\infty$-norm, the cone is the nonnegative orthant, and the chance constrained program can be reformulated as a mixed-integer linear program. Using our reformulation, we show that two popular approximation schemes based on the conditional-value-at-risk and the Bonferroni inequality can perform poorly in practice and that these two schemes are generally incomparable with each other.%
+}%
+
+% Sample
+%\KEYWORDS{deterministic inventory theory; infinite linear programming duality;
+%  existence of optimal policies; semi-Markov decision process; cyclic schedule}
+
+% Fill in data. If unknown, outcomment the field
+\KEYWORDS{Distributionally robust optimization; ambiguous chance constraints; Wasserstein distance.}
+
+\HISTORY{August 31, 2018}
+
+\maketitle
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Samples of sectioning (and labeling) in OPRE
+% NOTE: (1) \section and \subsection do NOT end with a period
+%       (2) \subsubsection and lower need end punctuation
+%       (3) capitalization is as shown (title style).
+%
+%\section{Introduction.}\label{intro} %%1.
+%\subsection{Duality and the Classical EOQ Problem.}\label{class-EOQ} %% 1.1.
+%\subsection{Outline.}\label{outline1} %% 1.2.
+%\subsubsection{Cyclic Schedules for the General Deterministic SMDP.}
+%  \label{cyclic-schedules} %% 1.2.1
+%\section{Problem Description.}\label{problemdescription} %% 2.
+
+% Text of your paper here
+
+\section{Introduction}
+
+Distributionally robust optimization is a powerful modeling paradigm for optimization under uncertainty, where the distribution of the uncertain problem parameters is itself uncertain, and where the performance of a decision is assessed in view of the worst-case distribution from a prescribed ambiguity set. The earlier literature on distributionally robust optimization has focused on moment ambiguity sets which contain all distributions that obey certain (standard or generalized) moment conditions; see, {\em e.g.}, \citet{Delage_Ye_2010}, \citet{Goh_Sim_2010} and \citet{Wiesemann_Kuhn_Sim_2014}. \citet{Pflug_Wozabal_2007} were the first to propose an ambiguity set of the form of a ball in the space of distributions with respect to the celebrated Wasserstein, Kanthorovich or optimal transport distance. The type-1 Wasserstein distance $d_W(\mathbb{P}_1,\mathbb{P}_2)$ between two distributions $\mathbb{P}_1$ and $\mathbb{P}_2$ on $\mathbb{R}^K$, equipped with a general norm $\|\cdot\|$, is defined as the minimal transportation cost of moving $\mathbb{P}_1$ to $\mathbb{P}_2$ under the premise that the cost of moving a Dirac point mass from $\bm\xi_1$ to $\bm\xi_2$ amounts to $\|\bm{\xi}_1 - \bm{\xi}_2\|$. Mathematically, this implies that
+$$
+\begin{array}{rcl}
+d_W(\mathbb{P}_1,\mathbb{P}_2) \; = \; &\displaystyle \inf_{\mathbb{P} \in \mathcal{P}(\mathbb{P}_1, \mathbb{P}_2)}
+& \mathbb{E}_{\mathbb{P}}[\|\bmt{\xi}_1 - \bmt{\xi}_2\|] ,
+\end{array}
+$$
+where $\bmt{\xi}_1 \sim \mathbb{P}_1, \bmt{\xi}_2 \sim \mathbb{P}_2$, and $\mathcal{P}(\mathbb{P}_1, \mathbb{P}_2)$ represents the set of all distributions on $\mathbb{R}^K\times \mathbb{R}^K$ with marginals $\mathbb{P}_1$ and $\mathbb{P}_2$. The Wasserstein ambiguity set $\mathcal{F}(\theta)$ is then defined as a ball of radius $\theta\ge 0$ with respect to the Wasserstein distance, centered at a prescribed reference distribution~$\hat{\mathbb{P}}$:
+\begin{equation}\label{set:Wasserstein}
+\mathcal{F}(\theta) = \{\mathbb{P} \in \mathcal{P}(\mathbb{R}^K) \mid
+d_W(\mathbb{P}, \hat{\mathbb{P}}) \leq \theta\}.
+\end{equation}
+One can think of the Wasserstein radius $\theta$ as a budget on the transportation cost. Indeed, any member distribution in $\mathcal{F}(\theta)$ can be obtained by rearranging the reference  distribution $\hat{\mathbb{P}}$ at a transportation cost of at most $\theta$. If only a finite training dataset $\{\bmh{\xi}_i\}_{i \in [N]}$ is available, a natural choice for $\hat{\mathbb{P}}$ is the empirical distribution $\hat{\mathbb{P}} = \frac{1}{N}\sum_{i = 1}^N \delta_{\bmh{\xi}_i}$, which represents the uniform distribution on the training samples. Throughout the paper, we will assume that $\hat{\mathbb{P}}$ is the empirical distribution.
+
+While it has been recognized early on that Wasserstein ambiguity sets offer many conceptual advantages (\emph{e.g.}, their member distributions do not need to be absolutely continuous with respect to $\hat{\mathbb{P}}$ and, if properly calibrated, they constitute confidence regions for the unknown true data-generating distribution), it was believed that they almost invariably lead to hard global optimization problems. Recently, \citet{Esfahani_Kuhn_2017} and \citet{Zhao_Guan_2018} discovered that many interesting distributionally robust optimization problems over Wasserstein ambiguity sets can actually be reformulated as tractable convex programs---provided that $\hat{\mathbb{P}}$ is discrete and that the problem's objective function satisfies certain convexity properties. These reformulations have subsequently been generalized to Polish spaces and non-discrete reference distributions by \citet{blanchet2016quantifying} and \citet{Gao_Kleywegt_2016}. Since then, distributionally robust optimization models over Wasserstein ambiguity sets have been proposed for many applications, including transportation (\citealt{carlsson2015wasserstein}) and machine learning (\citealt{blanchet2016robust}, \citealt{gao2017distributional}, \citealt{shafieezadeh2017regularization} and \citealt{sinha2017certifiable}).
+
+In this paper we study distributionally robust chance constrained programs of the form
+\begin{equation}\label{prob:cc general}
+\begin{array}{cll}
+\displaystyle \min_{\bm{x} \in \mathcal{X}} &~\bm{c}^\top\bm{x} \\
+{\rm s.t.} &~\displaystyle \mathbb{P}[\bmt{\xi} \in \mathcal{S}(\bm{x})] \geq 1-\varepsilon &~\forall \mathbb{P} \in \mathcal{F}(\theta),
+\end{array}
+\end{equation}
+where the goal is to find a decision $\bm{x}$ from within a compact polyhedron $\mathcal{X} \subseteq \mathbb{R}^L$ that minimizes a linear cost function $\bm{c}^\top\bm{x}$ and ensures that the exogenous random vector $\bmt{\xi}$ falls within a decision-dependent safety set $\mathcal{S}(\bm{x}) \subseteq \mathbb{R}^K$ with high probability $1-\varepsilon$ under every distribution $\mathbb{P} \in \mathcal{F}(\theta)$. Since the reference distribution $\hat{\mathbb{P}}$ in~\eqref{prob:cc general} is the empirical distribution over the training dataset $\{\bmh{\xi}_i\}_{i \in [N]}$, we refer to  \eqref{prob:cc general} as a \emph{data-driven} chance constrained program.
+
+If we set $\theta = 0$ in problem \eqref{prob:cc general}, then we recover a classical chance constrained program. This special case of \eqref{prob:cc general} is NP-hard even if $\mathcal{X}$ is a polyhedron and the safety conditions describing $\mathcal{S}(\bm{x})$ are inequalities that are jointly affine in $\bm{x}$ and $\bm{\xi}$ \citep[Theorem~1]{luedtke2010}. Classical chance constrained programs have been studied intensively since the seminal works of \cite{charnes1958cost} and \cite{charnes1959chance}, and they have found many applications, see, \emph{e.g.}, \cite{shapiro2009lectures}, \cite{birge2011introduction} and \cite{prekopa2013stochastic}.
+
+To date, the literature on distributionally robust optimization has focused primarily on variants of problem~\eqref{prob:cc general} where the safety set $\mathcal{S}(\bm{x})$ is described by a single linear inequality and the Wasserstein ambiguity set $\mathcal{F}(\theta)$ is replaced with a set that bounds the support and certain moments of $\tilde{\bm{\xi}}$. In this case, the distributionally robust chance constrained program can often be exactly reformulated or tightly approximated by a tractable conic optimization problem. This is achieved through the use of classical inequalities from probability theory, such as Hoeffding's inequality (\citealt{Ben-tal_Nemirovski_2000} and \citealt{Bertsimas_Sim_2004}), Bernstein's inequality (\citealt{Nemirovski_Shapiro_2006}) and the generalized Chebyshev inequality (\citealt{xu2012optimization}), or through tailored probability bounds on the the shape of the distribution \citep{calafiore2006distributionally}, forward and backward deviations \citep{Chen_Sim_Sun_2007} or the mean-absolute deviation \citep{Postek_2018}. Alternatively, one can leverage duality results for moment problems to reformulate or approximate distributionally robust chance constraints over Chebyshev ambiguity sets, which stipulate bounds on the first- and second-order moments (\citealt{ElGhaoui_Oks_Oustry_2003}, \citealt{calafiore2006distributionally} and \citealt{Popescu_2007}), over Chebyshev ambiguity sets with support information \citep{cheng2014distributionally} as well as Chebyshev ambiguity sets with unimodality constraints \citep{li2016ambiguous}.
+
+Distributionally robust chance constrained programs become more involved if the safety set $\mathcal{S} (\bm{x})$ is described by multiple linear inequalities. For the special case where the inequalities in $\mathcal{S} (\bm{x})$ are jointly affine in $\bm{x}$ and $\bm{\xi}$ and the ambiguity set specifies the mean, support and an upper bound on the dispersion of $\tilde{\bm{\xi}}$, \cite{Hanasusanto_Roitch_Kuhn_Wiesemann_2017} provide an exact reformulation as a tractable conic optimization problem. The result has been extended by \cite{Hanasusanto_Roitch_Kuhn_Wiesemann_2015} to ambiguity sets specifying structural properties, such as symmetry and unimodality, and to generic convex chance constraints and ambiguity sets involving convex moment constraints by \cite{xie2018deterministic}. In general, however, distributionally robust chance constrained programs with generic safety sets $\mathcal{S} (\bm{x})$ are approximated conservatively either by the Bonferroni approximation or the worst-case conditional value-at-risk (CVaR) approximation. The quality of the Bonferroni approximation crucially depends on certain Bonferroni weights. While \cite{xie2017optimized} show that the Bonferroni weights can be optimized efficiently under specific conditions, \cite{Chen_Sim_Sun_Teo_2010} show that the quality of the Bonferroni approximation can be poor even if the Bonferroni weights are chosen optimally. \cite{Chen_Sim_Sun_Teo_2010} also show that the worst-case CVaR approximation can outperform the Bonferroni approximation with optimally chosen Bonferroni weights for Chebyshev ambiguity sets, provided that certain scaling factors in the worst-case CVaR approximation are selected judiciously. \cite{zymler2013distributionally} show that the worst-case CVaR approximation is indeed exact for distributionally robust chance constrained programs over Chebyshev ambiguity sets if the scaling factors are selected optimally. This result has been extended to non-linear safety conditions by \cite{yang2016distributionally}. Selecting the scaling factors optimally, however, amounts to solving a non-convex optimization problem. For further information, we refer the reader to the surveys by \cite{Ben-tal_Nemirovski_book}, \cite{nemirovski2012safe} and \cite{Hanasusanto_Roitch_Kuhn_Wiesemann_2015}.
+
+While the availability of further training data allows to refine the moment estimates in the aforementioned ambiguity sets, these sets remain conservative as they do not shrink to a singleton as $N$ approaches infinity. In other words, distributionally robust chance constraints over moment-based ambiguity sets fail to tightly approximate classical chance constraints even if sufficient training data is available. This undesirable consequence of a moment-based description of ambiguity is alleviated by data-driven chance constraints, whose ambiguity sets contain all distributions that are close to the empirical distribution $\hat{\mathbb{P}}$ with respect to some distance measure. Popular choices of distance measures are the $\phi$-divergences (such as the Kullback-Leibler divergence or the $\chi^2$-distance), which lead to ambiguity sets of the form
+\begin{equation*}
+\mathcal{G}(\theta) = \bigg\{\mathbb{P} \in \mathcal{P}(\mathbb{R}^K) ~\bigg|~
+\int_{\mathbb{R}^K} \phi\bigg(\dfrac{{\rm d}\mathbb{P}(\bm{\xi})}{{\rm d}\hat{\mathbb{P}}(\bm{\xi})}\bigg){\rm d}\hat{\mathbb{P}}(\bm{\xi}) \leq \theta \bigg.\bigg\},
+\end{equation*}
+where $\phi: \mathbb{R}_+ \rightarrow \mathbb{R}$ is the divergence function. \cite{Hu_Hong_2013} show that a distributionally robust chance constrained program over a Kullback-Leibler ambiguity set reduces to a classical chance constrained progam over the reference distribution $\hat{\mathbb{P}}$ and an adjusted risk threshold $\varepsilon' < \varepsilon$. While this result holds for any reference distribution, $\phi$-divergence ambiguity sets only contain distributions that are absolutely continuous with respect to $\hat{\mathbb{P}}$, that is, any distribution in $\mathcal{G} (\theta)$ only assigns positive probability to those measurable subsets $A \subseteq \mathbb{R}^K$ for which $\hat{\mathbb{P}} [\tilde{\bm{\xi}} \in A] > 0$. This is undesirable for problems with a large dimension $K$ and/or few training data, where it is unlikely that every possible value of $\tilde{\bm{\xi}}$ has been observed in $\{\bmh{\xi}_i\}_{i \in [N]}$. This shortcoming is addressed by \cite{Jiang_Guan_2016, jiang2015risk}, who replace the reference distribution with a Kernel density estimator.
+
+To our best knowledge, the paper of \cite{xie2018bicriteria} is the only previous work on data-driven chance constraints over Wasserstein ambiguity sets. The authors study the special class of covering problems, where the feasible region $\mathcal{X}$ satisfies $\eta \mathcal{X} \subseteq \mathcal{X}$ for every $\eta \geq 1$, and they prove that the corresponding variant of problem~\eqref{prob:cc general} is NP-hard. They also demonstrate that two popular approximation schemes, the CVaR approximation as well as the scenario approximation, can perform arbitrarily poorly for classical chance constraints, that is, when the Wasserstein radius is $\theta = 0$. Based on this insight, the authors propose a bicriteria approximation scheme for covering problems with classical as well as distributionally robust chance constraints that determines solutions that trade off a higher risk threshold $\varepsilon' > \varepsilon$ in the chance constraint with a better objective value. This is achieved by solving a tractable convex relaxation of the chance constrained problem (using, \emph{e.g.}, a Markovian or Bernstein generator) and subsequently scaling the solution to this relaxation to be feasible for the chance constraint with the higher risk threshold $\varepsilon'$.
+
+We note that there is also a related but distinct literature on safe tractable approximations to chance constrained programs. Using the training dataset $\{\bmh{\xi}_i\}_{i \in [N]}$, this literature constructs uncertainty sets for classical robust optimization problems such that any solution to the robust optimization problem satisfies the chance constraint under the unknown true data-generating distribution with high confidence. In contrast to the aforementioned literature on data-driven chance constraints, the resulting optimization problems can be solved in polynomial time, but their feasible regions do not converge to the feasible region of the chance constrained program even if the number of samples approaches infinity. Safe tractable approximations can be constructed, amongst others, through the Strassen-Dudley representation theorem \citep{erdougan2006ambiguous}, goodness-of-fit statistics \citep{yanikouglu2012safe} or statistical hypothesis tests \citep{bertsimas2018data}.
+
+In this paper, we study distributionally robust chance constrained programs over the Wasserstein ambiguity set~\eqref{set:Wasserstein}. We derive deterministic reformulations for individual chance constrained programs, where $\mathcal{S}(\bm{x}) = \{ \bm{\xi} \in \mathbb{R}^K \mid \bm{a} (\bm{\xi})^\top \bm{x} < b (\bm{\xi}) \}$ for affine functions $\bm{a}(\cdot) : \mathbb{R}^K \rightarrow \mathbb{R}^L$ and $b(\cdot) : \mathbb{R}^K \rightarrow \mathbb{R}$, as well as for joint chance constrained programs with right-hand side uncertainty, where $\mathcal{S}(\bm{x}) = \{\bm{\xi} \in \mathbb{R}^K \mid \bm{A} \bm{x} < \bm{b} (\bm{\xi}) \}$ for $\bm{A} \in \mathbb{R}^{M \times L}$ and an affine function $\bm{b} : \mathbb{R}^K \rightarrow \mathbb{R}^M$. Our reformulations are mixed-integer conic programs that reduce to mixed-integer linear programs when the norm $\left \lVert \cdot \right \rVert$ on $\mathbb{R}^K$ is the $1$-norm or the $\infty$-norm. Using our reformulations, we study the properties of two popular approximation schemes based on the CVaR and the Bonferroni inequality.
+
+The key contributions of our paper may be summarized as follows.
+\begin{enumerate}[leftmargin=*, labelindent=16pt]
+\item We derive deterministic reformulations for individual and joint data-driven chance constrained programs over Wasserstein ambiguity sets. Our reformulations reduce to mixed-integer programs that can be solved with off-the-shelf software.
+\item We show that the CVaR offers a tight convex approximation to certain disjunctive constraints appearing in our reformulations. This provides a theoretical justification for the popularity of this approximation scheme in distributionally robust optimization.
+\item We show that both the CVaR and the Bonferroni approximation may deliver solutions that are severely inferior to the optimal solution of our exact reformulation in data-driven settings. In addition, these two approximation schemes are generally incomparable with each other.
+\end{enumerate}
+
+While preparing this paper for publication, we became aware of the independent work by \cite{Xie_2018} on distributionally robust chance constraints over Wasserstein ambiguity sets. \cite{Xie_2018} derives similar reformulations for different classes of individual and joint chance constraints. Since our models leverage the structural insights into the worst-case distributions, our reformulation for joint chance constraints employs fewer binary decision variables. Also, our reformulations allow us to study the approximations provided by CVaR and the Bonferroni inequality.
+
+\vspace{5mm}
+\noindent \textbf{Notation.}
+We use boldface uppercase and lowercase letters to denote matrices and vectors, respectively. Special vectors of appropriate dimensions include $\bm{0}$ and $ \bm{e} $, which respectively correspond to the zero vector and the vector of all ones. We denote by $\|\cdot\|_*$ the dual norm of a general norm $\|\cdot\|$. We use the shorthand $ [N] = \left\{1,2,\ldots,N\right\} $ to represent the set of all integers up to $ N $. Given a (possibly fractional) real number $\ell\in [0,N]$, we define the partial sum of the $\ell$ first values in $\{k_i\}_{i \in [N]}$ as $\sum_{i = 1}^{\ell} k_i = \sum_{i = 1}^{\lfloor \ell \rfloor} k_i + (\ell - \lfloor \ell \rfloor) k_{\lfloor \ell \rfloor + 1}$.  Random vectors are denoted by tilde signs ({\em e.g.}, $\bmt{\xi}$), while their realizations are denoted by the same symbols without tildes ({\em e.g.}, $\bm{\xi}$). Given a random vector $\bmt{\xi}$ governed by a distribution $\mathbb{P}$, a measurable loss function $\ell (\bm{\xi})$ and a risk threshold $\varepsilon \in (0, 1)$, the value-at-risk (VaR) of $\ell (\bm{\xi})$ at level $\varepsilon$ is defined as $\mathbb{P}\text{-VaR}_{\varepsilon} (\ell (\bm{\xi})) = \inf\{\gamma \in \mathbb{R} \mid \mathbb{P}[\gamma \leq \ell(\bmt{\xi})] \leq \varepsilon\}$, and the CVaR of $\ell (\bm{\xi})$ at level $\varepsilon$ is defined as $\mathbb{P}\text{-CVaR}_{\varepsilon}(\ell(\bmt{\xi})) = \inf\{\tau + \mathbb{E}_{\mathbb{P}}[(\ell(\bmt{\xi}) - \tau)^+]/\varepsilon \mid \tau \in \mathbb{R}\}$.
+
+\section{Exact Reformulation of Data-Driven Chance Constraints}\label{sec:exact_reformulation}
+Section~\ref{sec:uq_wasserstein} reviews a previously established result on the quantification of uncertainty over Wasserstein balls. We use this result to derive an exact reformulation of generic data-driven chance constrained programs in Section~\ref{sec:ref_generic}. We finally specialize this generic reformulation to the subclasses of data-driven individual chance constrained programs as well as data-driven joint chance constrained programs with right-hand side uncertainty in Sections~\ref{sec:ref_indiv_cc} and~\ref{sec:ref_joint_cc}, respectively.
+
+\subsection{Uncertainty Quantification over Wasserstein Balls}\label{sec:uq_wasserstein}
+
+Consider an open safety set $\mathcal{S} \subseteq \mathbb{R}^K $, and denote by $\bar{\mathcal{S}} = \mathbb{R}^K \setminus \mathcal{S}$ its closed complement. The uncertainty quantification problem 
+\begin{equation}
+\label{prob:uncertainty quantification}
+\sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}[\bmt{\xi} \notin \mathcal{S}]
+\end{equation}
+computes the worst (largest) probability of the system under consideration being unsafe, which is the case whenever the random vector $\bmt{\xi}$ attains a value in the unsafe set $\bar{\mathcal{S}}$. Throughout the rest of the paper, we exclude trivial special cases and assume that $\theta > 0$ and $\varepsilon \in (0, 1)$.
+
+To solve the uncertainty quantification problem~\eqref{prob:uncertainty quantification}, denote by $\mathbf{dist}(\bmh{\xi}_i, \bar{\mathcal{S}})$ the distance of the $i^\text{th}$ data point $\bmh{\xi}_i \in \mathbb{R}^K$ of the empirical distribution $\hat{\mathbb{P}}$ to the unsafe set $\bar{\mathcal{S}}$. This distance is based on a norm $\left \lVert \cdot \right \rVert$, which we keep generic at this stage. Without loss of generality, we assume that the data points $\{\bmh{\xi}_i\}_{i \in [N]} $ are ordered in increasing distance to $\bar{\mathcal{S}}$, that is, $\mathbf{dist}(\bmh{\xi}_i, \bar{\mathcal{S}}) \leq \mathbf{dist}(\bmh{\xi}_j, \bar{\mathcal{S}})$ for all $1 \leq i \leq j \leq N$. We also assume that $\mathbf{dist}(\bmh{\xi}_i, \bar{\mathcal{S}}) = 0$ (that is, the data point $\bmh{\xi}_i$ is unsafe) if and only if $i \in [I]$, where $I = 0$ if $\mathbf{dist}(\bmh{\xi}_i, \bar{\mathcal{S}}) > 0$ for all $i \in [N]$. Finally, we denote by $\bm{\xi}^\star_i \in \bar{\mathcal{S}}$ an unsafe point that is closest to the data point $\bmh{\xi}_i$, $i \in [N]$, in terms of the distance $\mathbf{dist} (\bmh{\xi}_i, \bar{\mathcal{S}})$.
+
+\cite{blanchet2016quantifying} as well as \cite{Gao_Kleywegt_2016} have characterized the solution to the uncertainty quantification problem~\eqref{prob:uncertainty quantification} in closed form. To keep our paper self-contained, we reproduce their findings without proof in Theorem~\ref{thm:uncertainty-quantification} below.
+
+\begin{theorem}\label{thm:uncertainty-quantification}
+Let $j^\star = \max \, \{j \in [N] \cup \{ 0 \} \mid \sum_{i = 1}^j \mathbf{dist}(\bmh{\xi}_i, \bar{\mathcal{S}}) \leq \theta N \}$. The uncertainty quantification problem~\eqref{prob:uncertainty quantification} is solved by a worst-case distribution $\mathbb{P}^\star \in \mathcal{F} (\theta)$ that is characterized as follows:
+\begin{enumerate}
+\item[(i)] If $j^\star = N$, then $\sup\limits_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}[\bmt{\xi} \notin \mathcal{S}] \; = \; \mathbb{P}^\star [\bmt{\xi} \notin \mathcal{S}] \; = \; 1$ for
+\begin{equation*}
+\mathbb{P}^\star \; = \; \dfrac{1}{N} \sum_{i = 1}^I \delta_{\bmh{\xi}_i} \; + \; \dfrac{1}{N} \sum_{i = I+1}^N \delta_{\bm{\xi}^\star_i}.
+\end{equation*}
+\item[(ii)] If $j^\star < N$, then $\sup\limits_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}[\bmt{\xi} \notin \mathcal{S}] \; = \; \mathbb{P}^\star [\bmt{\xi} \notin \mathcal{S}] \; = \; (j^\star+ p^\star)/N$ for
+\begin{equation*}
+\mathbb{P}^\star \; = \; \dfrac{1}{N} \sum_{i = 1}^I \delta_{\bmh{\xi}_i} \; + \; \dfrac{1}{N} \sum_{i = I+1}^{j^\star} \delta_{\bm{\xi}^\star_i} \; + \; \dfrac{p^\star}{N} \delta_{\bm{\xi}^\star_{j^\star+1}} \; + \;  \dfrac{1-p^\star}{N}\delta_{\bmh{\xi}_{j^\star+1}} \; + \; \dfrac{1}{N} \sum_{i = j^\star+2}^N  \delta_{\bmh{\xi}_i},
+\end{equation*}
+where $p^\star = (\theta N - \sum_{i = 1}^{j^\star} \mathbf{dist}(\bmh{\xi}_i, \bar{\mathcal{S}})) / \mathbf{dist}(\bmh{\xi}_{j^\star+1}, \bar{\mathcal{S}})$.
+\end{enumerate}
+\end{theorem}
+
+Intuitively speaking, the worst-case distribution $\mathbb{P}^\star$ in Theorem~\ref{thm:uncertainty-quantification} transports the training dataset $\{\bmh{\xi}_i\}_{i \in [N]}$ to the unsafe set $\bar{\mathcal{S}}$ in a greedy fashion, see Figure~\ref{fig:greedy}. The data points $\bmh{\xi}_1,\dots,\bmh{\xi}_I$ are already unsafe and hence do not need to be transported. The subsequent data points $\bmh{\xi}_{I+1}, \ldots, \bmh{\xi}_{j^\star + 1}$ are closest to the unsafe set and are thus transported from $\mathcal{S}$ to $\bar{\mathcal{S}}$. Due to the limited transportation budget $\theta$, the data point $\bmh{\xi}_{j^\star + 1}$ is only partially transported. The safe samples $\bmh{\xi}_{j^\star + 2}, \ldots \bmh{\xi}_N$, finally, are too far away from the unsafe set $\bar{\mathcal{S}}$ and are thus left unchanged.
+
+\begin{figure}[tb]
+\begin{subfigure}{.5\textwidth}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{greedyWasserstein1}
+%\caption{\footnotesize{Empirical distribution}}
+\end{center}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\begin{center}
+\includegraphics[width=0.75\linewidth]{greedyWasserstein2}
+%\caption{\footnotesize{Worst-case distribution}}
+\end{center}
+\end{subfigure}
+\vspace{0.2cm}
+	
+\caption{{\textnormal{Empirical and worst-case distributions. The left graph visualizes the empirical distribution $\hat{\mathbb{P}}$, whose light grey (dark grey) data points are contained in (outside of) the safety set $\mathcal{S}$ shown as an equilateral triangle (dashed lines). The right graph shows the corresponding worst-case distribution $\mathbb{P}^\star$, which moves the data points $\bmh{\xi}_1$ and $\bmh{\xi}_2$ entirely as well as the data point $\bmh{\xi}_3$ partially to the unsafe set $\bar{\mathcal{S}}$. Each transported data point is projected onto the boundary of the closest halfspace defining the safety set $\mathcal{S}$.}} \label{fig:greedy}}
+\end{figure}
+
+\subsection{Reformulation of Generic Chance Constraints}\label{sec:ref_generic}
+
+We now develop deterministic reformulations for the distributionally robust chance constrained program~\eqref{prob:cc general}. To this end, we focus on the ambiguous chance constraint
+\begin{equation}
+\label{prob:worst-case cc}
+\sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}[\bmt{\xi} \notin \mathcal{S}(\bm{x})] \leq \varepsilon.
+\end{equation}
+For any fixed decision $\bm x\in \mathcal{X}$, we let $\mathcal{S}(\bm{x})$ be an arbitrary open safety set, and we denote by $\bar{\mathcal{S}}(\bm{x})$ its closed complement, which comprises all unsafe scenarios. 
+Every fixed training dataset $\{\bmh{\xi}_i\}_{i \in [N]}$ then induces a (decision-dependent) permutation $\bm{\pi}(\bm{x})$ of $[N]$ that orders the training samples in increasing distance to the unsafe set, that is, 
+\begin{equation*}
+\mathbf{dist}(\bmh{\xi}_{\pi_1(\bm{x})}, \bar{\mathcal{S}}(\bm{x})) \; \leq \; \mathbf{dist}(\bmh{\xi}_{\pi_2(\bm{x})}, \bar{\mathcal{S}}(\bm{x})) 
+\; \leq \; \cdots \; \leq \; \mathbf{dist}(\bmh{\xi}_{\pi_N(\bm{x})}, \bar{\mathcal{S}}(\bm{x})).
+\end{equation*}
+
+We first show that a fixed decision $\bm{x}$ satisfies the ambiguous chance constraint~\eqref{prob:worst-case cc} over the Wasserstein ambiguity set~\eqref{set:Wasserstein} if and only if the partial sum of the $\varepsilon N$ smallest transportation distances to the unsafe set multiplied by the mass $1/N$ of a training sample exceeds~$\theta$.
+
+\begin{theorem}\label{thm：cc equivalent}
+For any fixed decision $\bm{x}\in \mathcal{X}$, the ambiguous chance constraint~\eqref{prob:worst-case cc} over the Wasserstein ambiguity set~\eqref{set:Wasserstein} is equivalent to the deterministic inequality
+\begin{equation}
+\label{equivalence:theta positive}
+\dfrac{1}{N}\sum_{i = 1}^{\varepsilon N} \mathbf{dist}(\bmh{\xi}_{\pi_i(\bm{x})}, \bar{\mathcal{S}}(\bm{x})) \ge \theta.
+\end{equation}
+\end{theorem} 
+
+The left-hand side of~\eqref{equivalence:theta positive} can be interpreted as the minimum cost of moving a fraction $\varepsilon$ of the training samples to the unsafe set. If this cost exceeds the prescribed transportation budget $\theta$, then no distribution in the Wasserstein ambiguity set can assign the unsafe set a probability of more than $\varepsilon$, which means that the distributionally robust chance constraint~\eqref{prob:worst-case cc} is satisfied.
+
+\noindent \emph{Proof of Theorem~\ref{thm：cc equivalent}.} $\;$
+From Theorem~\ref{thm:uncertainty-quantification} we know that the ambiguous chance constraint~\eqref{prob:worst-case cc} over the Wasserstein ambiguity set~\eqref{set:Wasserstein} is satisfied if and only if $\mathbb{P}^\star [\bmt{\xi} \notin \mathcal{S}(\bm{x})] \leq \varepsilon$ for the worst-case distribution $\mathbb{P}^\star$ defined in the statement of that theorem.
+
+In case (\emph{i}) of Theorem~\ref{thm:uncertainty-quantification}, the ambiguous chance constraint~\eqref{prob:worst-case cc} is violated since $\mathbb{P}^\star [\bmt{\xi} \notin \mathcal{S}(\bm{x})] = 1$ while $\varepsilon < 1$ by assumption. At the same time, since $j^\star = N$, we have $\frac{1}{N} \sum_{i = 1}^{N} \mathbf{dist}(\bmh{\xi}_{\pi_i(\bm{x})}, \bar{\mathcal{S}}(\bm{x})) \leq \theta$. If this inequality is strict, then~\eqref{equivalence:theta positive} is violated as desired since $\frac{1}{N} \sum_{i = 1}^{\varepsilon N} \mathbf{dist}(\bmh{\xi}_{\pi_i(\bm{x})}, \bar{\mathcal{S}}(\bm{x})) \leq \frac{1}{N} \sum_{i = 1}^{N} \mathbf{dist}(\bmh{\xi}_{\pi_i(\bm{x})}, \bar{\mathcal{S}}(\bm{x}))$. If the inequality is satisfied as an equality, on the other hand, we know that $\mathbf{dist}(\bmh{\xi}_{\pi_N(\bm{x})}, \bar{\mathcal{S}}(\bm{x})) > 0$ since $\theta > 0$ by assumption and $\mathbf{dist}(\bmh{\xi}_{\pi_i(\bm{x})}, \bar{\mathcal{S}}(\bm{x})) \leq \mathbf{dist}(\bmh{\xi}_{\pi_j(\bm{x})}, \bar{\mathcal{S}}(\bm{x}))$ for all $i \leq j$ by construction of the re-ordering $\bm{\pi}(\bm{x})$. Thus, since $\varepsilon < 1$ by assumption, we have $\frac{1}{N} \sum_{i = 1}^{\varepsilon N} \mathbf{dist}(\bmh{\xi}_{\pi_i(\bm{x})}, \bar{\mathcal{S}}(\bm{x})) < \frac{1}{N} \sum_{i = 1}^{N} \mathbf{dist}(\bmh{\xi}_{\pi_i(\bm{x})}, \bar{\mathcal{S}}(\bm{x})) = \theta$ and equation~\eqref{equivalence:theta positive} is violated as desired.
+
+In case (\emph{ii}) of Theorem~\ref{thm:uncertainty-quantification}, we have $\mathbb{P}^\star [\bmt{\xi} \notin \mathcal{S} (\bm{x})] = (j^\star+ p^\star)/N$ with $j^\star = \max \, \{j \in [N - 1] \cup \{0\} \mid \sum_{i = 1}^j \mathbf{dist}(\bmh{\xi}_{\pi_i (\bm{x})}, \bar{\mathcal{S}} (\bm{x})) \leq \theta N \}$ as well as $p^\star = (\theta N - \sum_{i = 1}^{j^\star} \mathbf{dist}(\bmh{\xi}_{\pi_i (\bm{x})}, \bar{\mathcal{S}} (\bm{x}))) / \mathbf{dist}(\bmh{\xi}_{\pi_{j^\star + 1} (\bm{x})}, \bar{\mathcal{S}} (\bm{x}))$. We claim that $j^\star+ p^\star$ is the optimal value of the bivariate mixed-integer optimization problem
+\begin{equation}\label{eq:bivariate_mixed_integer}
+\begin{array}{cll}
+\displaystyle \max_{j, p} & \displaystyle j + p \\
+{\rm s.t.} & \displaystyle  \sum_{i = 1}^{j} \mathbf{dist}(\bmh{\xi}_{\pi_i (\bm{x})}, \bar{\mathcal{S}} (\bm{x})) + p \cdot \mathbf{dist}(\bmh{\xi}_{\pi_{j + 1} (\bm{x})}, \bar{\mathcal{S}} (\bm{x})) \leq \theta N \\[4mm]
+& \displaystyle j \in [N - 1] \cup \{0\},~0 \leq p < 1.
+\end{array}
+\end{equation}
+Indeed, the solution $(j, p) = (j^\star, p^\star)$ is feasible in~\eqref{eq:bivariate_mixed_integer} by definition of $j^\star$ and $p^\star$. Moreover, we have $j + p < j^\star + p^\star$ for any other feasible solution $(j, p)$ that satisfies $j = j^\star$ and $p \neq p^\star$. Assume now that the optimal solution $(j, p)$ to~\eqref{eq:bivariate_mixed_integer} would satisfy $j > j^\star$. Any such solution would violate the first constraint since $\sum_{i = 1}^j \mathbf{dist}(\bmh{\xi}_{\pi_i (\bm{x})}, \bar{\mathcal{S}} (\bm{x})) > \theta N$ by definition of $j^\star$ while $p \geq 0$. Similarly, any solution $(j, p)$ with $j < j^\star$ cannot be optimal in~\eqref{eq:bivariate_mixed_integer} since $j \leq j^\star - 1$ while $p < p^\star + 1$.
+
+We can re-express problem~\eqref{eq:bivariate_mixed_integer} as the univariate discrete optimization problem
+\begin{equation*}
+\max \bigg\{ j \in [0, N] ~\bigg|~ \sum_{i = 1}^{\lfloor j \rfloor} \mathbf{dist}(\bmh{\xi}_{\pi_i (\bm{x})}, \bar{\mathcal{S}} (\bm{x})) \; + \; (j - \lfloor j \rfloor) \cdot \mathbf{dist}(\bmh{\xi}_{\pi_{\lfloor j \rfloor + 1} (\bm{x})}, \bar{\mathcal{S}} (\bm{x})) \leq \theta N \bigg\}.
+\end{equation*}
+Using our definition of partial sums, we observe that this problem is equivalent to
+\begin{equation*}
+\max \bigg\{ j \in [0, N] ~\bigg|~ \sum_{i = 1}^j \mathbf{dist}(\bmh{\xi}_{\pi_i (\bm{x})}, \bar{\mathcal{S}} (\bm{x})) \leq \theta N \bigg\}.
+\end{equation*}
+By construction, the mapping $\vartheta (j) = \sum_{i = 1}^j \mathbf{dist}(\bmh{\xi}_{\pi_i (\bm{x})}, \bar{\mathcal{S}} (\bm{x}))$, $j \in [0, N]$, is continuous and monotonically nondecreasing. It therefore affords the right inverse $\vartheta^{-1} (t) = \max \{ j \in [0, N] \mid \vartheta(j) \leq t \}$ that satisfies $\vartheta \circ \vartheta^{-1} (t) = t$ for all $t \in [0, \vartheta(N)]$. Figure~\ref{fig:inverse_function} visualizes the relationship between $\vartheta$ and $\vartheta^{-1}$. We thus conclude that the ambiguous chance constraint~\eqref{prob:worst-case cc} is satisfied if and only if
+\begin{align*}
+\max \bigg\{ j \in [0, N] ~\bigg|~ \sum_{i = 1}^j \mathbf{dist}(\bmh{\xi}_{\pi_i (\bm{x})}, \bar{\mathcal{S}} (\bm{x})) \leq \theta N \bigg\} \leq \varepsilon N \quad
+&\Longleftrightarrow \quad \max \{ j \in [0, N] ~|~ \vartheta (j) \leq \theta N \} \leq \varepsilon N \\
+&\Longleftrightarrow \quad \vartheta^{-1} (\theta N) \leq \varepsilon N \\
+&\Longleftrightarrow \quad \theta N \leq \vartheta (\varepsilon N),
+\end{align*}
+where the last equivalence follows from $\vartheta \circ \vartheta^{-1} (\theta N) = \theta N$, which holds because $\theta N \leq \vartheta(N)$ for $j^\star < N$, as well as the fact that $\vartheta$ is monotonically nondecreasing. By definition, the right-hand side of the last equivalence holds if and only if~\eqref{equivalence:theta positive} in the statement of the theorem is satisfied.
+\hfill \Halmos
+\endproof
+
+\begin{figure}[tb]
+\begin{subfigure}{.5\textwidth}
+\begin{center}
+\includegraphics[width=0.9\linewidth]{inversefunction1}
+%\caption{\footnotesize{Case~1}}
+\end{center}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\begin{center}
+\includegraphics[width=0.9\linewidth]{inversefunction2}
+%\caption{\footnotesize{Case~2}}
+\end{center}
+\end{subfigure}
+\vspace{0.2cm}
+\caption{{\textnormal{Relationship between $\vartheta$ and $\vartheta^{-1}$. The left graph shows a feasible solution $\bm{x}$ satisfying the ambiguous chance constraint~\eqref{prob:worst-case cc}; in this case, we have $\vartheta (\varepsilon N) \geq \theta N$. The infeasible solution $\bm{x}'$ in the right graph, on the other hand, violates the ambiguous chance constraint~\eqref{prob:worst-case cc}, and we have $\vartheta (\varepsilon N) < \theta N$.}} \label{fig:inverse_function}}
+\end{figure}
+
+\begin{remark}
+We emphasize that the inequality~\eqref{equivalence:theta positive} fails to be equivalent to the ambiguous chance constraint~\eqref{prob:worst-case cc} when $\theta = 0$, in which case the Wasserstein ball collapses to the singleton set $\mathcal{F}(0) = \{\hat{\mathbb{P}}\}$. To see this, suppose that $\bmh{\xi}_{\pi_i(\bm{x})} \in \bar{\mathcal{S}}(\bm{x})$ for all $i=1,\ldots,I$ and $\bmh{\xi}_{\pi_i(\bm{x})} \in \mathcal{S}(\bm{x})$ for all $i=I+1,\ldots,N$, where $I\ge 1$. If $\varepsilon < I/N$, then the chance constraint~\eqref{prob:worst-case cc} is violated because
+\begin{equation*}
+\hat{\mathbb{P}}[\bmt{\xi} \notin \mathcal{S}(\bm{x})] = \frac{I}{N}>\varepsilon,
+\end{equation*}
+while the inequality~\eqref{equivalence:theta positive} holds trivially because $\sum_{i = 1}^{\varepsilon N} \mathbf{dist}(\bmh{\xi}_{\pi_i(\bm{x})}, \bar{\mathcal{S}}(\bm{x})) \ge 0$.
+\end{remark}
+
+Theorem~\ref{thm：cc equivalent} establishes that a decision $\bm{x} \in \mathcal{X}$ satisfies the ambiguous chance constraint~\eqref{prob:worst-case cc} if and only if 
+the sum of the $\varepsilon N$ smallest distances of the training samples to the unsafe set $\bar{\mathcal{S}}(\bm{x})$ weakly exceeds $\theta N$. This result is of computational interest because the sum of the $\varepsilon N$ smallest out of $N$ real numbers is concave in those real numbers (while being convex in $\varepsilon$). This reveals that the  constraint~\eqref{equivalence:theta positive} is convex in the decision-dependent distances $\{\mathbf{dist}(\bmh{\xi}_{i}, \bar{\mathcal{S}}(\bm{x}))\}_{i \in [N]}$. In the remainder we develop an efficient reformulation of this convex constraint that does not require an enumeration of all possible sums of $\varepsilon N$ different distances between the training samples and the unsafe set. This reformulation is based on the following auxiliary lemma.
+
+\begin{lemma}\label{lem:sum of smallest}
+For any $\varepsilon \in (0,1)$, the sum of the $\varepsilon N$ smallest out of $N$ real numbers $k_1,\dots,k_N$ coincides with the optimal value of the linear program
+$$
+\begin{array}{cll}
+\displaystyle \max_{\bm{s}, t} & \varepsilon N t - \bm{e}^\top\bm{s} \\
+{\rm s.t.} & k_i \geq t - s_i &~\forall i \in [N] \\
+& \bm{s} \geq \bm{0}.
+\end{array}
+$$
+\end{lemma}
+\noindent \emph{Proof of Lemma~\ref{lem:sum of smallest}.} $\;$
+By definition, the sum of the $\varepsilon N$ smallest elements of the set $\{k_1,\dots,k_N\}$ corresponds to the optimal value of the (manifestly feasible) linear program
+\begin{equation*}
+\begin{array}{cl}
+\displaystyle \min_{\bm{v}} & \displaystyle \sum_{i \in [N]} k_i v_i \\ \text{s.t.} & \bm{0} \leq \bm{v} \leq \bm{e}, ~\bm{e}^\top\bm{v} = \varepsilon N.
+\end{array}
+\end{equation*}
+The claim now follows from strong linear programming duality.
+\hfill \Halmos
+\endproof 
+
+Armed with Theorem~\ref{thm：cc equivalent} and Lemma~\ref{lem:sum of smallest}, we are now ready to reformulate the chance constrained program~\eqref{prob:cc general} as a deterministic optimization problem.
+
+\begin{theorem}\label{thm:cc-deterministic}
+The chance constrained program~\eqref{prob:cc general} is equivalent to 
+\begin{equation}\label{prob:cc reformulation}
+\begin{array}{cll}
+\displaystyle \min_{\bm{s}, t, \bm{x}} & \bm{c}^\top\bm{x} \\
+{\rm s.t.} & \varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \\
+& \mathbf{dist}(\bmh{\xi}_i, \bar{\mathcal{S}}(\bm{x})) \geq t - s_i &~\forall i \in [N] \\
+& \bm{s} \geq \bm{0}, ~\bm{x} \in \mathcal{X}.
+\end{array}
+\end{equation}
+\end{theorem}
+\noindent \emph{Proof of Theorem~\ref{thm:cc-deterministic}.} $\;$
+The claim follows immediately by using Theorem~\ref{thm：cc equivalent} to reformulate the chance constraint~\eqref{prob:worst-case cc} as the inequality~\eqref{equivalence:theta positive}, using Lemma~\ref{lem:sum of smallest} to express the left-hand side of~\eqref{equivalence:theta positive} as a linear maximization problem and substituting the resulting constraint back into~\eqref{prob:cc general}.
+\hfill \Halmos
+\endproof 
+
+\subsection{Reformulation of Individual Chance Constraints}\label{sec:ref_indiv_cc}
+Assume now that problem~\eqref{prob:cc general} accommodates an individual chance constraint defined through the safety set $\mathcal{S}(\bm{x}) = \{\bm{\xi} \in \mathbb{R}^K \mid (\bm{A}\bm{\xi} + \bm{a})^\top \bm{x} < \bm{b}^\top\bm{\xi} + b\}$. By Lemma~\ref{lem:distance to the union of closed half-spaces} in the appendix, we have
+$$\mathbf{dist}(\bmh{\xi}_i, \bar{\mathcal{S}}(\bm x)) = \dfrac{((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x})^+}{\|\bm{b} - \bm{A}^\top\bm{x}\|_*} ~~\forall i \in [N],
+$$
+and thus Theorem~\ref{thm:cc-deterministic} allows us to reformulate problem~\eqref{prob:cc reformulation} as the deterministic optimization problem
+\begin{equation}\label{prob:individual cc reformulation}
+\begin{array}{cll}
+\displaystyle \min_{\bm{s}, t, \bm{x}} & \bm{c}^\top\bm{x} \\
+{\rm s.t.} & \varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \\
+& \dfrac{((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x})^+}{\|\bm{b} - \bm{A}^\top\bm{x}\|_*} \geq t - s_i &~\forall i \in [N] \\
+& \bm{s} \geq \bm{0}, ~\bm{x} \in \mathcal{X}.
+\end{array}
+\end{equation}
+Unfortunately, problem~\eqref{prob:individual cc reformulation} fails to be convex as its constraints involve fractions of convex functions. Below we show, however, that problem~\eqref{prob:individual cc reformulation} can be reformulated as a mixed integer conic program.  
+\begin{proposition}\label{prop:individual cc}
+Assume that $\bm{A}^\top\bm{x} \ne \bm{b}$ for all $\bm{x} \in \mathcal{X}$. For the safety set $\mathcal{S}(\bm{x}) = \{\bm{\xi} \in \mathbb{R}^K \mid (\bm{A}\bm{\xi} + \bm{a})^\top \bm{x} < \bm{b}^\top\bm{\xi} + b\}$, problem~\eqref{prob:cc general} is equivalent to the mixed integer conic program
+\begin{equation}\label{prob:individual cc reformulation linearization}
+\begin{array}{rcll}
+Z^\star_{\rm ICC} =& \displaystyle \min_{\bm{q}, \bm{s}, t, \bm{x}} & \bm{c}^\top\bm{x} \\
+&{\rm s.t.} & \varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \|\bm{b} - \bm{A}^\top\bm{x}\|_* \\
+&& (\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x} + {\rm M} q_i \geq t - s_i &~\forall i \in [N] \\
+&& {\rm M} (1 - q_i) \geq t - s_i &~\forall i \in [N] \\
+&& \bm{q} \in \{0,1\}^N, ~\bm{s} \geq \bm{0}, ~\bm{x} \in \mathcal{X},
+\end{array}
+\end{equation}
+where ${\rm M}$ is a suitably large (but finite) positive constant.
+\end{proposition}
+
+\noindent \emph{Proof of Proposition~\ref{prop:individual cc}.} $\;$
+We already know that the chance constrained program~\eqref{prob:cc general} is equivalent to the non-convex optimization problem~\eqref{prob:individual cc reformulation}. A complicating feature of this problem is the appearance of the maximum operator in the second constraint group, which evaluates the positive part of $(\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x}$. To eliminate this maximum operator, for each $i\in[N]$ we introduce a binary variable $q_i \in \{0,1\}$, and we re-express the $i^{\rm th}$ member of the second constraint group via the two auxiliary constraints
+\begin{equation}\label{eq:big-M}
+\dfrac{(\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x}}{\|\bm{b} - \bm{A}^\top\bm{x}\|_*} + {\rm M} q_i \geq t - s_i 
+\text{~~and~~} {\rm M} (1 - q_i) \geq t - s_i.
+\end{equation}
+Note that at optimality we have $q_i=1$ if $(\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x}$ is negative and $q_i=0$ otherwise. Intuitively, $q_i$ thus activates the less restrictive one of the two auxiliary constraints in~\eqref{eq:big-M}.
+Next, we apply the variable substitutions $t\leftarrow t/\|\bm{b} - \bm{A}^\top\bm{x}\|_*$ and $\bm{s}\leftarrow \bm{s}/\|\bm{b} - \bm{A}^\top\bm{x}\|_*$, which is admissible because $\bm{A}^\top\bm{x} \ne \bm{b}$ for all $\bm{x} \in \mathcal{X}$. This change of variables yields the postulated reformulation~\eqref{prob:individual cc reformulation linearization}. 
+
+To see that a finite value of $\rm M$ is sufficient for our reformulation to be exact, we show that the expression $((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x}) / \|\bm{b} - \bm{A}^\top\bm{x}\|_*$ as well as the values of $t$ and $s_i$, $i \in [N]$, in~\eqref{eq:big-M} can all be bounded without affecting the optimal value of problem~\eqref{prob:individual cc reformulation linearization}. This is clear for the fraction as $\mathcal{X}$ is compact and the denominator is non-zero for all $\bm{x} \in \mathcal{X}$. Moreover, $t$ is nonnegative as otherwise the first constraint in~\eqref{prob:individual cc reformulation linearization} would be violated. For any fixed values of $\bm{x}$ and $t$, an optimal value of $s_i$, $i \in [N]$, is given by $s_i^\star (\bm{x}, t) = ( t -  ((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x}) / \|\bm{b} - \bm{A}^\top\bm{x}\|_*)^+$. Since $\mathcal{X}$ is bounded, it thus remains to show that $t$ can be bounded from above. Indeed, for sufficiently large (but finite) $t$, the slope of $\varepsilon N t - \bm{e}^\top \bm{s}^\star (\bm{x}, t)$ on the left-hand side of the first constraint in~\eqref{prob:individual cc reformulation linearization} is $- (1 - \varepsilon) N$. Since $\varepsilon < 1$, we thus conclude that this constraint is violated for large values of $t$.
+\hfill \Halmos
+\endproof
+
+\begin{remark}
+The condition that $\bm{A}^\top\bm{x} \ne \bm{b}$ for all $\bm{x} \in \mathcal{X}$ does not restrict the generality of our formulation. Indeed, if an optimal solution $(\bm{q}^\star, \bm{s}^\star, t^\star, \bm{x}^\star)$ to problem~\eqref{prob:individual cc reformulation linearization} satisfies $\bm{A}^\top\bm{x}^\star \ne \bm{b}$, then $\bm{x}^\star$ solves problem~\eqref{prob:cc general} since our argument in the proof of Proposition~\ref{prop:individual cc} applies to $\bm{x}^\star$ even if $\bm{A}^\top\bm{x} = \bm{b}$ for some $\bm{x} \in \mathcal{X}$. Assume now that an optimal solution $(\bm{q}^\star, \bm{s}^\star, t^\star, \bm{x}^\star)$ to problem~\eqref{prob:individual cc reformulation linearization} satisfies $\bm{A}^\top\bm{x}^\star = \bm{b}$. In that case, the ambiguous chance constraint in problem~\eqref{prob:cc general} requires that $\bm{a}^\top \bm{x}^\star < b$. If that is the case for $\bm{x}^\star$, it is optimal in problem~\eqref{prob:cc general}. If, finally, an optimal solution $(\bm{q}^\star, \bm{s}^\star, t^\star, \bm{x}^\star)$ to problem~\eqref{prob:individual cc reformulation linearization} satisfies $\bm{A}^\top\bm{x}^\star = \bm{b}$ and $\bm{a}^\top \bm{x}^\star \geq b$, then we can solve $2 K + 1$ variants of problem~\eqref{prob:individual cc reformulation linearization} that include exactly one of the constraints $[\bm{A}^\top\bm{x}]_k > [\bm{b}]_k$, $[\bm{A}^\top\bm{x}]_k < [\bm{b}]_k$, $k \in [K]$, and $\bm{a}^\top \bm{x} < b$. The solution that attains the least objective value amongst these problems is an optimal solution to problem~\eqref{prob:cc general}.
+\end{remark}
+
+\begin{remark}
+The mixed-integer conic program~\eqref{prob:individual cc reformulation linearization} simplifies to a mixed-integer linear program whenever $\|\cdot\|$ represents the $1$-norm or the $\infty$-norm, and it can be reformulated as a mixed-integer second-order cone program whenever $\|\cdot\|$ represents a $p$-norm for some $p \in \mathbb{Q}$, $p>1$, see Section~2.3.1 in \cite{Ben-tal_Nemirovski_book}.
+\end{remark}
+
+\begin{remark}
+The deterministic reformulation~\eqref{prob:individual cc reformulation linearization} is remarkably parsimonious. For an $L$-dimensional feasible region $\mathcal{X} \subseteq \mathbb{R}^L$ and an empirical distribution $\hat{\mathbb{P}}$ with $N$ data points, our reformulation~\eqref{prob:individual cc reformulation linearization} has $N$ binary variables, $L + N + 1$ continuous decisions as well as $2N + 1$ constraints (excluding those that describe $\mathcal{X}$). In comparison, a classical chance constrained formulation, which is tantamount to setting the Wasserstein radius to $\theta = 0$ in problem~\eqref{prob:cc general}, has $N$ binary variables, $L$ continuous decisions as well as $N + 1$ constraints. Thus, adding distributional robustness only requires an additional $N + 1$ continuous decisions as well as $N$ further constraints.
+\end{remark}
+
+\subsection{Reformulation of Joint Chance Constraints with Right-Hand Side Uncertainty}\label{sec:ref_joint_cc}
+
+Assume next that problem~\eqref{prob:cc general} accommodates a joint chance constraint defined through the safety set $\mathcal{S}(\bm{x}) = \{\bm{\xi} \in \mathbb{R}^K \mid \bm{a}^\top_m \bm{x} < \bm{b}^\top_m\bm{\xi} + b_m ~\forall m \in [M]\}$, in which the uncertainty affects only the right-hand sides of the safety conditions. Without loss of generality, we may assume that $\bm{b}_m \ne \bm{0}$ for all $m \in [M]$. Indeed, if $\bm{b}_m = \bm{0}$, then the $m^{\rm th}$ safety condition in the chance constraint becomes independent of the uncertainty and can thus be absorbed in $\mathcal{X}$. Observe that the complement of the safety set is now representable as $\bar{\mathcal{S}}(\bm{x}) = \bigcup_{m \in [M]} \mathcal{H}_m(\bm{x})$, where $\mathcal{H}_m(\bm{x}) = \{\bm{\xi} \in \mathbb{R}^K \mid \bm{a}^\top_m \bm{x} \geq \bm{b}^\top_m\bm{\xi} + b_m\}$ is a closed halfspace for every $m \in [M]$. By Lemma~\ref{lem:distance to the union of closed half-spaces} in the appendix we have
+\begin{equation}\label{eq:distance-joint}
+\mathbf{dist}(\bmh{\xi}_i, \bar{\mathcal{S}}(\bm{x})) = \min_{m \in [M]} \bigg\{ \dfrac{(\bm{b}^\top_m\bmh{\xi}_i + b_m - \bm{a}^\top_m\bm{x})^+}{\|\bm{b}_m\|_*} \bigg\} = \bigg(\min_{m \in [M]} \bigg\{\dfrac{\bm{b}^\top_m\bmh{\xi}_i + b_m - \bm{a}^\top_m\bm{x}}{\|\bm{b}_m\|_*} \bigg\}\bigg)^+.
+\end{equation}
+With this closed-form expression for the distance to the unsafe set, we can reformulate problem~\eqref{prob:cc general} as a mixed integer conic program.
+
+\begin{proposition}\label{prop:joint cc}
+For the safety set $\mathcal{S}(\bm{x}) = \{\bm{\xi} \in \mathbb{R}^K \mid \bm{a}^\top_m \bm{x} < \bm{b}^\top_m\bm{\xi} + b_m ~\forall m \in [M]\}$, where $\bm{b}_m \ne \bm{0}$ for all $m \in [M]$, the chance constrained program~\eqref{prob:cc general} is equivalent to the mixed integer conic program
+\begin{equation}
+\label{prob:joint cc reformulation M linearization}
+\begin{array}{rcll}
+Z^\star_{\rm JCC} =& \displaystyle \min_{\bm{p}, \bm{q}, \bm{s}, t, \bm{x}} & \bm{c}^\top\bm{x} \\
+&{\rm s.t.} & \varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \\
+&& p_i + {\rm M} q_i \geq t - s_i &~\forall i \in [N] \\
+&& {\rm M} (1 - q_i) \geq t - s_i &~\forall i \in [N] \\
+&& \dfrac{\bm{b}^\top_m\bmh{\xi}_i + b_m - \bm{a}^\top_m\bm{x}}{\|\bm{b}_m\|_*} \geq p_i &~\forall m \in [M], ~i \in [N] \\
+&& \bm{q} \in \{0,1\}^N,~ \bm{s} \geq \bm{0}, ~\bm{x} \in \mathcal{X},
+\end{array}
+\end{equation}
+where ${\rm M}$ is a suitably large (but finite) positive constant.
+\end{proposition}
+
+\noindent \emph{Proof of Proposition~\ref{prop:joint cc}.} $\;$
+By Theorem~\ref{thm:cc-deterministic}, the chance constrained program~\eqref{prob:cc general} is equivalent to~\eqref{prob:cc reformulation}. Using~\eqref{eq:distance-joint}, the $i^{\rm th}$~member of the second constraint group in~\eqref{prob:cc reformulation} can be reformulated as
+$$
+\bigg(\displaystyle \min_{m \in [M]} \bigg\{\dfrac{\bm{b}^\top_m\bmh{\xi}_i + b_m - \bm{a}^\top_m\bm{x}}{\|\bm{b}_m\|_*} \bigg\}\bigg)^+ \geq t - s_i.
+$$
+To eliminate the maximum operator, we introduce a binary variable $q_i \in \{0,1\}$ as well as a continuous variable $p_i \in \mathbb{R}$, which allow us to re-express the above constraint as
+$$
+\left\{
+\begin{array}{ll}
+p_i + {\rm M} q_i \geq t - s_i \\
+{\rm M} (1 - q_i) \geq t - s_i \\
+\dfrac{\bm{b}^\top_m\bmh{\xi}_i + b_m - \bm{a}^\top_m\bm{x}}{\|\bm{b}_m\|_*} \geq p_i &~\forall m \in [M].
+\end{array}
+\right.
+$$
+A similar argument as in the proof of Proposition~\ref{prop:individual cc} shows that a finite value of $\rm M$ is sufficient for our reformulation to be exact.
+\hfill \Halmos
+\endproof
+\begin{remark}
+The deterministic reformulation~\eqref{prob:joint cc reformulation M linearization} has $N$ binary variables, $L + 2 N + 1$ continuous decisions as well as $N (M + 2) + 1$ constraints (excluding those that describe $\mathcal{X}$). In comparison, the corresponding classical chance constrained formulation has $N$ binary variables, $L$ continuous decisions as well as $MN + 1$ constraints. Thus, adding distributional robustness requires an additional $2 N + 1$ continuous decisions as well as $2 N$ further (linear) constraints.
+\end{remark}
+
+\section{Tractable Safe Approximations}
+The exact mixed-integer conic programming reformulations of the distributionally robust chance constrained program~\eqref{prob:cc general} derived in Section~\ref{sec:exact_reformulation} may become computationally prohibitive in the face of large problem dimensions or sample sizes. Thus, there is merit in studying safe tractable approximations with better scalability properties. Such approximations are obtained by constructing inner approximations to the exact feasible set of the chance constrained program~\eqref{prob:cc general}. For example, safe tractable approximations for {\em individual} chance constraints can be obtained via a CVaR approximation popularized by \citet{Nemirovski_Shapiro_2006}, while {\em joint} chance constraints are often decomposed into a family of more tractable (and also more restrictive) individual chance constraints by using the Bonferroni inequality from probability theory. We remark that any joint chance constraint with $M$ safety conditions can be reformulated as an individual chance constraint with a single safety condition by aggregating the $M$ (suitably scaled) safety conditions, in which case it becomes susceptible to the CVaR approximation, too.
+
+
+In Sections~\ref{sec:cvar_individual_cc} and \ref{sec:cvar_joint_cc} below we propose a systematic approach to constructing safe convex approximations for the chance constrained program~\eqref{prob:cc general} and contrast it with the classical CVaR approximation. We also investigate several low-parametric classes of tractable safe approximations and discuss the complexity of finding the respective best-in-class approximations. Moreover, in Section~\ref{sec:bonferroni} we demonstrate that the CVaR approximation is generally incomparable to the Bonferroni approximation for ambiguous joint chance constraints over Wasserstein balls. 
+
+
+\subsection{Individual Chance Constraints}\label{sec:cvar_individual_cc}
+Consider an instance of problem~\eqref{prob:cc general} with an individual chance constraint corresponding to the safety set $\mathcal{S}(\bm{x}) = \{\bm{\xi} \in \mathbb{R}^K \mid (\bm{A}\bm{\xi} + \bm{a})^\top \bm{x} < \bm{b}^\top\bm{\xi} + b\}$. As in Section~\ref{sec:ref_indiv_cc}, we assume without much loss of generality that $\bm{A}^\top\bm{x} \ne \bm{b}$ for all $\bm{x} \in \mathcal{X}$. By Proposition~\ref{prop:individual cc}, the distributionally robust chance constrained program~\eqref{prob:cc general} is thus equivalent to the deterministic optimization problem 
+\begin{equation}
+\label{prob:individual cc reformulation abstract}
+Z^\star_{\rm ICC}= \min_{(\bm{x},\bm{s}, t)\in \mathcal{C}_{\rm ICC}} \bm c^\top \bm x,
+\end{equation}
+whose feasible set is given by
+\begin{equation*}
+\mathcal{C}_{\rm ICC} = \left\{(\bm{x},\bm{s}, t) \in \mathcal{X} \times \mathbb{R}^N_+ \times \mathbb{R} ~\left|~
+\begin{array}{l}
+\varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \|\bm{b} - \bm{A}^\top\bm{x}\|_* \\
+((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x})^+ \geq t - s_i \quad \forall i \in [N] 
+\end{array}
+\right.\right\}.
+\end{equation*}	
+As $\mathcal{C}_{\rm ICC}$ is non-convex, it is of interest to find tractable conservative (inner) approximations to problem~\eqref{prob:cc general}. It turns out that any convex inner approximation of  $\mathcal{C}_{\rm ICC}$ is dominated, in the sense of set inclusion, by a convex set of the form
+\begin{equation*}
+\mathcal{C}_{\rm ICC}(\bm{\kappa}) = \left\{(\bm{x},\bm{s}, t) \in \mathcal{X} \times \mathbb{R}^N_+ \times \mathbb{R} ~\left|~
+\begin{array}{l}
+\varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \|\bm{b} - \bm{A}^\top\bm{x}\|_* \\
+\kappa_i ((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x}) \geq t - s_i \quad \forall i \in [N] 
+\end{array}
+\right.\right\}
+\end{equation*}	
+parameterized by a vector of slope parameters $\bm \kappa \in [0,1]^N$.
+
+\begin{proposition}\label{prop:dominant convex approximation_1}
+	For any convex set $\mathcal{W} \subseteq \mathcal{C}_{\rm ICC}$, there exists $\bm{\kappa} \in[0,1]^N$ with $\mathcal{W} \subseteq \mathcal{C}_{\rm ICC} (\bm{\kappa}) \subseteq \mathcal{C}_{\rm ICC}$.
+\end{proposition}
+
+
+
+%\subsection{Case of Individual Chance Constraints}\label{sec:cvar_individual_cc}
+%In the deterministic reformulation~\eqref{prob:individual cc reformulation} for the individual chance constraint with the safety set $\mathcal{S}(\bm{x}) = \{\bm{\xi} \in \mathbb{R}^K \mid (\bm{A}\bm{\xi} + \bm{a})^\top \bm{x} < \bm{b}^\top\bm{\xi} + b\}$, the constraints for any fixed decision $\bm{x}$ under the condition $\bm{A}^\top\bm{x} \ne \bm{b} ~\forall \bm{x} \in \mathcal{X}$ can be equivalently rewritten as
+%\begin{equation*}
+%\begin{array}{ll}
+%\varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \|\bm{b} - \bm{A}^\top\bm{x}\|_* \\
+%((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x})^+ \geq t - s_i &~\forall i \in [N] \\
+%\bm{s} \geq \bm{0}
+%\end{array}
+%\end{equation*}
+%with the second non-convex constraint group. Generally speaking, a conservatively convex approximation to problem~\eqref{prob:individual cc reformulation} can be viewed as a convex inner approximation to the non-convex set
+%\begin{equation*}
+%\mathcal{Y} = \left\{(\bm{s}, t, \bm{x}) \in \mathbb{R}^N_+ \times \mathbb{R} \times \mathcal{X} ~\left|~
+%\begin{array}{ll}
+%\varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \|\bm{b} - \bm{A}^\top\bm{x}\|_* \\
+%((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x})^+ \geq t - s_i &~\forall i \in [N] 
+%\end{array}
+%\right.\right\}.
+%\end{equation*}	
+%It turns out to be sufficient to focus on a convex set of the form
+%\begin{equation*}
+%\mathcal{Y}(\bm{\kappa}) = \left\{(\bm{s}, t, \bm{x}) \in \mathbb{R}^N_+ \times \mathbb{R} \times \mathcal{X} ~\left|~
+%\begin{array}{ll}
+%\varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \|\bm{b} - \bm{A}^\top\bm{x}\|_* \\
+%\kappa_i ((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x}) \geq t - s_i &~\forall i \in [N] 
+%\end{array}
+%\right.\right\}
+%\end{equation*}	
+%for some $\bm{\kappa} = (\kappa_i)_{i \in [N]} \in [\bm{0}, \bm{e}]$.
+%
+%\begin{proposition}\label{prop:dominant convex approximation_1}
+%For any convex set $\mathcal{W} \subseteq \mathcal{Y}$, there is some $\bm{\kappa} \in [\bm{0}, \bm{e}]$ such that $\mathcal{W} \subseteq \mathcal{Y} (\bm{\kappa})$.
+%\end{proposition}
+
+
+\noindent \emph{Proof of Proposition~\ref{prop:dominant convex approximation_1}.} $\;$
+It is clear that $\mathcal{C}_{\rm ICC} (\bm{\kappa}) \subseteq \mathcal{C}_{\rm ICC}$ for every $\bm{\kappa} \in[0,1]^N$. Next, we show that for every $i \in [N]$ there exists $\kappa_i \in [0, 1]$ such that the constraint
+$\kappa_i ((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x}) \geq t - s_i$ is valid for $\mathcal{W}$. The resulting set $\mathcal{C}_{\rm ICC}(\bm{\kappa})$ is thus a convex outer approximation of $\mathcal{W}$.
+
+To determine $\kappa_i$, consider the sets
+$\mathcal{W}_i = \{(\bm{x}, s_i, t) \mid (\bm{x}, \bm{s}, t) \in \mathcal{W}\}$
+and $\mathcal{V}_i = \{(\bm{x}, s_i, t) \mid ((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x})^+ < t - s_i\}$.
+By construction, $\mathcal{W}_i$ and $\mathcal{V}_i$ are intersection-free and convex. Thus, they admit a separating hyperplane. The same holds true if we replace $\mathcal{W}_i$ with
+$$
+\overline{\mathcal{W}}_i = \text{conv} \big(\mathcal{W}_i \cup \{(\bm{x}, s_i, t) \mid ((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x}, t - s_i) = (0, 0)\}\big).
+$$
+The separating hyperplane between $\overline{\mathcal{W}}_i$ and $\mathcal{V}_i$ must satisfy $t - s_i = 0$ whenever $(\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x} = 0$. In other words, the separating hyperplane must be of the form $\kappa_i((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x}) = t - s_i$ for some $\kappa_i\in [0,1]$. Thus, the claim follows.
+\hfill \Halmos
+\endproof
+
+Proposition~\ref{prop:dominant convex approximation_1} implies that amongst all convex conservative approximations to problem~\eqref{prob:individual cc reformulation abstract} it is sufficient to focus on those that are induced by a feasible set of the form $\mathcal{C}_{\rm ICC}(\bm \kappa)$ for some $\bm{\kappa} \in[0,1]^N$. Thus, it is sufficient to focus on the family of approximate problems of the form
+\begin{equation}
+\label{prob:linear approximation individual cc_1}
+Z^\star_{\rm ICC}(\bm{\kappa}) =\min_{(\bm{x},\bm{s}, t)\in \mathcal{C}_{\rm ICC}(\bm \kappa)} \bm c^\top \bm x
+\end{equation}
+parameterized by $\bm{\kappa} \in[0,1]^N$. The following proposition asserts that the best approximation within this family is exact.
+
+\begin{proposition}\label{prop:exact dominant convex approximation_1}
+	We have $Z^\star_{\rm ICC} = \min_{\bm\kappa \in [0,1]^N} Z^\star_{\rm ICC}(\bm{\kappa})$.
+\end{proposition}
+
+
+\noindent \emph{Proof of Proposition~\ref{prop:exact dominant convex approximation_1}.} $\;$
+It follows from Proposition~\ref{prop:individual cc} that
+\begin{equation}
+\label{eq:aux1}
+\min_{\bm \kappa\in [0,1]^N} Z^\star_{\rm ICC}(\bm{\kappa})=\left\{ \begin{array}{cll}
+\displaystyle \min_{\bm{s}, t, \bm{x},\bm \kappa} & \bm{c}^\top\bm{x} \\
+{\rm s.t.} & \varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N  \|\bm{b} - \bm{A}^\top\bm{x}\|_*\\
+& \kappa_i((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x}) \geq t - s_i &~\forall i \in [N] \\
+& \bm{s} \geq \bm{0}, ~\bm{x} \in \mathcal{X},~ \bm \kappa\in [0,1]^N.
+\end{array}\right.
+\end{equation}
+For any fixed $(\bm{x}, \bm{s}, t)$, the optimal (that is, least restrictive) choice of $\bm \kappa$ satisfies
+\begin{equation}
+\label{eq:aux2}
+\kappa_i = \left\{
+\begin{array}{ll}
+1 &\text{~if~} (\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b- \bm{a}^\top\bm{x} \geq 0, \\
+0 &\text{~otherwise} 
+\end{array}
+\right.
+\quad \forall i\in [N].
+\end{equation}
+Eliminating $\bm \kappa$ from~\eqref{eq:aux1} by substituting~\eqref{eq:aux2} into~\eqref{eq:aux1} converts the second constraint group to
+\[
+((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i + b - \bm{a}^\top\bm{x})^+ \geq t - s_i \quad \forall i \in [N],
+\]
+which shows that~\eqref{eq:aux1} is equivalent to~\eqref{prob:individual cc reformulation abstract}. Thus, the claim follows.
+\hfill \Halmos
+\endproof
+
+Proposition~\ref{prop:exact dominant convex approximation_1} implies that the family~\eqref{prob:linear approximation individual cc_1} of tractable upper bounding problems contains an instance $\bm \kappa^\star\in \arg\min_{\bm \kappa\in [0,1]^N} Z^\star_{\rm ICC}(\bm{\kappa})$ that recovers an optimal solution of the ambiguous chance constrained program~\eqref{prob:individual cc reformulation abstract}, which is known to be NP-hard \citep[Theorem~12]{xie2018bicriteria}. We may thus conclude that computing $\bm\kappa^\star$ is also NP-hard. The complexity of computing the best upper bound within the family~\eqref{prob:linear approximation individual cc_1} can be reduced by restricting attention to uniform slope parameters of the form $\bm{\kappa} = \kappa\bm{e}$ for some $\kappa \in [0,1]$. Within this subset the choice~$\bm \kappa=\bm e$ is optimal.
+
+\begin{proposition}\label{prop:cvar best_1}
+	We have $\min_{\kappa \in [0,1]} Z^\star_{\rm ICC}(\kappa\bm{e})= Z^\star_{\rm ICC}(\bm{e})$.
+\end{proposition}
+\noindent \emph{Proof of Proposition~\ref{prop:cvar best_1}.} $\;$ We first show that problem~\eqref{prob:linear approximation individual cc_1} is infeasible for $\bm \kappa=\bm 0$, that is, $Z^\star_{\rm ICC}(\bm{0})=\infty$. Indeed, by the definition of $\mathcal{C}_{\rm ICC}(\bm{0})$ we have
+\[
+Z^\star_{\rm ICC}(\bm{0})=\left\{\begin{array}{cll}
+\displaystyle \min_{\bm{s},t,\bm{x}} & \bm{c}^\top\bm{x} \\
+{\rm s.t.} & \varepsilon N t - \bm{e}^\top\bm{s} \geq  \theta N \|\bm{b} - \bm{A}^\top\bm{x}\|_* \\
+&\bm s\ge t\bm e, ~ \bm{s} \geq \bm{0},~\bm{x} \in \mathcal{X}.
+\end{array}\right.
+\]
+Any feasible solution of the above problem satisfies $\varepsilon N t - \bm{e}^\top\bm{s}\le \varepsilon N t - N\max\{t,0\}\le 0$, where the first inequality follows from the constraints $\bm s\ge t\bm e$ and $ \bm{s} \geq \bm{0}$. As $\theta>0$, the constraint $\varepsilon N t - \bm{e}^\top\bm{s} \geq  \theta N \|\bm{b} - \bm{A}^\top\bm{x}\|_*$ is thus satisfied only if $\bm s=\bm 0$, $t=0$ and $\bm{A}^\top\bm{x}=\bm b$. However, the last equality contradicts our standing assumption that  $\bm{A}^\top\bm{x} \ne \bm{b}$ for all $\bm{x} \in \mathcal{X}$, confirming that the above problem is infeasible and~$Z^\star_{\rm ICC}(\bm{0})=\infty$. Thus, $Z^\star_{\rm ICC}(\kappa\bm{e})$ is minimized by some $\kappa \in (0,1]$.
+
+If $\kappa\in (0,1]$, we can use the variable substitution $t\leftarrow \kappa t$ and $\bm{s} \leftarrow \kappa \bm{s}$ to re-express problem~\eqref{prob:linear approximation individual cc_1}~as
+\[
+Z^\star_{\rm ICC}(\kappa\bm{e}) =\left\{\begin{array}{cll}
+\displaystyle \min_{\bm{s},t,\bm{x}} & \bm{c}^\top\bm{x} \\
+{\rm s.t.} & \varepsilon N t - \bm{e}^\top\bm{s} \geq \dfrac{\theta N}{\kappa} \|\bm{b} - \bm{A}^\top\bm{x}\|_* \\
+& (\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i +b- \bm{a}^\top\bm{x} \geq t - s_i &~\forall i \in [N] \\
+& \bm{s} \geq \bm{0}, ~\bm{x} \in \mathcal{X}.
+\end{array}\right.
+\]
+From this formulation it is evident that $\kappa^\star = 1$ is the best (least restrictive) choice of $\kappa \in (0,1]$. 
+\hfill \Halmos
+\endproof
+
+Next, we demonstrate that the approximate problem~\eqref{prob:linear approximation individual cc_1} corresponding to $\bm \kappa=\bm e$ can also be obtained by approximating the worst-case chance constraint in~\eqref{prob:cc general} with a worst-case CVaR constraint. To see this, note first that 
+\begin{eqnarray*}
+	\mathbb{P}[\bmt{\xi} \in \mathcal{S}(\bm{x})] \ge 1-\varepsilon ~& \iff &~ \mathbb{P}[(\bm{A}\bmt{\xi} + \bm{a})^\top \bm{x} \ge \bm{b}^\top\bmt{\xi} + b]\le\varepsilon \\
+	~&\iff &~ \mathbb{P}\text{-VaR}_{\varepsilon}(\bm{a}^\top\bm{x} - b+ (\bm{A}^\top\bm{x}-\bm{b})^\top\bmt{\xi}) \leq 0 \\
+	~&\Longleftarrow &~ \mathbb{P}\text{-CVaR}_{\varepsilon}(\bm{a}^\top\bm{x} - b+ (\bm{A}^\top\bm{x}-\bm{b})^\top\bmt{\xi}) \leq 0
+\end{eqnarray*}
+for any $\mathbb P\in  \mathcal{F}(\theta)$, where the first equivalence follows from the definition of the safety set, the second equivalence holds due to the definition of the VaR, and the last implication exploits the fact that the CVaR provides an upper bound on the VaR. Thus, the worst-case CVaR constrained program
+\begin{equation}
+\label{eq:wc-cvar-program}
+Z^\star_{\rm CVaR}=\left\{ \begin{array}{cl}
+\displaystyle \min_{\bm{x} \in \mathcal{X}} & \bm{c}^\top\bm{x} \\
+{\rm s.t.} & \displaystyle \sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}\text{-CVaR}_{\varepsilon}(\bm{a}^\top\bm{x} - b+ (\bm{A}^\top\bm{x}-\bm{b})^\top\bmt{\xi}) \leq 0
+\end{array}\right.
+\end{equation}
+constitutes a conservative approximation for the worst-case chance constrained program~\eqref{prob:cc general}, that is, $Z^\star_{\rm ICC} \le Z^\star_{\rm CVaR}$. We are now ready to prove that $Z^\star_{\rm CVaR}= Z^\star_{\rm ICC}(\bm e)$.
+
+\begin{proposition}\label{prop:individual cc worst-case CVaR approximation_1}
+	We have $Z^\star_{\rm CVaR}= Z^\star_{\rm ICC}(\bm e)$.
+\end{proposition}
+
+\noindent \emph{Proof of Proposition~\ref{prop:individual cc worst-case CVaR approximation_1}.} $\;$
+Using now standard techniques, the worst-case CVaR in~\eqref{eq:wc-cvar-program} can be re-expressed as the optimal value of a finite conic program,
+$$
+\sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}\text{-CVaR}_{\varepsilon}(\bm{a}^\top\bm{x} - b+ (\bm{A}^\top\bm{x}-\bm{b})^\top\bmt{\xi}) = \left\{\begin{array}{cll}
+\displaystyle{\min_{\bm \alpha, \beta,\tau}} & \displaystyle \tau + \dfrac{1}{\varepsilon} \Big(\theta \beta + \dfrac{1}{N} \sum_{i \in [N]} \alpha_i\Big)  \\
+{\rm s.t.} & \alpha_i  \geq \bm{a}^\top\bm{x} -b + (\bm{A}^\top\bm{x}-\bm{b})^\top\bmh{\xi}_i -\tau &~\forall i \in [N] \\
+& \bm{\alpha} \geq \bm{0}, ~ \beta \geq \|\bm{A}^\top\bm{x} - \bm{b}\|_*, 
+\end{array}\right.
+$$
+see \citet[\S~5.1 and \S~7.1]{Esfahani_Kuhn_2017} for a detailed derivation. Substituting this reformulation into the worst-case CVaR constrained program~\eqref{eq:wc-cvar-program} yields
+\[
+Z^\star_{\rm CVaR}=\left\{ \begin{array}{cl}
+\displaystyle \min_{\bm{x},\bm \alpha, \beta,\tau} & \bm{c}^\top\bm{x} \\
+{\rm s.t.} & \tau + \dfrac{1}{\varepsilon} \Big(\theta \beta + \dfrac{1}{N} \displaystyle\sum_{i \in [N]} \alpha_i\Big) \leq 0\\
+& \alpha_i  \geq \bm{a}^\top\bm{x} -b + (\bm{A}^\top\bm{x}-\bm{b})^\top\bmh{\xi}_i -\tau \quad\forall i \in [N] \\
+& \bm{\alpha} \geq \bm{0}, ~ \beta \geq \|\bm{A}^\top\bm{x} - \bm{b}\|_*,~ \bm{x} \in \mathcal{X}
+\end{array}\right.
+\]
+%which leads problem~\eqref{prob:individual cc worst-case CVaR approximation_1} to
+%$$
+%\begin{array}{cll}
+%\displaystyle \min_{\bm{\alpha},\beta,\tau,\bm{x}} & \bm{c}'\bm{x} \\
+%{\rm s.t.} & -\varepsilon \tau - \dfrac{1}{N} \displaystyle \sum_{i \in [N]} \alpha_i \geq \theta \beta \\
+%& (\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_i - \bm{a}^\top\bm{x} \geq - \tau -\alpha_i &~\forall i \in [N] \\
+%& \beta \geq \|\bm{b} - \bm{A}^\top\bm{x}\|_* \\
+%& \bm{\alpha} \geq \bm{0}, ~\beta \geq 0, ~\bm{x} \in \mathcal{X}.
+%\end{array}
+%$$
+As $\theta > 0$ and $\varepsilon>0$, it is clear that $\beta = \|\bm{A}^\top\bm{x}-\bm{b}\|_*$ at optimality, and this insight allows us to eliminate~$\beta$ from the above optimization problem. Multiplying the first constraint by the positive constant $\varepsilon N$ while renaming $\bm \alpha$ as $\bm s$ and $\tau$ as $-t$ then shows that $Z^\star_{\rm CVaR}= Z^\star_{\rm ICC}(\bm e)$.
+\hfill \Halmos
+\endproof
+
+\begin{remark}
+Using similar arguments as in Proposition~\ref{prop:individual cc worst-case CVaR approximation_1}, one can show that problem~\eqref{prob:linear approximation individual cc_1} with $\bm \kappa=\kappa\bm e$ for any $\kappa\in (0,1]$ is equivalent to a worst-case CVaR constrained program of the form~\eqref{eq:wc-cvar-program}, where the Wasserstein radius $\theta$ is inflated to $\theta/\kappa$. This observation reconfirms that $\kappa=1$ is the least conservative choice amongst all uniform slope parameters in~\eqref{prob:linear approximation individual cc_1}; see Proposition~\ref{prop:cvar best_1}.
+\end{remark}
+
+The intimate links between the worst-case CVaR approximation~\eqref{eq:wc-cvar-program} and the worst-case chance constrained program~\eqref{prob:cc general} can also be studied through the lens of Theorem~\ref{thm：cc equivalent}. To this end, recall that the ambiguous chance constraint~\eqref{prob:worst-case cc} is equivalent to the constraint~\eqref{equivalence:theta positive}, which requires that
+\begin{equation*}
+\dfrac{1}{N}\sum_{i = 1}^{\varepsilon N} \mathbf{dist}(\bmh{\xi}_{\pi_i(\bm{x})}, \bar{\mathcal{S}}(\bm{x})) \ge \theta.
+\end{equation*}
+We define the \emph{signed distance} between a point $\bm{\xi}$ and a closed set $\mathcal{C}$ as $\mathbf{sgn\textbf{-}dist} (\bm{\xi}, \mathcal{C}) = \mathbf{dist} (\bm{\xi}, \mathcal{C})$ if $\bm{\xi} \notin \mathcal{C}$ and $\mathbf{sgn\textbf{-}dist} (\bm{\xi}, \mathcal{C}) = -\mathbf{dist} (\bm{\xi}, \text{cl}(\bar{\mathcal{C}}))$ otherwise. Here $\text{cl}(\bar{\mathcal{C}})$ denotes the closure of the open set $\bar{\mathcal{C}} = \mathbb{R}^K \setminus \mathcal{C}$. We then obtain the following result.
+
+\begin{proposition}\label{prop:CVaR equivalence_1}
+For any fixed decision $\bm{x} \in \mathcal{X}$, we have
+$$
+\sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}\text{\emph{-CVaR}}_{\varepsilon}(\bm{a}^\top\bm{x} - b+ (\bm{A}^\top\bm{x}-\bm{b})^\top\bmt{\xi}) \leq 0
+~\Longleftrightarrow~ 
+\dfrac{1}{N}\sum_{i = 1}^{\varepsilon N} \mathbf{sgn\textbf{-}dist} (\bmh{\xi}_{\pi_i(\bm{x})}, \bar{\mathcal{S}}(\bm{x})) \ge \theta,
+$$
+where $\bm{\pi}(\bm{x})$ permutes the data points $\bmh{\xi}_i$ into ascending order of their signed distances to $\bar{\mathcal{S}}(\bm{x})$.
+\end{proposition}
+
+\noindent \emph{Proof of Proposition~\ref{prop:CVaR equivalence_1}.} $\;$
+It follows from the proof of Proposition~\ref{prop:individual cc worst-case CVaR approximation_1} that the worst-case CVaR constraint $\sup_{\mathbb{P} \in \mathcal{F}(\theta)}\mathbb{P}\text{-CVaR}_{\varepsilon}(\bm{a}^\top\bm{x} - b+ (\bm{A}^\top\bm{x}-\bm{b})^\top\bmt{\xi}) \leq 0$ holds if and only if
+\begin{equation}\label{eq:cvar_ref_1}
+\exists \bm{s} \geq \bm{0}, \, t \in \mathbb{R} \, : \,
+\left\{
+\begin{array}{ll}
+\varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \|\bm{b} - \bm{A}^\top\bm{x}\|_* \\
+(\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_{\pi_i(\bm{x})} + b - \bm{a}^\top\bm{x} \geq t - s_i &~\forall i \in [N].
+\end{array}
+\right.
+\end{equation}
+This constraint system is satisfiable by $t \in \mathbb{R}$ and \emph{some} $\bm{s} \geq \bm{0}$ if and only if it is satisfiable by $t$ and $\bm{s}^\star (t)$ defined by $s_i^\star (t) = (t - ((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_{\pi_i(\bm{x})} + b - \bm{a}^\top\bm{x}))^+$, $i \in [N]$. Since the second constraint in~\eqref{eq:cvar_ref_1} is automatically satisfied by $\bm{s}^\star (t)$, we thus conclude that~\eqref{eq:cvar_ref_1} holds if and only if
+\begin{align}
+& \exists t \in \mathbb{R} \, : \, \varepsilon N t - \sum_{i \in [N]} (t - ((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_{\pi_i(\bm{x})} + b - \bm{a}^\top\bm{x}))^+ \geq \theta N \|\bm{b} - \bm{A}^\top\bm{x}\|_* \nonumber \\
+\Longleftrightarrow \;\; & \max_{t \in \mathbb{R}} \bigg\{\varepsilon N t - \sum_{i \in [N]} (t - ((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_{\pi_i(\bm{x})} + b - \bm{a}^\top\bm{x}))^+ \bigg\} \geq \theta N \|\bm{b} - \bm{A}^\top\bm{x}\|_*. \label{eq:cvar_ref_2}
+\end{align} 
+The objective function of the embedded maximization problem on the left-hand side of~\eqref{eq:cvar_ref_2} is piecewise affine and concave in $t$. Moreover, by construction of $\bm{\pi} (\bm{x})$, we have
+\begin{equation*}
+(\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_{\pi_i(\bm{x})} + b - \bm{a}^\top\bm{x}
+\;\; \leq \;\;
+(\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_{\pi_j(\bm{x})} + b - \bm{a}^\top\bm{x}
+\qquad \forall 1 \leq i \leq j \leq N.
+\end{equation*}
+The first-order optimality condition for non-smooth optimization then implies that the maximum on the left-hand side of~\eqref{eq:cvar_ref_2} is attained by $t^\star = (\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_{\pi_{\lfloor\varepsilon N\rfloor + 1}(\bm{x})} + b - \bm{a}^\top\bm{x}$, which results in the equivalent constraint
+\begin{equation*}
+\sum_{i = 1}^{\varepsilon N} ((\bm{b} - \bm{A}^\top\bm{x})^\top\bmh{\xi}_{\pi_i(\bm{x})} + b - \bm{a}^\top\bm{x}) \ge \theta N \|\bm{b} - \bm{A}^\top\bm{x}\|_*.
+\end{equation*}
+The result now follows if we divide both sides of the constraint by $N \|\bm{b} - \bm{A}^\top\bm{x}\|_*$.
+\hfill \Halmos
+\endproof
+
+Theorem~\ref{thm：cc equivalent} and Proposition~\ref{prop:CVaR equivalence_1} show that both the ambiguous chance constraint~\eqref{prob:worst-case cc} and its worst-case CVaR approximation~\eqref{eq:wc-cvar-program} impose lower bounds on the costs of moving a fraction $\varepsilon$ of the training samples to the unsafe set. Moreover, since $\mathbf{sgn\textbf{-}dist} (\bmh{\xi}_i, \bar{\mathcal{S}} (\bm{x})) \leq \mathbf{dist} (\bmh{\xi}_i, \bar{\mathcal{S}} (\bm{x}))$ by construction, the worst-case CVaR constraint conservatively approximates the ambiguous chance constraint. In fact, we have $\mathbf{sgn\textbf{-}dist} (\bmh{\xi}_i, \bar{\mathcal{S}} (\bm{x})) = \mathbf{dist} (\bmh{\xi}_i, \bar{\mathcal{S}} (\bm{x}))$ for safe scenarios $\bmh{\xi}_i \in \mathcal{S} (\bm{x})$, whereas $\mathbf{sgn\textbf{-}dist} (\bmh{\xi}_j, \bar{\mathcal{S}} (\bm{x})) < 0$ even though $\mathbf{dist} (\bmh{\xi}_j, \bar{\mathcal{S}} (\bm{x})) = 0$ for (strictly) unsafe scenarios $\bmh{\xi}_j \in \text{int}(\bar{\mathcal{S}} (\bm{x}))$. In other words, the worst-case CVaR approximation~\eqref{eq:wc-cvar-program} assigns \emph{fictitious transportation profits} to training samples that are contained in the unsafe set. This leads to the following insight.
+
+\begin{corollary}\label{prop:individual cc CVaR is exact_1}
+The worst-case CVaR approximation is exact, that is, $Z^\star_{\rm CVaR}= Z^\star_{\rm ICC}$, under either of the following conditions.
+\begin{itemize}
+\item[(i)] We have $\bmh{\xi}_i \in \mathcal{S}(\bm{x}^\star)$ for all $i \in [N]$, where $\bm{x}^\star$ is optimal in~\eqref{prob:cc general}.
+\item[(ii)] We have $\varepsilon \leq 1/N$. 
+\end{itemize}
+\end{corollary}
+
+\noindent \emph{Proof of Corollary~\ref{prop:individual cc CVaR is exact_1}.} $\;$
+The first condition immediately follows from Theorem~\ref{thm：cc equivalent} and Proposition~\ref{prop:CVaR equivalence_1} since $\mathbf{sgn\textbf{-}dist} (\bmh{\xi}_i, \bar{\mathcal{S}} (\bm{x})) = \mathbf{dist} (\bmh{\xi}_i, \bar{\mathcal{S}} (\bm{x}))$ whenever $\bmh{\xi}_i \in \mathcal{S} (\bm{x})$. The second condition guarantees that $\bmh{\xi}_i \in \mathcal{S} (\bm{x})$, $i \in [N]$, for
+any solution $\bm{x} \in \mathcal{X}$ that satisfies the ambiguous chance constraint~\eqref{prob:worst-case cc}. This, in turn, implies that the first condition of the corollary is satisfied as well.
+\hfill \Halmos
+\endproof
+
+\subsection{Joint Chance Constraints with Right-Hand Side Uncertainty}
+\label{sec:cvar_joint_cc}
+Consider now an instance of problem~\eqref{prob:cc general} with a joint chance constraint corresponding to the safety set $\mathcal{S}(\bm{x}) = \{\bm{\xi} \in \mathbb{R}^K \mid \bm{a}^\top_m \bm{x} < \bm{b}^\top_m\bm{\xi} + b_m ~\forall m \in [M]\}$. As in Section~\ref{sec:ref_joint_cc}, we assume without loss of generality that $\bm{b}_m \ne \bm{0}$ for all $m \in [M]$. By Proposition~\ref{prop:joint cc}, the distributionally robust chance constrained program~\eqref{prob:cc general} is thus equivalent to the deterministic optimization problem
+\begin{equation}
+\label{prob:joint cc reformulation abstract}
+Z^\star_{\rm JCC}= \min_{(\bm{x},\bm{s}, t)\in \mathcal{C}_{\rm JCC}} \bm c^\top \bm x,
+\end{equation}
+whose feasible set is given by
+\begin{equation*}
+\mathcal{C}_{\rm JCC} = \left\{(\bm{x},\bm{s}, t) \in \mathcal{X} \times \mathbb{R}^N_+ \times \mathbb{R} ~\left|~
+\begin{array}{ll}
+\varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \\
+\bigg(\displaystyle \min_{m \in [M]}
+\bigg\{\dfrac{\bm{b}^\top_m\bmh{\xi}_i + b_m - \bm{a}^\top_m\bm{x}}{\|\bm{b}_m\|_*} \bigg\}\bigg)^+ \geq t - s_i &~\forall i \in [N] \\
+\end{array}
+\right.\right\}.
+\end{equation*}	
+In analogy to Section~\ref{sec:cvar_individual_cc}, one can again show that any convex inner approximation of $\mathcal{C}_{\rm JCC}$ is weakly dominated by a polyhedron of the form
+\begin{equation*}
+\mathcal{C}_{\rm JCC}(\bm{\kappa}) = \left\{(\bm{x},\bm{s}, t) \in \mathcal{X} \times \mathbb{R}^N_+ \times \mathbb{R} ~\left|~
+\begin{array}{ll}
+\varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \\
+\kappa_i \left(\displaystyle
+\dfrac{\bm{b}^\top_m\bmh{\xi}_i + b_m - \bm{a}^\top_m\bm{x}}{\|\bm{b}_m\|_*} \right) \geq t - s_i &~\forall m \in [M], ~i \in [N]  \\
+\end{array}
+\right.\right\}
+\end{equation*}	
+for some vector of slope parameters $\bm{\kappa} \in [0,1]^N$. The following assertion akin to Proposition~\ref{prop:dominant convex approximation_1} formalizes this statement. Its proof is omitted for the sake of brevity.
+
+\begin{proposition}\label{prop:dominant convex approximation_JCC}
+For any convex set $\mathcal{W} \subseteq \mathcal{C}_{\rm JCC}$, there exists $\bm{\kappa} \in[0,1]^N$ with $\mathcal{W} \subseteq \mathcal{C}_{\rm JCC} (\bm{\kappa}) \subseteq \mathcal{C}_{\rm JCC}$.
+\end{proposition}
+%\noindent \emph{Proof of Proposition~\ref{prop:dominant convex approximation_JCC}.} $\;$ 
+%The proof is similar to that of Proposition~\ref{prop:dominant convex approximation_1} and thus omitted. 
+%\hfill \Halmos
+%\endproof
+
+
+Proposition~\ref{prop:dominant convex approximation_JCC} implies that amongst all convex conservative approximations to problem~\eqref{prob:joint cc reformulation abstract} it is sufficient to consider the family of linear programs 
+\begin{equation}
+\label{prob:linear approximation joint cc_1}
+Z^\star_{\rm JCC}(\bm{\kappa}) =\min_{(\bm{x},\bm{s}, t)\in \mathcal{C}_{\rm JCC}(\bm \kappa)} \bm c^\top \bm x
+\end{equation}
+parameterized by $\bm{\kappa} \in [0,1]^N$. One can show that the best approximation within this family is exact. The proof of this result is similar to that of Proposition~\ref{prop:exact dominant convex approximation_1} and thus omitted.
+\begin{proposition}\label{prop:exact dominant convex approximation_2}
+We have $Z^\star_{\rm JCC} = \min_{\bm\kappa \in [0,1]^N} Z^\star_{\rm JCC}(\bm{\kappa})$.
+\end{proposition}
+%\noindent \emph{Proof of Proposition~\ref{prop:exact dominant convex approximation_2}.} $\;$ 
+%The proof is similar to that of Proposition~\ref{prop:exact dominant convex approximation_1} and thus omitted. 
+%\hfill \Halmos
+%\endproof
+
+Unfortunately, finding the best slope parameters $\bm \kappa^\star\in [0,1]^N$ is again NP-hard, but optimizing over the subclass of uniform slope parameters $\bm{\kappa} = \kappa \bm{e}$ for  $\kappa \in [0,1]$ is easy, and $\bm{\kappa} = \bm{e}$ is optimal. This result is reminiscent of Proposition~\ref{prop:cvar best_1}, and thus its proof is omitted for the sake of brevity.
+
+\begin{proposition}\label{prop:cvar best_2}
+We have $\min_{\kappa \in [0,1]} Z^\star_{\rm JCC}(\kappa\bm{e})= Z^\star_{\rm JCC}(\bm{e})$.
+\end{proposition}
+%\noindent \emph{Proof of Proposition~\ref{prop:cvar best_2}.} $\;$ 
+%
+%
+%We first show that problem~\eqref{prob:linear approximation individual cc_1} is infeasible for $\bm \kappa=\bm 0$, that is, $Z^\star_{\rm JCC}(\bm{0})=\infty$. Indeed, by the definition of $\mathcal{C}_{\rm JCC}(\bm{0})$ we have
+%\[
+%Z^\star_{\rm JCC}(\bm{0})=\left\{\begin{array}{cll}
+%\displaystyle \min_{\bm{s},t,\bm{x}} & \bm{c}^\top\bm{x} \\
+%{\rm s.t.} & \varepsilon N t - \bm{e}^\top\bm{s} \geq  \theta N \\
+%&\bm s\ge t\bm e, ~ \bm{s} \geq \bm{0},~\bm{x} \in \mathcal{X}.
+%\end{array}\right.
+%\]
+%Any feasible solution of the above problem satisfies $\varepsilon N t - \bm{e}^\top\bm{s}\le \varepsilon N t - N\max\{t,0\}\le 0$, where the first inequality follows from the constraints $\bm s\ge t\bm e$ and $ \bm{s} \geq \bm{0}$. However the first constraint of the above problem fails to hold as $\theta>0$. This confirms that $Z^\star_{\rm JCC} = \infty$ and $Z^\star_{\rm ICC}(\kappa\bm{e})$ is minimized by some $\kappa \in (0,1]$. The proof that $Z^\star_{\rm ICC}(\kappa\bm{e})$ is indeed minimized by $\kappa^\star = 1$ then follows from a similar treatment as in the proof of Proposition~\ref{prop:cvar best_1}. 
+%\hfill \Halmos
+%\endproof
+
+We now demonstrate that $\mathcal{C}_{\rm JCC}(\bm{e})$ can again be interpreted as the feasible set of a worst-case CVaR constraint. To see this, denote by $\Delta_{++}^M =\{\bm w\in(0,1)^M \mid \bm e^\top\bm w=1 \}$ the relative interior of the probability simplex and observe that for any vector of scaling factors $\bm w\in\Delta_{++}^M$ we have
+\begin{eqnarray*}
+\mathbb{P}[\bmt{\xi} \in \mathcal{S}(\bm{x})] \ge 1-\varepsilon ~& \iff &~ \mathbb{P}\Big[\max_{m \in [M]}\{w_m(\bm{a}^\top_m\bm{x} - \bm{b}^\top_m\bm{\xi} - b_m)\} \geq 0\Big]\le\varepsilon \\
+~&\iff &~ \mathbb{P}\text{-VaR}_{\varepsilon}\Big(\max_{m \in [M]}\{w_m(\bm{a}^\top_m\bm{x} - \bm{b}^\top_m\bm{\xi} - b_m)\}\Big) \leq 0 \\
+~&\Longleftarrow &~ \mathbb{P}\text{-CVaR}_{\varepsilon}\Big(\max_{m \in [M]}\{w_m(\bm{a}^\top_m\bm{x} - \bm{b}^\top_m\bm{\xi} - b_m)\}\Big) \leq 0,
+\end{eqnarray*}
+where the first equivalence follows from the definition of the safety set $\mathcal S(\bm x)$. We emphasize that the exact reformulations of the joint chance constraint in the first two lines of the above expression are unaffected by the particular choice of $\bm w$ (that is, for any $\bm w,\bm w'\in \Delta_{++}^M$, a decision $\bm x$ is feasible for $\bm w$ if and only if it is feasible for $\bm w'$), while the CVaR approximation changes with $\bm w$. Thus, the quality of the CVaR approximation can be tuned by varying $\bm w\in\Delta^M_{++}$. Note also that the overall normalization $\bm e^\top \bm w=1$ is non-restrictive because the CVaR is positive homogeneous.
+
+We now introduce a family of worst-case CVaR constrained programs
+\begin{equation}
+\label{eq:wc-cvar-program_joint}
+Z^\star_{\rm CVaR}(\bm{w}) = \left\{ 
+\begin{array}{cl}
+\displaystyle \min_{\bm{x} \in \mathcal{X}} & \bm{c}^\top\bm{x} \\
+{\rm s.t.} & \displaystyle \sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}\text{-CVaR}_{\varepsilon}\Big(\max_{m \in [M]}\{w_m(\bm{a}^\top_m\bm{x} - \bm{b}^\top_m\bm{\xi} - b_m)\}\Big) \leq 0
+\end{array}\right.
+\end{equation}
+parameterized by $\bm w\in\Delta_{++}^M$, all of which conservatively approximate the ambiguous chance constrained program~\eqref{prob:cc general}, that is, $Z^\star_{\rm JCC} \le Z^\star_{\rm CVaR}(\bm{w})$. In fact, the family \eqref{eq:wc-cvar-program_joint} contains an instance that is equivalent to the best bounding problem of the form \eqref{prob:linear approximation joint cc_1} with uniform slope parameters.
+
+%We next prove that if we carefully choose the vector $\bm{w}^\star$ that satisfies $w^\star_m\|\bm{b}_m\|_* = w^\star_\ell\|\bm{b}_\ell\|_*~\forall m, \ell \in [M]$, we have  $Z^\star_{\rm CVaR}(\bm{w}^\star) = Z^\star_{\rm JCC}(\bm e)$.
+
+\begin{proposition}\label{prop:joint cc worst-case CVaR approximation_1}
+We have $Z^\star_{\rm CVaR}(\bm{w}^\star) = Z^\star_{\rm JCC}(\bm e)$ for $\bm{w}^\star\in\Delta_{++}^M$ defined through
+\[	
+w^\star_m = \frac{\|\bm b_m\|_*^{-1}}{\sum_{\ell\in [M]} \|\bm b_{\ell}\|_*^{-1}} \quad \forall m \in [M].
+\]
+\end{proposition}
+
+\noindent \emph{Proof of Proposition~\ref{prop:joint cc worst-case CVaR approximation_1}.} $\;$
+Using techniques introduced by \cite{Esfahani_Kuhn_2017}, the worst-case CVaR in~\eqref{eq:wc-cvar-program_joint} can be re-expressed as
+\begin{align*}
+& \sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}\text{-CVaR}_{\varepsilon}\Big(\max_{m \in [M]}\{w_m(\bm{a}^\top_m\bm{x} - \bm{b}^\top_m\bm{\xi} - b_m)\}\Big) \\
+& \qquad = \left\{\begin{array}{cll}
+\displaystyle{\min_{\bm \alpha, \beta,\tau}} & \displaystyle \tau + \dfrac{1}{\varepsilon} \Big(\theta \beta + \dfrac{1}{N} \sum_{i \in [N]} \alpha_i\Big)  \\
+{\rm s.t.} & \alpha_i  \geq w_m(\bm{a}^\top_m\bm{x} - \bm{b}^\top_m\bmh{\xi}_i -b_m) -\tau &~\forall m \in [M], ~i \in [N] \\
+& \beta \geq w_m\|\bm{b}_m\|_* &~\forall m \in [M] \\
+& \bm{\alpha} \geq \bm{0}.
+\end{array}\right.
+\end{align*}
+Substituting this reformulation into~\eqref{eq:wc-cvar-program_joint} yields
+\begin{equation}
+\label{eq:cvar-aux0}
+Z^\star_{\rm CVaR}(\bm{w}) =\left\{ 
+\begin{array}{cll}
+\displaystyle \min_{\bm{x},\bm \alpha, \beta,\tau} & \bm{c}^\top\bm{x} \\
+{\rm s.t.} & \tau + \dfrac{1}{\varepsilon} \Big(\theta \beta + \dfrac{1}{N} \displaystyle\sum_{i \in [N]} \alpha_i\Big) \leq 0\\
+& \alpha_i \geq w_m(\bm{a}^\top_m\bm{x} - \bm{b}^\top_m\bmh{\xi}_i -b_m) -\tau &~\forall m \in [M], ~i \in [N]\\
+& \beta \geq w_m\|\bm{b}_m\|_* &~\forall m \in [M] \\
+& \bm{\alpha} \geq \bm{0}, ~\bm{x} \in \mathcal{X}.
+\end{array}\right.
+\end{equation}
+As $\theta > 0$ and $\varepsilon>0$, it is clear that $\beta = \max_{m \in [M]} \{w_m\|\bm{b}_m\|_*\}$ at optimality, and this insight allows us to eliminate~$\beta$ from the above optimization problem. Multiplying the first constraint by the positive constant $\varepsilon N/\beta$ and the second constraint group by the positive constant $1/\beta$ while applying the variable substitutions $\bm{s} \leftarrow \bm{\alpha}/\beta$ and $-t \leftarrow \tau/\beta$, we obtain
+\begin{equation}
+\label{eq:cvar-aux}
+Z^\star_{\rm CVaR}(\bm{w}) =\left\{ 
+\begin{array}{cll}
+\displaystyle \min_{\bm s, t, \bm{x}} & \bm{c}^\top\bm{x} \\
+{\rm s.t.} & \varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \\
+& \dfrac{w_m\|\bm{b}_m\|_*}{\max\limits_{m \in [M]} \{w_m\|\bm{b}_m\|_*\}}\dfrac{(\bm{b}^\top_m\bmh{\xi}_i + b_m - \bm{a}^\top_m\bm{x})}{\|\bm{b}_m\|_*} \geq t - s_i &~\forall m \in [M], ~i \in [N] \\
+& \bm{s} \geq \bm{0}, ~\bm{x} \in \mathcal{X}.
+\end{array}\right.
+\end{equation}
+Replacing $\bm{w}$ with $\bm{w}^\star$, the second constraint group in problem~\eqref{eq:cvar-aux} simplifies to
+$$
+\min_{m \in [M]} \Bigg\{\dfrac{(\bm{b}^\top_m\bmh{\xi}_i + b_m - \bm{a}^\top_m\bm{x})}{\|\bm{b}_m\|_*}\Bigg\} \geq t - s_i ~\forall i \in [N],
+$$
+which reveals that the feasible set of problem~\eqref{eq:cvar-aux} coincides with $C_{\rm JCC}(\bm e)$. This observation implies the postulated assertion that $Z^\star_{\rm CVaR}(\bm{w}^\star) = Z^\star_{\rm JCC}(\bm e)$.
+\hfill \Halmos
+\endproof
+
+As the quality of the CVaR approximation in~\eqref{eq:wc-cvar-program_joint} depends on the choice of $\bm w$, it would be desirable to identify the best (least conservative)  approximation by solving $\min_{\bm w\in \Delta_{++}^M}Z^\star_{\rm CVaR}(\bm{w})$. This could be achieved, for instance, by treating $\bm w\in \Delta_{++}^M$ as an additional decision variable in~\eqref{eq:cvar-aux0}. Unfortunately, the resulting optimization problem involves bilinear terms in $\bm x$ and $\bm w$ and is thus non-convex. Finding the best CVaR approximation therefore appears to be computationally challenging. Even if the optimal scaling parameters were known, we will see in Section~\ref{sec:bonferroni} that the corresponding instance of problem~\eqref{eq:wc-cvar-program_joint} would generically provide a {\em strict} upper bound on $Z^\star_{\rm JCC}$.
+
+The CVaR approximation~\eqref{eq:wc-cvar-program_joint} can again be interpreted as imposing a lower bound on the costs of moving training samples to the unsafe set. To see this, we define the \emph{minimum signed distance} between a point $\bm{\xi}$ and a family of closed sets $\mathcal{C}_m$, $m \in [M]$, as $\mathbf{min\textbf{-}dist} (\bm{\xi}, \{ \mathcal{C}_m \}_{m \in [M]}) = \min_{m \in [M]} \, \mathbf{sgn\textbf{-}dist} (\bm{\xi}, \mathcal{C}_m)$. We then obtain the following result, which is reminiscent of Theorem~\ref{thm：cc equivalent} and Proposition~\ref{prop:CVaR equivalence_1}.
+
+\begin{proposition}\label{prop:min-signed-distances}
+If $\bm w$ is set to $\bm w^\star$ as defined in Proposition~\ref{prop:joint cc worst-case CVaR approximation_1}, then we have
+$$
+\sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}\text{\emph{-CVaR}}_{\varepsilon}\Big(\max_{m \in [M]}\{w_m^\star (\bm{a}^\top_m\bm{x} - \bm{b}^\top_m\bm{\xi} - b_m)\}\Big) \leq 0
+~\Longleftrightarrow~ 
+\dfrac{1}{N}\sum_{i = 1}^{\varepsilon N} \mathbf{min\textbf{-}dist} (\bmh{\xi}_{\pi_i(\bm{x})}, \{ \mathcal{H}_m(\bm{x}) \}_{m \in [M]} ) \ge \theta,
+$$
+where $\bm{\pi}(\bm{x})$ orders the data points $\bmh{\xi}_i$ by their minimum signed distances to $\mathcal{H}_m(\bm{x})$, $m \in [M]$.
+\end{proposition}
+
+The proof of Proposition~\ref{prop:min-signed-distances} closely resembles that of Proposition~\ref{prop:CVaR equivalence_1} and is therefore omitted.
+
+\begin{corollary}\label{prop:joint cc CVaR is exact_1}
+If $\bm w$ is set to $\bm w^\star$ as defined in Proposition~\ref{prop:joint cc worst-case CVaR approximation_1}, then the worst-case CVaR approximation is exact, that is, $Z^\star_{\rm CVaR}(\bm{w}^\star) = Z^\star_{\rm JCC}$, under either of the following conditions. 
+\begin{itemize}
+\item[(i)] We have $\bmh{\xi}_i \in \mathcal{S}(\bm{x}^\star)$ for all $i \in [N]$, where $\bm{x}^\star$ is optimal in~\eqref{prob:cc general}.
+\item[(ii)] We have $\varepsilon \leq 1/N$. 
+\end{itemize}
+\end{corollary}
+
+The proof is similar to that of Corollary~\ref{prop:individual cc CVaR is exact_1} and is thus omitted. 
+
+%Finally, We end this subsection by presenting an example to support that our advocated choice of $\bm{w}^\star$ satisfying $w^\star_m\|\bm{b}_m\|_* = w^\star_\ell\|\bm{b}_\ell\|_* ~\forall m, \ell \in [M]$ can significantly improve over the plain choice that does not scale the safety conditions, {\em i.e.}, $\bm{w} = \bm{e}$.
+
+%\begin{example}
+%Consider a data-driven example where the empirical distribution $\hat{\mathbb{P}}$ is the uniform distribution on the dataset $\{\hat{\xi}_i\}_{i \in [N]}$ such that $\hat{\xi}_1 = \cdots = \hat{\xi}_N = 0 $.
+%The safety set $\mathcal{S}(\bm{x}) = \{\xi \mid \xi < x_1, k \xi < x_2\}$ with some $k \geq 1$ involves two safety conditions and we are interested in solving
+%$$
+%\min\left\{x_1 ~\left|~ \bm{x} \geq \upsilon \bm{e}, \sup_{\mathbb{P} \in \mathcal{F}(\theta)}\mathbb{P}[\tilde{\xi} \notin \mathcal{S}(x)] \leq \varepsilon \right.\right\}.
+%$$
+%Here $\upsilon$ is a suitable positive number that is sufficiently small. Observe that for all $\bm{x} \geq \upsilon \bm{e}$, the data points $\hat{\xi}_i, i \in [N]$ all reside in the safety set $\mathcal{S}(\bm{x})$, hence by Proposition~\ref{prop:joint cc CVaR is exact_1}, the worst-case CVaR approximation is exact with our advocated choice $\bm{w}^\star = (w^\star_1,w^\star_2)$ such that $w^\star_1 = k w^\star_2$. Following from inequality~\eqref{constraint:joint cc single_1}, the worst-case CVaR approximation requires a feasible decision $\bm{x}$ to satisfy 
+%$$
+%(\varepsilon N)\cdot \min \bigg\{\dfrac{w_1 x_1}{\max\{w_1, k w_2\}}, \dfrac{k w_2 x_2}{\max\{w_1, k w_2\}} \bigg\} \geq \theta N. 
+%$$
+%With the advocated $\bm{w}^\star = (w^\star_1,w^\star_2)$ such that $w^\star_1 = k w^\star_2$, the worst-case CVaR approximation is exact and attains the optimal value $\theta/\varepsilon$; while the plain choice $\bm{w} = \bm{e}$ attains an objective value $k\theta/\varepsilon$, which is $k~(\geq 1)$  times as much as that of the exact optimal value.
+%\end{example}
+
+\subsection{Bonferroni Approximation}
+\label{sec:bonferroni}
+Consider again the joint chance constrained program with right-hand side uncertainty studied in Sections~\ref{sec:ref_joint_cc} and~\ref{sec:cvar_joint_cc}, and note that the Bonferroni inequality (or union bound) implies that
+$$
+\mathbb{P}[\bmt{\xi} \notin \mathcal{S}(\bm{x})] = \mathbb{P}[\bm{a}^\top_1 \bm{x} \ge \bm{b}^\top_1 \bmt{\xi} + b_1 \quad \text{or}\quad \cdots \quad \text{or} \quad \bm{a}^\top_M \bm{x} \ge \bm{b}^\top_M \bmt{\xi} + b_M] \leq \sum_{m \in [M]}\mathbb{P}[\bm{a}^\top_m \bm{x} \ge \bm{b}^\top_m \bmt{\xi} + b_m].
+$$
+Taking the supremum over all distributions in the Wasserstein ball then yields the estimate
+\begin{equation}
+\label{eq:bonferroni1}
+\sup_{\mathbb P\in\mathcal F(\theta)} \mathbb{P}[\bmt{\xi} \notin \mathcal{S}(\bm{x})] \leq \sup_{\mathbb P\in\mathcal F(\theta)} \sum_{m \in [M]}\mathbb{P}[\bm{a}^\top_m \bm{x} \ge \bm{b}^\top_m \bmt{\xi} + b_m] \leq \sum_{m \in [M]} \sup_{\mathbb P\in\mathcal F(\theta)} \mathbb{P}[\bm{a}^\top_m \bm{x} \ge \bm{b}^\top_m\bmt{\xi} + b_m].
+\end{equation}
+For any collection of risk thresholds $\varepsilon_m \geq 0$, $m \in [M]$, such that $\sum_{m \in [M]} \varepsilon_m = \varepsilon$, the family of {\em individual} chance constraints
+\begin{equation}
+\label{eq:bonferroni2}
+\sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}[\bm{a}^\top_m \bm{x} \ge \bm{b}^\top_m \bmt{\xi} + b_m] \leq \varepsilon_m \quad\forall m \in [M]
+\end{equation}
+thus provides a conservative approximation for the original {\em joint} chance constraint~\eqref{prob:worst-case cc} because
+$$
+\sup_{\mathbb P\in\mathcal F(\theta)} \mathbb{P}[\bmt{\xi} \notin \mathcal{S}(\bm{x})] \leq \sum_{m \in [M]} \sup_{\mathbb P\in\mathcal F(\theta)} \mathbb{P}[\bm{a}^\top_m \bm{x} \ge \bm{b}^\top_m \bmt{\xi} + b_m]\leq \sum_{m \in [M]} \varepsilon_m = \varepsilon,
+$$
+where the two inequalities follow from~\eqref{eq:bonferroni1} and~\eqref{eq:bonferroni2}, respectively. We thus refer to~\eqref{eq:bonferroni2} as the {\em Bonferroni approximation} of the original chance constraint~\eqref{prob:worst-case cc}. The Bonferroni approximation is attractive because the individual chance constraints in~\eqref{eq:bonferroni2} are equivalent to simple linear inequalities. To see this, note that each individual chance constraint in~\eqref{eq:bonferroni2} can be rewritten as
+\begin{eqnarray*}
+	\sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}[\bm{a}^\top_m \bm{x} \ge \bm{b}^\top_m \bmt{\xi} + b_m] \leq \varepsilon_m 
+	~&\iff &~ \sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}\text{-VaR}_{\varepsilon_m}(\bm{a}^\top_m\bm{x} - b_m - \bm{b}^\top_m\bm{\xi}) \leq 0 \\
+	~&\iff &~ \sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}\text{-VaR}_{\varepsilon_m}(- \bm{b}^\top_m\bm{\xi}) + \bm{a}^\top_m\bm{x} - b_m  \leq 0 \\
+	~&\iff &~ \sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}\text{-VaR}_{\varepsilon_m}(- \bm{b}^\top_m\bm{\xi}) \leq b_m - \bm{a}^\top_m\bm{x},
+\end{eqnarray*}
+where the second equivalence holds because the value-at-risk is translation invariant. The $m^{\rm th}$~individual chance constraint in~\eqref{eq:bonferroni2} thus simplifies to the linear inequality $\bm{a}^\top_m\bm{x} \leq b_m - \eta_m$, where the constant $\eta_m= \sup_{\mathbb{P} \in \mathcal{F}(\theta)} \mathbb{P}\text{-VaR}_{\varepsilon_m}(- \bm{b}^\top_m\bm{\xi})$
+is independent of $\bm{x}$ and can thus be computed offline. Specifically, by using Corollary~5.3 of \citet{Esfahani_Kuhn_2017}, we can express~$\eta_m$ as the optimal value of a deterministic optimization problem, that is,
+$$
+\eta_m=\left\{ \begin{array}{cll}
+\displaystyle \min_{\bm{\alpha}, \beta, \bm{w}, \eta} & \eta \\
+{\rm s.t.} & \theta\beta + \dfrac{1}{N} \displaystyle \sum_{i \in [N]} \alpha_i  \leq \varepsilon_m \\
+& \alpha_i \geq 1 - w_i(\eta - \bm{b}^\top\bmh{\xi}_i)  &~\forall i \in [N] \\
+& \beta \ge w_i \|\bm{b}\|_* &~\forall i \in [N] \\
+& \bm \alpha\ge \bm 0,~\bm{w} \geq \bm{0}. 
+\end{array}\right.
+$$
+The product of $\eta$ and $w_i$ in the second constraint group renders this problem non-convex. As the problem reduces to a linear program for any fixed value of the scalar decision variable $\eta$, however, $\eta_m$ can be computed efficiently to any accuracy by a line search along $\eta$. In summary, under the Bonferroni approximation the chance constrained program~\eqref{prob:cc general} thus reduces to a highly tractable linear program. However, the quality of the approximation relies on the choice of the individual risk thresholds $\{\varepsilon_m\}_{m \in [M]}$. It is often recommended to set $\varepsilon_m = \varepsilon/M$ for all $m \in [M]$, but \cite{Chen_Sim_Sun_2007} have shown that this choice can be conservative when the safety conditions are positively correlated. Optimizing over all admissible choices of $\{\varepsilon_m\}_{m \in [M]}$ is impractical because $\eta_m$ generically displays a non-convex dependence on~$\varepsilon_m$. Moreover, we will see that the Bonferroni approximation can be very conservative even if the risk thresholds $\{\varepsilon_m\}_{m \in [M]}$ are chosen optimally.
+
+In the remainder of this section we compare the Bonferroni approximation with the worst-case CVaR approximation in the context of joint chance constrained programs with right-hand side uncertainty. While it is known that the worst-case CVaR approximation dominates the Bonferroni approximation for Chebyshev ambiguity sets that contain all distributions with given first- and second-order moments (see \citealt{Chen_Sim_Sun_Teo_2010} and \citealt{zymler2013distributionally}), we will show that the two approximations are generally incomparable for Wasserstein ambiguity sets. To this end, we provide two examples where either of the two approximations is strictly less conservative then the other~one.
+%
+%We next illustrate the incomparability between the worst-case CVaR approximation and the Bonferroni approximation via two examples.
+
+\begin{example}
+	Consider the following instance of the distributionally robust problem~\eqref{prob:cc general}:
+	\begin{equation}\label{data_driven_1}
+	\begin{array}{cll}
+	\displaystyle \min_{\bm{x}} & x_1 \\
+	{\rm s.t.} & \displaystyle \mathbb{P} [x_1 > \tilde{\xi}_1, ~x_2 > \tilde{\xi}_2] \geq 1-\varepsilon &~\forall \mathbb{P} \in \mathcal{F}(\theta) \\
+	& \underline{x}_1 \leq x_1 \leq \overline{x}_1, ~x_2 \geq 0.
+	\end{array}
+	\end{equation}
+	Here, we assume that $0 < \underline{x}_1 \leq \overline{x}_1 < 1$ and that the true data-generating distribution $\mathbb{P}_0$ is a two-point distribution which satisfies $\mathbb{P}_0 [(\tilde{\xi}_1, \tilde{\xi}_2) = (1,0)] = p$ and $\mathbb{P}_0 (\tilde{\xi}_1, \tilde{\xi}_2) = (0,0)] = 1-p$ for $p \in (0, 1)$.
+\end{example}
+
+\begin{proposition}\label{prop:bonferroni better than CVaR}
+	Let $p \in (\overline{x}_1 \varepsilon, \varepsilon)$. As $N \to \infty$, with probability going to $1$, we have for any vanishing sequence of Wasserstein radii $\theta(N)$ that
+	\begin{enumerate}
+		\item[(i)] the Bonferroni approximation to problem~\eqref{data_driven_1} that replaces the joint chance constraint with
+		\begin{equation*}
+			\mathbb{P} [x_1 > \tilde{\xi}_1] \geq 1-\varepsilon_1 ~\forall \mathbb{P} \in \mathcal{F}(\theta), \quad
+			\mathbb{P} [x_2 > \tilde{\xi}_2] \geq 1-\varepsilon_2 ~\forall \mathbb{P} \in \mathcal{F}(\theta)
+		\end{equation*}
+		becomes exact if the risk thresholds $(\varepsilon_1, \varepsilon_2)$ are sufficiently close to $(\varepsilon, 0)$;
+		\item[(ii)] the worst-case CVaR approximation to~\eqref{data_driven_1} that replaces the joint chance constraint with
+		\begin{equation*}
+			\sup_{\mathbb{P} \in \mathcal{F}(\theta)}\mathbb{P}\text{\emph{-CVaR}}_{\varepsilon}\big(\max\big\{w_1(\tilde{\xi}_1 - x_1), w_2(\tilde{\xi}_2 - x_2)\big\}\big) \leq 0
+		\end{equation*}
+		becomes infeasible for any choice of scaling factors $(w_1, w_2)$.
+	\end{enumerate}
+\end{proposition}
+
+\noindent \emph{Proof of Proposition~\ref{prop:bonferroni better than CVaR}.} $\;$ 
+We proceed in three steps. We first derive the optimal value of the classical chance constrained program associated with~\eqref{data_driven_1} under the true data-generating distribution $\mathbb{P}_0$ (Step~1). This value serves as a lower bound on the optimal value of problem~\eqref{data_driven_1}. We then show that with probability going to $1$ as $N \to \infty$, the Bonferroni approximation achieves this bound~(Step~2), whereas the worst-case CVaR approximation becomes infeasible~(Step~3).
+
+{\em Step~1.} Since $p < \varepsilon$, the feasible region of the classical chance constrained program
+\begin{equation*}
+	\begin{array}{cl}
+		\displaystyle \min_{\bm{x}} & x_1 \\
+		{\rm s.t.} & \displaystyle \mathbb{P}_0 [x_1 > \tilde{\xi}_1, ~x_2 > \tilde{\xi}_2] \geq 1-\varepsilon \\
+		& \underline{x}_1 \leq x_1 \leq \overline{x}_1, ~x_2 \geq 0
+	\end{array}
+\end{equation*}
+under the true data-generating distribution $\mathbb{P}_0$ is $\{ (x_1, x_2) \in \mathbb{R}^2 \mid x_1 \in [\underline{x}_1, \overline{x}_1], ~x_2 > 0 \}$. Hence, the optimal value of this problem is $\underline{x}_1>0$, which is attained by any $(x_1, x_2) \in \{ \underline{x}_1 \} \times (\mathbb{R}_+ \setminus \{ 0 \})$.
+
+{\em Step~2.} 
+Fix any $(x_1,x_2) \in [\underline{x}_1, \overline{x}_1]\times (\mathbb R_+\backslash\{0\})$, and denote by $\mathcal{S}_1(\bm{x}) = \{\bm{\xi} \mid x_1 > \xi_1 \}$ and $\mathcal{S}_2(\bm{x}) = \{\bm{\xi} \mid x_2 > \xi_2 \}$ the two safety sets of the Bonferroni approximation. If $\bmh{\xi}_i = (1, 0)^\top$, then $\bmh{\xi}_i \in \bar{\mathcal{S}}_1(\bm{x}) \cap \mathcal{S}_2(\bm{x})$ with $\mathbf{dist}(\bmh{\xi}_i, \bar{\mathcal{S}}_1(\bm{x})) = 0$ and $\mathbf{dist}(\bmh{\xi}_i, \bar{\mathcal{S}}_2(\bm{x})) = x_2$. Likewise, if $\bmh{\xi}_i = (0, 0)^\top$, then $\bmh{\xi}_i \in \mathcal{S}_1(\bm{x}) \cap \mathcal{S}_2(\bm{x})$ with $\mathbf{dist}(\bmh{\xi}_i, \bar{\mathcal{S}}_1(\bm{x})) = x_1$ and $\mathbf{dist}(\bmh{\xi}_i, \bar{\mathcal{S}}_2(\bm{x})) = x_2$. Under the appropriate permutations $\bm{\pi}^1 (\bm{x})$ and $\bm{\pi}^2 (\bm{x})$, Theorem~\ref{thm：cc equivalent} then implies that $\bm{x}$ satisfies both chance constraints of the Bonferroni approximation if and only if
+\begin{equation}\label{eq:bonferroni_times_two}
+\mspace{-20mu}
+\dfrac{1}{N} \sum_{i = 1}^{\varepsilon_1 N}\mathbf{dist}(\bmh{\xi}_{\pi^1_i(\bm{x})}, \bar{\mathcal{S}}_1(\bm{x})) = \dfrac{1}{N}(\varepsilon_1 N - I)^+ x_1 \geq \theta(N)
+\quad \text{and} \quad
+\dfrac{1}{N} \sum_{i = 1}^{\varepsilon_2 N}\mathbf{dist}(\bmh{\xi}_{\pi^2_i(\bm{x})}, \bar{\mathcal{S}}_2(\bm{x})) = \varepsilon_2 x_2 \geq \theta(N),
+\end{equation}
+where $I$ denotes the number of samples $\bmh{\xi}_i$, $i \in [N]$, that satisfy $\bmh{\xi}_i = (1, 0)^\top$.
+
+Choose $\varepsilon_1 \in (p, \varepsilon)$ and $\varepsilon_2 = \varepsilon - \varepsilon_1$, as well as $x_1 = \underline{x}_1$ and any $x_2 \geq \theta(N)/ \varepsilon_2$. This choice of $(\varepsilon_1, \varepsilon_2)$ and $\bm{x}$ satisfies the second constraint in~\eqref{eq:bonferroni_times_two} by construction. To see that the first constraint in~\eqref{eq:bonferroni_times_two} is also satisfied with high probability as $N \to \infty$, we note that $\frac{1}{N}(\varepsilon_1 N - I)^+ x_1 = (\varepsilon_1 - I/N)^+ x_1 \to (\varepsilon_1 - p)^+ x_1$ almost surely as $N \to \infty$ due to the strong law of large numbers. We thus conclude that $\frac{1}{N}(\varepsilon_1 N - I)^+ x_1 > 0$ with high probability as $N \to \infty$, and thus this quantity will exceed $\theta(N)$, which goes to zero as $N$ approaches infinity.
+
+{\em Step~3.} 
+Using similar arguments as in the proofs of Propositions~\ref{prop:CVaR equivalence_1} and~\ref{prop:joint cc worst-case CVaR approximation_1}, one can show that the worst-case CVaR approximation is satisfied for a fixed decision $(x_1, x_2)$ if and only if
+\begin{equation}\label{eq:cvar_ref_3}
+\max_{t \in \mathbb{R}} \Bigg\{\varepsilon N t - \sum_{i \in [N]} \Bigg(t - \min \Bigg\{\dfrac{w_1(x_1 - \hat{\xi}_{i,1})}{\max \{w_1, w_2\}}, \dfrac{w_2(x_2 - \hat{\xi}_{i,2})}{\max \{w_1, w_2\}} \Bigg\}\Bigg)^+ \Bigg\} \geq \theta(N) N.
+\end{equation}
+Here, $\hat{\xi}_{i,1}$ ($\hat{\xi}_{i,2}$) refers to the first (second) component of the vector $\bmh{\xi}_i$. The first-order optimality condition for non-smooth optimization then implies that the maximum on the left-hand side of this constraint is attained by 
+$$
+t^\star = \min \Bigg\{\dfrac{w_1(x_1 - \hat{\xi}_{\pi_{\lfloor \varepsilon N \rfloor + 1} (\bm{x}), 1})}{\max \{w_1, w_2\}}, \dfrac{w_2(x_2 - \hat{\xi}_{\pi_{\lfloor \varepsilon N \rfloor + 1} (\bm{x}), 2})}{\max \{w_1, w_2\}}\Bigg\},
+$$
+where we make use of the permutation $\bm{\pi} (\bm{x})$ that orders the data points $\bmh{\xi}_i$, $ i \in [N]$ in ascending order of the expressions
+$$
+\min \Bigg\{\dfrac{w_1(x_1 - \hat{\xi}_{i,1})}{\max \{w_1,w_2\}}, \dfrac{w_2(x_2 - \hat{\xi}_{i,2})}{\max \{w_1,w_2\}}\Bigg\}, \quad i \in [N].
+$$
+This implies that the worst-case CVaR constraint~\eqref{eq:cvar_ref_3} holds if and only if
+\begin{equation}\label{eq:cvar_almost_done}
+\displaystyle \sum_{i = 1}^{\varepsilon N}\min \Bigg\{\dfrac{w_1(x_1 - \hat{\xi}_{\pi_i (\bm{x}),1})}{\max \{w_1, w_2\}}, \dfrac{w_2(x_2 - \hat{\xi}_{\pi_i (\bm{x}),2})}{\max \{w_1, w_2\}}\Bigg\} \geq \theta(N) N. \\
+\end{equation}
+Note that $w_1 / \max \{ w_1, w_2 \} \leq 1$ in the first term inside the minimum. Hence, a necessary condition for the inequality~\eqref{eq:cvar_almost_done} to hold for any scaling factors $(w_1, w_2)$ is that $\sum_{i = 1}^{\varepsilon N} (x_1 - \hat{\xi}_{\pi_i (\bm{x}),1}) \geq \theta(N) N$; otherwise, the sum of the first terms inside the minima is smaller than $\theta(N) N$. Note that for any permutation $\bm{\pi} (\bm{x})$, the strong law of large numbers implies that $\frac{1}{N}\sum_{i = 1}^{\varepsilon N} \hat{\xi}_{\pi_i (\bm{x}),1}$ converges to a number smaller than or equal to $p$ almost surely as $N$ approaches infinity. Since $\frac{1}{N}\sum_{i = 1}^{\varepsilon N} x_1 = \varepsilon x_1$, we thus conclude that $\frac{1}{N}\sum_{i = 1}^{\varepsilon N} (x_1 - \hat{\xi}_{\pi_i (\bm{x}),1})$ converges to a number not exceeding $\varepsilon x_1 - p$ almost surely as $N$ approaches infinity. Since $\overline{x}_1 \varepsilon < p$ by assumption, this implies that the inequality~\eqref{eq:cvar_almost_done} is violated for all $x_1 \in [\underline{x}_1, \overline{x}_1]$ with high probability as $N$ approaches infinity.
+\hfill \Halmos
+\endproof
+
+\begin{example}
+	Consider the following instance of the distributionally robust problem~\eqref{prob:cc general}:
+	\begin{equation}\label{data-driven_2}
+	\begin{array}{cll}
+	\displaystyle \min_{\bm{x}} & x_3 \\
+	{\rm s.t.}&\mathbb{P}[x_1 > \tilde{\xi}, ~x_2 > \tilde{\xi}] \geq 1 - \varepsilon &~\forall \mathbb{P} \in \mathcal{F}(\theta) \\
+	&\underline{x} \leq x_1,x_2,x_3 \leq 1, ~x_3 \geq x_1, ~x_3 \geq x_2.
+	\end{array}
+	\end{equation}
+	Here, we assume $\frac{1}{2} < \underline{x} \leq 1$ and that the true data-generating distribution $\mathbb{P}_0$ is a two-point distribution which satisfies $\mathbb{P}_0[\tilde{\xi} = 1] = p$ and $\mathbb{P}_0[\tilde{\xi} = 0] = 1-p$ for $p \in (0,1)$.
+\end{example}
+
+\begin{proposition}\label{prop:CVaR better than bonferroni}
+	Let $p \in (\varepsilon/2, \underline{x}\varepsilon]$. As $N \to \infty$, with probability going to $1$, we have for any vanishing sequence of Wasserstein radii $\theta(N)$ that
+	\begin{enumerate}
+		\item[(i)] the worst-case CVaR approximation to~\eqref{data-driven_2} that replaces the joint chance constraint with
+		\begin{equation*}
+			\sup_{\mathbb{P} \in \mathcal{F}(\theta)}\mathbb{P}\text{\emph{-CVaR}}_{\varepsilon}\big(\max\big\{w_1(\tilde{\xi} - x_1), w_2(\tilde{\xi} - x_2)\big\}\big) \leq 0
+		\end{equation*}
+		becomes exact if the scaling factors $(w_1, w_2)$ are $(\frac{1}{2}, \frac{1}{2})$; 
+		\item[(ii)] the Bonferroni approximation to problem~\eqref{data-driven_2} that replaces the joint chance constraint with
+		\begin{equation*}
+			\mathbb{P} [x_1 > \tilde{\xi}] \geq 1-\varepsilon_1 ~\forall \mathbb{P} \in \mathcal{F}(\theta), \quad
+			\mathbb{P} [x_2 > \tilde{\xi}] \geq 1-\varepsilon_2 ~\forall \mathbb{P} \in \mathcal{F}(\theta)
+		\end{equation*}
+		becomes infeasible for any choice of the risk thresholds $(\varepsilon_1, \varepsilon_2)$.
+	\end{enumerate}	
+\end{proposition}
+
+\noindent \emph{Proof of Proposition~\ref{prop:CVaR better than bonferroni}.}
+We proceed in three steps. We first derive the optimal value of the classical chance constrained program associated with~\eqref{data-driven_2} under the true data-generating distribution $\mathbb{P}_0$ (Step~1). This value serves as a lower bound on the optimal value of problem~\eqref{data-driven_2}. We then show that with probability going to $1$ as $N \to \infty$, the worst-case CVaR approximation achieves this bound~(Step~2), whereas the Bonferroni approximation becomes infeasible~(Step~3).
+
+{\em Step~1.} Since $p < \varepsilon$, a similar argument as in the proof of Proposition~\ref{prop:bonferroni better than CVaR} allows us to conclude that the optimal value of the classical chance constrained program under the true data-generating distribution $\mathbb{P}_0$ is $\underline{x}$, which is attained by the solution $(x_1, x_2, x_3) = (\underline{x}, \underline{x}, \underline{x})$.
+
+{\em Step~2.} By Proposition~\ref{prop:min-signed-distances}, the solution $\bm{x} = (x_1, x_2, x_3) = (\underline{x}, \underline{x}, \underline{x})$ is feasible in the worst-case CVaR approximation with scaling factors $(w_1, w_2) = (\frac{1}{2}, \frac{1}{2})$ if and only if
+\begin{equation}\label{eq:cvar_rulez_1}
+	\dfrac{1}{N} \sum_{i = 1}^{\varepsilon N} \mathbf{min\textbf{-}dist} (\hat{\xi}_{\pi_i (\bm{x})}, \mathcal{H}_1(\bm{x}), \mathcal{H}_2(\bm{x})) \geq \theta(N),
+\end{equation}
+where $\mathcal{H}_1 (\bm{x}) = \mathcal{H}_2(\bm{x}) = \{\xi \mid \xi \geq \underline{x}\}$, and the permutation $\bm{\pi} (\bm{x})$ orders the data points $\hat{\xi}_i$ so that $\hat{\xi}_1, \ldots, \hat{\xi}_I = 1$, $I \in [N] \cup \{ 0 \}$, and $\hat{\xi}_{I+1}, \ldots, \hat{\xi}_N = 0$. Since $\mathbf{min\textbf{-}dist} (\hat{\xi}_i, \mathcal{H}_1 (\bm{x}), \mathcal{H}_2 (\bm{x})) = \underline{x} - 1$ for $i = 1, \ldots, I$ and $\mathbf{min\textbf{-}dist} (\hat{\xi}_i, \mathcal{H}_1 (\bm{x}), \mathcal{H}_2 (\bm{x})) = \underline{x}$ for $i = I + 1, \ldots, N$,~\eqref{eq:cvar_rulez_1} holds if and only if
+\begin{equation*}
+	\dfrac{1}{N}\left(\min\{\varepsilon N, I\} (\underline{x} - 1) + (\varepsilon N - I)^+ \underline{x} \right) \geq \theta(N).
+\end{equation*}
+Note that $I / N \to p$ as $N \to \infty$ by the strong law of large numbers. Since $p < \epsilon$ and $\theta(N) \to 0$ as $N \to \infty$, the above inequality is thus satisfied with probability approaching $1$ as $N \to \infty$ as long as $p (\underline{x} - 1) + (\varepsilon - p) \underline{x} = \varepsilon \underline{x} - p$ is strictly positive. This is the case, however, since $p < \underline{x} \varepsilon$ by assumption.
+
+{\em Step~3.} Observe that the Bonferroni approximation is infeasible if $\varepsilon_1 \leq I/N$ because the first individual chance constraint $\mathbb{P} [x_1 > \tilde{\xi}] \geq 1-\varepsilon_1 ~\forall \mathbb{P} \in \mathcal{F}(\theta)$ is already violated under the empirical distribution. For the same reason, the Bonferroni approximation is infeasible if $\varepsilon_2 \leq I/N$. We next show that when $N \to \infty$, with probability approaching to $1$, any pair of Bonferroni weights $(\varepsilon_1, \varepsilon_2)$ satisfying $\varepsilon_1 + \varepsilon_2 = \varepsilon$ also satisfies $\min\{\varepsilon_1, \varepsilon_2\} \leq I/N$, that is, at least one of the two individual chance constraints is violated. Indeed, we have $\min\{\varepsilon_1, \varepsilon_2\} \leq \varepsilon/2$ and $p > \varepsilon/2$ by assumption, and $I/N \to p$ as $N \to \infty$ by the strong law of large numbers.
+\hfill \Halmos
+\endproof
+
+\section{Numerical Experiments}
+
+We compare our exact reformulation of the ambiguous chance constrained program~\eqref{prob:cc general} with the bicriteria approximation scheme of \cite{xie2018bicriteria} on a portfolio optimization problem in Section~\ref{sec:portfolio} as well as with a classical (non-ambiguous) chance constrained formulation on a transportation problem in Section~\ref{sec:transportation}. Our goal is to investigate the computational scalability of our reformulation as well as its out-of-sample performance in a data-driven setting. All results were produced on an Intel Xeon 2.66GHz processor with 8GB memory in single-core mode using Gurobi 8.0 (for the mixed-integer conic programs in Section~\ref{sec:portfolio}) and CPLEX 12.8 (for the mixed-integer linear programs in Section~\ref{sec:transportation}).
+
+%In Section~\ref{sec:portfolio}, we study a portfolio problem with targeted return and compare the solution quality as well as the runtime of our exact approach with a bicriteria approximation scheme by \cite{xie2018bicriteria}. In Section~\ref{sec:transportation}, we consider a probabilistic transportation problem and compare the scalability as well as the out-of-sample performance of the distributionally robust chance constrained model with the classical chance constrained model. 
+
+\subsection{Portfolio Optimization}\label{sec:portfolio}
+
+We consider a portfolio optimization problem studied by \cite{xie2018bicriteria}. The problem asks for the minimum-cost portfolio investment $\bm{x}$ into $K$ assets with random returns $\tilde{\xi}_1, \ldots, \tilde{\xi}_K$ that exceeds a pre-specified target return $w$ with high probability $1 - \varepsilon$. The problem can be cast as the following instance of the ambiguous chance constrained program~\eqref{prob:cc general}:
+\begin{equation}\label{eq:portfolio}
+\begin{array}{cll}
+\displaystyle \min_{\bm{x}} & \bm{c}^\top\bm{x} \\
+{\rm s.t.} &\displaystyle \mathbb{P}[\bmt{\xi}^\top\bm{x} > w] \geq 1-\varepsilon &~\forall \mathbb{P} \in \mathcal{F}(\theta)\\
+&\bm{x} \geq \bm{0}.
+\end{array}
+\end{equation}
+
+We compare our exact reformulation of problem~\eqref{eq:portfolio} with the $(\sigma, \gamma)$-bicriteria approximation scheme of \cite{xie2018bicriteria}, which produces solutions that satisfy the ambiguous chance constraint in~\eqref{eq:portfolio} with probability $1 - \sigma \varepsilon$, $\sigma > 1$, and whose costs are guaranteed to exceed the optimal costs in~\eqref{eq:portfolio} by a factor of at most $\gamma = \sigma / (\sigma - 1)$. Since the bicriteria approximation scheme can readily utilize support information for the random vector $\bmt{\xi}$, we replace the ambiguity set $\mathcal{F}(\theta)$ with $\bar{\mathcal{F}}(\theta) = \mathcal{F}(\theta) \cap \{\mathbb{P} \mid \mathbb{P}[\bmt{\xi} \in \mathbb{R}^K_+] = 1\}$ in their approach. Contrary to the experiments conducted by \cite{xie2018bicriteria}, we set $\sigma = 1$. This is to the disadvantage of their approach, as it does not provide any approximation guarantees in that case, but it allows us to compare the resulting portfolios as they provide the same return guarantees. For the performance of the bicriteria approximation scheme with $\sigma > 1$, we refer to Section~6.2 of \cite{xie2018bicriteria}.
+
+In our numerical experiments, we consider the same setting as \cite{xie2018bicriteria}. We set $K = 50$, $w = 1$ and choose the cost coefficients $c_1, \ldots, c_{50}$ uniformly at random from $\{ 1, \ldots, 100 \}$. Each asset return $\tilde{\xi}_i$ is governed by a uniform distribution on $[0.8, 1.5]$, and we assume that $N = 100$ training samples $\bmh{\xi}_1, \ldots, \bmh{\xi}_{100}$ are available. We use the $2$-norm Wasserstein ambiguity set, which implies that our exact reformulation of problem~\eqref{eq:portfolio} is a mixed-integer second-order cone program, and set the Wasserstein radius to $\theta \in  \{0.05, 0.1, 0.2\}$. The risk threshold is set to $\varepsilon \in \{0.05, 0.1\}$.
+
+\begin{table}[tb]
+	\begin{center}
+		\begin{tabular}{c>{\centering\arraybackslash}p{1.5cm}>{\centering\arraybackslash}>{\centering\arraybackslash}p{1.5cm}>{\centering\arraybackslash}>{\centering\arraybackslash}p{1.5cm}>{\centering\arraybackslash}p{1.5cm}>{\centering\arraybackslash}p{1.5cm}>{\centering\arraybackslash}p{1.5cm}}
+			\hline
+			\hline  
+			\multirow{2}[0]{*}{$(\varepsilon, \theta)$}&\multicolumn{3}{c}{Ratio of objective values} &\multicolumn{3}{c}{Ratio of runtimes} \\
+			\cline{2-7}
+			&5\%  &50\%  &95\% &5\%  &50\%  &95\% \\ 
+			\hline
+			\multicolumn{1}{c}{$(0.05, 0.05)$} &1.6 &2.4 &3.2 &5.2 &8.3 &10.8  \\ 
+			\multicolumn{1}{c}{$(0.05, 0.10)$} &1.9 &2.9 &5.0 &4.9 &7.7 &10.6 \\ 
+			\multicolumn{1}{c}{$(0.05, 0.20)$} &2.3 &2.8 &3.5 &3.8 &4.9 &7.2  \\ 
+			\multicolumn{1}{c}{$(0.10, 0.05)$} &1.0 &1.1 &1.3 &7.3 &10.9 &13.0  \\ 
+			\multicolumn{1}{c}{$(0.10, 0.10)$} &1.5 &2.3 &3.1 &7.1 &9.7 &13.3  \\
+			\multicolumn{1}{c}{$(0.10, 0.20)$} &2.1 &2.7 &3.9 &4.2 &6.2 &10.1  \\ 
+			\hline
+			\hline \\
+		\end{tabular}
+	\end{center}
+	\caption{\textnormal{Objective and runtime ratios of the bicriteria approximation scheme for different values of $\varepsilon$ and $\theta$. For each parameter setting, we report the $5\%$, $50\%$ and $95\%$ quantiles over 50 randomly generated instances.}}
+	\label{table：bicteria}
+\end{table}
+
+\begin{figure}[tb]
+	\begin{subfigure}{.5\textwidth}
+		\begin{center}
+			\includegraphics[width=1\linewidth]{exactbicriteria}
+		\end{center}
+	\end{subfigure}
+	\begin{subfigure}{.5\textwidth}
+		\begin{center}
+			\includegraphics[width=1\linewidth]{runtime}
+		\end{center}
+	\end{subfigure}
+	\vspace{0.2cm}
+	\caption{{\textnormal{Runtimes (left) and reciprocal runtime ratios (right) of our exact reformulation and the bicriteria approximation scheme for $(\varepsilon, \theta) = (0.10,0.05)$ and different sample sizes $N$. The shaded regions cover the $5\%$ to $95\%$ quantiles of 50 randomly generated instances, whereas the solid lines describe the median statistics.}} \label{fig:runtime}}
+\end{figure}
+
+Table~\ref{table：bicteria} compares the objective values and runtimes of our exact reformulation and the bicriteria approximation scheme for various combinations of the risk threshold $\varepsilon$ and Wasserstein radius $\theta$. The table shows that despite incorporating additional support information, the bicriteria approximation scheme determines solutions whose costs significantly exceed those of the solutions found by our exact reformulation. Perhaps more surprisingly, the bicriteria approximation scheme is also computationally more expensive. As Figure~\ref{fig:runtime} shows, however, this is an artifact of the small sample size $N$ employed in the experiments of \cite{xie2018bicriteria}, and the bicriteria approximation scheme is faster than our exact reformulation for larger samples sizes.
+
+\subsection{Transportation}\label{sec:transportation}
+We consider a probabilistic transportation problem studied by \cite{luedtke2010} and \cite{yanagisawa:13}. The problem asks for the cost-optimal distribution of a single good from a set of factories $f \in [F]$ to a set of distribution centers $d \in [D]$. Each factory $f \in [F]$ has an individual production capacity $m_f$, and each distribution center $d \in [D]$ faces a random aggregate customer demand $\tilde{\xi}_d$. The cost of shipping one unit of the good from factory $f$ to distribution center $d$ is denoted by $c_{fd}$. We aim to find a transportation plan that minimizes the shipping costs, respects the production capacity of each factory and satisfies the demand at each distribution center with high probability. The problem can be cast as the following instance of problem~\eqref{prob:cc general}:
+\begin{equation}\label{eq:amb_transp_prob}
+\begin{array}{cl@{\quad}l}
+\displaystyle \min_{\bm{x}} & \bm{c}^\top\bm{x} \\
+{\rm s.t.} & \displaystyle \mathbb{P} \Bigg[ \sum_{f \in [F]} x_{fd} \geq \tilde{\xi}_d \quad \forall d \in [D] \Bigg] \geq 1 - \varepsilon & \displaystyle \forall \mathbb{P} \in \mathcal{F}(\theta) \\[5mm]
+& \displaystyle \sum_{d \in [D]} x_{fd} \leq m_f & \displaystyle \forall f \in [F] \\
+& \displaystyle \bm{x} \geq \bm{0}.
+\end{array}
+\end{equation}
+Here, $x_{fd}$ denotes the quantity shipped from factory $f \in [F]$ to distribution center $d \in [D]$. Problem~\eqref{eq:amb_transp_prob} is an ambiguous joint chance constrained program with right-hand side uncertainty. Since each safety condition in~\eqref{eq:amb_transp_prob} contains a single random variable with coefficient $1$ on the right-hand side, our exact reformulation reduces to the same mixed-integer linear program for any norm $\lVert \cdot \rVert$.
+
+In our first experiment, we investigate the scalability of the exact reformulation of problem~\eqref{eq:amb_transp_prob} that is offered by Proposition~\ref{prop:joint cc}. To this end, we generate random test instances with $5$ factories and $10, 20, \ldots, 50$ distribution centers that are located uniformly at random on the Euclidean plane $[0, 10]^2$. We identify the transportation costs $c_{fd}$ with the Euclidean distances between the factories and distribution centers. The demand vector $\bmt{\xi}$ is described by $50$, $100$ or $150$ samples from a uniform distribution that is supported on $[0.8 \bm{\mu}, 1.2 \bm{\mu}]$, where the expected demand $\mu_d$ at distribution center $d \in [D]$ is picked uniformly at random from the interval $[0, 10]$. The capacity of each factory is chosen uniformly at random, and the capacities are subsequently scaled so that the factories can jointly produce up to $150\%$ of the maximum cumulative demand. For each instance, we choose $10$ ascending Wasserstein radii $\theta_1 < \ldots < \theta_{10}$ uniformly so that $\theta_1 = 0.001$ and $\theta_{10}$ is the smallest radius for which the corresponding instance of problem~\eqref{eq:amb_transp_prob} becomes infeasible. We fix $\varepsilon = 0.1$.
+
+Tables~\ref{table：scalability_50}--\ref{table：scalability_150} and Figure~\ref{fig:case} compare the runtimes of our ambiguous chance constrained program with those of the classical chance constrained formulation of problem~\eqref{eq:amb_transp_prob},
+\begin{equation}\label{eq:classical_transp_prob}
+\begin{array}{cl@{\quad}l}
+\displaystyle \min_{\bm{x}, \bm{y}} & \bm{c}^\top\bm{x} \\
+{\rm s.t.} & \displaystyle \sum_{f \in [F]} x_{fd} + \mathrm{M} y_i \geq \hat{\xi}_{id} & \forall d \in [D], ~i \in [N] \\
+& \displaystyle \bm{e}^\top \bm{y} \leq \lfloor \varepsilon N \rfloor \\
+& \displaystyle \sum_{d \in [D]} x_{fd} \leq m_f & \displaystyle \forall f \in [F] \\
+& \displaystyle \bm{x} \geq \bm{0}, ~ \bm{y} \in \{ 0, 1 \}^N,
+\end{array}
+\end{equation}
+where $\mathrm{M}$ is a sufficiently large positive constant. The results show that for the smallest Wasserstein radius $\theta_1 = 0.001$, the ambiguous chance constrained program~\eqref{eq:amb_transp_prob} is---as expected---more difficult to solve than the corresponding classical chance constrained program~\eqref{eq:classical_transp_prob}. Interestingly, the ambiguous chance constrained program becomes considerably \emph{easier} to solve than the classical chance constrained program for the larger Wasserstein radii $\theta_2, \ldots, \theta_{10}$. This surprising result is explained in Figure~\ref{fig:radius}, which shows that the feasible region of the ambiguous chance constrained program tends to convexify as the Wasserstein radius $\theta$ increases. In fact, one can show that the set of vectors $\bm{q} \in \{ 0, 1 \}^N$ that are feasible in the deterministic reformulation of problem~\eqref{eq:amb_transp_prob} shrinks monotonically with $\theta$. Since it is the presence of these binary vectors that causes the non-convexity of problem~\eqref{eq:amb_transp_prob}, one can expect the problem to become better behaved as $\theta$ increases.
+
+%{\color{red}
+%For the safety set $\mathcal{S}(\bm{x}) = \{\bm{\xi} \in \mathbb{R}^K \mid \bm{a}^\top_m \bm{x} < \bm{b}^\top_m\bm{\xi} + b_m ~\forall m \in [M]\}$, we could represent the reformulation of the chance constrained program~\eqref{prob:cc general} as 
+%\begin{equation}
+%\label{prob:joint cc reformulation M linearization_1}
+%\begin{array}{rcll}
+%Z^\star_{\rm JCC} = &\displaystyle \min_{\bm{q}} & \bm{c}^\top\bm{x} \\
+%&{\rm s.t.} & \bm{q} \in \mathcal{Q}(\theta), 
+%\end{array}
+%\end{equation}
+%where given the Wasserstein radius $\theta$, the feasible region $\mathcal{Q}(\theta)$ is 
+%$$
+%\mathcal{Q}(\theta) = \left\{ \bm{q} \in [0,1]^N ~\left|~ \exists (\bm{x}, \bm{s}, t) \in \mathcal{X} \times \mathbb{R}^N_+ \times \mathbb{R}:~
+%\begin{array}{lll}
+%\varepsilon N t - \bm{e}^\top\bm{s} \geq \theta N \\
+%\displaystyle \min_{m \in [M]} \bigg\{\dfrac{\bm{b}^\top_m\bmh{\xi}_i + b_m - \bm{a}^\top_m\bm{x}}{\|\bm{b}_m\|_*}\bigg\} + {\rm M} q_i \geq t - s_i &~\forall i \in [N] \\
+%{\rm M} (1 - q_i) \geq t - s_i &~\forall i \in [N] 
+%\end{array}
+%\right.\right\}.
+%$$
+%Consider $\theta' \geq \theta$, we observe that any $\bm{q} \in \mathcal{Q}(\theta')$ is also a member of $\mathcal{Q}(\theta)$, {\em i.e.}, $\bm{q} \in \mathcal{Q}(\theta)$. This gives $\mathcal{Q}(\theta') \subseteq \mathcal{Q}(\theta) ~\forall \theta' \geq \theta$.
+%}
+
+\begin{table}[tb]
+\begin{center}
+\begin{tabular}{c>{\centering\arraybackslash}p{1.1cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}}\hline
+\hline
+{\tabincell{c}{$\#$ of distribution \\ centers}} & CC  &$\theta_1$  &$\theta_2$ &$\theta_3$ &$\theta_4$  &$\theta_5$
+&$\theta_6$  &$\theta_7$
+&$\theta_8$  &$\theta_9$ &$\theta_{10}$ \\ 
+\hline
+10 &0.5 &3.0 &0.1 &$<0.1$ &$<0.1$ &$<0.1$ &$<0.1$ &$<0.1$ &$<0.1$ &$<0.1$ &$<0.1$ \\ 
+20 &4.0 &9.7 &0.2 &0.1 &0.1 &0.1 &$<0.1$ &$<0.1$ &$<0.1$ &0.1 &0.1 \\ 
+30 &7.3 &13.1 &0.3 &0.2 &0.1 &0.1 &0.1 &0.1 &0.1 &0.1 &0.2 \\ 
+40 &11.2 &19.3 &0.4 &0.2 &0.2 &0.2 &0.2 &0.2 &0.2 &0.2 &0.3 \\ 
+50 &15.8 &166.5 &0.3 &0.2 &0.2 &0.2 &0.2 &0.2 &0.2 &0.3 &0.3 \\
+\hline
+\hline \\
+\end{tabular}
+\end{center}
+\caption{\textnormal{Solution times in seconds for $N = 50$ training samples. `CC' and `$\theta_i$' refer to problem~\eqref{eq:classical_transp_prob} and problem~\eqref{eq:amb_transp_prob} with different Wasserstein radii, respectively. We present median results over 100 random instances. Where the median solution time exceeds 3,600s, we report the median optimality gap in brackets.}}
+\label{table：scalability_50}
+\end{table}
+
+\begin{table}[tb]
+\begin{center}
+\begin{tabular}{c>{\centering\arraybackslash}p{1.1cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}}\hline
+\hline
+{\tabincell{c}{$\#$ of distribution \\ centers}} & CC  &$\theta_1$  &$\theta_2$ &$\theta_3$ &$\theta_4$  &$\theta_5$
+&$\theta_6$  &$\theta_7$
+&$\theta_8$  &$\theta_9$ &$\theta_{10}$ \\ 
+\hline
+10 &16.3 &166.4 &4.7 &2.0 &1.5 &1.4 &1.4 &1.4 &1.4 &1.5 &1.8 \\ 
+20 &93.6 &1910.8 &8.1 &2.9 &2.5 &2.5 &2.4 &2.4 &2.4 &2.7 &2.8  \\ 
+30 &298.3 &$[0.2\%]$ &12.0 &4.0 &3.5 &3.3 &3.2 &3.3 &3.2 &3.6 &3.8 \\ 
+40 &664.2 &$[0.8\%]$ &16.0 &5.1 &4.7 &4.5 &4.5 &4.5 &4.4 &4.8 &5.1 \\ 
+50 &1,293.2 &$[0.8\%]$ &20.3 &6.5 &5.6 &5.5 &5.4 &5.4 &5.4 &5.7 &6.2 \\
+\hline
+\hline \\
+\end{tabular}
+\end{center}
+\caption{\textnormal{Solution times for $N = 100$ training samples. The table has the same interpretation as Table~\ref{table：scalability_50}.}}
+\label{table：scalability_100}
+\end{table}
+
+\begin{table}[tb]
+\begin{center}
+\begin{tabular}{c>{\centering\arraybackslash}p{1.1cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}>{\centering\arraybackslash}p{0.9cm}}\hline
+\hline
+{\tabincell{c}{$\#$ of distribution \\ centers}} & CC  &$\theta_1$  &$\theta_2$ &$\theta_3$ &$\theta_4$  &$\theta_5$
+&$\theta_6$  &$\theta_7$
+&$\theta_8$  &$\theta_9$ &$\theta_{10}$ \\ 
+\hline
+10 &94.6 &$[0.7\%]$ &85.6 &48.5 &44.8 &44.0 &42.5 &43.3 &43.0 &52.0 &77.0 \\ 
+20 &874.2 &$[1.9\%]$ &143.9 &90.5 &76.3 &75.6 &72.8 &72.5 &73.2 &85.7 &112.4 \\ 
+30 &$[0.1\%]$ &$[3.2\%]$ &213.8 &126.4 &113.0 &109.5 &108.9 &108.8 &110.3 &125.4 &165.1 \\ 
+40 &$[0.3\%]$ &$[3.7\%]$ &286.8 &168.2 &154.2 &149.1 &149.3 &151.7 &152.1 &182.8 &231.5 \\ 
+50 &$[0.4\%]$ &$[3.0\%]$ &324.6 &207.0 &189.3 &190.9 &190.0 &190.4 &191.8 &233.0 &294.4\\
+\hline
+\hline \\
+\end{tabular}
+\end{center}
+\caption{\textnormal{Solution times for $N = 150$ training samples. The table has the same interpretation as Table~\ref{table：scalability_50}.}}
+\label{table：scalability_150}
+\end{table}
+
+\begin{figure}[tb]
+\begin{subfigure}{.33\textwidth}
+\begin{center}
+\includegraphics[width=0.9\linewidth]{caseeasy}
+%\caption{\footnotesize{Case~1}}
+\end{center}
+\end{subfigure}%
+\begin{subfigure}{.33\textwidth}
+\begin{center}
+\includegraphics[width=0.9\linewidth]{casemedium}
+%\caption{\footnotesize{Case~2}}
+\end{center}
+\end{subfigure}	
+\begin{subfigure}{.33\textwidth}
+\begin{center}
+\includegraphics[width=0.9\linewidth]{casehard}
+%\caption{\footnotesize{Case~2}}
+\end{center}
+\end{subfigure}
+\vspace{0.2cm}
+\caption{{\textnormal{Median solution times (below dashed lines) and optimality gaps (above dashed lines) for $D = 10$ and $N = 50$ (left), $D = 30$ and $N = 100$ (middle) and $D = 50$ and $N = 150$ (right).}} \label{fig:case}}
+\end{figure}
+
+
+\begin{figure}[tb]
+\begin{subfigure}{.33\textwidth}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{radiussmall}
+%\caption{\footnotesize{Case~1}}
+\end{center}
+\end{subfigure}%
+\begin{subfigure}{.33\textwidth}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{radiusmedian}
+%\caption{\footnotesize{Case~2}}
+\end{center}
+\end{subfigure}	
+\begin{subfigure}{.33\textwidth}
+\begin{center}
+\includegraphics[width=0.95\linewidth]{radiuslarge}
+%\caption{\footnotesize{Case~2}}
+\end{center}
+\end{subfigure}
+\vspace{0.2cm}
+\caption{{\textnormal{For a transportation problem with $F = 1$ factory, $D = 2$ distribution centers and $N = 10$ training samples, the graphs visualize the feasible regions of the classical chance constrained formulation~\eqref{eq:classical_transp_prob} (left) and the ambiguous chance constrained problem~\eqref{eq:amb_transp_prob} for a small (middle) and a large (right) value of $\theta$.}} \label{fig:radius}}
+\end{figure}
+
+So far, the number of training samples $N$ in our experiments has been rather small. Indeed, while both the classical chance constrained formulation~\eqref{eq:classical_transp_prob} and the ambiguous chance constrained problem~\eqref{eq:amb_transp_prob} scale quite gracefully with the numbers of factories and distribution centers, both formulations are severely impacted by any increase in the number of training samples $N$. Based on the solution logs of CPLEX on smaller instances, we suspect that the feasible solutions obtained for both problems after a short period of time are indeed close to optimal, and most of the solution time is spent on tightening the lower bounds to certify optimality of these solutions. Based on this insight, we now compare the out-of-sample performance of the problems~\eqref{eq:amb_transp_prob} and~\eqref{eq:classical_transp_prob} when the solution of both problems is prematurely terminated after $120$ seconds ($60$ seconds branch-and-bound and subsequently $60$ seconds `solution polishing'). To this end, we generate random problem instances with $5$ factories, $20$ distribution centers and $100$, $200$, \ldots, $1{,}000$ training samples. We compare the out-of-sample performance of the classical chance constrained program~\eqref{eq:classical_transp_prob} with a risk threshold of $\varepsilon = 0.1$ with the out-of-sample performance of the ambiguous chance constrained program~\eqref{eq:amb_transp_prob} with $\varepsilon = 0.1$ and $10$ different values of $\theta$, the best of which is selected using a $7$-fold cross-validation on the training dataset. The results are shown in Figure~\ref{fig:probability}. The figure shows that for $N < 800$ training samples, the classical chance constrained formulation produces solutions whose out-of-sample performance severely violates the target risk threshold of $\varepsilon = 0.1$. In contrast, the ambiguous chance constrained formulation produces solutions whose out-of-sample performance is consistently close to the target threshold, at a very modest increase of transportation costs (typically less than $2\%$).
+
+\begin{figure}[tb]
+\begin{subfigure}{.5\textwidth}
+\begin{center}
+\includegraphics[width=1\linewidth]{probability}
+\end{center}
+\end{subfigure}%
+\begin{subfigure}{.5\textwidth}
+\begin{center}
+\includegraphics[width=1\linewidth]{objective}
+\end{center}
+\end{subfigure}%
+\vspace{0.2cm}
+\caption{{\textnormal{The left graph shows the out-of-sample performance of the classical chance constrained formulation~\eqref{eq:classical_transp_prob} (blue) and the ambiguous chance constrained problem~\eqref{eq:amb_transp_prob} (red). The right graph visualizes the increase in transportation costs if we implement the solution to problem~\eqref{eq:amb_transp_prob} instead of the one to problem~\eqref{eq:classical_transp_prob}. In all cases, the shaded regions cover the $5\%$ to $95\%$ quantiles of $100$ randomly generated instances, whereas the solid lines describe the median statistics.}} \label{fig:probability}}
+\end{figure}
+
+\section*{Acknowledgments}
+
+The authors gratefully acknowledge financial support from the SNSF grant BSCGI0$\underline{~}$157733 and the EPSRC grant EP/N020030/1.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\bibliographystyle{ormsv080}
+\bibliography{AllReference}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{thebibliography}{}
+%\end{thebibliography}
+%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Appendix %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newpage
+\begin{appendices}
+\section{Distance to a Union of Half-Spaces}		
+The distance of a point $\bmh{\xi} \in \mathbb{R}^K $ to a closed set $\mathcal{C} \subseteq \mathbb{R}^K$ with respect to a norm $\|\cdot\|$ is defined as 
+$$
+\mathbf{dist}(\bmh{\xi}, \mathcal{C}) = \min\{\|\bm{\xi} - \bmh{\xi}\| \mid \bm{\xi} \in \mathcal{C}\}.
+$$
+Note that the minimum is always attained. In the following, we derive a closed-form expression for the distance of a point to the union of finitely many closed halfspaces.
+\begin{lemma}
+\label{lem:distance to the union of closed half-spaces}
+Let $\mathcal{H}_m = \{\bm{\xi} \in \mathbb{R}^K \mid a_m \geq \bm{b}^\top_m \bm{\xi}\}$ be a closed halfspace for each $m \in [M]$. If $\mathcal{C} = \bigcup_{m \in [M]} \mathcal{H}_m$ denotes the union of all halfspaces, then the distance of a point $\bmh{\xi}$ to $\mathcal{C}$ is given by
+\begin{equation}
+\nonumber
+\label{equ:distance to the union of closed half-spaces}
+\mathbf{dist}(\bmh{\xi}, \mathcal{C}) = \min_{m \in [M]} \bigg\{\dfrac{(\bm{b}^\top_m\bmh{\xi} - a_m)^+}{\|\bm{b}_m\|_*}\bigg\} = \bigg(\min_{m \in [M]} \bigg\{\dfrac{\bm{b}^\top_m\bmh{\xi} - a_m}{\|\bm{b}_m\|_*}\bigg\}\bigg)^+.
+\end{equation}
+\end{lemma}
+\noindent {\bf{Proof.}}
+We first prove the assertion for $M=1$, in which case $\mathcal{C} = \mathcal{H}_1$. %If $\bmh{\xi} \in \mathcal{C}$, then $a_1\ge \bm b_1^\top\bmh\xi$, which implies that $(\bm{b}^\top_1\bmh{\xi} - a_1)^+=0$. Thus, the postulated formula correctly reports that $\textbf{dist}(\bmh{\xi}, \mathcal{C}) =  0$. Assume next that  $\bmh{\xi} \notin \mathcal{C}$. In this case, the distance can be expressed as 
+We thus have
+\begin{align*}
+\mathbf{dist}(\bmh{\xi}, \mathcal{C}) =~& \min_{\zeta, \bm{\xi}} \big\{ \zeta \mid \zeta \geq \|\bm{\xi} - \bmh{\xi}\| , ~ a_1 \geq \bm{b}^\top_1\bm{\xi} \big\} \\
+=~ &  \max_{u, \bm{v}, w} \big\{\bm{v}^\top\bmh{\xi} - w a_1  ~\big|~  u = 1 ,~ \bm{v} =  \bm{b}_1 w, ~ u \geq \|\bm{v}\|_*, ~w \geq 0 \big\}\\
+=~ &  \max_{ w} \big\{(\bm b_1^\top \bmh{\xi}- a_1) w ~\big|~ w\le 1/ \|\bm{b}_1\|_*, ~w \geq 0\big\} \\
+=~ & \dfrac{(\bm{b}^\top_1\bmh{\xi} - a_1)^+}{\|\bm{b}_1\|_*},
+\end{align*}
+where the second equality follows from strong conic duality, which holds because the primal minimization problem is strictly feasible. Similarly, for $M\ge 1$ we find
+\begin{align*}
+\mathbf{dist}(\bmh{\xi}, \mathcal{C}) =~& \min_{m \in [M]} \mathbf{dist}(\bmh{\xi}, \mathcal{H}_m)= \min_{m \in [M]} \bigg\{\dfrac{(\bm{b}^\top_m\bmh{\xi} - a_m)^+}{\|\bm{b}_m\|_*}\bigg\} = \bigg(\min_{m \in [M]} \bigg\{\dfrac{\bm{b}^\top_m\bmh{\xi} - a_m}{\|\bm{b}_m\|_*}\bigg\}\bigg)^+,
+\end{align*}
+where the second equality follows from the first part of the proof. 
+\hfill \Halmos
+\endproof
+
+
+\end{appendices}
+%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%
+\end{document}
+%%%%%%%%%%%%%%%%%
+
+
+
+
+、

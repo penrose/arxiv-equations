@@ -1,0 +1,99 @@
+\documentclass[twocolumn, nofootinbib]{revtex4-1}
+%\pdfoutput=1
+\usepackage{hyperref}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor-solarized}
+\usepackage{amsthm}
+\usepackage{color}
+\usepackage[subpreambles=true]{standalone}
+\usepackage{subcaption}
+\usepackage{textcomp}
+%\usepackage[numbers,sort&compress]{natbib}
+%\usepackage{textcomp}
+
+
+
+
+\newtheorem{observation}{Observation}
+\newcommand{\plog}{\bar{P}}
+\newcommand{\real}{\mathbb{R}}
+
+\newcommand{\aref}[1]{\hyperref[#1]{Appendix~\ref{#1}}}
+
+\graphicspath{{figures/}}
+
+
+
+
+\begin{document}
+	
+\title{Neural Network Decoders for Large-Distance 2D Toric Codes}
+
+\author{Xiaotong Ni}
+\affiliation{QuTech, Delft University of Technology, P.O.Box 5046, 2600 GA Delft, The Netherlands.}
+\email{xiaotong.ni@gmail.com}
+
+
+\date{\today}
+
+\maketitle
+
+
+\input{abstract}
+
+\section{Introduction}
+\label{sec:Intro}
+\input{introduction}
+
+\section{Introduction to Toric code and the Renormalization Group Decoder}
+\label{sec:toric_code_and_rn_decoder}
+\input{toric_code_and_rn_decoder}
+
+\section{Design and Training of the Neural nets}
+\label{sec:design}
+\input{design}
+
+\section{Numerical results}
+\label{sec:numerics}
+\input{numerics}
+
+\section{Discussion}
+\label{sec:discussion}
+\input{discussion}
+
+\section{Acknowledgement}
+\label{sec:acknowledgement}
+\input{acknowledgement}
+
+
+\bibliography{bibliography}
+
+\appendix
+
+
+\section{Implementation of Belief Propagation Algorithm}
+\label{appendix:bp}
+\input{belief_prop}
+
+\section{Introduction to Neural Networks}
+\label{appendix:intro_nn}
+\input{intro_nn}
+
+\section{Comparison to Simpler Approachers}
+\label{appendix:simpler_approach}
+\input{simpler_approach}
+
+\section{Technical Details}
+\label{appendix:details}
+\input{details}
+
+\section{Spatially Varying Error Rates}
+\label{appendix:varying_perror}
+\input{varying_perror}
+
+\end{document}

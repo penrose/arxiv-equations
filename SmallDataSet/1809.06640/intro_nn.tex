@@ -1,0 +1,41 @@
+A neural network, at the highest abstraction, can just be viewed as a black-box function $f_{\text{nn}}(x,\vec{w})$ with many parameters $\vec{w}$ to be tuned.
+We want $f$ to describe the input-output relation presented in a dataset $D=\{(x_i, y_i)\}$.
+To do this\footnote{In this work, we choose to not study the effect of overfitting, as we have the ability to generate infinite data.}, we choose a (smooth) loss function $\mathcal{L}$, and then we do the minimization
+\begin{equation}
+\min_{\vec{w}}\sum_i \mathcal{L}(f(x_i, \vec{w}), y_i) .
+\end{equation}
+One important requirement is that $f$ is (almost-everywhere) differentiable with respect to $\vec{w}$.
+This allows us to train the network with gradient descent, for which a good introduction can be found in~\cite{goh2017why}.
+In general, we can expect gradient descent will take us to a local minimum or some region with very small gradients.
+This is the advantage of ``end-to-end'' training compared to human-written heuristic algorithms, as the latter are unlikely to be a local optimum (assuming we can add real number parameters to those heuristic algorithms).
+A common loss function for classification problems is cross-entropy.
+Assume we have a dataset $D=\{(x_i, y_i)\}$ where $y_i\in \{0,1\}$, and the neural network output $y_i'$ which tries to approximate $\text{Prob}(y_i=1)$, the cross-entropy loss function is then calculated as following:
+\begin{equation}
+-\sum_i \left( y_i \log y_i' + \left(1-y_i\right) \log \left(1-y_i'\right)\right).
+\end{equation}
+Note that when we use the notation $\text{Prob}(y_i=1)$, we implicitly assume $D$ is obtained by sampling from an underlying probability distribution.
+
+More concretely, most neural networks consist of many layers.
+In this paper, the two relevant types of layers are the dense and convolution layer.
+Dense layers (a.k.a fully-connected layers) have the form $g(A\vec{x}+\vec{b})$, where $g$ is some non-linear function applied entrywise, and the matrix $A$, vector $\vec{b}$ are the trainable parameters.
+Assuming $A$ has a shape of $n\times m$, we will say the output dimension of the dense layer is $n$.
+One convolution layer, as the name suggests, contains a collection of discrete convolutions.
+For this paper, the input to the layer resides on a $2$-dimensional lattice of size $l^2$ with periodic boundary condition.
+On each lattice site, there is a $d$-dimensional input vector $x_{\vec{u}} \in \real^d$, where the subscript $\vec{u} \in \mathbb{Z}_l^2$ (we use $\mathbb{Z}_l$ to denote integer in range $[0,l-1]$).
+We define the kernel to be a tensor $K_{\vec{u},i}$, where $\vec{u} \in \mathbb{Z}_n^2$ and $i \in \mathbb{Z}_d$. With a slight abuse of notation, we will say such a kernel has size $n^2$. The convolution is then
+\begin{equation}
+\label{eq:convolution}
+y_{\vec{v}} = \sum_{\vec{u} \in \mathbb{Z}_n^2} \sum_{i \in \mathbb{Z}_d} x_{\vec{v}-\vec{u}, i} K_{\vec{u}, i},
+\end{equation}
+where $x_{\vec{v}-\vec{u},i}$ is the $i$th element of $x_{\vec{v}-\vec{u}}$, and $\vec{v}-\vec{u}$ is calculated module $l$ because of the periodic boundary condition.
+We will have a collection of kernels $\{K_{\vec{u}, i,j}\}_j$ for one convolution layer, which means we also have a collection of outputs $\{y_{\vec{v},j}\}_j$.
+The cardinality of $\{K_{\vec{u}, i,j}\}_j$ is conventionally called the number of filters.
+After \autoref{eq:convolution}, we can also apply a non-linear function $g$ entrywise if needed.
+
+Before concluding this section, let us make one clarification.
+In this paper, sometimes we only train part of the network, e.g. for blue circle 1 in \autoref{subfig:complete_network} we only train the dense layers.
+Assuming $\vec{w}_1$ are the parameters in the part of the network we want to train and $\vec{w}_2$ are the rest, then we are doing the optimization
+\begin{equation}
+\min_{\vec{w}_1}\sum_i \mathcal{L}(f(x_i, \vec{w}_1, \vec{w}_2), y_i)
+\end{equation}
+by using some gradient descent optimizer.

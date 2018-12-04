@@ -1,0 +1,334 @@
+%%%%%%%%%%%%%%%%%%%% author.tex %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% sample root file for your "contribution" to a proceedings volume
+%
+% Use this file as a template for your own input.
+%
+%%%%%%%%%%%%%%%% Springer %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass{svproc}
+%
+% RECOMMENDED %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+
+% to typeset URLs, URIs, and DOIs
+\usepackage{url}
+\usepackage{graphicx}        % standard LaTeX graphics tool
+                             % when including figure files
+\usepackage{multicol}        % used for the two-column index 
+
+\usepackage{subcaption}
+\captionsetup{compatibility=false}
+\usepackage{cite}
+ 
+\def\UrlFont{\rmfamily}
+
+\usepackage[bottom]{footmisc}% places footnotes at page bottom
+
+
+\usepackage{bigints}
+
+\usepackage{bm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MP: NEW COMMAND!!!!
+\def\ds{\displaystyle}
+
+\newcommand{\bfeta}{{\boldsymbol{\eta}}}  %  <----- exception !
+\newcommand{\bbeta}{{\bm{\beta}}}
+\newcommand{\btheta}{{\bm{\theta}}}
+
+\newcommand{\z}{{\textbf{\textit{z}}}}
+
+\newcommand{\X}{{\textbf{\textit{X}}}}
+\newcommand{\Z}{{\textbf{\textit{Z}}}}
+
+\newcommand{\Abn}{{\mathcal{A}}}
+\newcommand{\Bay}{{\mathcal{B}}}
+\newcommand{\Cmp}{{\mathcal{C}}}
+\newcommand{\Dat}{{\mathcal{D}}}
+\newcommand{\Exp}{{\mathcal{E}}}
+\newcommand{\Mod}{{\mathcal{M}}}
+\newcommand{\Norm}{{\mathcal{N}}}
+\newcommand{\Str}{{\mathcal{S}}}
+\newcommand{\Par}{{\mathbf{Pa}_j}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%correction
+\newcommand{\MP}[1]{\textcolor{red}{#1}}
+\newcommand{\gk}[1]{\textcolor{blue}{#1}}
+\newcommand{\rf}[1]{\textcolor{green}{#1}}
+
+
+\begin{document}
+\mainmatter              % start of a contribution
+%
+\title{Comparison between Suitable Priors for Additive Bayesian Networks}
+%
+\titlerunning{Suitable priors for ABN}  % abbreviated title (for running head)
+%                                     also used for the TOC unless
+%                                     \toctitle is used
+%
+\author{Gilles Kratzer, Reinhard Furrer and Marta Pittavino}
+%
+\authorrunning{Gilles Kratzer et al.} % abbreviated author list (for running head)
+%
+%%%% list of authors for the TOC (use if author list has to be modified)
+\tocauthor{Gilles Kratzer, Reinhard Furrer and Marta Pittavino}
+%
+\institute{Department of Mathematics, University of Zurich, Zurich, Switzerland,\\
+ \email{gilles.kratzer@math.uzh.ch},\\
+\and 
+Department of Mathematics and Department of Computational Science, University of Zurich, Zurich, Switzerland,\\
+\email{reinhard.furrer@math.uzh.ch},\\
+\and 
+Research Center for Statistics (RCS), Geneva School of Economy and Management (GSEM), University of Geneva, Geneva, Switzerland,\\
+ \email{marta.pittavino@unige.ch}
+}
+
+
+
+\maketitle              % typeset the title of the contribution
+
+\begin{abstract}
+Additive Bayesian networks  are types of graphical models that extend
+ the usual Bayesian generalized linear model to multiple dependent variables through the
+ factorisation of the joint probability distribution of the underlying variables.
+ When fitting an ABN model, the choice of the prior of the parameters is of crucial importance.
+ If an inadequate prior -- like a too weakly informative one -- is used, data separation and data sparsity lead to issues in the model selection process. In this work a simulation study between two weakly and a strongly informative priors is presented.
+ As weakly informative prior we use a zero mean Gaussian prior with a large
+ variance, currently implemented in the R-package \emph{abn}. The second prior belongs to the Student's \emph{t}-distribution, specifically designed for logistic regressions and, finally,  the strongly informative prior is again Gaussian with mean equal to true parameter value and a small variance. 
+ We compare the impact of these priors on the accuracy of the learned additive Bayesian network in function of different parameters.
+ We create a simulation study to illustrate Lindley's paradox based on the prior choice.
+ We then conclude by highlighting the good performance of the informative Student's \emph{t}-prior and the limited impact of the Lindley's paradox.
+ Finally, suggestions for further developments are provided.
+ 
+ \keywords{computational geometry, graph theory, structural search, binomial regression}
+\end{abstract}
+% 
+
+\section{Introduction to ABN}
+\label{sec:1}
+%%% SHORT INTRO TO ABN MODEL
+Additive Bayesian network (ABN) models are a special type of   Bayesian network (BN) models, where
+each node in the graph comprises a generalized linear model (GLM).
+All types of BN models consist of two reciprocally dependent parts: a
+qualitative one (the structure) and a quantitative one (the model parameters).
+BN models are statistical models that derive a directed acyclic graph (DAG) from empirical data,
+describing the dependency structure of the random variables. The DAG is the graphical representation of the joint
+probability distribution of all random variables represented by the data. The model parameters stem from  the local probability distribution of all the variables in the network.  %Sections~$2$.
+%%% STOP INTRO TO ABN MODEL
+%\MP{Sentences' orders and English a bit revised.}
+
+%%% APPLICATION OF ABN MODELS
+In the last few decades, BN modelling has been widely used in biomedical science and in systems biology to analyse multi-dimensional data \cite{Jansen2003,Dojer2006,Poon2007,Djebbari2008,Hodges2010}.
+However, it is only in the last few years that ABN models have been applied to the veterinary epidemiology field as a result of their ability to
+generalize standard regression methodologies \cite{Lewis2012, Hartnack2016, Pittavino2017a}.
+%\MP{It is a bit annoying, but we need to pay attention to the references’ order: they appear in the same chronological order as reported in the references' list.}\rf{see comment in email}
+
+
+Relevant technical details of ABN models are presented in Section~\ref{sec:2}. 
+Section~\ref{sec:3} explains the issue of data separation and Lindley's paradox and highlights the importance of appropriate prior choice. 
+Section~\ref{sec:4} reports the results of a simulation study underpinning the necessity of careful prior selection with respect to data separation and Lindley's paradox. 
+We conclude the article in Section~\ref{sec:5} with future research directions. 
+
+
+%\section{Additive Bayesian Networks  in Theory}
+\section{Theory of Additive Bayesian Networks  in a Nutshell}
+\label{sec:2}
+A BN for a set of random variables $\X = \{X_1,\dots, X_n\}$ consists of:
+\begin{itemize}
+\item A DAG structure $\Str = (\mathit{V},\mathit{E})$, where $\mathit{V}$ is a finite set of
+nodes and $\mathit{E}$ is a finite set of directed edges between the nodes. A DAG is \emph{acyclic}; hence, the edges in $\mathit{E}$ do not form
+directed cycles.
+A random variable $X_j$ corresponds to each node $j \in \mathit{V} = \{1, \dots, n\}$ in the graph. We do not distinguish between a variable $X_j$ and
+the corresponding node $j$.
+\item A node $k$ is said to be a \emph{parent} of a node $j$ if the edge set $E$ contains an edge from $k$ to $j$.
+ A set of parents for a node $j$ is denoted by $\Par$. 
+$P_j$ indicates the total number of parents for a node $j: \,\, \dim(\Par)=P_j\geq0$.
+$P_j=0$ for orphan nodes.
+\item A set of local probability distributions for all
+variables in the network, denoted~$\btheta_\Bay$. Each node $j$, with parent set $\Par$, is parametrized by a local probability
+distribution: $P(X_j\mid \Par)$.
+\end{itemize}
+Edges represent both \textit{marginal} and \textit{conditional dependencies}.
+The main role of the network structure is to express the conditional
+independence relationships among the variables in the model
+through graphical separation, thus specifying the factorization of
+the global probability distribution:
+ $$\displaystyle P(\X)=\prod_{j=1}^{n}P(X_j\mid \Par).$$
+
+We denote a BN model $\Bay$ for a set of random variables $\X$ by a pair $\Bay=(\Str, \btheta_\Bay)$.
+The DAG $\Str$ defines the \emph{structure}, and $\btheta_\Bay$ the \emph{parametrization} of the model.
+In order to specify a model $\Bay$ for $\X$, we must therefore specify a DAG structure and a set of local probability distributions.
+
+In the purely discrete case, an additive BN $\Abn$ consists of a BN $\Bay$ that generalizes the multinomial logistic regression model. % $\Mod$.
+Let $S_j$ be the number of states of the variable $X_j$, and $s \in \{1,\dots, S_j\}$ the corresponding set of indexes.
+Let $C_j = \prod_{p:\,X_p \in \Par} S_p$ be the number of configurations of $\Par$ and $c \in \{1, \dots, C_j\}$ indicates
+the corresponding set of indexes for the different parents configurations of $\Par$.
+Let $X_j=s$ indicate a possible observation for $X_j$. Hence, let $P(X_j = s\mid  \Par = c)$
+be the probability that $X_j = s$, given the $c$-th parent configuration of $\Par$, denoted by the multinomial parameter $\theta_{jcs}$.
+The multinomial logistic regression model %$\Mod$ 
+can be integrated into a BN $\Bay$ by modelling each of its conditional probability table
+$P(X_j=s\mid  \Par = c)=\theta_{jcs}$ with a multinomial logistic regression model, where $X_j$ is progressively the outcome variable and the resulting regression design matrix is constructed from $\Par$, as showed in \cite{Rijmen2008} and in detail in Figure \ref{BN_Col}. 
+
+%\rf{this last sentence needs to be reworked. Do we really need to talk about $\Z_{ij}$ and design matrices??. } 
+%\rf{But something is still wrong! Once it is a set, then $P(X_j = s\mid  \Par = c)=1$. Do you want to write  $s\in\{1,\dots, S_j\}$? }
+%\MP{I changed the formulation for the index s and reworded the last sentence. Is it clearer now?}
+
+\begin{figure}
+\begin{flushright}
+\includegraphics[scale=.53]{ABN_4Nodes.pdf}\hspace*{0.3cm}
+\caption{A binary additive Bayesian network model $\Abn$ for four random variables ($n=4$, $S_j=2$, $j=1,\dots,n$).}
+\label{BN_Col}
+\end{flushright}
+\hspace*{0.3cm}
+\raisebox{3cm}[0pt][0pt]{
+\parbox[c]{11.5cm}{%\vspace{0.5cm}
+$X_1$ is (conditionally) independent of $X_2$:\\ 
+$P(X_1=1)=\theta_1$, $\log\Bigl(\displaystyle\frac{\theta_{1}}{1-\theta_{1}}\Bigr)=\beta_{1,0}$\\%[1mm]
+$X_2$ is (conditionally) independent of $X_1$:\\
+$P(X_2=1)=\theta_2$, $\log\Bigl(\displaystyle\frac{\theta_{2}}{1-\theta_{2}}\Bigr)=\beta_{2,0}$\\%[1mm]
+$X_3$ is conditionally dependent jointly upon $X_1$ and $X_2$:\\
+$P(X_3=1\mid X_2,X_3)=\theta_3$, $\log\Bigl(\displaystyle\frac{\theta_{3}}{1-\theta_{3}}\Bigr)=\beta_{3,0}+\beta_{3,1}X_1+\beta_{3,2}X_2$\\%[1mm]
+$X_4$ is conditionally dependent upon $X_3$:\\
+$P(X_4=1\mid X_3)=\theta_4$, $\log\Bigl(\displaystyle\frac{\theta_{4}}{1-\theta_{4}}\Bigr)=\beta_{4,0}+\beta_{4,1}X_3$
+\vspace{1.3cm}
+}}
+\end{figure}
+
+
+\vspace*{-0.5cm}
+
+\section{Data separation and Lindley's paradox}
+\label{sec:3}
+%The data separation problem is surprisingly common in applied logistic regression. This arises when a linear combination of predictors predicts perfectly the outcome. This creates estimation problems for the whole model, not only for the parameters directly involved.
+The data separation  arises when a linear combination of predictors predicts perfectly the outcome and is surprisingly common in applied logistic regression. Data separation induces estimation problems for the entire model, not only for the parameters directly involved.
+
+Due to the large number of models necessary to evaluate, data separation is a serious concern when 
+modelling  discrete data with an ABN. The separation occurs when the data set is too small to observe events with low probabilities. Therefore, the smaller the sample size the higher is the probability of not observing given instances which have a low probability. The issue is intensified  with increasing complexity of the model. A popular solution is to remove predictors until the design matrix becomes fully ranked. However, this often leads to the deletion of the strongest predictors which is not desirable, especially in the context of ABN \cite{zorn2005solution}. 
+%In a Bayesian approach \rf{previous sections are also in the Bayesian context}, the natural solution is to use a prior which will drive the posterior when data separation arises. 
+Alternatively, the natural ``Bayesian'' solution is to use a prior, which will drive the posterior whenever data separation arises. 
+Multiple prior distributions have been proposed to tackle this issue. A notably one is the Jeffreys prior  \cite{firth1993bias} which is, however,  hard to interpret as a prior information. Indeed, Jeffreys prior is not parametrised on the scale of the parameter. Moreover,  when applied to sparse data the prior may lead to poor numerical results. 
+As a result, dedicated priors have been developed which are weakly informative enough to be used in a general context and which can still drive the posterior if separation arises \cite{gelman}. They have been designed to produce stable and regularised estimates. These priors are based on the Student's \emph{t}-distribution.
+
+ABN is essentially a model selection technique. Indeed a large number of simple models have to be evaluated so that a comprehensive global structure can be selected. It is known that when a weakly informative prior is used, Bayesian model selection will asymptotically always prefer the simpler model, regardless of the data. This is called Lindley's paradox \cite{Lindley1957}. Using a weakly informative prior for the parameters leads to reasonable parameters estimates, compared to a pure maximum likelihood estimation for a given network.  But the main objective of ABN analysis is performing structural inference which is precisely negatively affected by weakly informative priors.
+
+\section{Implementation and Simulation study} 
+\label{sec:4}
+In a practical perspective computational speed is the major concern in an ABN context as the number of models to evaluate grows super exponentially with the number of random variables. The estimation of Bayesian regression coefficients using Gibbs or Metropolis algorithms is usually not fast enough. Especially because the model selection approach is based on a point estimate of the posterior, instead of using the full network information. So an appealingly fast and reliable procedure to fit the model is described in \cite{gelman}. The procedure is an alteration of the classical iterative reweighted least squares algorithm that uses an approximate expectation-maximization algorithm to update the regression coefficients at each step. 
+The prior information is taken into account through augmented data. 
+This procedure is used to estimate the posterior for every possible combination of all the variables. 
+The output of this procedure is a comprehensive list of scores. 
+Further details for this first step are given in \cite{Krat:Furr}.
+In a second step, an exact search is performed to select the network with the highest possible global score \cite{koivisto}. The simulation study has been carried out using the package \emph{abn} \cite{Kratzer} in the R software environment \cite{R}.
+
+\subsection{Data separation}
+In order to illustrate the influence of the prior on an ABN analysis, we randomly simulate BNs consisting of 10 discrete variables with 80$\%$ of the possible edges expressed. Each edge represents the same coefficient set to 0.99 on the logit scale, i.e., =\,expit(5). 
+For sample sizes $N=100, 500, 1000$ and $10'000$ we randomly generate 50 distribution of the selected network. 
+The two priors used are a weakly informative prior (WI) which is normally distributed with mean zero and variance 1000 and a Student's \emph{t}-prior (ST) with one degree of freedom (i.e., Cauchy) and scale parameter 2.5. Then the true positive rate (TPR) and the false positive rate (FPR) are used to measure the accuracy of the selected networks. Every selected network is transformed to an essential graph, as two networks of the same Markov class of equivalence could differ substantially in term of edges but having the same score as they represents the same assertions of conditional independence.
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{plot}
+\caption{Accuracy measures for retrieved edges for 80\% connected five nodes ($n=5$) simulated Bayesian networks as a function of data sample size ($N=100, 500, 1000$ and $10'000$).
+The boxplots (each based on 50 simulations) show the true positive rate (TPR) and the false positive rate (FPR) outcome of the weakly informative prior (WI) and Student's \emph{t}-prior (ST). 
+}
+\label{plot} 
+\end{figure}
+
+%\section{Preliminary results}
+%\label{sec:5}
+%\MP{Maybe it is better to have two different sections. Let's see, depending on the material we have.}
+
+Figure~\ref{plot} shows the TPR and FPR as a function of the sample size for two different priors and  illustrates that both priors exhibit a proper ``asymptotic`` behaviour when sample size increases:  TPR and TNR tend to 100$\%$ and 0$\%$, respectively. The chosen coefficients (0.99) of the edges in each BN leads almost surely to data separation for most of the possible variables' combination. Not surprisingly,  the Student's \emph{t}-prior has a better accuracy for network scoring for both positive and negative edges selection.
+
+\subsection{Lindley's paradox}
+An ABN modelling is based on multiple approximations such as score as proxy for selecting the best network and the scoring procedure itself. So even if Lindley's paradox is a known theoretical concern it could potentially have a limited impact in practice. 
+
+In order to illustrate Lindley's paradox in a plausible situation, we randomly simulate BNs of $n=10$ nodes with a range of different edge densities. Each edge has a known coefficient. Then, we simulate 50 synthetic datasets of 1000 observations per network density. For this simulation study three priors have been used: the two priors described above and a strongly informative prior (SI), which is normally distributed with mean set to the true coefficient of the index edge and variance 0.1. Of course, this last prior is not realistic in practice but it is added here to illustrate the ``asymptotic'' behaviour. The average normalised number of parent is used to illustrate Lindley's paradox. For this illustration, we divide the average number of a simulated network by the true number of parents of the original network. Then, BNs are fitted using binomial regression using different priors and the essential graphs are extracted.
+
+
+\begin{figure}
+\begin{subfigure}{.49\textwidth}
+%  \centering
+  \hspace*{-1mm}\includegraphics[height=6.2cm]{STvsWI}
+  \caption{Student's \emph{t}-prior (ST) and the\\ weakly informative prior (WI).}
+  \label{fig:sfig1}
+\end{subfigure}%
+\begin{subfigure}{.49\textwidth}
+ % \centering
+  \hspace*{-1mm}\includegraphics[height=6.2cm]{SIvsWI}
+  \caption{Student's \emph{t}-prior (ST) and the\\ strongly informative prior (SI).}
+  \label{fig:sfig2}
+\end{subfigure}
+\caption{Comparison of different priors for different networks complexity (edge densities varying between 0.1 and 0.9).}
+\label{fig}
+\end{figure}
+
+Figure~\ref{fig} summarizes the simulation result and compares the (normalized) average number of parents of the fitted BN under different priors.
+If the selected DAGs are subjected to differential issue under complexity selection due to the weakness of prior information one should see a scatter plot deviating from the diagonal.   As seen in Figure~\ref{fig}(a) and (b), sparse networks, i.e. low network complexity, are more impacted by than highly connected ones. The marginal posterior likelihood seems to overfit the sparse network structure and to underfit dense networks. In Figure~\ref{fig}(a) one can see that a weakly informative prior performs comparably as Student's \emph{t}-prior. Whereas in Figure~\ref{fig}(b) the effect of highly informative prior is clearly visible. The selected networks almost never exceed in term of complexity the true networks. Surprisingly, even such a prior does not allow the scoring procedure to optimally select dense networks.
+
+\section{Future Developments: Conjugate Priors for ABN}
+\label{sec:5}
+
+%The results obtained in Section \ref{sec:4}, in comparing the effect of different priors on data separation when dealing with discrete data and differential density network selection depending on the prior information, show that the prior play a major role. Further idea are going to be develop to solve the issue in a better and more accurate way. An appealing, suitable prior that is capable of driving the posterior if data separation arises is a conjugate prior. Considering the link between ABN and GLM, the features of the exponential family can be exploited to obtain conjugacy.
+In Section \ref{sec:4} we showed that priors play a major role in ABN modeling by (i) comparing the effect of different priors on data separation when dealing with discrete data and (ii) differential density network selection depending on the prior information. %While the simulation gives clear indications within the simulation framework, theoretical Further idea are going to be develop to solve the issue in a better and more accurate way. 
+The simulation study highlights the need to further study suitable priors for ABN modeling. In settings with sparse data or with data separation, we believe that  a conjugate prior is appealing and addressing several issues. 
+If the conjugacy property will be satisfied in the context of ABN, it would lead to evident benefits. For example, a closed form distribution for the posterior might be available.
+This result would lead to huge advantages in terms of the marginal likelihood computation by reducing the time for the model selection process. Similarly, the parameters estimation will also benefit from this choice.
+Moreover, it should also be possible to tackle the score equivalence problem, typical of the BN literature \cite{Heckerman1995,Pittavino2016}.
+
+In order to achieve this goal, we consider the link between ABN models and GLMs and exploit features of the exponential family.
+A good candidate for this purpose is the conjugate prior distribution that belongs to a flexible family of priors called the Diaconis--Ylvisaker conjugate priors \cite{Diaconis1979}. This prior distribution was introduced by \cite{Chen2003}. A change of variables and the resulting properties applied to the Jacobian need to be checked as in \cite{Gut1995} in order to apply this distribution to our specific case.
+Further work will be conducted in this direction in order to formally verify all the desirable assumptions. Additionally,  the R package \emph{abn} \cite{Kratzer} should be equipped with further priors for practical usage and  availability  for the statistical community.
+
+%In this section, we introduce a novel prior distribution for ABN, that belongs to a flexible family of priors called the
+%Diaconis--Ylvisaker conjugate priors \cite{Diaconis1979}.
+%\begin{proposition}\label{Dirichlet_Gen}
+%For any complete Bayesian network structure $\Str$ in a domain $\X$, for binary variables, if the prior density $\pi(\btheta_{\Bay})$ is Dirichlet:
+%\begin{align} \label{Dirichlet}
+%\pi(\btheta_{\Bay}) &= c\prod_{j=1}^{n}\prod_{c=1}^{C_j}\prod_{s=1}^{2}[\theta_{jcs}]^{\delta_{jcs}-1}.
+%\end{align}
+%then the prior density $\pi(\bbeta_{\Abn})$ for a complete additive Bayesian network model $\Abn$
+%is a result of the integration of the multinomial logistic regression model $\Mod$; hence the application
+%of the `logit transformation' to each parameter of the Bayesian network $\Bay$:
+%
+%$\theta_{jcs}= \displaystyle \frac{e^{\beta_{jcs}}}{1+e^{\beta_{jcs}}}=h^{-1}(\beta_{jcs})$ takes the following expression:
+%\begin{align} \label{Eq: Prior}
+%\pi(\bbeta_{\Abn}) &\propto \ds \prod_{j=1}^{n}\prod_{c=1}^{C_j}\left(\frac{e^{\beta_{jc1}}}{1+e^{\beta_{jc1}}}\right)^{\delta_{jc1}}\left(
+%\frac{1}{1+e^{\beta_{jc1}}}\right)^{\delta_{jc2}} =
+%\ds \prod_{j=1}^{n}\prod_{c=1}^{C_j}\frac{\left(e^{\beta_{jc1}}\right)^{\delta_{jc1}}}{\left(1+ e^{\beta_{jc1}}\right)^{\sum_s \delta_{jcs}}}.
+%\end{align}
+%\end{proposition}
+%
+%
+%\begin{proposition}\label{Jac_Theor}
+%Let $\Abn$ be any complete additive Bayesian network model in a domain~$\X$.
+%The Jacobian for the transformation from $\btheta_{\Bay}$ to $\bbeta_{\Abn}$:
+%$J^{\btheta_{\Bay}\stackrel{h}\rightarrow \bbeta_{\Abn}}$, is:
+%\begin{align}  \label{Jacob}
+%J^{\btheta_{\Bay}\stackrel{h}\rightarrow \bbeta_{\Abn}} = \prod_{j=1}^{n} \prod_{c=1}^{C_j} \theta_{jc1}(1-\theta_{jc1}) =
+%\prod_{j=1}^{n}\prod_{c=1}^{C_j} \left[ \frac{dh^{-1}(\beta_{jc1})}{d\beta_{jc1}}\right] =  \prod_{j=1}^{n}\prod_{c=1}^{C_j} \frac{e^{\beta_{jc1}}}{(1+e^{\beta_{jc1}})^2}.
+%\end{align}
+%\end{proposition}
+%
+%
+%With this proposition, we introduce the `suitable' conjugate prior and we show how it can be linked to the
+%generalized prior for the additive parameters $\eqref{Eq: Prior}$ presented previously.
+%\begin{proposition}
+%The generalized prior found in $\eqref{Eq: Prior}$ can be linked to the \cite{Diaconis1979} conjugate priors
+%for GLMs, introduced by \cite{Chen2003}:
+%\begin{equation} \label{Eq: Prior_Chen}
+%\pi(\bbeta_{\Abn}) \propto \prod_{j=1}^{n} \exp \left\{ \sum_{i=1}^{m}  a_{j}\left(b_{ij}\z^T_{ij}\bbeta_{j}-\log(1+e^{\z^T_{ij}\bbeta_{j}}) \right) \right\}.
+%\end{equation}
+%\end{proposition}\MP
+%The proof of all the proposition can be found in \cite{Pittavino2016}.
+
+\bibliographystyle{spmpsci}
+\input{ABNprior_references}
+
+%\bibliography{ABNprior_references}
+
+\end{document}

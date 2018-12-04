@@ -1,0 +1,42 @@
+Before we can make the components of quantum computers as reliable as those of classical computers, we will need quantum error correction so that we can scale up the computation.
+The surface code and other topological codes are popular choices for several qubit architectures because of its high threshold and low requirement on connectivity between qubits.
+However, several good performing decoders have trouble to do real-time decoding for qubits with fast error-correction cycles, such as superconducting qubits.
+Moreover, as we are getting closer to the point where small size surface code can be implemented in the lab, it is desirable that the decoders can adapt to the noise models from the experimental setups.
+These considerations motivate the study of decoders based on neural networks, which we will refer to as neural decoders, for surface code and other topological codes~\cite{Baireuther2018Machinelearningassisted,Varsamopoulos2017Decodingsmallsurface,torlai2016neural,Breuckmann2018Scalable,Baireuther2018Neuralcolorcode,Krastanov2017neural,Maskara2018neural,Chamberland2018neural}.
+One question has not been addressed so far is whether neural networks can also be used for decoding 2D topological codes on a large lattice with good performance.
+In this work, we will focus on answering this question for the toric code.
+While it is the simplest topological code, it shares many common features with others, which makes it a good test platform.
+
+To design a neural decoder for large toric codes, a natural first step is to use convolutional neural networks (CNNs)~\cite{lecun1989generalization,Krizhevsky2012imagenet}, as the toric code and CNNs are both translational-invariant on a 2D-lattice.
+Compared to normal neural networks, the number of parameters in CNNs only scale with the depth of networks.
+This gives an intuition that the training of the CNNs should remain feasible for the lattice size of concern in the near future.
+We want the decoder to be able to adapt to experimental noise, which we should assume to be constantly changing and thus the data for calibration is limited.
+The structure of CNNs allow us to have a great control of how many parameters to be re-trained during calibration so that we can avoid over-fitting (see \aref{appendix:varying_perror} for an example).
+
+Interestingly, the renormalization group (RG) decoder~\cite{duclos2010fast,duclos2013fault} for toric code already has a structure very similar to the CNNs used in image classification.
+Both of them try to keep the information needed for the output intact while reducing the size of the lattice, by alternating between local computation and coarse-grain steps.
+This similarity means that we should aim to achieve better or similar performance with the neural decoder compared to the RG one.
+And in case of bad performance, we can ``teach'' the neural decoder to use a similar strategy as the RG decoder.
+This is indeed how we get a good performance in the end.
+Conceptually, this is similar to imitation learning (see~\cite{Attia2018Globaloverviewof} for an overview).
+Even though we initialize the neural decoder by mimicking the RG one, it can have the following advantages:
+\begin{itemize}
+	\item It can achieve a better performance than the RG decoder, as the latter one contains some heuristic steps. On the other hand, the neural decoder can be optimized to be a local minimum with respect to the parameters of the neural network (strictly speaking, at least the gradient is very small).
+	The idea of improving belief propagation with neural networks is also used for decoding classical linear codes~\cite{Nachmani2016Learningtodecode}.
+	\item It offers an additional way to adapt to experimental noise models, which is simply training on experimental data.
+	\item The neural decoder can be run on dedicated hardware, thus easily parallelized and can decode multiple toric code syndromes simultaneously at a high efficiency.\footnote{In theory, it is possible to convert RG decoder to some tensor computation, but at that point might as well do some end-to-end training and call it a neural decoder.} In \autoref{sec:discussion} we will discuss more about this aspect of advantage.
+\end{itemize}
+
+It is tricky to evaluate the performance of neural decoders.
+As it stands, we need to train the neural nets for different lattice sizes separately, and the training process is not deterministic.
+Thus, we cannot define a threshold for the decoder.
+This is fine if our main goal is to have an adaptable decoder for near-future quantum devices.
+However, in order to know how optimal the neural decoders are, we still make a ``threshold plot'' under a well-studied noise model in \autoref{fig:logical_vs_physical}.
+Roughly speaking, the threshold benchmark is a good indicator of how good the decoder can process syndrome information.
+At the same time, we compare our neural decoder to the minimum-weight perfect matching algorithm in \autoref{fig:comparison_to_MWPM}, and show in \aref{appendix:varying_perror} that our neural decoder can improve itself when trained on different error model.
+We hope these pieces of information together can give a first impression of neural decoders on toric code.
+
+The focus of this paper is not on how to obtain an optimal neural decoder.
+Indeed, a lot of hyper-parameter optimizations can be done to further improve the performance or reduce the amount of data needed for training.
+Instead, we describe the key ideas that allow us to reliably obtain decent neural decoders for the toric code.
+The knowledge we gained can help us design neural decoders for other large codes.

@@ -1,0 +1,60 @@
+Belief propagation is a heuristic procedure for computing marginal probabilities of graphical models.
+We choose to use a slightly different belief propagation implementation compared to~\cite{duclos2010fast}, as ours seems to be more natural for the bit-flip noise model.
+We divide the lattice into $2\times 2$ unit cells.
+Let $G$ be a bipartite graph, where one part corresponds to unit cells, and another part to coarse-grained edges.
+Two vertices in $G$ is connected when the coarse-grained edge is adjacent to the unit cell.
+This later decides how the messages flow in the graph.
+However, we assign two variables $\{x(e_i),x(e_j)\}$ to each vertex corresponding a coarse-grained edge which $e_i$ and $e_j$ form.
+In this section, the symbol $e$ or $e_i$ will denote original edges of the lattice (i.e. not coarse-grained).
+We define $E$ to be the set of all edges $e$, $E_{cg} \subset E$ to be the set of $e$ which are components of coarse-grained edges (i.e. red edges in \autoref{fig:lattice}), and $\bar{E}_{cg} = E \setminus E_{cg}$.
+Given a syndrome $S$, the unnormalized probability of an error configuration $\vec{x}\equiv \{x(e)\}_{e\in E}$ can be written as
+\begin{equation}
+p(\vec{x}) = g(S, \vec{x})\prod_{e\in E} p_e(x(e)) ,
+\end{equation}
+where $g(S, \vec{x}) = 1$ if $\vec{x}$ has syndrome $S$, and otherwise $g(S, \vec{x}) = 0$.
+It is obvious $g(S, \vec{x})$ can be factorized to local terms.
+Thus, the marginal distribution for $e\in E_{cg}$ can then be factorized according to $G$ as
+\begin{equation}
+\sum_{\{x(e), e\in \bar{E}_{cg}\}}p(\vec{x}) =  \prod_c f_c(\{x(e)\}_c) ,
+\end{equation}
+where the product is taken over all unit cells $c$, and $\{x(e)\}_c$ are the set of $x(e)$ such that $e\in E_{cg}$ is adjacent to $c$.
+We can then apply the standard belief propagation to the graph $G$.
+Without further explanation, we choose to use the following rule.
+A unit cell $c_k$ sends to each of its adjacent cell $c_n$ a message containing 4 real numbers
+\begin{equation}
+\{m_{c_k, c_n}(x(e_i), x(e_j))\} \quad \text{for} \  x(e_i),x(e_j) = 0,1 ,
+\end{equation}
+where $e_i$ and $e_j$ form the coarse-grained edge between $c_k$ and $c_n$.
+When we already fix an error configuration $\vec{x}$, we may use the simplified notations
+\begin{equation}
+p_e \equiv p_e(x(e)), \qquad m_{c_k, c_n} \equiv m_{c_k, c_n}(x(e_i), x(e_j)).
+\end{equation}
+To compute an out-going message from cell $c$, we take messages from the other three directions, and consider them to be the probability of error configuration on respective edges.
+We then sum over all error configurations in the cell which give the correct syndrome of the 4 plaquette stabilizer checks.
+\begin{figure}
+	\includegraphics[width=0.5\linewidth]{bp_cell}
+	\caption{An illustration of message passing for a unit cell.}
+	\label{fig:bp_cell}
+\end{figure}
+More concretely, we define $\vec{x}_c$ to be $\vec{x}$ restricted to edges in $c$ (i.e. all edges in \autoref{fig:bp_cell}), and $g'(S, \vec{x}_c)$ checks whether $\vec{x}_c$ is compatible with $S$ similar to $g$.
+We assume we want to send the messages from $c$ to $c_n$, while the incoming messages are from cells $I = \{c_k\}$.
+Then we have
+\begin{equation}
+m_{c, c_n} = \sum_{\vec{x}_c} g'(S, \vec{x}_c)\prod_{c_k\in I} m_{c_k, c} \prod p_{e_i}.
+\end{equation}
+For the last term $\prod p_{e_i}$, the product is taken over the blue edges in \autoref{fig:bp_cell}, assuming $c_n$ is on the right of $c$.
+
+In the end of the message passing, we can compute the marginal probability by
+\begin{equation}
+P(x(e_i),x(e_j)) = m_{c_k, c_n}m_{c_n,c_k} / \left(p_{e_i}p_{e_j}\right) ,
+\end{equation}
+where $e_i$ and $e_j$ are the edges between $c_n$ and $c_k$.
+From the joint distribution $P(x(e_i),x(e_j))$ we can compute the distribution $P\left(x(e_i)+x(e_j)\mod 2\right)$.
+It is not hard to see that the above message passing rules will lead to the correct marginal probability when the underlying graph is a tree.
+(Note this is not the case for the square lattices we are considering)
+
+The key differences between our implementation and the one in~\cite{duclos2013fault} is
+\begin{itemize}
+	\item Ours utilizes all four stabilizer checks in each unit cell while in~\cite{duclos2013fault} only three are used.
+	\item Each message contains 4 real numbers in our implementation while only 1 in~\cite{duclos2013fault}.
+\end{itemize}

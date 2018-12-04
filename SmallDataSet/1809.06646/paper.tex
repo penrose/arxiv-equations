@@ -1,0 +1,455 @@
+%%%%%%%%%%%%%%%%%%%%%%% file template.tex %%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is a general template file for the LaTeX package SVJour3
+% for Springer journals.          Springer Heidelberg 2010/09/16
+%
+% Copy it to a new file with a new name and use it as the basis
+% for your article. Delete % signs as needed.
+%
+% This template includes a few options for different layouts and
+% content for various journals. Please consult a previous issue of
+% your journal as needed.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% First comes an example EPS file -- just ignore it and
+% proceed on the \documentclass line
+% your LaTeX will extract the file if required
+\begin{filecontents*}{example.eps}
+%!PS-Adobe-3.0 EPSF-3.0
+%%BoundingBox: 19 19 221 221
+%%CreationDate: Mon Sep 29 1997
+%%Creator: programmed by hand (JK)
+%%EndComments
+gsave
+newpath
+  20 20 moveto
+  20 220 lineto
+  220 220 lineto
+  220 20 lineto
+closepath
+2 setlinewidth
+gsave
+  .4 setgray fill
+grestore
+stroke
+grestore
+\end{filecontents*}
+%
+\RequirePackage{fix-cm}
+%
+%\documentclass{svjour3}                     % onecolumn (standard format)
+%\documentclass[smallcondensed]{svjour3}     % onecolumn (ditto)
+%\documentclass[smallextended]{svjour3}       % onecolumn (second format)
+\documentclass[twocolumn]{svjour3}          % twocolumn
+%
+\smartqed  % flush right qed marks, e.g. at end of proof
+%
+\usepackage{graphicx}
+%
+% \usepackage{mathptmx}      % use Times fonts if available on your TeX system
+%
+% insert here the call for the packages your document requires
+\usepackage{epstopdf}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{todonotes}
+\usepackage{comment}
+% etc.
+%
+% please place your own definitions here and don't use \def but
+% \newcommand{}{}
+%
+% Insert the name of "your journal" with
+% \journalname{myjournal}
+%
+\begin{document}
+
+\title{Model-Free Adaptive Optimal Control of Sequential Manufacturing Processes using Reinforcement Learning}
+%\subtitle{Do you have a subtitle?\\ If so, write it here}
+
+%\titlerunning{Short form of title}        % if too long for running head
+
+\author{Johannes Dornheim         \and
+        Norbert Link			   \and
+        Peter Gumbsch
+}
+
+%\authorrunning{Short form of author list} % if too long for running head
+
+\institute{Johannes Dornheim \at
+              Institute Intelligent Systems Research Group, Karlsruhe University of Applied Sciences \\
+              Moltkestr. 30, D-76133 Karlsruhe, Germany\\
+              Tel.: +49 721 925-2346\\
+              \email{johannes.dornheim@hs-karlsruhe.de}
+           \and
+           Norbert Link \at
+              Institute Intelligent Systems Research Group, Karlsruhe University of Applied Sciences
+           \and
+           Peter Gumbsch \at
+              Institute for Applied Materials (IAM-CMS), Karlsruhe Institute of Technology
+}
+
+\date{Received: date / Accepted: date}
+% The correct dates will be entered by the editor
+
+
+\maketitle
+\begin{abstract}
+A self-learning optimal control algorithm for sequential manufacturing processes with time-discrete control actions is proposed and evaluated with simulated deep drawing processes. The necessary control model is built during consecutive process executions under optimal control via Reinforcement Learning, using the measured product quality as reward after each process execution. Prior model formation, which is required by state-of-the-art algorithms like Model Predictive Control and Approximate Dynamic Programming, is therefore obsolete. This avoids the difficulties in system identification and accurate modelling, which arise with processes subject to non-linear dynamics and stochastic influences. Also runtime complexity problems of these approaches are avoided, which arise when more complex models and larger control prediction horizons are employed. Instead of using pre-created process- and observation-models, Reinforcement Learning algorithms build functions of expected future reward during processing, which are then used for optimal process control decisions. The learning of such expectation functions is realized online by interacting with the process. The proposed algorithm also takes stochastic variations of the process conditions into consideration and is able to cope with partial observability. A method for the adaptive optimal control of partially observable fixed-horizon manufacturing processes, based on Q-learning is developed and studied. The resulting algorithm is instantiated and then evaluated by application to a time-stochastic optimal control problem in metal sheet deep drawing, where the experiments use FEM-simulated processes. The Reinforcement Learning based control shows superior results over the model-based Model Predictive Control and Approximate Dynamic Programming approaches.
+
+\keywords{Adaptive Optimal Control \and Model-Free Optimal Control \and Manufacturing Process Optimization \and Reinforcement Learning}
+% \PACS{PACS code1 \and PACS code2 \and more}
+% \subclass{MSC code1 \and MSC code2 \and more}
+\end{abstract}
+\section{Introduction}
+\label{intro}
+
+The optimal control of manufacturing processes can improve process performance regarding the resulting product quality and the process efficiency. Adaptive optimal control algorithms can further improve the process performance by compensating process disturbances and stochastic process behavior. Model-free adaptive algorithms furthermore work without the need of a-priori models, if no accurate process-model is available or the use of the given process-model for optimization is impractical \cite{Sutton1992}. The different approaches to optimal control and previous work is introduced in the following.
+
+\subsection{Model-Based Optimal Control}
+\label{introDP}
+
+For a given process model and cost function the optimal control problem can be solved, by using methods from Dynamic Programming \cite{bellman2013reprint}. Such approaches are subject to the so called curse-of-dimensionality in high-dimensional state-spaces, which is leading to difficulties in terms of sample size and computational complexity. In the case of continuous and thus infinite state-spaces the optimal control solution by Dynamic Programming requires the discretization of the state-space, leading to suboptimal solutions. These problems are tackled by combining Dynamic Programming with function approximation (Approximate Dynamic Programming) \cite{powell2007approximate}.  
+
+Another family of methods for optimal control, which is often applied to industrial processes, is Model Predictive Control (MPC). In \cite{camacho2013model} an extensive overview of MPC and implementation examples of MPC for industrial processes are provided. Qin et al. \cite{Qin2003} provides a survey of industrial grade MPC products. Like Approximate Dynamic Programming, MPC requires a process model, usually determined by linear system identification methods. While MPC with linear models is well explored, Nonlinear MPC is an active field of research \cite{grune2011nonlinear}. Online computational costs in MPC are depending on the performance of the prediction model in use and can be reduced by offline pre-calculations as in the \textit{explicit MPC} method \cite{Alessio2009} or by the use of \textit{artificial neural networks} for the approximation of the prediction model \cite{Saint-Donat1991}, \cite{Akesson2006}.
+
+The application of model-based optimal control methods is limited by the quality of the underlying process model. The process identification of highly non-linear processes from experimental data is very resource and time consuming. This is the case with forming processes due to the dynamics of plastic deformation. The experiments can alternatively be simulated by using the Finite Element Method (FEM) with a non-linear material model and be used for simulation based process identification. Published examples for the use of FEM models for model-based optimal control are \cite{Senn2014} and \cite{Bernard2006}. In \cite{Senn2014} various Approximate Dynamic Programming methods are applied to an optimal control problem of a FEM simulated deep drawing processes. In \cite{Bernard2006} methods from Nonlinear MPC in combination with FEM calculations are used for optimal control of a glass forming process. Accurate simulation models of nonlinear manufacturing processes however are in general very computing intensive and thus is rarely used in recent work. simulation effort is leading to high offline costs in Approximate Dynamic Programming and extensive online costs in MPC. A general process model which also represents possible process conditions like tool wear, fluctuating material properties or stochastic outer conditions and disturbances is intractable from a data-sampling point of view.
+
+\subsection{Model-Free Optimal Control}
+\label{introRL}
+
+Due to the described difficulties with model based optimal control, a model-free method for adaptive optimal control of partially observable manufacturing processes is pursued. Adaptive online learning of optimal control policies without the need for a priori knowledge in form of process- or observation- models is accomplished by Reinforcement Learning (RL) \cite{Sutton1998} and Adaptive Dynamic Programming \cite{Wang2009}. 
+
+Instead of solving the optimal control problem by using an existing process model, model-free optimal control methods are optimizing the control policy online while interacting with the process. Other than RL, Adaptive Dynamic Programming has a clear focus on control problems with continuous control parameters and continuous states and is methodically focused on \textit{actor-critic} methods \cite{Szuster2018}. Due to the online learning process, model-free methods for optimal control are inherently adaptive while, according to \cite{Gorges2017}, approaches for adaptive MPC are based on robustness and tend to be conservative. The absence of a process model in RL also results in online performance advantages over MPC and in the ability to handle non-linear systems. The horizon of costs taken into account is usually unbounded with RL, while it is bounded with MPC by the chosen prediction-horizon. The advantage of MPC over RL however is the ability to handle state constraints and feasibility criteria. MPC unlike ML has a mature robustness theory and a mature stability theory. In \cite{Gorges2017} these relations between MPC and RL are studied in depth. 
+
+So far, RL algorithms are mainly applied in optimal control of reference control tasks like cart-pole and pendulum control problems. Benchmark simulations for these tasks can be found in openAI Gym \cite{Brockman2016} and the DeepMind Control Suite \cite{tassa2018deepmind}. Also more complex online control tasks where solved by RL and Adaptive Dynamic Programming. E.g. in \cite{ng2006autonomous} RL is trained on a helicopter simulation model used for autonomous remote control helicopter flight. In \cite{Szuster2018} a comprehensive study of Adaptive Dynamic Programming Methods on robot trajectory optimization problems in unknown environments is presented. 
+
+The fundamental basis of many successfully applied RL algorithms is the use of an general function approximator (e.g. artificial neural networks) for Q-function approximation, which is trained with the experience data stored in a \textit{replay memory}. This is used in methods like \textit{Neural Fitted Q-Iteration} \cite{Riedmiller2005} and the more recent \textit{Deep Q-Learning} \cite{mnih2015human}. While in Neural Fitted Q-Iteration artificial neural networks are retrained from scratch every $n$ episodes, in \textit{Deep Q-Learning} the artificial neural networks are constantly redefined based on mini-batch samples uniformly drawn from the replay memory, enabling the computational efficient use of \textit{deep learning models} in the context of Q-learning.
+
+\subsection{Partial Observability}
+\label{introPartobs}
+
+Model Predictive Control, Approximate Dynamic Programming and Reinforcement Learning determine the optimal control-action based on the current process state. In almost all manufacturing processes the quantities measured in the current state are not unambiguously describing the state with regard to the optimization problem. Observation models are therefore used in Model Predictive Control and Approximate Dynamic Programming to reconstruct the current state from the observation and control history.
+
+When using model-free optimal control methods on partially observable processes, surrogate state descriptions are derived during control for the current state from the history of measurement values. In simple cases state information can be restricted to the information contained in the $N$-step past. The state-representation used in \cite{mnih2015human} to find optimal computer game control strategies is a fixed number $N$ of the latest state observables (computer screen images). In more complex cases, Partially Observable Markov Decision Processes (POMDPs), can be used to model partially observable environments. The solution of a POMDP involves the reconstruction of the observation probability function and the derived probability distribution over possible current states, the so called \textit{belief state}, as surrogate state for solving the optimal control problem. Finding an exact solution of POMDPs is in general intractable. Therefore approximations of POMDPs  e.g. \textit{point-based solver} approaches \cite{Shani2013}, are used. Alternatively, sequence-models such as \textit{Recurrent Neural Networks (RNNs)} are used for deriving surrogate states from the observation- and control-history (\cite{lin1993reinforcement}, \cite{Bakker2002}, \cite{Shani2013}). 
+
+
+\begin{comment}
+If the considered system $f$ is partially observable, the state $x$ is not directly accessible when solving eq. (\ref{bellman_v}), instead a vector of measured values $o$ is given in every control-step.
+\begin{equation}
+o=g(x)+z
+\end{equation}
+where $z$ is a vector of measurement noise and $g$ is a potentially non-linear vector-valued function.
+
+
+Partially Observable Markov Decision Processes\linebreak(POMDP) are generalized MDPs described by the 7-tuple $(X,\allowbreak U,\allowbreak P,\allowbreak R,\allowbreak \Omega,\allowbreak O,\allowbreak \gamma)$ where $(X, U, P, R, \gamma)$ equals the underlying MDP. In POMDPs observables $o\in\Omega$ are given to the agent instead of the state $x$. The observable values $o$ follow the observation probability function $O(o|x,u)$. The Markov Property does not necessarily hold for POMDPs observables and the optimal policy is therefore potentially dependent on the entire history of observations and actions. Surrogate states can be introduced and calculated from past observations and actions, which are again subject to a MDP and can be used to derive an optimal policy \cite{Kaelbling1998}.
+\end{comment}
+
+\subsection{Application}
+\label{introApplication}
+The outcome of deep drawing is influenced by different process parameters, as described in \cite{Singh2015}. Besides fixed value parameters, like initial blank shape and thickness variation, time-variation of blank holder forces are crucial for the resulting process quality. In \cite{Volk2011} single optimal blank holder force trajectories for segmented blank holders are obtained by FEM simulation based optimization and the use of fuzzy logic rules. Other recent approaches for single blank holder force trajectory optimization are described in \cite{Tommerup2012} and \cite{Wifi2007}. 
+
+In contrast, research on blank holder force optimization tasks with a focus on optimal control can be found in \cite{Senn2013} where explicit state descriptions are reconstructed from observable values by regression analysis and dimension reduction and in \cite{Senn2014} where Approximate Dynamic Programming is used for offline calculation of an optimal blank holder force control policy for a FEM-simulated process. In \cite{Dornheim2017} Q-Learning with replay memory of the collected action-history and function approximation is applied to a deterministic and fully observable deep-drawing process.
+
+\subsection{Paper Organization}
+\label{introOrganization}
+In this paper the optimal online control of partially observable, nonlinear sequential processes with discrete control variables based on Reinforcement Learning is developed and studied on a deep drawing process. The model-free optimal control approach proposed here is based on Neural Fitted Q-Iteration \cite{Riedmiller2005}, enhanced by some adaptations for the use in optimal control of stochastic, partially observable manufacturing processes with a fixed-horizon. 
+
+The paper is organized as follows. Chapter \ref{background} introduces the methodical background and algorithms used throughout the paper. In chapter \ref{problem} the problem of adaptive optimal manufacturing control is described and specified formally. Chapter \ref{approach} presents the Reinforcement Learning approach proposed and evaluated. In chapter \ref{eval} the evaluation case, a stochastic and partially observable FEM deep drawing simulation, is described and chapter \ref{results} finally discusses quantitative and qualitative results of the given approach in the selected evaluation setting.
+
+\section{Background}
+\label{background}
+
+\subsection{Markov Decision Processes}
+\label{mdp}
+The framework of Markov Decision Processes (MDP) is used to model time-discrete decision optimization problems and is the formal basis of algorithms from Dynamic Programming, Adaptive Dynamic Programming and Reinforcement Learning. A MDP is described by a 5-tuple $(X, U, P, R, \gamma)$, where $X$ is the set of states $x$, $U$ is the set of control-actions $u$, $P_u(x, x')$ is the probability of a transition to $x'$ when applying the control action $u$ in $x$, $R_u(x, x')$ is a reward signal given for the transition from $x$ to $x'$ due to $u$ and finally $\gamma$ is a discount factor representing the relative weight decrease of future rewards. By definition a MDP satisfies the \textit{Markov property}: The probability of state $x'$ depends only on the current state $x$ and on action $u$ and is conditionally independent of previous states and actions.
+
+The goal of decision optimization algorithms is to solve a given MDP by finding an optimal policy $\pi^*(X)\to U$, a function mapping from states to actions with the property that when following $\pi^*$ from state $x$ on, the expected discounted future reward $V(x)$ is maximized.
+
+\subsection{Optimal Control and the Bellman Equation}
+\label{optControl}
+Consider the nonlinear time-discrete system
+\begin{equation}
+\label{non_linear_system}
+x'=f(x, u, w).
+\end{equation}
+
+According to the MDP definition in \ref{mdp}, $x$ is a vector of system state variables, $u$ is the control vector. $x'$ denotes the system state following $x$ under $u$ and $w$, where $w\sim W$ is a random variable of stochastic process-conditions which are independent of previous time steps. 
+
+An optimal-control problem for the non-linear system $f$, for a defined cost-function $C(x, u, x')$, for hidden conditions $w$ and for $\gamma$-discounted future reward, can be solved by calculating the solution $V^*$ of the Bellman equation (equation \ref{bellman_v}), also named cost-to-go function in Dynamic Programming and optimal value-function in Reinforcement Learning.
+
+\begin{equation} 
+\label{bellman_v}
+V^*(x)=\min\limits_{u\in U}\mathbb{E}_{w\sim W}\Big[C_{t+1}(x, u, x')+ \gamma V^*(x')\Big]
+\end{equation}
+
+The term $C$ is a local cost function depending on the state $x'$ and in some applications also on the control vector $u$ that leads to the state. In fixed-horizon optimal control, the costs $C_{t}$ at time step $t$ are intermediate costs if $t<T$ and terminal costs if $t=T$, where $T$ is the fixed control horizon and corresponds to the end of the process. When eq. (\ref{bellman_v}) is solved, the optimal control law $\pi^*(x)$ can be extracted by $\arg\min\limits_{u\in U}\mathbb{E}_{w\sim W}[v^*(x')]$ for a given process model $f$.
+
+In this paper, following the standard notation of Approximate Dynamic Programming and Reinforcement Learning, the system $f$ and the optimization problem is modeled in form of a MDP as introduced in the previous chapter. In MDPs, instead of the cost-function $C$ a reward function $R$ is used, leading to a maximization problem instead of the minimization in eq. (\ref{bellman_v}). The bellman equation is then given by
+
+\begin{equation}
+\label{bellman_v_mdp}
+v^*(x)=\max\limits_{u\in U}\mathbb{E}_{x'}\Big[R_u(x, x')+ \gamma v^*(x')\Big],
+\end{equation}
+
+where the probability of $x'$ is given by the transition probability function $P_u(x, x')$, capturing Stochastic process-conditions $w$.
+
+\subsection{Q-Learning}
+\label{qLearning}
+
+The objective of Q-learning \cite{watkins1989} is to find the optimal Q-function
+
+\begin{equation}
+\label{optimal_q}
+Q^*(x, u)=\mathbb{E}_{x'}\Big[R_u(x, x')+\gamma \max\limits_{u'\in U}Q^*(x',u')\Big].
+\end{equation}
+
+Different from the optimal value-function in (\ref{bellman_v_mdp}), Q-functions are defined over state, action tuples. By taking the action into account, Q-functions are implicitly capturing the system dynamics and no additional system-model is needed for optimal control. Once the optimal Q-function is found, the optimal control policy $\pi^*$ is given by
+
+\begin{equation}
+\label{optimal_pi}
+\pi^*(x)=\arg\max\limits_{u\in U}Q^*(x,u).
+\end{equation}
+
+In Q-learning based algorithms $Q^*$ is found by constantly updating an approximation to $Q^*$ by the update step in eq. \ref{q_update} for observed $(x, u, x', R)$ and a given learning-rate $\alpha \in [0,1]$ while interacting with the process under explorative behavior. 
+
+\begin{equation}
+\label{q_update}
+Q'(x,u)=\big(1-\alpha\big)Q(x,u)+\alpha\big(R+\gamma\max\limits_{u'\in U}Q(x',u')\big)
+\end{equation}
+
+	
+\section{Problem Description}
+\label{problem}
+
+The manufacturing processes considered in this paper sequentially process workpieces. The processing of a single workpiece thereby takes place in a fixed number of discrete optimal control steps and can be modeled as fixed-horizon \textit{Markov Decision Process} (MDP), where for every policy and every given start state a terminal state is reached at time step $T$. Each processing may be subject to slightly different conditions (e.g. the initial workpiece, lubrication, tool wear). In Reinforcement Learning, the interaction with a finite-horizon MDP from start- to terminal-state (here a single workpiece processing) is denoted as \textit{episode} and tasks with repeated execution of episodes are denoted as \textit{episodic tasks} (here production process). Hereafter the term \textit{episode} is used in Reinforcement Learning contexts and the phrase \textit{process execution} in manufacturing contexts.
+
+Most processes, such as forming or addititve manufacturing, are irreversible. The related control decisions are leading to disjoint sub-state-spaces $X_t$ depending on the time step $t<T$. The terminal state reached ($x_T$) is assessed and the main reward is given according to the final product quality, quantified by a cost function. At each time step during process execution, negative reward can also be assigned according to cost related with the execution of a dedicated action in the present state. For deterministic processes, where the process dynamics is depending only on the control parameters $u$, the structure of the fixed-horizon processing MDP is represented by a tree graph with the starting state as root vertex and the terminal states as leaf vertices. In the online manufacturing process optimal control case considered in this paper the process dynamics during an individual process execution depend on stochastic per-episode process conditions. In this scenario, the underlying MDP equals a collection of graph-trees, each tree representing a particular process condition setting. An exemplary MDP tree is depicted on the right side of fig. \ref{deep_drawing_tree}, for the deep-drawing blank holder force optimization problem. 
+
+\begin{comment}
+Manufacturing processes considered in this paper are executed in a fixed number of steps and modeled as fixed-horizon \textit{Markov Decision Process}. A number of such individual fixed-horizon process executions are repeated in a production sequence, where each execution may be subject to slightly different conditions (e.g. the initial workpiece, lubrication, tool wear). Fixed horizon MDPs are a sub-class of finite horizon MDPs, where for every policy and every given start state a terminal state is reached at time step $T$. Most processes, such as forming or addititve manufacturing, are irreversible. The related control decisions are leading to disjoint sub-state-spaces $X_t$ depending on the time step $t<T$. The terminal state at $T$ is assessed and the main reward is given according to a quality result. At each time step during process execution, negative reward can also be assigned according to cost related with the execution of a dedicated action in the present state. Due to the fixed horizon structure of MP-MDPs, future rewards do not have to be discounted, leading to a neutral discount factor ($\gamma=1.0$). In Reinforcement Learning, the interaction with a finite-horizon MDP from start- to terminal-state (here a single process execution) is denoted as \textit{episode} and tasks with repeated execution of episodes are denoted as \textit{episodic tasks} (here production sequence). Hereafter the term \textit{episode} is used in Reinforcement Learning contexts and the phrase \textit{process execution} in manufacturing contexts.
+
+For deterministic processes, where the process dynamics is depending only on the control parameters $u$, the structure of the MP-MDP is represented by a tree graph with the starting state as root vertex and the terminal states as leaf vertices. In the online manufacturing process optimal control case considered in this paper the process dynamics during an individual process execution depend on stochastic per-episode process conditions. In this scenario, the underlying MDP equals a collection of graph-trees, each tree representing a particular process condition setting. An exemplary MP-MDP, for the deep-drawing blank holder force optimization problem, is depicted in fig. \ref{deep_drawing_tree}. A MDP solution is developed to derive optimal policies under partial observability, observables subject to noise and varying process conditions. 
+\end{comment}
+
+\subsection{Deep Drawing, Blank Holder Force Optimization}
+\label{BHFopt}
+A controlled deep-drawing process is used as a proof-of-concept, where the optimal variation of the blank-holder force is determined at processing time. As emphasized in \ref{introApplication} the result of the deep drawing process is strongly dependent on choosing appropriate blank holder force trajectories. Therefore time-dependent blank holder force optimization is a relevant problem. In this paper the blank holder force optimization problem is modeled according to the described sequential Manufacturing Process MDP framework. Parameterizable FEM models are used to simulate the online process behavior for method development and evaluation. The simulated problem setting (\textit{environment}) is depicted in fig. \ref{architecture}. The current environment-state $x$ is calculated by the FEM-model based on the given control-action $u$, the previous environment-state and process conditions $s$, which are randomly drawn according to a given distribution. Based on $x$, the current reward $R$ and observable values $o$ are derived by a reward-function and a sensor-model and is finally given to the control-agent. A detailed description of the simulation model and the environment parameters used in this work is given in chap. \ref{femModel}.
+
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{architecture.png}
+	\caption{Scheme of the interaction of the proposed optimal on-line control agent with the simulated process environment.}
+	\label{architecture}
+\end{figure}
+
+\section{Approach}
+\label{approach}
+
+A generic version of the optimal control agent is depicted in fig. \ref{architecture}. An observer derives surrogate state descriptions $\bar{X}$ from the observable values $o$, and previous control-actions $u$. Control-actions are determined based on a policy $\pi$, which itself is derived from a Q-function. The Q-function is learned from the processing samples via batch-wise retraining of the respective function approximation, following the incremental variant of the neural fitted Q iteration approach (\cite{Riedmiller2005}). 
+
+For exploration, an $\epsilon$-greedy policy is used, acting randomly in an $\epsilon$-fraction of control actions. The current approximation of the $Q^*$-function is used otherwise to derive the optimal action, which is executed (exploitation). The exploration fraction $\epsilon \in [0,1]$ is decreased over time to improve the optimization convergence and to reduce the number of sub-optimal control trials. This is reached by an exponential decay over the episodes $i$ according to $\epsilon_i = \epsilon_0 \mathrm{e}^{-\lambda i}$, with decay rate $\lambda$. 
+\subsection{Handling Partial Observability}
+\label{partObs}
+As described in \ref{introPartobs}, the partial observability of process states make the current optimal action potentially dependent on the whole history of observables and actions. In the case of fixed horizon problems, like episodes of the considered sequential manufacturing processes (see \ref{problem}), the length of the current history is limited to the current episode. 
+
+The MDP solution of a partially observable process depends on the given information. If representative data of observables and corresponding state values can be drawn from the underlying observation probability function $O$, like it is assumed in \cite{Senn2014}, an explicit observation model can be learned and used to derive state values and apply regular MDP solution methods. If no prior information about the state-space and observation probabilities is available, surrogate state descriptions $\bar{x}$ have to be derived from the history of observable values and control actions.
+
+A necessary condition for finding the optimal control policy $\pi^*(X)$ for the underlying MDP based on $\bar{X}$ is, that the optimal policy is equivalent for any two states ($x_1$, $x_2$), where the corresponding action-observable-histories are mapped to the same surrogate state $\bar{x}$. The fulfillment of this condition is restricted by observation (measurement) noise. In the present stochastic fixed-horizon case, the information about the state contained in the observable-action history is small in the beginning and increasing with every control and observation step along the episode. The condition is therefore violated, especially in the beginning of an episode.
+
+In this work the full information about observables and actions for the current episode up to the actual control-step is used by concatenating all these values in $\bar{x}$. This approach leads to a variable dimension $n$ of the vectors $\mathbf{\bar{x}}\in \mathbb{R}^n$, increasing with every time step $n=[\mathrm{dim}(O)+\mathrm{dim}(U)]*t$. When using Q-function approximation, the approximation model input dimension is therefore dependent on $t$. If function approximation methods with fixed input dimensions (like standard artificial neural networks) are used, a dedicated model for each control-step is required. This would complicate the learning process in cases with higher numbers of control-steps, especially in re-training and hyperparameter optimization. These problems can be avoided by projection to a fixed dimension n, e.g. via Recurrent Neural Networks, as described in \ref{introRL}.
+
+\subsection{Q Function Approximation}
+\label{funcAprox}
+
+The incorporation of function approximation into Q-learning enables the generalization of the Q-function over the $(X, U)$-space. This allows the transfer of information about time-local Q-values to newly observed states $x$. Approximation of the Q-function via regression is thus increasing the learning speed in general and enabling an approximate representation of the Q-function in cases with a continuous state space.
+
+In this paper, artificial neural networks are used for regression, which are retrained periodically based on data from a so-called replay memory. The replay memory consists of an increasing set of experience-tuples $(\bar{x}, u, \bar{x}', R)$, gathered during processing under control with the explorative policy described at the beginning of chap. \ref{approach}. The Q-function is re-trained from scratch with the complete replay memory data every $n$ episodes. This is in contrast to standard Q-learning, where the Q-function is re-defined after each control action $u$ based on the current experience tuple $(\bar{x}, u, \bar{x}', R)$ only. The use of standard Q-learning in combination with iteratively trained function approximation can result in a complete loss of experience (\textit{catastrophic forgetting}) due to the non-stationary sampling process in Reinforcement Learning \cite{French1999}. The use of a replay memory for periodic retraining of Q-function approximation models has shown to be more stable and data-efficient, is well studied and used e.g. in Neural Fitted Q-Iteration \cite{Riedmiller2005}. 
+
+As described in \ref{partObs}, the dimension of the used state representation $\bar{x}$ is dependent on the current control step $t\in[0, 1, ..., T]$. Because the input dimension of feed-forward artificial neural networks is fixed, multiple artificial neural networks $Q_t(\bar{x}, u, \bm{\Theta_t})$, with weight parameter values $\bm{\Theta_t}$, depending on the current control-step $t$ are used. For each data-tuple $(\bar{x}, u, \bar{x}', R)$ in the replay-memory, the Q-vaules are updated before retraining according to eq. (\ref{q_update}). The update is based on the Q-approximation of the model for the current step \allowbreak$Q_t(\bar{x}, u, \bm{\Theta}_{t})$ and the Q-approximation of the model for $t+1$, \allowbreak$Q_{t+1}(\bar{x'},u', \bm{\bar\Theta}_{t+1})$, where $\bm{\Theta}_t$ are weight values for step $t$ from the previous training iteration and $\bm{\bar\Theta}_t$ are weight values resulting from the current training iteration. The per-example loss used for training is the squared error
+
+\begin{equation}
+\label{loss}
+L\big((x,u),y,\bm{\Theta}_t\big)=\big(y-Q_t(x,u,\bm{\Theta}_t)\big)^2,
+\end{equation}
+
+where the training-target $y$ for a given replay-memory entry is defined by 
+
+\begin{equation}
+\label{q_update_nn}
+y=(1-\alpha)Q_t(\bar{x},u, \bm{\Theta}_{t})+ \alpha\Big[R+\gamma\max\limits_{u'\in U}Q_{t+1}(\bar{x'},u', \bm{\bar\Theta}_{t+1})\Big].
+\end{equation}
+
+The proposed update mechanism works backwards in the control steps $t$ and thereby, as shown in eq. (\ref{q_update_nn}), incorporates the already updated parameters for $Q_{t+1}$ when updating $Q_{t}$. By using the updated model for $t+1$ when updating the model for $t$, the propagation of reward information is accelerated, leading to a faster convergence as shown in the results section (chap. \ref{results}). 
+
+At the beginning of a process, the observable values only depend on the externally determined initial state, which in our case does not reflect any process influence. The Q-function $Q_0$ then has to be defined over the single state $x_0=\{\phi\}$ and therefore only depends on the control action $u_0$. In contrast to other history-states, one transition sample $(\phi, u_0, \bar{x}_1)$ involving $\phi$ is stored in the replay memory per episode. By assuming that the stored transition-samples are representative for the transition probability function $p(\bar{x}_1|\phi, u_0)$, the expected future reward for the first control-step $u_0$ (here denoted as $Q_0$) is defined in eq. (\ref{monte_carlo_update}) and can be calculated directly by using the replay memory and the approximation model for $Q_1$.
+ 
+\begin{equation}
+\label{monte_carlo_update}
+Q_0(\phi, u_0)=\mathbb{E}_{\bar{x}_1}\Big[R+\gamma max_{u_1}Q_1(\bar{x}_1, u_1)\Big]
+\end{equation}
+
+\section{Evaluation Environment}
+\label{eval}
+\begin{figure*}
+	\includegraphics[width=\textwidth]{deep_drawing_tree.png}
+	\caption{left: Rotationally symmetric deep drawing simulation model with observable-values $o$ and actor-values $u$. right: tree-like manufacturing process MDP for a given friction coefficient of 0.056, with color coded von Mises stress distribution (unit: MPa) in the radial workpiece intersection.}
+	\label{deep_drawing_tree}
+\end{figure*}
+
+The approach presented in the previous chapters is evaluated by applying it to optimize the blank holder force during deep drawing processes. A controlled evaluation environment is implemented by using numerical simulations of the process. The digital twin of a deep drawing process is realized via FEM simulation and used for the online process control assessment. The simulation model, as depicted in Fig. \ref{deep_drawing_tree}, simplifies the deep drawing process assuming rotational symmetry and isotropic material behavior. Due to its simplicity, the FEM model is very efficient with respect to computing time (about 60 seconds simulation-time per time step on 2 CPU cores) it therefore enables in depth methodological investigations such as comparative evaluations of different algorithms and parameter settings.
+
+To enable the study of time-discrete optimal online control of blank holder forces derived from observable values, the FEM model is solved to calculate the next state based on simulation result of the previous time step and the current blank holder force value given by the control agent.
+
+\subsection{FEM Model}
+\label{femModel}
+The rotationally symmetric FEM model, visualized on the left side of fig. \ref{deep_drawing_tree}, consists of three rigid parts interacting with the deformable blank. The circular blank has a thickness of 25 mm and a diameter of 400 mm. An elastic-plastic material model is used for the blank, which models the properties of Fe-28Mn-9Al-0.8C steel \cite{yoo2009}. The punch pushes the blank with constant speed into the matrice to form a cup with a depth of 250 mm. Blank holder force values can be set at the beginning of each of five consecutive control steps, where the blank holder force changes linearly in each control step from its current value to the value given at the start of the step. Blank holder force can be chosen from the set \{20 kN, 40 kN, ..., 140 kN\} in each control step and the initial blank holder force is 0.0 kN.
+
+Abaqus FEM code was used for this work. Extensive use of the Abaqus scripting interface \cite{AbaqusScripting} in combination with analysis restarts (compare \cite{AbaqusAnalysis2}, chap. 9.1.1) has been made to enable the efficient and reusable simulation of an online optimal control setting, where the control agent sets control parameters based on current state observables.
+
+\subsection{Process Disturbances}
+\label{disturbances}
+Stochastic process disturbances and observation noise are added to the simulated deep drawing process described in \ref{femModel} to create a more realistic process twin. Process disturbances in the deep-drawing sample process are introduced by a stochastic contact friction, which varies from process to process in the simulated production series. The friction coefficient is modeled as a beta-distributed random variable, drawn independently for each deep drawing process execution. The distribution parameters are chosen to be $\alpha=1.75, \beta=5$, the distribution is rescaled to the range $[0, 0.14]$. The friction coefficient is discretized for a better reusability of simulation results by binning into 10 bins of equal size, resulting in a discrete distribution of 10 values in the range $[0.014, 0.14]$ with a mode of $0.028$.
+
+\subsection{Partial Observability}
+\label{observables}
+As depicted in fig. \ref{architecture} the current process state $x$ is dependent on the previous state, the control action $u$ and the actual friction coefficient $s$. The state $x$ and the underlying beta-distribution as well are not accessible by the agent. Instead observable values $o$ are given in each time step. Observable values are (a) the actual stamp-force, (b) the actual blank infeed in x direction and (c) the actual offset of the blank-holder in y direction. The measurement noise of these observables is assumed to be additive and to follow a normal distribution, where the standard deviation is chosen to be $1\%$ of the stamp-force- and blank holder offset value range and $0.5\%$ of the blank infeed value range. This corresponds to common measurement noise characteristics encountered in analogue sensors.
+
+\subsection{Reward Function}
+\label{reward}
+As described in \ref{optControl}, the reward function can be composed of local cost (related to the state and action of each single processing step) and of global cost (assigned to the process result or final state). In the case of zero or constant local cost, the optimization is determined by the reward assigned to the terminal state, which is assessed by a quality control station. This case is considered for the evaluation of the methods presented in this paper. The process goal is to produce a cup with low internal stress, sufficient material thickness and with low material usage. 
+
+FEM elements $e$ are ordered in a $n\times m$ blank-discretization-grid with $n$ columns and $m$ rows, depicted in fig. \ref{deep_drawing_tree}. For reward calculation, three $n\times m$ matrices ($\bm{S}$, $\bm{W^y}$, $\bm{P^x}$) of element-wise simulation results are used. Where $\bm{S_{ij}}$ is the mean \textit{von Mises Stress} of element $e_{ij}$, $\bm{W^y_{ij}}$ is the width of element $e_{ij}$ in y-direction and $\bm{D^x_{ij}}$ is the $x$-axis displacement of element $e_{ij}$ between time step $0$ and $T$. Using these matrices, the reward is composed of the following three terms based on the simulation results: (a) The L2-norm of the vectorized von Mises stress matrix $C_a(x_T)=||vec(\bm{S})||$, (b) the minimum $C_b(x_T)=-\mathrm{min}(\bm{t}_i)$ over a vector $\bm{t}$ of column-wise summed blank widths $\bm{t}_i=\sum_jw^y_{ij}$ and (c) The summed displacement of elements in the last column $C_c(x_T)=\sum_j{d^x_{nj} - d^x_{nj}}$, representing material consumption during drawing. The reward-function terms $R_i$ are scaled according to eq. \ref{scaling}, with $C_i, i\in \{a, b, c\}$, resulting in approximately equally balanced $R_i$.
+\begin{equation}
+\label{scaling}
+R_i(x_T)=10*\bigg(1-\frac{C_i(x_T)-C_i^{min}}{C_i^{max}-C_i^{min}}\bigg)
+\end{equation}
+The extrema $C_i^{min}$ and $C_i^{max}$ are empirically determined per cost-term by using 100 data tuples from terminal states, sampled in prior experiments by applying random blank holder force trajectories. The final reward is the weighted harmonic mean, if all resulting terms $R_i$ are positive and 0 otherwise. 
+\begin{equation}
+\label{rewardFormula}
+R(x_T)=
+	\begin{cases}
+	H(x_T, W), & \text{if }\forall i\in{a,b,c}: R_i(x_T)\geq 0\\
+	0,																		& \text{otherwise}
+	\end{cases}
+\end{equation}
+\begin{equation}
+H(x_T, W)=\frac{\sum_i w_i}{\sum_i \frac{w_i}{R_i(x_T)}}
+\end{equation}
+The harmonic mean has been chosen to give preference to process results with balanced properties regarding the reward terms. The weights of the harmonic mean can be used to control the influence of cost-terms to the overall reward. Equal weighting is used for the evaluation experiments of the presented algorithms.
+
+\subsection{Q-Function Representation}
+\label{q_func_representation}
+The Q-function, as introduced in chap. \ref{funcAprox}, is represented by a set of feed forward artificial neural networks, which are adapted via the backpropagation algorithm. The optimization uses the sum-of-squared-error loss function combined with a $L_2$ weight regularization term. 
+The limited-memory approximation to the \textit{Broyden-Fletcher-Goldfarb-Shanno} (L-BFGS) algorithm \cite{liu1989limited} is used for optimization as it has been shown to be very stable, fast converging and a good choice for learning neural networks when only a small amount data is available. Rectified linear unit functions (relu) are used as activation functions in the hidden layers. Two hidden layers are used for all networks, consisting of 10 units each for $Q_1$ and 50 neurons for $Q_2$, $Q_3$, $Q_4$. The squared reward is used as desired output of the Q-function approximation.
+
+\section{Results}
+\label{results}
+The approach presented in chap. \ref{approach} is investigated with a set of experiments executed with the simulated deep drawing process described in chap. \ref{femModel}. The proposed adaptive optimal control algorithm is compared to non-adaptive methods from standard Model Predictive Control and from Approximate Dynamic Programming. To make them comparable, the non-adaptive methods are based on an a priori given perfect process model which does not capture stochastic process influences. This is reflected by a static friction-coefficient of 0.028 in the respective model. The non-adaptive methods are therefore represented by this single model with static friction coefficient. The result of this optimization is used as the non-adaptive baseline in the subsequent evaluations. The baseline-trajectory was determined by full search over the trajectory-space for the given friction coefficient. The expected baseline reward is formed over the rewards (eq. \ref{rewardFormula}, with all weight values equal to one) for all friction values for the determined trajectory, resulting in a value of 5.13.
+
+The model retraining interval $n$ was chosen to be 50 process executions (episodes) and the first training is carried out after 50 random episodes. For hyperparameter optimization, the performance over time of the Q-function approximators is evaluated by 5-fold cross-validation during each retraining phase. In fig. \ref{r2_scores} the coefficient of determination ($R^2$-Score), resulting from cross-validation, is plotted over the number of process executions (Episodes) for the hyperparameters described in chap. \ref{q_func_representation} and with the following Reinforcement Learning parameters: learning-rate $\alpha=0.7$, exploration-rate $\epsilon=0.3$ and an $\epsilon$-decay $\lambda$ of $10^{-3}$. 
+
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{r2_scores_part_obs2.pdf}
+	\caption{Cross-Validation $R^2$ score for $Q_t$-models by episode (quality of the Q-function representation), sorted by $t$ (color)}
+	\label{r2_scores}
+\end{figure}
+
+In this case, for $t\in\{2,3,4\}$ the $R^2$-Score is increasing over time as expected. For the first time step ($t_1$) however, a decrease of the $R^2$-Score over time is observed. No hyperparameters, leading to better results for $t_1$ were found during optimization. Results from experiments, where the actual friction-coefficient can be accessed by the agent, visualized in fig. \ref{r2_fully_obs}, indicate that the decrease is related to the partial observability setting (see chap. \ref{partObs}). A deeper analysis of the data shows, that, due to the early process stage and measurement noise, for $t_1$ the information about the friction-coefficient in the observable values is very low. This fact leads to a $Q_1$-function which mainly relies on the previous action $u_0$ and the planned action $u_1$. In the first episodes high exploration rates and low quality $Q$-functions are leading to very stochastic control decisions, leading to almost equally distributed $u_0$ and $u_1$ values in the replay-memory. In later episodes optimal control decisions $u_0^*$ and $u_1^*$ ($u_t^*=\arg\max\limits_{u_t\in U}Q^*(x,u_t)$) are more and more dominating the replay memory. Due to the low information in the observable values, $u_0^*$ and $u_1^*$ are independent from the friction-coefficient. The advantage of the $Q_1$-model over the simple average on the replay memory is decreasing due to this dominance, hence the $R^2$-score is shrinking. In the fully observable case (fig. \ref{r2_fully_obs}), $u_0^*$ and $u_1^*$ are dependent on the friction-coefficient, resulting in a increasing $R_2$ score for the $Q_1$-model.
+
+Fig. \ref{ExpGreedyReward} shows results of the Reinforcement Learning control for an exemplary simulated production batch of 1000 deep drawing episodes. The \textit{expected reward} for a given episode and friction denotes the reward reached in the last episode of the previous optimal control, where under the given friction the agent acted optimal (without exploration) according to the current Q-function. The overall expected reward per episode (solid black line) is the expectation value calculated for the friction-distribution and the friction-dependent greedy rewards. The baseline (dashed black line) is the expected reward for non-adaptive methods, determined as described above.
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{qualitative_exp_greedy_reward.pdf}
+	\caption{Expected reward for the RL approach during optimization (black, solid) and expected reward for the baseline approach (grey, dashed)}
+	\label{ExpGreedyReward}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{box_lr3.pdf}
+	\caption{Reward-distribution by episode for different learning-rates} auch s
+	\label{boxLR}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{box_eps3.pdf}
+	\caption{Reward-distribution by episode for different exploration-rates $\epsilon$}
+	\label{boxEPS}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{r2_scores_full_obs2.pdf}
+	\caption{Cross-Validation $R^2$ score for fully observable environment (observable friction coefficient)}
+	\label{r2_fully_obs}
+\end{figure}
+
+
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{box_obs_settings3.pdf}
+	\caption{Reward-distribution by episode for observable friction (red), partially observable (standard case, blue), control based on the Reward-signal only, without using observable values (green)}
+	\label{obs_partObs_fullObs}
+\end{figure}
+
+
+\begin{figure}
+	\includegraphics[width=0.5\textwidth]{box_no_bw_training3.pdf}
+	\caption{Reward-distribution by episode for training of q-networks backwards in time, as described in \ref{funcAprox} (red) and no backwards-training (blue)}
+	\label{backwards_training}
+\end{figure}
+
+In order to reveal the effect of the learning parameter variation, experiments were conducted with varying learning rate $\alpha$ and exploration rate $\epsilon$ to explore their influence on the quality of the online control, reflected by the distribution of the resulting reward. For each parameter combination 10 independent experimental batches were executed, each with 2500 deep-drawing episodes under control of the respectively parameterized Reinforcement Learning algorithm. The resulting reward-distribution, sampled in bins of 500 subsequent episodes, is visualized as box-plot in figure \ref{boxLR} for a varying learning rate $\alpha$ and in figure \ref{boxEPS} for various exploration-rates $\epsilon$. In all experiments an $\epsilon$-decay $\lambda$ of $10^-3$ and the function approximation hyperparameters described above were used. It can be seen from fig. \ref{boxLR} that the algorithm is not sensitive to the chosen parameters but that small and large learning rates yield somewhat less optimal results. The optimization quality however decreases with increasing exploration rate as shown in fig. \ref{boxEPS}. This is due to the negative effect of explorative behavior to the short term outcome of the process. In the deep-drawing process considered even low exploration rates (here $0.1$) lead to fast overall convergence which is not necessarily the case in other manufacturing process optimal control applications. 
+
+
+Besides learning parameter variation, experiments were made to investigate the effect of process observability in the setting described in chap. \ref{partObs}. In figure \ref{obs_partObs_fullObs} the rewards achieved by Reinforcement Learning based control of 10 independent executions each in three different observability scenarios are visualized. In the fully observable scenario (left), the agent has access to the current friction coefficient and thus perfect information about the process. The partially observable scenario (middle) is equivalent to the scenario described in chap. \ref{partObs} and used in the other experiments. The ''blind'' agent (right) has no access to information regarding the process state and the optimal control is based on the knowledge about previous control actions and rewards only. In this scenario the median of the performance (Reward) is only slightly above the baseline. 
+
+
+In figure \ref{backwards_training} the effect of training the approximation models backwards in control-steps, as described in chap. \ref{funcAprox}, is depicted. The reward information is then faster propagated to the expectation approximation models of the first control-steps, training backwards in control-steps (left) leads to a performance advantage over building the expected values based on models from the previous training iteration only (right), especially in the early process steps.
+
+
+
+\section{Discussion and Future Work}
+\label{discussion}
+
+It has been shown how Reinforcement Learning based methods can be applied to optimal control of sequential manufacturing processes with time-discrete control actions in an adaptive way to also account for varying process conditions. A model-free Q-learning based algorithm has been proposed, which enables the adaptivity to varying process conditions through learning to modify the Q-function accordingly. A class of fixed-horizon manufacturing processes has been described in chap. \ref{problem}, to which this generic method can be applied. When applied online, the approach is able to self-optimize the process control according to the cost function. Optimal control e.g. regarding the process result quality and the process efficiency can be learned by the approach. The approach is able to adapt to instance specific process conditions and non stationary outer conditions. Even in a fully blind scenario, with no additional sensory information, the new algorithm reaches or slightly surpasses the results from Model Predictive Control and Approximate Dynamic Programming in the example use case. 
+
+In opposite to model-based approaches from Model Predictive Control and Approximate Dynamic programming, no prior model is needed when using RL for optimal control. It is thereby applicable in cases where accurate process models are not feasible or not fast enough for the use for online prediction in Model Predictive Control or for offline optimization in Approximate Dynamic Programming. 
+
+The disadvantage of online learning approaches, like the proposed reinforcement learning (RL) approach, is the dependence on data gathered during optimization (exploration). Exploration leads to sub-optimal behavior of the control-agent in order to learn something about the process and to improve future behavior. When used for optimal control of manufacturing processes, RL can lead to increased product reject rates, decreasing during the learning process. Hereby, optimal manufacturing process control with RL can be used in applications with high production figures but is not viable for small individual production batches. To overcome these problems, the incorporation of safe exploration methods from the field of \textit{safe reinforcement learning} could directly lead to decreased reject rates. The extension of the proposed approach with methods from \textit{transfer learning} or \textit{multiobjective reinforcement learning} can enable information-transfer between various process instances, different e.g. in the process-conditions or the production goal, and could thereby lead to more efficient learning and consequently to decreased reject rates and a wider field of application.
+
+The approach has been instantiated for and evaluated with the task of blank holder force optimal control of a deep-drawing process. The optimal control goal was the optimization of the internal stresses, of the wall thickness and of the material efficiency for the resulting workpiece. The deep drawing processes used to evaluate the approach were simulated via FEM. The experimental processes were executed in an automatic virtual laboratory environment, which was used to vary the process conditions stochastically and to induce measurement noise. The virtual laboratory is currently specialized to the deep drawing context, but will be generalized and published in future work for experimentation and evaluation of optimal control agents on all types of FEM simulated manufacturing processes.
+
+
+\begin{comment}
+Under the assumption of a limited process model, the developed model free algorithm was compared to model based non-adaptive optimal control methods Approximate Dynamic Programming and Model Predictive Control). It has been shown, that a model free algorithm is able to outperform the model based approaches in the chosen experimental scenario.
+\end{comment}
+
+\begin{comment}
+Based on the proposed algorithm planned future work includes (a) the use of recurrent neural networks instead of time step dependent neural networks for better scalability to processes with larger time-horizons. (b) the incorporation of multi-objective Reinforcement Learning (\cite{Liu2015}) methods to enable transfer of learned expectation value functions between different reward-term weightings. (c) research on meta-models for detecting long-term process drifts to improve Reinforcement Learning under a non-stationary stochastic process behavior.
+\end{comment}
+
+\begin{acknowledgements}
+The authors would like to thank the DFG and the German Federal Ministry of Education and Research (BMBF) for funding the presented work carried out within the Research Training Group 1483 ”Process chains in manufacturing” (DFG) and under grant \#03FH061PX5 (BMBF). \end{acknowledgements}
+
+% BibTeX users please use one of
+%\bibliographystyle{spbasic}      % basic style, author-year citations
+\bibliographystyle{spmpsci}      % mathematics and physical sciences
+%\bibliographystyle{spphys}       % APS-like style for physics
+\bibliography{paper}   % name your BibTeX data base
+
+% Non-BibTeX users please use
+%\begin{thebibliography}{}
+%
+% and use \bibitem to create references. Consult the Instructions
+% for authors for reference list style.
+%
+%\bibitem{RefJ}
+% Format for Journal Reference
+%Author, Article title, Journal, Volume, page numbers (year)
+% Format for books
+%\bibitem{RefB}
+%Author, Book title, page numbers. Publisher, place (year)
+% etc
+%\end{thebibliography}
+\end{document}
+% end of file template.tex
+

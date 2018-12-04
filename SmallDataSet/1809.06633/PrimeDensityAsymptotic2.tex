@@ -1,0 +1,1279 @@
+
+
+\documentclass[12pt]{article}
+
+
+
+ 
+\usepackage{latexsym}
+\usepackage{amsxtra}
+\usepackage{amssymb}
+\usepackage{bm}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{xspace}
+\usepackage{graphicx}
+%\usepackage[margin=1.5in]{geometry}
+\usepackage[margin=1in]{geometry}
+
+\input xy
+\xyoption{all} \CompileMatrices
+
+\begin{document}
+
+\def\HH{{\mathcal{H}}}
+\def\orb{{\operatorname{orb}}}
+\def\diam{{\operatorname{diam}}}
+\def\II{{\mathfrak{I}}}
+\def\PO{{\operatorname{PO}}}
+\def\Cl{{\operatorname{Cl}}}
+\def\Max{{\operatorname{-Max}}}
+\def\XX{{\mathfrak X}}
+\def\YY{{\bf{Y}}}
+\def\BBB{{\mathcal B}}
+\def\inv{{\operatorname{inv}}}
+\def\emph{\it}
+\def\Int{{\operatorname{Int}}}
+\def\Spec{\operatorname{Spec}}
+\def\Bin{{\operatorname{B}}}
+\def\n{\operatorname{b}}
+\def\N{{\operatorname{GB}}}
+\def\BC{{\operatorname{BC}}}
+\def\dlog{\frac{d \log}{dT}}
+\def\Sym{\operatorname{Sym}}
+\def\Nr{\operatorname{Nr}}
+\def\lbrack{{\{}}
+\def\rbrack{{\}}}
+\def\burnside{\operatorname{B}}
+\def\Sym{\operatorname{Sym}}
+\def\Hom{\operatorname{Hom}}
+\def\Inj{\operatorname{Inj}}
+\def\Aut{{\operatorname{Aut}}}
+\def\Mor{{\operatorname{Mor}}}
+\def\Map{{\operatorname{Map}}}
+\def\CMap{{\operatorname{CMap}}}
+\def\GMaps{G{\operatorname{-Maps}}}
+\def\Fix{{\operatorname{Fix}}}
+\def\res{{\operatorname{res}}}
+\def\ind{{\operatorname{ind}}}
+\def\inc{{\operatorname{inc}}}
+\def\coind{{\operatorname{cnd}}}
+\def\Equiv{{\mathcal{E}}}
+\def\W{\operatorname{W}}
+\def\F{\operatorname{F}}
+\def\witt{\operatorname{gh}}
+\def\ngh{\operatorname{ngh}}
+\def\Fm{{\operatorname{Fm}}}
+\def\bij{{\iota}}
+\def\mk{{\operatorname{mk}}}
+\def\km{{\operatorname{mk}}}
+\def\VV{{\bf{V}}}
+\def\ff{{\bf{f}}}
+\def\ZZ{{\mathbb Z}}
+\def\Zhat{{\widehat{\mathbb Z}}}
+\def\CC{{\mathbb C}}
+\def\PP{{\mathbf p}}
+\def\L{{\mathbf L}}
+\def\DD{{\mathbb D}}
+\def\EE{{\mathbb E}}
+\def\MM{{\mathbb M}}
+\def\JJ{{\mathbb J}}
+\def\NN{{\mathbb N}}
+\def\RR{{\mathbb R}}
+\def\QQ{{\mathbb Q}}
+\def\FF{{\mathbb F}}
+\def\mm{{\mathfrak m}}
+\def\nn{{\mathfrak n}}
+\def\jj{{\mathfrak j}}
+\def\aaa{{{{\mathfrak a}}}}
+\def\bbb{{{{\mathfrak b}}}}
+\def\ppp{{{{\mathfrak p}}}}
+\def\qqq{{{{\mathfrak q}}}}
+\def\PPP{{{{\mathfrak P}}}}
+%\def\MM{{\mathfrak M}}
+\def\BB{{\mathfrak B}}
+\def\jj{{\mathfrak J}}
+\def\LL{{\mathfrak L}}
+\def\qq{{\mathfrak Q}}
+\def\rr{{\mathfrak R}}
+%\def\DD{{\mathfrak D}}
+\def\cc{{\mathfrak S}}
+\def\TT{{\mathcal{T}}}
+\def\SS{{\mathcal S}}
+\def\UU{{\mathcal U}}
+\def\AA{{\mathcal A}}
+\def\BB{{\mathcal B}}
+\def\Primes{{\mathcal P}}
+\def\genS{{\langle S \rangle}}
+\def\genT{{\langle T \rangle}}
+\def\bT{\mathsf{T}}
+\def\bD{\mathsf{D}}
+\def\bC{\mathsf{C}}
+\def\VV{{\bf V}}
+\def\ff{{\bf f}}
+\def\uu{{\bf u}}
+\def\aa{{\bf{a}}}
+\def\bb{{\bf{b}}}
+\def\zero{{\bf 0}}
+\def\rad{\operatorname{rad}}
+\def\End{\operatorname{End}}
+\def\id{\operatorname{id}}
+\def\mod{\operatorname{mod}}
+\def\im{\operatorname{im}\,}
+\def\ker{\operatorname{ker}}
+\def\coker{\operatorname{coker}}
+\def\ord{\operatorname{ord}}
+\def\li{\operatorname{li}}
+\def\Ei{\operatorname{Ei}}
+\def\Ein{\operatorname{Ein}}
+\def\Ri{\operatorname{Ri}}
+\def\Rie{\operatorname{Rie}}
+\def\degl{\operatorname{deglog}}
+
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{speculation}[theorem]{Speculation}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{problem}[theorem]{Problem}
+
+ \newenvironment{map}[1]
+   {$$#1:\begin{array}{rcl}}
+   {\end{array}$$
+   \\[-0.5\baselineskip]
+ }
+
+ \newenvironment{map*}
+   {\[\begin{array}{rcl}}
+   {\end{array}\]
+   \\[-0.5\baselineskip]
+ }
+
+
+ \newenvironment{nmap*}
+   {\begin{eqnarray}\begin{array}{rcl}}
+   {\end{array}\end{eqnarray}
+   \\[-0.5\baselineskip]
+ }
+
+ \newenvironment{nmap}[1]
+   {\begin{eqnarray}#1:\begin{array}{rcl}}
+   {\end{array}\end{eqnarray}
+   \\[-0.5\baselineskip]
+ }
+
+\newcommand{\eq}{eq.\@\xspace}
+\newcommand{\eqs}{eqs.\@\xspace}
+\newcommand{\diagram}{diag.\@\xspace}
+
+\numberwithin{equation}{section}
+
+%\begin{frontmatter}
+
+
+
+\title{Asymptotic expansions of the prime counting function}
+
+
+\author{Jesse Elliott \\  
+California State University, Channel Islands \\
+{\tt jesse.elliott@csuci.edu}}
+
+\maketitle
+
+\begin{abstract}
+We provide several asymptotic expansions of the prime counting function $\pi(x)$.   We define an {\it asymptotic continued fraction expansion} of a complex-valued function of a real or complex variable to be a possibly divergent continued fraction whose approximants provide an asymptotic expansion of the given function.  We show that,  for each positive integer $n$,  two well known continued fraction expansions of the exponential integral function $E_n(z)$, in the regions where they diverge,  correspondingly yield two asymptotic continued fraction expansions of $\pi(x)/x$.  We prove this by first using Stieltjes' theory of moments to establish some general results about Stieljtes and Jacobi continued fractions and then applying the theory specifically to the probability measure on $[0,\infty)$ with density function $\frac{t^n}{n!}e^{-t}$.   We show generally that the ``best'' rational function approximations of a function possessing an asymptotic Jacobi  continued fraction expansion are precisely the approximants of the continued fraction, and as a corollary we determine all of the ``best'' rational function approximations of the function $\pi(e^x)/e^x$.    \\
+
+\noindent {\bf Keywords:}  prime counting function, prime number theorem, exponential integral,  asymptotic expansion, continued fraction, Stieltjes transform, Cauchy transform. \\
+
+\noindent {\bf MSC:}   11N05, 30B70,  44A15
+\end{abstract}
+
+
+\bigskip
+
+\section{Introduction}
+
+
+
+
+
+
+This paper concerns the asymptotic behavior of the function $\pi: \RR_{>0} \longrightarrow \RR$ that for any $x > 0$ counts the number of primes less than or equal to $x$: $$\pi(x) =   \# \{p \leq x: p \mbox{ is prime}\}, \quad x > 0.$$  The function $\pi(x)$ is known as the {\it prime counting function}, and the related function $\PP: \RR_{> 0} \longrightarrow \RR$ defined by $$\PP(x) = \frac{\pi(x)}{x}, \quad x > 0,$$ is called the {\it prime density function}.  The number $\PP(n)$ for any positive integer $n$ represents the probability that a randomly selected integer from $1$ to $n$ is prime.
+
+The celebrated {\it prime number theorem}, proved independently by de la Vall\'ee Poussin \cite{val1} and Hadamard \cite{had}  in 1896,  states that
+\begin{align*}
+\pi(x) \sim \frac{x}{\log x} \ (x \to \infty),
+\end{align*}
+where $\log x$ is the natural logarithm.   The theorem can be expressed in the form $$\lim_{x \to \infty} x^{\PP(x)} = e,$$ which shows that the number $e$, like many other mathematical constants, encodes information about the distribution of the primes.    Further well known examples of this phenomenon include the {\it Mertens' theorems}, proved by Mertens in 1874, over two decades before the first proofs of the prime number theorem.  The third of Mertens' theorems states that
+$$e^{\gamma} \prod_{p \leq x} \left(1-\frac{1}{p} \right)  \sim \frac{1}{\log x} \ (x \to \infty),$$ 
+where $\gamma \approx 0.57721$ is the Euler-Mascheroni constant and $e^\gamma \approx 1.78107$.  From this remarkable theorem it follows that the prime number theorem is equivalent to
+$$\PP(x) \sim e^\gamma \prod_{p \leq x} \left(1-\frac{1}{p} \right) \ (x \to \infty).$$ 
+
+The prime number theorem was first conjectured by Gauss in 1792 or 1793, according to Gauss' own recollection in his famous letter to Encke in 1849  \cite{gau}. The first actual published statement of something close to the conjecture was made by Legendre in 1798, which he refined further in 1808.  Following Gauss and Legendre, we let $A$ denote the unique function $\RR_{> 0} \longrightarrow \RR$ such that
+$$\pi(x) = \frac{x}{\log x - A(x)}$$
+for all $x > 0$, so that $$A(x) = \log x - \frac{1}{\PP(x)}$$
+for all $x > 0$.     Legendre's 1808 conjecture was that the limit $$L = \lim_{x \to \infty} A(x)$$ exists and is approximately equal to $1.08366$.   The limit $L$ is now often referred to as {\it Legendre's constant}.   In 1849 Chebyshev further refined Legendre's conjecture by proving that if Legendre's constant exists then it must equal $1$.  
+
+A graph of the function $A(x)$ is provided in Figure \ref{graphAAA}.   As can be seen in Figure \ref{graphB}, the function $A(x)$ is exhibited more suggestively on a lin-log scale as the function $A(e^x) = x-\frac{1}{\PP(e^x)}$.  %As we will see, there are many reasons why prime asymptotics are usually best viewed on such a scale.
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{primesAAA.png}
+\caption{Graph of $A(x) = \log x - \frac{1}{\PP(x)}$  \label{graphAAA}}
+\end{figure}
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=90mm]{primesB.png}
+\caption{Graph of $A(e^x) = x - \frac{1}{\PP(e^x)}$  \label{graphB}}
+\end{figure}
+
+
+Regarding the function $A(x)$, Gauss made in his 1849 letter to Encke some very prescient remarks (English translation):
+\begin{quote}
+It appears that, with increasing $n$, the (average) value of $A$ decreases; however, I dare not conjecture whether the limit as $n$ approaches infinity is $1$ or a number different from 1.  I cannot say that there is any justification for expecting a very simple limiting value; on the other hand, the excess of $A$ over $1$ might well be a quantity of the order of $\frac{1}{\log n}$.
+\end{quote}
+Gauss speculates here that, if in fact $\lim_{x \to \infty} A(x) = 1$, then it would make further sense, given his extensive calculations, that $A(x) = 1+ O\left( \frac{1}{\log x}\right)$.
+This speculation turns out to be the truth, and indeed one has
+\begin{align}\label{eq3b}A(x) -1 \sim \frac{1}{\log x} \ (x \to \infty).
+\end{align} 
+A consequence of (\ref{eq3b}) is that Legendre's constant exists and is equal to $1$, which in turn implies the prime number theorem.
+
+
+It is known that (\ref{eq3b}) is itself a  consequence of an infinite ``asymptotic expansion'' of the prime counting function, namely,
+\begin{align}\label{exp}
+\PP(x) \sim \sum_{k = 1}^\infty {\frac {(k-1)!}{(\log x)^{k}}} \ (x \to \infty).
+\end{align}  
+Since the series above is divergent for all $x$, this is to be interpreted as 
+\begin{align*}
+\PP(x) - \sum_{k = 1}^{n-1} {\frac {(k-1)!}{(\log x)^{k}}} \sim \frac{(n-1)!}{(\log x)^n} \ (x \to \infty), \quad \mbox{ for all } n \geq 1,
+\end{align*}
+which for $n = 3$ can easily be shown to yield  (\ref{eq3b}).  The expansion (\ref{exp}) is also equivalent to
+\begin{align*}
+\PP(e^x) - \sum_{k = 1}^{n-1} {\frac {(k-1)!}{x^{k}}} \sim \frac{(n-1)!}{x^n} \ (x \to \infty), \quad \mbox{ for all } n \geq 1,
+\end{align*}
+which explains why a lin-log scale is appropriate for studying prime asymptotics.  In Section 2 we provide some basic results on general asymptotic expansions, and in Section 3 we use them to explain how the asymptotic expansion (\ref{exp}) above and a related asymptotic expansion proved by Panaitopol in 2000 \cite{pan} follow from  de la Vall\'ee Poussin's theorem.   Although these two sections are elementary and can be skipped by the expert, they provide the necessary context and background for the remainder of the paper.
+
+Our primary goal is to derive various asymptotic expansions of the prime density function, all of which either generalize or  are in some sense equivalent to  (\ref{exp}).  The most important  of these are ``asymptotic continued fraction expansions.''  We say that an {\it asymptotic continued fraction expansion} of a real or complex function $f(x)$ is a possibly divergent continued fraction whose approximants  $w_n(x)$ provide an asymptotic expansion
+$$f(x) \sim w_0(x) + (w_1(x)-w_0(x)) + (w_2(x)-w_1(x)) + \cdots \ (x \to \infty)$$ of $f(x)$ with respect to the sequence $\{w_{n}(x)-w_{n-1}(x)\}_{n = 0}^\infty$, where $w_{-1}(x) = 0$.  A more complete definition is given in Section 4, where we use Stieltjes' theory of moments and continued fractions to establish a few results about Stieljtes and Jacobi continued fractions.   We show, for example, that the ``best'' rational approximations of a function possessing an asymptotic Jacobi  continued fraction expansion are precisely the approximants of the continued fraction.
+
+By applying Stieltjes' theory to the probability measure on $[0,\infty)$ with probablity density function $e^{-t}$, which has $n$th moment given by $\int_0^\infty t^n d\mu  = n!$, we show that (\ref{exp}) can be reinterpreted as an asymptotic Jacobi continued fraction expansion of $\PP(e^x)$.   Specifically, a function $f(x)$ has the asymptotic expansion $f(x) \sim \sum_{n = 0}^\infty \frac{n!}{x^{n+1}} \ (x \to \infty)$ if and only if it has the asymptotic continued fraction expansion 
+$$f(x) \, \sim \, \cfrac{1}{x -1- \cfrac{1}{x-3-\cfrac{4}{x-5-\cfrac{9}{x-7-\cfrac{16}{x -9- \cdots}}}}} \ \ (x \to \infty).$$
+This, along with (\ref{exp}), yields the following result.
+
+
+\begin{theorem}\label{maincontthm1}
+One has the asymptotic continued fraction expansions
+$$\PP(x) \,  \sim \, \cfrac{1}{\log x-1-\cfrac{1}{\log x-3-\cfrac{4}{\log x-5-\cfrac{9}{\log x-7-\cfrac{16}{\log x-9-\cdots}}}}} \ \ (x \to \infty)$$
+and
+$$\PP(x) \sim \, \cfrac{1}{ \log x - \cfrac{1}{1-\cfrac{1}{\log x-\cfrac{2}{1-\cfrac{2}{\log x - \cfrac{3}{1-\cfrac{3}{\log x-\cdots}}}}}}} \ \ (x \to \infty).$$ 
+\end{theorem}
+
+
+To be more explicit, let $w_n(x)$ denote the $n$th approximant of the second continued fraction in the theorem (which in fact coincides with the $2n$th approximant of the first continued fraction).  By standard results on continued fractions one has
+$$w_{n+1}(x) - w_n(x) \sim \frac{(n!)^2}{(\log x)^{2n+1}} \ (x \to \infty)$$
+for all $n \geq 0$ and therefore $\{w_{n+1}(x) - w_n(x)\}$ is an asymptotic sequence of rational functions of $\log x$.    The second asymptotic continued fraction expansion of the theorem is to be interpreted as saying that $\PP(x)$ has the asymptotic expansion
+$$\PP(x) \sim w_0(x) + (w_1(x)-w_0(x)) + (w_2(x)-w_1(x)) + \cdots \ (x \to \infty),$$
+or equivalently,
+$$\PP(x) - w_n(x) \sim w_{n+1}(x) - w_n(x) \ (x \to \infty), \quad \text{ for all } n \geq 0.$$
+Thus, one has
+$$\PP(x) \sim \frac{1}{\log x} \ (x \to \infty),$$
+$$\PP(x) - \cfrac{1}{\log x - 1} \sim \frac{1}{(\log x)^3} \ (x \to \infty),$$
+$$\PP(x) - \cfrac{1}{\log x - 1-\cfrac{1}{\log x -3}} \sim  \frac{4}{(\log x)^5} \ (x \to \infty),$$
+and so on. As a corollary of the theorem, it follows that these approximants $w_n(x)$ are precisely the ``best''  approximations of $\PP(x)$ that are rational functions of $\log x$, or, in other words, the functions $w_n(e^x)$ are precisely the ``best'' rational function approximations of $\PP(e^x)$, in the following sense: the functions $w_n(e^x)$ are precisely those rational functions $w(x) \in \RR(x)$ such that $v(x) = w(x)$ for every rational function $v(x) \in \RR(x)$ of degree at most $\deg w$ such that $\PP(e^x) - v(x) = O(\PP(e^x)-w(x)) \ (x \to \infty)$.   Equivalently, $w_n(e^x)$ for all $n$ is the Pad\'e approximant of $\PP(e^x)$ at $\infty$ of order $[n-1,n]$.   Figure \ref{primeasym3} provides a graph of the function $\PP(e^x)$ and the approximants $w_n(e^x)$ for $n = 1,2,3,4$.  Note that the numerator $Q_n(x)$ and denominator  $P_n(x)$ of $w_n(e^x)$ are monic integer polynomials of degree $n-1$ and $n$, respectively, and it is known that the denominator of $w_n(e^x)$ is given by $Q_n(x) = (-1)^n n! L_n(x)$, where
+$$L_n(x) = \sum_{k = 0}^n \frac{(-1)^k}{k!}{n\choose k} x^k = {}_{1}F_{1}(-n;1;x)$$
+is the  {\it $n$th Laguerre polynomial}.  It then follows from the theory of orthogonal polynomials (specifically, \cite[{[1.14]}]{akh}) that the numerator of $w_n(e^x)$ is given by
+$$P_n(x) = (-1)^n n! \sum_{k = 1}^{n} a_{n,k} x^{k-1},$$
+where $$a_{n,k} = \sum_{j = k}^n  \frac{(-1)^j}{j!} {n \choose j}(j-k)! =  \frac{(-1)^{k} }{k!} {n \choose k} {}_{3}F_{2}(1,1,-(n-k); k+1, k+1; 1)$$
+for all $n \geq 1$ and $1 \leq k \leq n$,
+with explicit values $a_{n,1} = -H_n$ and $a_{n,2} = (n+1)H_n-2n$, where $H_n = \sum_{k = 1}^n \frac{1}{k}$ is the $n$th harmonic number.
+%Entering the above sum into WolframAlpha we find also that
+%$$a_{n,k} = (-1)^{n-k-1} {n \choose k+1} \frac{n!}{(k+1)!} \, {}_{3}F_{2}(1,1,-(n-k-1); k+2, k+2; 1),$$
+
+
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=110mm]{primeasym3b.png}
+\caption{The first four ``best'' nonconstant rational approximations of $\PP(e^x)$}\label{primeasym3}
+\end{figure}
+
+
+Theorem \ref{gentheorem} of Section 5 generalizes Theorem \ref{maincontthm1} by showing that, for each positive integer $n$, two known continued fraction expansions of the exponential integral function $E_n(z)$ correspondingly yield two asymptotic continued fraction expansions of the prime density function.   The proof employs de la Vall\'ee Poussin's prime number theorem with error term, along with  Stieltjes' theory of moments applied to the probability measure on $[0,\infty)$ with density  function $\frac{t^n}{n!}e^{-t}$.
+
+
+In the final section we provide some simple methods for deriving further asymptotic expansions of the prime density function and related functions.  Many of these results are based on relationships between the generating functions of various combinatorially defined sequences to the generating function $\sum_{k = 0}^\infty n! X^n$ of the sequence $\{n!\}$.  Other results, for example, use the asymptotic $H_n -\gamma - \log n \sim \frac{1}{2n} \ (n \to \infty)$ to re-express the asymptotic expansions derived in Sections 3 and 5 in terms of the harmonic numbers.   At the most basic level, it is clear that the prime number theorem is equivalent to $$\pi(n) \sim \frac{n}{H_n} \ (x \to \infty),$$ where $\frac{n}{H_n}$ is also the harmonic mean of the integers $1,2,3,\ldots,n$.   Using a famous result of von Koch \cite{koch}, we also show that the Riemann hypothesis is equivalent to
+\begin{align*}
+\pi(n) =  \sum_{k = 1}^{n} \frac{1}{H_k -\gamma}  + O(\sqrt{n} H_n) \ (n \to \infty)
+\end{align*}
+and also, using more recent results by Y.\ Lamzouri \cite{lam}, to
+$$e^{\gamma} \prod_{p \leq n}\left(1-\frac{1}{p}\right) =  \frac{1}{H_n-\gamma} + O\left( \frac{1}{\sqrt{n}} \right) \ (n \to \infty).$$
+
+The author is extremely grateful to Kevin McGown,  Hendrik W.\ Lenstra, Jr., and Roger Roybal for reading and providing comments on various early drafts of this paper.  All graphs provided in the paper were made using the free online version of WolframAlpha.
+
+
+\section{General asymptotic expansions}
+
+In this section we provide some background on the theory of asymptotic expansions.
+
+Let $a$ be a limit point of a topological space $\XX$.  (It suffices for our purposes to assume that $\XX$ is a subspace of  either $\RR \cup \{\pm \infty\}$ or $\CC \cup \{\infty\}$, but we treat the general case here.)  Let $f$ and $g$ be complex-valued functions whose domains are subsets of $\XX$.  One writes $$f(x) = O(g(x)) \ (x \to a)_\XX$$ if for some $M > 0$ there exists a punctured neighborhood $U \subseteq \XX$ of $a$ such that $|f(x)| \leq M |g(x)|$ for all $x \in U$.   One also writes $$f(x) = o(g(x)) \ (x \to a)_\XX$$ if for every $M > 0$ there exists a punctured neighborhood $U \subseteq \XX$ of $a$ such that $|f(x)| \leq M |g(x)|$ for all $x \in U$.   We also write $$f(x) \sim g(x) \ (x \to a)_\XX$$ if $f(x) - g(x) = o(g(x))\ (x \to a)_\XX$ and $g(x)-f(x) = o(f(x)) \ (x \to a)_\XX$.  If $g(x)$ is nonzero in a punctured neighborhood of $a$, then 
+$$f(x) = o(g(x)) \ (x \to a)_\XX \quad \text{if and only if} \quad \lim_{x \to a} \frac{f(x)}{g(x)} = 0$$
+and
+$$f(x) \sim g(x) \ (x \to a)_\XX \quad \text{if and only if} \quad \lim_{x \to a} \frac{f(x)}{g(x)} = 1.$$
+Note that all of the above  conditions implicitly require that $f$ and $g$ both have domains containing a punctured neighborhood of $a$.   An  {\it asymptotic sequence  (over $\XX$) at $x = a$} is a sequence $\{\varphi_n(x)\}_{n = 1}^\infty$  of complex-valued functions $\varphi_n$,  each  defined on a subset of $\XX$, such that $\varphi_{n+1}(x) = o(\varphi_n(x)) \ (x \to a)_\XX$ for all $n \geq 1$.  Let $\{\varphi_n(x)\}_{n = 1}^\infty$ be an asymptotic sequence at $x = a$, let $f$ be a complex-valued function defined on a subset of $\XX$, let $\{a_n\}$ be a sequence of complex numbers, and $N$ a positive integer.  The function $f$ is said to have an {\it asymptotic expansion
+\begin{align}\label{asympa}
+f(x) \sim \sum_{n=1}^{N} a_n \varphi_{n}(x) \ (x \to a)_\XX
+\end{align}
+(over $\XX$ of order $N$ at $x = a$ with respect to $\{\varphi_n(x)\}$)} if
+\begin{align}\label{asympb}
+f(x) - \sum_{k=1}^{n} a_k \varphi_{k}(x) = o(\varphi_{n}(x)) \  (x \to a)_\XX
+\end{align}
+for all positive integers $n \leq N$, or equivalently for $n = N$.  The function $f$ is said to have an {\it asymptotic expansion
+$$f(x) \sim \sum_{n=1}^{\infty} a_n \varphi_{n}(x) \ (x \to a)_\XX$$
+(over $\XX$ of infinite order at $x = a$ with respect to $\{\varphi_n(x)\}$)} if (\ref{asympb}) holds for all positive integers $n$.  In all of the above definitions, we replace ``$(x \to a)_\XX$'' with ``$(x \to a)$'' when $\XX$ is $\RR \cup \{\pm \infty\}$ or $\CC \cup \{\infty \}$.   We also occasionally replace ``$(x \to a)_\XX$'' with ``$(x \to a)_{\XX\backslash \{a\}}$.''
+
+An important special case is when each of the functions $\varphi_n(x)$ is nonzero in a punctured neighborhood of $a$.   In that case, if an asymptotic expansion (\ref{asympa}) of some function $f(x)$ holds, then the  coefficients $a_n$ for $n \leq N$ are uniquely determined by $f$ and $\{\varphi_n(x)\}$, recursively by the equations
+\begin{align}\label{asymp2b}
+{\displaystyle a_{n}=\lim _{x\to a}{\frac {f(x)-\sum _{k=1}^{n-1}a_{k}\varphi _{k}(x)}{\varphi _{n}(x)}}},
+\end{align}
+for all $n \leq N$.  Note that (\ref{asympb}) and  (\ref{asymp2b}) are equivalent for any positive integer $n$, and if also $a_n \neq 0$ then both are equivalent to
+$$f(x) - \sum _{k=1}^{n-1}a_{k}\varphi _{k}(x) \sim a_n \varphi_n(x) \ (x \to a)_\XX.$$
+Moreover, (\ref{asympb}) implies that
+\begin{align}\label{asymp3}
+f(x) - \sum_{k=1}^{n-1} a_k \varphi_{k}(x) = O(\varphi_{n}(x)) \  (x \to a)_\XX,
+\end{align}
+which in turn  implies that
+\begin{align*}
+f(x) - \sum_{k=1}^{n-1} a_k \varphi_{k}(x) = o(\varphi_{n-1}(x)) \  (x \to a)_\XX
+\end{align*}
+if $n \geq 2$.    Thus the given asymptotic expansion is of infinite order if and only if (\ref{asymp3}) holds for all $n \geq 1$.
+
+Over $\RR$ one may also consider asymptotic expansions at $x = a^+$ (to the right of $a$) and at $x = a^-$ (to the left of $a$).  Note that an asymptotic expansion $f(x) \sim \sum_{n = 1}^N a_n \varphi_n(x) \ (x \to a^+)$ is equivalent to $f(a+x^2) \sim \sum_{n = 1}^N a_n \varphi_n(a+ x^2) \ (x \to 0)$, and  an asymptotic expansion  $f(x) \sim \sum_{n = 1}^N a_n \varphi_n(x) \ (x \to a^-)$ is equivalent to $f(a-x^2) \sim \sum_{n = 1}^N a_n \varphi_n(a-x^2) \ (x \to 0)$.
+
+An important example of asymptotic expansions over $\RR$ and $\CC$ follows from Taylor's theorem: if $f(x)$ is a complex-valued function of a real or complex variable $x$ defined in a neighborhood of some number $a$, then one has an asymptotic expansion 
+ $$f(x) \sim \sum_{n = 0}^N a_n (x-a)^n \ (x \to a)$$
+of $f(x)$ of order $N+1$ at $x = a$ with respect to the asymptotic sequence $\{(x-a)^n\}$ if and only if $f(x)$ is $N$ times differentiable at $x = a$, in which case  one has $a_n = \frac{f^{(n)}(a)}{n!}$ for all $n \leq N$.   Thus, the notion of an asymptotic expansion is a generalization of the notion of a derivative.  In particular,  we may think of the coefficients $a_n$ of an arbitrary asymptotic expansion of a function $f(x)$ at $x = a$ as  ``generalized derivatives'' at $x = a$ with respect to the sequence $\{\varphi_n(x)\}$, since this is true in the literal sense for the sequence $\left\{\frac{1}{n!}(x-a)^n\right\}$.  All of this also applies  over $\CC$ at  $x = \infty$ (resp., over $\RR$ at $x = \infty$, over $\RR$ at $x = -\infty$) by considering the function $g(x) = f(1/x)$ with respect to the asymptotic sequence $\left\{ \frac{1}{x^k}\right\}$ at $x = 0$ (resp., $x = 0^+$, $x = 0^-$) and its derivatives $g^{(n)}(0)$  (resp., $g^{(n)}(0^+)$, $g^{(n)}(0^-)$) at $0$ (resp., at $0$ from the right, at $0$ from the left). 
+
+
+It is also useful to observe that two asymptotic expansions at $x = a$ with respect to  $\{(x-a)^k\}$, or alternatively at  $x = \infty$ with respect to $\left\{ \frac{1}{x^k}\right\}$, can be added, subtracted, multiplied, divided, and even composed, just like formal power series.  Thus, for example, if a function $f(x)$ has an asymptotic expansion
+$$f(x) \sim \sum_{k = 0}^\infty \frac{a_k}{x^n} \ (x \to \infty)$$
+at $x = \infty$,  where $a_0 \neq 0$, then one also has the ``reciprocal'' asymptotic expansion
+$$\frac{1}{f(x)} \sim \sum_{k = 0}^\infty \frac{b_k}{x^n} \ (x \to \infty),$$
+ where
+$$\sum_{k = 0}^\infty b_k X^k  = \frac{1}{\sum_{k = 0}^\infty a_k X^k}$$
+as formal power series.   Thus, an asymptotic expansion coming from a Taylor expansion can treated formally as the generating function of its sequence of coefficients.
+
+The following elementary result provides a necessary and sufficient condition for two functions to have the same asymptotic expansion with respect to a given asymptotic sequence.  
+
+\begin{proposition}\label{asympprop}
+Let $a$ be a limit point of a topological space $\XX$, let $\{\varphi_n(x)\}$ be an asymptotic sequence over $\XX$ at $x = a$, and let $N$ be a positive integer.  Let $f(x)$ and $g(x)$ be complex-valued functions defined in a punctured neighborhood of $a$.  Then a given asymptotic expansion of $f(x)$ of order $N$ at $x = a$  with respect to $\{\varphi_n(x)\}$ at $x = a$ is also an asymptotic expansion of  $g(x)$ of order $N$ at $x = a$ if and only if
+$$f(x)-g(x) = o(\varphi_N(x)) \ (x \to a)_\XX.$$
+\end{proposition}
+
+\begin{proof}
+Suppose that $f(x) \sim \sum_{n = 1}^N a_n \varphi_n(x) \ (x \to a)_\XX$ is an asymptotic expansion of $f(x)$ of order $N$ at $x = a$, or equivalently,
+$$f(x)-  \sum_{n = 1}^N a_n \varphi_n(x) = o(\varphi_N(x)) \ (x \to a)_\XX.$$ 
+If one has
+$$g(x)-  \sum_{n = 1}^N a_n \varphi_n(x) = o(\varphi_N(x)) \ (x \to a)_\XX,$$
+then subtracting we see that
+$$f(x)- g(x) = o(\varphi_N(x)) \ (x \to a)_\XX.$$ 
+The converse is also clear.  The proposition follows.
+\end{proof}
+
+%One says that a finite sequence $\{\varphi_n(x)\}_{n = 1}^N$ of functions is an {\it asymptotic sequence} if $\varphi_{n+1}(x) = o(\varphi_n(x)) \ (x \to a)_\XX$ for all $n < N$.  One can thus, in the obvious way, define the notion of an asymptotic expansion of any order $M \leq N$ with respect to such a sequence.  
+
+The next proposition, which is complementary to Proposition \ref{asympprop}, provides a natural condition under which two asymptotic sequences are ``equivalent.''   
+
+\begin{proposition}\label{asympprop2a}
+Let $a$ be a limit point of a topological space $\XX$, and let $\{\varphi_n(x)\}$ be an asymptotic sequence over $\XX$ at $x = a$ such that each $\varphi_n(x)$ is nonzero in a punctured neighborhood of $a$.  Let 
+$\{\psi_n(x)\}$ be  any sequence of complex-valued functions such that
+$$\psi_n(x) -\varphi_n(x) = o(\varphi_m(x)) \ (x \to a)_\XX$$ for all positive integers $n$ and $m$ with $n \leq m$.   Then $\{\psi_n(x)\}$ is also an asymptotic sequence over $\XX$ at $x = a$.  Moreover, if $N$ is a positive integer or $\infty$, then any asymptotic expansion 
+$$f(x) \sim \sum_{n = 1}^N a_n \varphi_n(x) \ (x \to a)_\XX$$
+of a complex-valued function $f(x)$ over $\XX$ of order $N$ at $x = a$ with respect to $\{\varphi_n(x)\}$ is equivalent to the asymptotic expansion $$f(x) \sim \sum_{n = 1}^N a_n \psi_n(x) \ (x \to a)_\XX$$
+of $f(x)$ over $\XX$ of order $N$ at $x = a$ with respect to $\{\psi_n(x)\}$.
+\end{proposition}
+
+\begin{proof}
+For all $n$ one has $\psi_n(x) -\varphi_n(x) = o(\varphi_n(x)) \ (x \to a)_\XX$ and therefore $\psi_n(x) \sim \varphi_n(x) \ (x \to a)_\XX.$  It follows that $\{\psi_n(x)\}$ is also an asymptotic sequence over $\XX$ at $x = a$.  Without loss of generality we may assume that $N$ is finite.  Suppose that the given asymptotic exansion of $f(x)$  with respect to $\{\varphi_n(x)\}$ holds.   Then one has
+\begin{align*} \frac{f(x) - \sum_{n = 1}^N a_n \psi_n(x)}{\varphi_N(x)}  =  \frac{f(x) - \sum_{n = 1}^N a_n \varphi_n(x)}{\varphi_N(x)} +  \frac{\sum_{n = 1}^N a_n (\psi_n(x)-\varphi_n(x))}{\varphi_N(x)} \to 0 + 0 = 0
+\end{align*}
+as $x \to a$, so that 
+\begin{align*} \frac{f(x) - \sum_{n = 1}^N a_n \psi_n(x)}{\psi_N(x)} =  \frac{\varphi_N(x)}{\psi_N(x)} \cdot \frac{f(x) - \sum_{n = 1}^N a_n \psi_n(x)}{\varphi_N(x)}  \to 1 \cdot 0 = 0 
+\end{align*}
+as well.  Therefore the same asymptotic expansion of $f(x)$ with respect to $\{\psi_n(x)\}$ holds.    This proves one implication, and since also $\varphi_n(x) -\psi_n(x) = o(\psi_N(x)) \ (x \to a)_\XX$ for all $n \leq N$, the reverse implication holds as well.
+\end{proof}
+
+\section{Known asymptotic expansions of $\pi(x)$}
+
+In this section we derive two known asymptotic expansions of the prime counting function from a weak version of the prime number theorem with error term.
+
+In 1838,  Dirichlet observed that $\pi(x)$ can be well approximated by the {\it logarithmic integral function} 
+$$\li(x) = \int_0^x \frac{dt}{\log t},$$
+where the Cauchy principal value of the integral is assumed.   (As some introductory texts do, one may use instead the slightly less natural function $\operatorname{Li}(x) = \int_2^x \frac{dt}{\log t}  = \li(x)-\li(2)$.)  Since it is straightforward to show using integration by parts that 
+$$\li(x) \sim \frac{x}{\log x} \ (x \to \infty),$$
+the prime number theorem is equivalent to
+$$\pi(x) \sim \li(x) \ (x \to \infty).$$
+The {\it prime number theorem with error term}, proved  in 1899 by de la Vall\'ee Poussin \cite{val2}, states that there exists a contant $c > 0$ such that
+$$\pi(x) = \li(x) + O\left(xe^{-c\sqrt{\log x}} \right) \ (x \to \infty).$$
+To understand this estimate of $\pi(x)-\li(x)$, it is useful to observe that
+$$x^{t} = o( e^{c\sqrt{x}})  \ (x \to  \infty)$$
+for all $t>0$ and all $c > 0$, and therefore  the prime number theorem with error term implies that
+\begin{align}\label{PNTET}
+\PP(x) = \frac{\li(x)}{x} + o\left(\frac{1}{(\log x)^{t}}\right) \ (x \to \infty),
+\end{align}
+for all $t > 0$, where also $\frac{\li(x)}{x}  = \frac{1}{x}\int_0^x \frac{1}{\log t} dt$ is the average value of $\frac{1}{\log t}$ on the interval $[0,x]$.  This weaker form of the  prime number theorem with error term is easier to work with while also being sufficient for many applications.  
+
+
+Now, Chebyshev, in 1849,  derived  the asymptotic expansion
+\begin{align}\label{asex}
+\frac{\li(x)}{x} \sim \sum_{k = 1}^\infty {\frac {(k-1)!}{(\log x)^{k}}} \ (x \to \infty)
+\end{align}
+using repeated integration by parts.  The proof  is given in almost every introductory analytic number theory text and is not difficult.  From (\ref{PNTET}) and   Proposition \ref{asympprop}, then, we see that $\PP(x)$ has the same asymptotic expansion as $\frac{\li(x)}{x}$, namely
+\begin{align}\label{asex2}
+\PP(x) \sim \sum_{k = 1}^\infty {\frac {(k-1)!}{(\log x)^{k}}} \ (x \to \infty).
+\end{align}
+ In fact, from (\ref{asex}) and Proposition \ref{asympprop} (both of which both elementary) it follows easily that (\ref{PNTET})  and (\ref{asex2}) are equivalent.  In some sense, all of the asymptotic expansions we will prove are equivalent to (\ref{PNTET}), and thus this paper is mainly concerned with exploring consequences of the asymptotic expansion  (\ref{asex2}).     One of the more immediate consequences is that
+$$\PP(x) -\frac{1}{\log x-a} \sim \frac{(1-a)}{(\log x)^{2}}   \ (x \to \infty)$$ 
+for all $a \neq 1$ and
+$$\PP(x) -\frac{1}{\log x-1} \sim \frac{1}{(\log x)^{3}}   \ (x \to \infty),$$
+which is seen to be in sharp contrast to (\ref{PNTET}).  It follows that $\li(x)$ for large $x$ is a much better approximation of $\pi(x)$ than is the function  $ \frac{x}{\log x-a} $ for any $a \in \RR$, just as Dirichlet and Gauss had suspected.
+
+%It is interesting to note a possible explanation for Legendre's approximation $1.08366$  of the Legendre constant using Riemann's 1849 remarkable improvement
+%$$\pi(x) \sim \Ri(x) \ (x \to \infty),$$
+%to Gauss' approximation, where
+%$$\Ri(x) = \sum_{n = 1}^\infty \frac{\mu(n)}{n} \li(x^{1/n}).$$
+%Figure \ref{eureka0c} compares Riemann's approximation $\Ri(x)$ with Gauss's approximation $\li(x)$, again on a logarithmic scale.   Notice that the graph of $x-1-\frac{e^x}{\Ri(e^x)}$ consistently traces the ``center'' of the wiggly graph of $x-1-\frac{1}{\PP(e^x)}$ and thus is a better approximation, at least for small $x$, than is $x-1-\frac{e^x}{\li(e^x)}$.  It is thus interesting to observe that the function $x-\frac{e^x}{\Ri(e^x)}$ attains a maximum  value of approximately $1.08356$ at $x \approx e^{12.2871}$ with a very small derivative nearby that achieves a global minimum of only about $-0.004$ at its unique inflection point $x \approx e^{16.19105}$.  These features may explain why Legendre was lead to his particular approximation.
+%\begin{figure}[ht!]
+%\centering
+%\includegraphics[width=100mm]{eureka0c.png}
+%\caption{Graph of $x-1-\frac{e^x}{\pi(e^x)}$,  $x-1-\frac{e^x}{\Ri(e^x)}$, and  $x-1-\frac{e^x}{\li(e^x)}$   \label{eureka0c}}
+%\end{figure}
+
+
+
+
+
+
+%A close relative of the logarithmic integral function $\li(x)$ is the {\it exponential integral function}
+%$$\Ei(x) = -\int_{-x}^\infty \frac{e^{-t}}{t} dt, \quad x \in \RR,$$ 
+%where as usual the Cauchy principal value is assumed at the singularity.  Indeed, one has
+%$$\Ei(x) = \li(e^x)$$
+%for all real $x$, which can be verified up to an additive constant by noting that they have the same derivative. 
+
+An example of a more interesting consequence of the asymptotic expansion  (\ref{asex2}) is  a result of Panaitopol proved in 2000 \cite[Theorem]{pan}.  Note first that the asymptotic expansion  (\ref{asex2}) has an alternative representation as
+$$\PP(e^x) \sim \frac{1}{x} \sum_{k = 0}^n {\frac {k!}{x^{k}}} \ (x \to \infty)$$
+with respect to the asymptotic sequence $\left\{ \frac{1}{x^k}\right\}$.
+Reciprocating this asymptotic expansion, we find that there is also an asymptotic expansion
+\begin{align}\label{expans2}
+A(e^x) = x- \frac{1}{\PP(e^x)}\sim \sum_{k = 0}^\infty {\frac {I_{k+1}}{x^{k}}} \ (x \to \infty),
+\end{align}
+where $\{I_{k+1}\}$ is the sequence possessing the generating function $\sum_{k = 0}^\infty I_{k+1}X^k$ given by
+$$\sum_{k = 0}^\infty I_{k+1}X^k = \frac{1}{X}-\frac{1}{X\sum_{k = 0}^\infty k!X^k} .$$  Graphs of the first five terms of the asymptotic expansion (\ref{expans2}) of $A(e^x)$ are provided in  Figure \ref{primeasym2b}.   It is known that $I_n$ for any nonnegative integer $n$ is equal to the number of ``indecomposable'' permutations of $\{1,2,3\ldots, n\}$, and the sequence $\{I_n\}$ is sequence A003319 in the {\it On-Line Encyclopedia of Integer Sequences (OEIS)}, with first several terms given by  $0, 1, 1, 3, 13, 71, 461, 3447, 29093, \ldots$.  Substituting  $\log x$ for $x$ in  (\ref{expans2}), we obtain the equivalent asymptotic expansion 
+\begin{align}\label{Axsym}
+A(x) = \log x - \frac{1}{\PP(x)} & \sim \sum_{k = 0}^{\infty} \frac{I_{k+1}}{(\log x)^{k}} \ (x \to \infty).
+\end{align}
+This is equivalent to Panaitopol's result \cite[Theorem]{pan}
+\begin{align*}
+\pi(x) = \frac{x}{\log x - \sum_{k = 0}^{n} \frac{I_{k+1}}{(\log x)^{k}} + o \left( \frac{1}{(\log x)^{n}} \right)}  \ (x \to \infty), \quad n \geq 0,
+\end{align*}
+but the argument above provides a much shorter and more conceptual proof.   The result shows in particular that the sequence $\{I_n\}$, like the sequence $\{n!\}$, encodes information about the distribution of the primes.  We provide many other examples of this phenomenon in Section 6.   
+
+\begin{figure}[ht!]
+\centering
+\includegraphics[width=110mm]{primeasym2b.png}
+\caption{Approximations of $A(e^x)$ \label{primeasym2b}}
+\end{figure}
+
+
+
+
+%\item  The  function  $$q(x)  =    \left.
+ % \begin{cases}
+  % \PP(e^{1/x^2}) & \text{if } x \neq 0 \\
+ %  0   & \text{if } x = 0.
+% \end{cases}
+% \right.$$ is infinitely differentiable at $0$ with 
+%$$q^{(n)}(0) =    \left.
+ % \begin{cases}
+ %  n!(n/2-1)!  & \text{if } n \text{ is even} \\
+ %   0  & \text{if }   n \text{ is odd}
+% \end{cases}
+ %\right.$$
+%for all $n \geq 1$.
+
+\section{Asymptotic continued fraction expansions}
+
+In this section we introduce the notion of an asymptotic continued fraction expansion and prove some general results about Jacobi continued fractions and Stieltjes continued fractions.
+
+Let $a$ be a limit point of a topological space $\XX$.  Let $f(x)$, $a_0(x), a_1(x), a_2(x), \ldots$, and $b_1(x), b_2(x), \ldots$ be complex-valued functions, each of which has a domain contained in $\XX$ and  containing some punctured neighborhood of $a$.   Consider the (formal) continued fraction
+\begin{align*}
+a_0(x) + \cfrac{b_1(x)}{a_1(x) \, +} \ \cfrac{b_2(x)}{a_2(x)\, +} \ \cfrac{b_3(x)}{a_3(x)\, +}  \ \cdots = a_0(x) +\cfrac{b_1(x)}{a_1(x)+\cfrac{b_2(x)}{a_2(x)+\cfrac{b_3(x)}{a_3(x)+\cdots}}}.
+\end{align*}
+Let 
+\begin{align*}
+w_n(x) =  a_0(x) + \cfrac{b_1(x)}{a_1(x)\, +} \ \cfrac{b_2(x)}{a_2(x)\, +} \ \cdots \ \cfrac{b_n(x)}{a_n(x)}  = a_0(x) +\cfrac{b_1(x)}{a_1(x)+\cfrac{b_2(x)}{a_2(x)+\cdots +\cfrac{b_{n-1}(x)}{a_{n-1}(x)+\cfrac{b_{n}(x)}{a_{n}(x)}}}}
+\end{align*} for all $n \geq 0$ denote the {\it $n$th approximant} of the given continued fraction, and let $$\Phi_0(x) = w_0(x) = a_0(x)$$ and $$\Phi_n(x) = w_n(x)-w_{n-1}(x)$$ for all $n \geq 1$.  We write 
+\begin{align}\label{contlega} 
+f(x) \, \sim \, a_0(x) + \cfrac{b_1(x)}{a_1(x)+} \ \cfrac{b_2(x)}{a_2(x)+} \ \cfrac{b_3(x)}{a_3(x)+} \ \cdots  \ (x \to a)_\XX
+\end{align}
+if  $\{\Phi_n(x)\}$ is an asymptotic sequence over $\XX$ at $x = a$  and 
+$$f(x) \sim \sum_{n = 0}^\infty \Phi_n  \ (x \to a)_\XX$$
+is an  asymptotic expansion of $f(x)$ over $\XX$ with respect to the asymptotic sequence $\{\Phi_n(x)\}$.  In that case we say that  (\ref{contlega}) is an {\it asymptotic continued fraction expansion of $f(x)$ over $\XX$ at $x = a$.}    To be more explicit, we note that (\ref{contlega}) is an asymptotic continued fraction expansion of $f(x)$ over $\XX$ at $x = a$ if  and only if 
+$$w_{n+1}(x)-w_{n}(x) = o(w_n(x)-w_{n-1}(x)) \ (x \to a)_\XX$$
+and
+\begin{align}\label{contas2}
+f(x) - w_{n}(x) = o( w_{n}(x)-w_{n-1}(x)) \ (x \to a)_\XX
+\end{align}
+for all $n \geq 0$, where $w_{-1}(x) = 0$.   Note that  (\ref{contas2})  may be replaced with
+\begin{align*}
+f(x) - w_{n}(x)  = O( w_{n+1}(x)-w_{n}(x)) \ (x \to a)_\XX
+\end{align*}
+Moreover, if  $w_n(x)-w_{n-1}(x)$ is nonzero in a punctured neighborhood of $a$, then (\ref{contas2}) may be replaced with 
+\begin{align*}
+f(x) - w_{n-1}(x) \sim w_{n}(x)-w_{n-1}(x) \ (x \to a)_\XX,
+\end{align*}
+while if  $f(x)-w_{n-1}(x)$ is nonzero in a punctured neighborhood of $a$, then (\ref{contas2}) may be replaced with 
+\begin{align*}
+f(x) - w_{n}(x) = o(f(x) - w_{n-1}(x)) \ (x \to a)_\XX.
+\end{align*}
+
+For ease of notation one makes the identification
+\begin{align*}
+a_0(x) - \cfrac{b_1(x)}{a_1(x) \, -} \ \cfrac{b_2(x)}{a_2(x)\, -} \ \cfrac{b_3(x)}{a_3(x)\, -}  \ \cdots = 
+a_0(x) + \cfrac{-b_1(x)}{a_1(x) \, +} \ \cfrac{-b_2(x)}{a_2(x)\, +} \ \cfrac{-b_3(x)}{a_3(x)\, +}  \ \cdots.
+\end{align*}
+
+Let $f = \sum_{n = 0}^\infty a_n X^n \in \CC[[X]]$ be a formal power series. The {\it Pad\'e approximant of $f$ of order $[m,n]$} is the unique rational function $R = g/h$ with $g \in \CC[X]$ a polynomial of degree at most $m$ and $h \in \CC[X]$ a nonzero polynomial of degree at most $n$ such that $hf-g = X^{m+n+1}k$ for some $k \in  \CC[[X]]$.    A useful application is as follows.  Let $f(z)$ be a complex-valued function defined on an unbounded subset $\XX$ of $\CC \cup \{ \infty\}$, and suppose that $f(z)$ possesses an asymptotic expansion $f(z) \sim \sum_{n = 1}^\infty \frac{a_{n-1}}{ z^n} \ (z \to \infty)_\XX$ over $\XX$, where $a_0 \neq 0$.  The {\it Pad\'e approximant of $f(z)$ over $\XX$ at $z = \infty$ of order $[m,n]$} is defined to be $S(z) = R(1/z)/z$, where $R(X)$ is the Pad\'e approximant of  the formal power series $\sum_{n = 0}^\infty a_n X^n$ of  order $[m,n]$.  Of particular relevance is the case where $m = n-1$; in that case, $S(z)$ is the unique rational function $\frac{g(z)}{h(z)}$  with $g(z)$ a polynomial of degree at most $m$ and $h(z)$ a nonzero polynomial of degree at most $n$ such that  $f(z)-\frac{g(z)}{h(z)} = O\left(\frac{1}{z^{2n+1}}\right)_\XX \ (z \to \infty)$.
+
+
+Recall that the {\it degree} of a rational function $w \in K(X)$ over a field $K$ is equal to the maximum of the degree of the numerator and  the degree of denominator of $w$ when $w$ is written as a quotient of two relatively prime polynomials in $K[X]$.  Let $f(z)$ be some function defined on an unbounded subset $\XX$ of $\CC \cup \{\infty\}$.  We say that a rational  function $w(z) \in \CC(z)$ is a {\it best rational approximation of $f(z)$ (over $\XX$)}  if $w(z)$ is the unique rational function $v(z) \in \CC(z)$  of degree at most $\deg w(z)$  such that $f(z)-v(z) = O(f(z)-w(z)) \ (z \to \infty)_\XX$.    
+
+
+
+
+Continued fractions of the form given in the following theorem were introduced by Jacobi are called {\it Jacobi continued fractions}, or {\it J-fractions}.  The following theorem shows that if a given complex function has an asymptotic Jacobi continued fraction expansion, then the best rational approximations of the function are precisely the approximants of the continued fraction.
+
+
+\begin{theorem}\label{wsimJ}
+Let $\{a_n\}$ and $\{b_n\}$ be sequences of complex numbers with $a_n \neq 0$ for all $n$, and for all nonnegative integers $n$ let $w_n(z)$ denote the $n$th approximant of the continued fraction
+\begin{eqnarray*}
+\cfrac{a_1}{z+b_1 \,-} \  \cfrac{a_2}{z+b_2 \,-} \  \cfrac{a_3}{z+b_3 \,-} \ \cdots.
+\end{eqnarray*}
+One has the following.
+\begin{enumerate}
+\item $w_n(z)$ is a rational function of degree $n$  with $w_n(z) \sim \frac{a_1}{z}  \ (z \to \infty)$ and $$w_n(z)-w_{n-1}(z) \sim \frac{a_1 a_2 \cdots a_n}{z^{2n-1}}  \ (z \to \infty)$$ for all $n \geq 1$.  In particular, $\{w_n(z)-w_{n-1}(z)\}_{n = 1}^\infty$ is an asymptotic sequence at $\infty$.
+\item  Let $f(z)$ be a complex-valued function defined on an unbounded subset $\XX$ of $\CC \cup \{\infty\}$.  The following conditions are equivalent.
+\begin{enumerate}
+\item $f(z)$  has the asymptotic continued fraction expansion
+\begin{eqnarray*}
+f(z) \, \sim \, \cfrac{a_1}{z+b_1 \,-} \  \cfrac{a_2}{z+b_2 \,-} \  \cfrac{a_3}{z+b_3 \,-} \ \cdots  \ (z \to \infty)_\XX.
+\end{eqnarray*}
+\item $f(z) - w_n(z) \sim  \frac{a_1 a_2 \cdots a_{n+1}}{z^{2n+1}} \ (z \to \infty)_\XX$ for all  nonnegative integers $n$.
+\item $f(z) - w_n(z) = O\left(\frac{1}{z^{2n+1}} \right) \ (z \to \infty)_\XX$ for all nonnegative integers $n$.
+\item $f(z) - w_n(z) = O\left(\frac{1}{z^{2n+1}} \right) \ (z \to \infty)_\XX$ for infinitely many nonnegative integers $n$.
+\item $w_n(z)$ for every nonnegative integer $n$ is the unique rational function  $w(z) \in \CC(z)$ of degree at most $n$ such that $f(z) - w(z) = O\left(\frac{1}{z^{2n+1}} \right) \ (z \to \infty)_\XX$.
+\item $w_n(z)$ for every positive integer $n$ is the unique Pad\'e approximant of $f(z)$ over $\XX$  at $z = \infty$ of order $[n-1,n]$. 
+\end{enumerate}
+\item If the equivalent conditions of statement (2) hold, then the best rational approximations of $f(z)$ over $\XX$ are precisely the approximants $w_n(z)$ for $n \geq 0$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof} 
+Statement (1) follows easily from well known recursion formulas for the numerator and denominator of the approximants of a generalized continued fraction.  The equivalence of conditions (2)(a)--(d) follows readily from statement (1) and the definition of an asymptotic continued fraction expansion.   Suppose that condition (2)(c) holds.  Let $v(z)$ be any rational function of degree at most $n$ such that $f(z) - v(z) = O\left(\frac{1}{z^{2n+1}} \right) \ (z \to \infty)_\XX$.  Then by (2)(c) one also has $$w_n(z) - v(z) = (f(z)-v(z)) - (f(z)-w_n(z)) =  O\left(\frac{1}{z^{2n+1}} \right) \ (z \to \infty)_\XX.$$  But since $w_n(z)- v(z)$ is a rational function of degree at most $\deg w_n(z)+ \deg v(z) \leq 2n < 2n+1$, it follows that $w_n(z) - v(z) = 0$.  Thus (2)(e) is equivalent to (2)(b).  Moreover,  the equivalence of (2)(e) and (2)(f) is clear.  Statements (2) and (4) immediately follow.  
+
+A similar argument shows that condition (2)(b)  implies that $w_n(z)$ is a best rational approximation of $f(z)$ over $\XX$:  if $v(z)$ is any rational function of degree at most $n$ such that $f(z) - v(z) = O(f(z)-w_n(z)) \ (z \to \infty)_\XX$, then (2)(b) implies that $f(z) - v(z) =  O\left(\frac{1}{z^{2n+1}} \right) \ (z \to \infty)_\XX$, whence again we conclude that $v(z) = w_n(z)$.  Now, suppose that (2)(a)--(e) hold, and let $v(z)$ be any best rational approximation of $f(z)$ over $\XX$ of degree $n = \deg w_n(z)$.  Since $ w_n(z)-v(z)$  and $\frac{1}{z^{2n+1}}$ are rational functions, one has either 
+$$w_n(z)-v(z) =  O\left(\frac{1}{z^{2n+1}} \right)  \ (z \to \infty)$$
+or
+$$\frac{1}{z^{2n+1}} =  o(w_n(z)-v(z))  \ (z \to \infty).$$
+In the former case one has
+$$f(z)-v(z) = (f(z)-w_n(z))+ (w_n(z)-v(z)) =  O\left(\frac{1}{z^{2n+1}} \right) \ (z \to \infty)_\XX$$  
+and therefore $v(z) = w_n(z)$ by (2)(e).   We show that the latter case is impossible.  Suppose to obtain a contradition that $\frac{1}{z^{2n+1}} =  o(w_n(z)-v(z))  \ (z \to \infty).$  Then one has
+$$f(z)-w_n(z) \sim \frac{a_1 a_2 \cdots a_{n+1}}{z^{2n+1}} =  o(w_n(z)-v(z)) \ (z \to \infty)_\XX$$
+and therefore
+$$f(z)-v(z)  = (w_n(z)-v(z)) + (f(z)-w_n(z)) \sim w_n(z)-v(z) \ (z \to \infty)_\XX,$$
+so that also
+$$f(z)-w_n(z) =  o(f(z)-v(z)) \ (z \to \infty)_\XX,$$
+whence $v(z) = w_n(z)$ since $v(z)$ is a best rational approximation of $f(z)$.   But this contradicts our hypothesis that $\frac{1}{z^{2n+1}} =  o(w_n(z) - v(z))  \ (z \to \infty)$.  This proves statement (3).  
+\end{proof}
+
+
+
+
+The following theorem is more or less a corollary of Theorem \ref{wsimJ}.  Continued fractions of the form given in the theorem were introduced by Stieltjes are called {\it Stieltjes continued fractions}, or {\it S-fractions}.  
+
+
+\begin{theorem}\label{wsim}
+Let $\{a_n\}$ be a sequence of nonzero complex numbers, and for all nonnegative integers $n$ let  $w_n(z)$ denote the $n$th approximant of the continued fraction
+\begin{eqnarray*}
+\cfrac{a_1} {z \, -} \ \cfrac{a_2} {1 \, -}  \ \cfrac{a_3} {z \, -} \ \cfrac{a_4} {1 \, -} \  \cdots.
+\end{eqnarray*}
+One has the following.
+\begin{enumerate}
+\item $w_n(z)$ is a rational function of degree ${\left\lfloor \frac{n+1}{2}\right\rfloor}$  with $w_n(z) \sim \frac{a_1}{z}  \ (z \to \infty)$ and $$w_n(z)-w_{n-1}(z) \sim \frac{a_1 a_2 \cdots a_n}{z^{n}}  \ (z \to \infty)$$ for all $n \geq 1$.   In particular, $\{w_n(z)-w_{n-1}(z)\}_{n = 1}^\infty$ is an asymptotic sequence at $\infty$.  Moreover, the $2n$th approximant $w_{2n}(z)$ of the Stieltjes continued fraction above coincides with the $n$th approximant of the Jacobi continued fraction
+\begin{eqnarray*}
+\cfrac{a_1}{z-a_2 \,-} \  \cfrac{a_2 a_3}{z-a_3-a_4 \,-} \  \cfrac{a_4a_5}{z-a_5-a_6 \,-}  \ \cdots.
+\end{eqnarray*}
+ \item Let $f(z)$ be a complex-valued function defined on an unbounded subset $\XX$ of $\CC \cup \{\infty\}$.  The following conditions are equivalent.
+\begin{enumerate}
+\item $f(z)$  has the asymptotic continued fraction expansion
+\begin{eqnarray*}
+f(z) \, \sim \, \cfrac{a_1} {z \, -} \ \cfrac{a_2} {1 \, -}  \ \cfrac{a_3} {z \, -} \ \cfrac{a_4} {1 \, -} \  \cdots  \ (z \to \infty)_\XX
+\end{eqnarray*}
+over $\XX$ at $z = \infty$.
+\item $f(z)$  has the asymptotic continued fraction expansion
+\begin{eqnarray*}
+f(z) \, \sim \, \cfrac{a_1}{z-a_2 \,-} \  \cfrac{a_2 a_3}{z-a_3-a_4 \,-} \  \cfrac{a_4a_5}{z-a_5-a_6 \,-} \  \cdots  \ (z \to \infty)_\XX.
+\end{eqnarray*}
+over $\XX$ at $z = \infty$.    
+\item $f(z) - w_n(z) \sim  \frac{a_1 a_2 \cdots a_{n+1}}{z^{n+1}} \ (z \to \infty)_\XX$ for all  nonnegative integers $n$.
+\item $f(z) - w_n(z) = O\left(\frac{1}{z^{n+1}} \right) \ (z \to \infty)_\XX$ for all nonnegative integers $n$.
+\item $f(z) - w_n(z) = O\left(\frac{1}{z^{n+1}} \right) \ (z \to \infty)_\XX$ for infinitely many  nonnegative integers $n$.
+\item $w_{2n}(z)$ for every nonnegative integer $n$ is the unique rational function  $w(z) \in \CC(z)$ of degree at most $n$ such that $f(z) - w(z) = O\left(\frac{1}{z^{2n+1}} \right) \ (z \to \infty)_\XX$.
+\item $w_{2n}(z)$ for every positive integer $n$ is the unique Pad\'e approximant of $f(z)$ over $\XX$  at $z = \infty$ of order $[n-1,n]$. 
+\end{enumerate}
+\item If the equivalent conditions of statement (2) hold, then the best rational approximations of $f(z)$ over $\XX$ are precisely the even-indexed approximants $w_{2n}(z)$. 
+\end{enumerate}
+\end{theorem}
+
+
+
+Note that {\it all} of the approximants $w_n(z)$ in the theorem are ``good'' rational approximations of $f(z)$  in the following sense: a rational  function $w(z) \in \CC(z)$ is a {\it good rational approximation of $f(z)$ over $\XX$} if $\deg v(z) \geq \deg w(z)$ for any any rational function $v(z) \in \CC(z)$ such that $f(z)-v(z) = O(f(z)-w(z)) \ (z \to \infty)_\XX$.  (Clearly any best rational approximation is a good rational approximation.)
+
+
+
+
+
+%Note also that $$\Phi_n(z)+\Phi_{n+1}(z) = w_{n+1}(z)-w_{n-1}(z) =  \frac{(-1)^{n-1}b_1 b_2 \cdots b_n a_{n+1}(z)}{B_{n+1}(z)B_{n-1}(z)} $$ and 
+%\begin{align}\label{Phi2}
+%\Phi_n(z)+\Phi_{n+1}(z) = w_{n+1}(z)-w_{n-1}(z) \sim w_{n}(z)-w_{n-1}(z) =  \Phi_n(x)  \ (z \to \infty)
+%\end{align}
+%for all $n$.
+
+
+Now, let $\mu$ be a measure on $\RR$. For all integers $k$, the {\it $k$th moment} of $\mu$ is the (possibly infinite) integral
+$$m_k(\mu) = \int_{-\infty}^\infty t^k d \mu(t).$$  In its modern formulation, the {\it Stieltjes moment problem}, posed and motivated in late 19th century by Stieltjes in connection with his extensive theory of continued fractions, is the problem of determining for which sequences $\{\mu_k\}_{k = 0}^\infty$ of real numbers there exists a measure $\mu$ on $[0, \infty)$ (i.e., with support $\operatorname{supp} \mu$ contained in $[0,\infty)$) such that $\mu_k = m_k(\mu)$ for all nonnegative integers $k$.  To solve this problem Stieltjes introduced what we now call the {\it Stieltjes transform}, or {\it Cauchy transform},  of $\mu$, which is the complex function
+$${\mathcal S}_\mu(z) = \int_{-\infty}^\infty \frac{d \mu(t)}{z-t}.$$   
+If $\mu$ is a finite measure on $\RR$, then ${\mathcal S}_\mu(z) = \int_0^\infty \frac{d \mu(t)}{z-t}$ is analytic on $\CC\backslash \operatorname{supp} \mu$.  Moreover, Stieltjes et.\ al.\ established the following.
+%It is known that ${\mathcal S}_\mu(z)$ is analytic on $\CC\backslash [0,\infty)$ and has its formal Laurent expansion of at $\infty$ equal to $\sum_{k = 0}^\infty \frac{m_k(\mu)}{z^{k+1}}$.   
+
+\begin{theorem}[cf., {\cite[Theorems 5.1.1 and 5.2.1]{cuyt}}]\label{mutheorem1}
+Let $\{\mu_k\}_{k = 0}^\infty$ be a sequence of real numbers. 
+\begin{enumerate}
+\item There exists a measure $\mu$ on $[0,\infty)$ that has infinite support (or equivalently that is not a finite sum of point masses) such that $\mu_k = m_k(\mu)$ for all nonnegative integers $k$ if and only if there exists a Stieltjes continued fraction
+\begin{align*}
+\cfrac{a_1} {z \, -} \ \cfrac{a_2} {1 \, -}  \ \cfrac{a_3} {z \, -} \ \cfrac{a_4} {1 \, -} \  \cdots,
+\end{align*}
+where $a_n \in \RR_{> 0}$ for all $n$, whose $n$th approximant $w_n(z)$ for all $n \geq 1$  has the asymptotic expansion
+$$w_n(z) \sim  \sum_{k = 0}^{n-1} \frac{\mu_k}{z^{k+1}}  \ (z \to \infty)$$ 
+of order $n$ at $z = \infty$.  If these conditions hold, then
+${\mathcal S}_\mu(z)$ is analytic on $\CC\backslash [0,\infty)$ and for all $\varepsilon > 0$ has the asymptotic expansion
+$${\mathcal S}_\mu(z) \sim \sum_{k = 0}^\infty \frac{\mu_k}{z^{k+1}} \ (z \to \infty)_{\CC_\varepsilon}$$
+over  ${\CC_\varepsilon} = \{z \in \CC: |\operatorname{Arg}(z)| \geq \varepsilon\}$.
+\item The measure $\mu$ is unique if and only if the continued fraction in statement (1) converges to a function that is analytic on $\CC\backslash [0,\infty)$, in which case one has
+\begin{align*}
+{\mathcal S}_\mu(z) = \cfrac{a_1} {z \, -} \ \cfrac{a_2} {1 \, -}  \ \cfrac{a_3} {z \, -} \ \cfrac{a_4} {1 \, -}  \  \cdots
+\end{align*}
+for all $z \in \CC\backslash [0,\infty)$.
+%and
+%$$\left|{\mathcal S}_\mu(z) - \sum_{k = 0}^{n-1} \frac{\mu_k}{z^{k+1}}\right|    \leq   \left.
+%  \begin{cases}
+ %   \displaystyle \left|\frac{\mu_n}{z^{n+1}}\right| & \text{if } \operatorname{Re}(z) \leq 0, z \neq 0 \\
+%    \displaystyle \left|\frac{\mu_n}{z^{n+1}}\right|\left|\frac{1}{\sin(\arg z)}\right| & \text{if } \operatorname{Re}(z) > 0, z \notin \RR
+ % \end{cases}
+ % \right.$$
+%for all positive integers $n$.
+\end{enumerate}
+\end{theorem}
+
+%Stieltjes also determined a method for computing the $a_n$ in terms of $\mu$. 
+
+
+As a consequence of the theorem above, we have the following.
+
+\begin{theorem}\label{mutheorem}
+Let $\mu$ be a measure on $[0, \infty)$ with infinite support and finite moments, and let $f(z)$ be any complex-valued function defined on an unbounded subset $\XX$ of  $\CC \cup \{\infty\}$.   Then $f(z)$ has the asymptotic expansion
+$$f(z) \sim \sum_{k = 0}^\infty \frac{m_k(\mu)}{z^{k+1}} \ (z \to \infty)_\XX$$
+if and only if $f(z)$ has the  asymptotic continued fraction expansion
+$$f(z) \, \sim \, \cfrac{a_1} {z \, -} \ \cfrac{a_2} {1 \, -}  \ \cfrac{a_3} {z \, -} \ \cfrac{a_4} {1 \, -} \  \cdots \ (z \to \infty)_\XX,$$
+where the $a_n \in \RR_{> 0}$ are as in Theorem \ref{mutheorem1}(1), if and only if $f(z)$ satisfies the equivalent conditions (2)(a)--(g) of Theorem \ref{wsim}. 
+In particular, the Stieltjes transform $f(z) = {\mathcal S}_\mu(z)$   for every $\varepsilon > 0$  has the asymptotic continued fraction expansion
+$${\mathcal S}_\mu(z) \, \sim \,  \cfrac{a_1} {z \, -} \ \cfrac{a_2} {1 \, -}  \ \cfrac{a_3} {z \, -} \ \cfrac{a_4} {1 \, -} \  \cdots  \ (z \to \infty)_{\CC_\varepsilon}$$
+over  $\CC_{\varepsilon} = \{z \in \CC : |\operatorname{Arg}(z)| \geq \varepsilon\}$.
+%, and if the continued fraction converges on $\CC\backslash [0,\infty)$ then one has the asymptotic continued fraction expansion $${\mathcal S}_\mu(z) \, \sim \,  \cfrac{a_1} {z \, -} \ \cfrac{a_2} {1 \, -}  \ \cfrac{a_3} {z \, -} \ \cfrac{a_4} {1 \, -} \  \cdots \ (z \to \infty)_{\CC\backslash [0,\infty)}.$$
+\end{theorem}
+
+\begin{proof}
+We use the notation as in Theorem \ref{mutheorem1}.  Let $n \geq 0$.  Since $w_n(z)$ is a rational function and is $0$ at $\infty$, it is analytic at $\infty$.  Therefore, since the asymptotic expansion
+$$w_n(z) \sim  \sum_{k = 0}^{n-1} \frac{\mu_k}{z^{k+1}}  \ (z \to \infty)$$ 
+of order $n$ holds, the Taylor series of $w_n(z)$ at $\infty$  agrees term by term  with the formal series  $\sum_{k = 0}^\infty \frac{\mu_k}{z^{k+1}}$ up to and including the term $\frac{\mu_{n-1}}{z^n}$, and therefore one has
+$$w_n(z) = \sum_{k = 0}^{n-1} \frac{\mu_k}{z^{k+1}} + O\left( \frac{1}{z^{n+1}}\right) \ (z \to \infty).$$
+ 
+Suppose now that $f(z)$ has the asymptotic expansion
+$$f(z) \sim \sum_{k = 0}^\infty \frac{\mu_k}{z^{k+1}} \ (z \to \infty)_\XX.$$
+Since
+$$f(z) - \sum_{k = 0}^{n-1} \frac{\mu_k}{z^{k+1}} = O\left( \frac{1}{z^{n+1}}\right) \ (z \to \infty)_\XX,$$
+we deduce that
+$$f(z) - w_n(z) = O\left( \frac{1}{z^{n+1}}\right) \ (z \to \infty)_\XX.$$
+But by Theorem \ref{wsim} we also have
+$$w_{n+1}-w_n(z) \sim \frac{a_1 a_2 \cdots a_{n+1}}{z^{n+1}} \ (z \to \infty),$$
+ and therefore $$f(z) - w_n(z) = O\left( w_{n+1}(z)-w_n(z) \right)  \ (z \to \infty)_\XX$$ and also $\{w_{n}(z)-w_{n-1}(z)\}$ is an asymptotic sequence.  Therefore the given asymptotic continued fraction expansion of $f(z)$ holds.  This proves one direction of the implication, and the other direction follows by reversing this argument.
+\end{proof}
+
+
+We also note the following analogues for  Jacobi continued fractions of Theorems \ref{mutheorem1} and \ref{mutheorem}, respectively.
+
+\begin{theorem}[cf., {\cite[Theorems 5.1.4 and 5.2.3]{cuyt}}]\label{mutheorem1bb} 
+Let $\{\mu_k\}_{k = 0}^\infty$ be a sequence of real numbers. 
+There exists a measure $\mu$ on $\RR$  with infinite support such that $\mu_k = m_k(\mu)$ for all nonnegative integers $k$ if and only if there exists a Jacobi continued fraction
+\begin{eqnarray*}
+\cfrac{a_1}{z+b_1 \,-} \  \cfrac{a_2}{z+b_2 \,-} \  \cfrac{a_3}{z+b_3 \,-}  \ \cdots,
+\end{eqnarray*}
+where $a_n \in \RR_{> 0}$ and $b_n  \in \RR$ for all $n$, whose $n$th approximant $w_n(z)$ for all $n \geq 1$  has the asymptotic expansion
+$$w_n(z) \sim  \sum_{k = 0}^{2n-1} \frac{\mu_k}{z^{k+1}}  \ (z \to \infty)$$ 
+of order $2n$ at $z = \infty$  (or equivalently $w_n(1/X)/X$ for all $n \geq 1$ is the unique Pad\'e approximant  of order $[n-1,n]$ of the formal power series $\sum_{k = 0}^\infty \mu_k X^k$).  If these conditions hold, then
+${\mathcal S}_\mu(z)$ is analytic on $\CC\backslash \RR$ and for all $\delta, \varepsilon > 0$ has the asymptotic expansion
+$${\mathcal S}_\mu(z) \sim \sum_{k = 0}^\infty \frac{\mu_k}{z^{k+1}} \ (z \to \infty)_{\CC_{\delta, \varepsilon}}$$
+over  $\CC_{\delta, \varepsilon} = \{z \in \CC : \delta \leq |\operatorname{Arg}(z)| \leq \pi- \varepsilon\}$ (and thus $w_n(z)$ for all $n \geq 1$ is the unique Pad\'e approximant of ${\mathcal S}_\mu(z)$ over $\CC_{\delta, \varepsilon}$ at $z = \infty$ of order $[n-1,n]$), and one has
+\begin{align*}
+{\mathcal S}_\mu(z) = \cfrac{a_1}{z+b_1 \,-} \  \cfrac{a_2}{z+b_2 \,-} \  \cfrac{a_3}{z+b_3 \,-} \  \cdots
+\end{align*}
+for all $z \in \CC\backslash \RR$.
+\end{theorem}
+
+
+
+
+
+\begin{theorem}\label{mutheorem1cc}
+Let $\mu$ be a measure on $\RR$ with infinite support and finite moments, and let $f(z)$ be any complex-valued function defined on an unbounded subset $\XX$ of  $\CC \cup \{\infty\}$.   Then $f(z)$ has the asymptotic expansion
+$$f(z) \sim \sum_{k = 0}^\infty \frac{m_k(\mu)}{z^{k+1}} \ (z \to \infty)_\XX$$
+if and only if $f(z)$ has the  asymptotic continued fraction expansion
+$$f(z) \, \sim \,\cfrac{a_1}{z+b_1 \,-} \  \cfrac{a_2}{z+b_2 \,-} \  \cfrac{a_3}{z+b_3 \,-} \  \cdots  \ (z \to \infty)_\XX,$$
+where the $a_n \in \RR_{> 0}$ and $b_n \in \RR$ are as in Theorem \ref{mutheorem1bb}, if and only if $f(z)$ satisfies the equivalent conditions (2)(a)--(f) of Theorem \ref{wsimJ}.  In particular, the Stieltjes transform $f(z) = {\mathcal S}_\mu(z)$   for every $\delta, \varepsilon > 0$  has the asymptotic continued fraction expansion
+$${\mathcal S}_\mu(z) \, \sim \, \cfrac{a_1}{z+b_1 \,-} \  \cfrac{a_2}{z+b_2 \,-} \  \cfrac{a_3}{z+b_3 \,-} \  \cdots  \ (z \to \infty)_{\CC_{\delta, \varepsilon}}$$
+over  $\CC_{\delta, \varepsilon} = \{z \in \CC : \delta \leq |\operatorname{Arg}(z)| \leq \varepsilon\}$.
+\end{theorem}
+
+
+
+\section{Asymptotic continued fraction expansions of $\pi(x)$}
+
+
+
+Our goal in this section is to use the results in the previous section (which are largely based on Stieltjes' theory) to prove and generalize the two asymptotic continued fraction expansions in Theorem \ref{maincontthm1}.   
+
+The basic idea in the proof of Theorem \ref{maincontthm1} is that Stieltjes' theory applied to a certain probability measure on $[0,\infty)$ implies that a function $f(x)$ has the asymptotic expansion $f(x) \sim \sum_{n = 1}^\infty \frac{(n-1)!}{x^n} \ (x \to \infty)$ if and only if it has the asymptotic continued fraction expansion 
+$$f(x) \, \sim \, \cfrac{1}{x \,-} \  \cfrac{1}{1 \,-} \  \cfrac{1}{x \,-}\  \cfrac{2}{1 \,-}\  \cfrac{2}{x \,-} \  \cfrac{3}{1 \,-}\  \cfrac{3}{x \,-} \ \cdots \ (x \to \infty).$$
+Functions $f(x)$ satisfying the first of these two conditions include $\PP(e^x)$, $\frac{\li(e^x)}{e^x}$, and $\frac{-E_1(-x)}{e^x}$.  The {\it exponential integral function} $E_1(x)$ is the function
+$$E_1(z) = \int_{z}^\infty \frac{e^{-t}}{t} dt, \quad z \in \CC \backslash (-\infty, 0],$$
+where the integral is along any path of integration not crossing $(-\infty, 0]$.  Like the principal branch of the complex logarithm, the function $E_1(z)$ is analytic on $\CC \backslash (\infty,0]$, while $E_1(x) := \lim_{\varepsilon \to 0^+} E_1(x+\varepsilon i)$ and $\lim_{\varepsilon \to 0^-} E_1(x+\varepsilon i) =  E_1(x)+2 \pi i$ for all $x < 0$.  The function $E_1(x)$ for nonzero real $x$ is given by
+$$ E_1(x) =   \left.
+  \begin{cases}
+   -\li(e^{-x}) & \text{if } x > 0 \\
+    -\li(e^{-x})-\pi i   & \text{if } x < 0,
+ \end{cases}
+\right.$$
+where $$\li(x) = \int_0^x \frac{dt}{\log t} = \lim_{\epsilon \to 0^+} \left( \int_0^{1-\epsilon} \frac{dt}{\log t} + \int_{1+\epsilon}^x \frac{dt}{\log t} \right), \quad  x > 0,$$
+is the {\it logarithmic integral function} (where the limit is the Cauchy principal value of the given integral).  The well known continued fraction expansion
+$$\frac{-E_1(-z)}{e^z} =  \cfrac{1}{z \,-} \  \cfrac{1}{1 \,-} \  \cfrac{1}{z \,-}\  \cfrac{2}{1 \,-}\  \cfrac{2}{z \,-} \  \cfrac{3}{1 \,-}\  \cfrac{3}{z \,-} \ \cdots \ (x \to \infty),  \quad z \in \CC \backslash [0,\infty),$$ 
+of $\frac{-E_1(-z)}{e^z}$ holds, since by Stieltjes' theory both are precisely the Stieltjes transform of the measure on $[0,\infty)$ with density function $e^{-t}$.  Altough the continued fraction diverges on $[0,\infty)$, using Stieltjes' theory one can verify the {\it asymptotic} continued fraction expansion 
+$$\frac{\li(e^x)+\pi i}{e^x} = \frac{-E_1(-x)}{e^x} =  \cfrac{1}{x \,-} \  \cfrac{1}{1 \,-} \  \cfrac{1}{x \,-}\  \cfrac{2}{1 \,-}\  \cfrac{2}{x \,-} \  \cfrac{3}{1 \,-}\  \cfrac{3}{x \,-} \ \cdots \ (x \to \infty),$$ 
+which, along with de la Vall\'ee Poussin's prime number theorem with error term, yields Theorem \ref{maincontthm1}.
+
+A complete proof using Theorems \ref{mutheorem}  and \ref{mutheorem1cc}  and the fundamental asymptotic expansion (\ref{asex2}) of $\PP(x)$  is provided below.   
+
+\begin{proof}[Proof of Theorem \ref{maincontthm1}]
+Let $\mu$ denote the probability measure on $[0, \infty)$ with density function $e^{-t}$.  One has
+$$m_k(\mu) = \int_0^\infty t^k d \mu(t) = \int_0^\infty t^k e^{-t} dt = k!$$
+for all nonnegative integers $k$.   It is known \cite[p.\ 87]{cuyt} that the Stieltjes transform of $\mu$ is given by
+$${\mathcal S}_\mu(z) = \int_0^\infty \frac{d \mu(t)}{z-t} = -e^{-z}E_1(-z) = \cfrac{1}{z \,-} \  \cfrac{1}{1 \,-} \  \cfrac{1}{z \,-}\  \cfrac{2}{1 \,-}\  \cfrac{2}{z \,-} \  \cfrac{3}{1 \,-}\  \cfrac{3}{z \,-} \ \cdots, \quad z \in \CC \backslash [0,\infty).$$
+Moreover, by (\ref{asex2}), one has the asymptotic expansion
+$$\PP(e^x) = \sum_{k = 0}^{\infty} \frac{m_k(\mu)}{x^{k+1}} \ (x \to \infty).$$
+The theorem therefore follows from Theorems \ref{mutheorem} and \ref{mutheorem1cc}.
+\end{proof}
+
+
+
+
+As a corollary of Theorems \ref{maincontthm1} and \ref{wsimJ}, we obtain the following.
+
+\begin{corollary}\label{maincor}
+The best rational approximations of the function $\PP(e^x)$ are precisely the approximants $w_n(x)$ of the continued fraction \begin{align*}
+\cfrac{1}{x-1 \,-} \  \cfrac{1}{x-3 \,-} \  \cfrac{4}{x-5 \,-}\  \cfrac{9}{x-7 \,-}\  \cfrac{16}{x-9 \,-} \  \cdots.
+\end{align*}
+for $n \geq 0$.  Moreover, the function $w_n(x)$ for all $n \geq 0$ is the unique rational function  $w(x) \in \RR(x)$ of degree at most $n$ such that $$\PP(e^x) -w(x) = O\left(\frac{1}{x^{2n+1}} \right) \ (x \to \infty),$$ and thus  $w_n(x)$ for all $n \geq 1$ is the Pad\'e approximant of $\PP(e^x)$  at $x = \infty$ of order $[n-1,n]$.    Furthermore, one has
+ $$\PP(e^x)- w_n(x) \sim \frac{(n!)^2}{x^{2n+1}}  \ (x \to \infty)$$
+for all $n \geq 0$.
+\end{corollary}
+
+Note that the asymptotic expansion (\ref{asex2}) can be reinterpreted  as  the statement that the function $${\mathbf q}(x)  =    \left.
+  \begin{cases}
+   \PP(e^{1/x}) & \text{if } x > 0 \\
+    0  & \text{if } x \leq 0
+ \end{cases}
+ \right.$$ is infinitely differentiable at $0$ from the right with ${{\mathbf q}^{(n)}(0^+)} = n! (n-1)!$
+for all $n \geq 1$, and then one has $w_n(x) = R_n(1/x)$, where $R_n(x)$ is the Pad\'e approximant of ${\mathbf q}(x)$  at $x = 0^+$ of order $[n,n]$.
+
+We now extend the above analysis to the probability measure $\mu_n$ on $[0,\infty)$ with density function $\frac{t^{n}}{n!}e^{-t}$.   The {\it exponential integral function} $E_n(z)$, for any positive integer $n$, is the function
+$$E_n(z) = z^{n-1}\int_{z}^\infty \frac{e^{-t}}{t^n} dt =  z^{n-1}\Gamma(1-n,z), \quad z \in \CC \backslash (\infty,0],$$
+where $$\Gamma(s,z) = \int_{z}^\infty t^{s-1}e^{-t} dt, \quad z \in \CC \backslash (\infty,0],$$ denotes the {\it (incomplete) gamma function}, where the integrals are along any path of integration not crossing $(-\infty, 0]$.  By \cite[p.\ 277]{cuyt}, the Stieltjes transform of $\mu_n$ is precisely
+$${\mathcal S}_{\mu_n}(z) = -e^{-z}E_{n+1}(-z) =  \cfrac{1}{z \,-} \  \cfrac{n+1}{1 \,-}\  \cfrac{1}{z \,-}\  \cfrac{n+2}{1 \,-}\  \cfrac{2}{z \,-}\  \cfrac{n+3}{1 \,-} \ \cfrac{3}{z \,-}\  \cfrac{n+4}{1 \,-} \ \cdots, \quad z \in \CC\backslash [0,\infty),$$
+and the moments  $\mu_{n,k}$ of $\mu_n$ are given by
+$$\mu_{n,k} = m_k(\mu_n) = \frac{(k+n)!}{n!}, \quad n, k \geq 0.$$
+For all $n \geq 0$ let
+\begin{align*}
+f_n(x) = \frac{x^{n}}{n!}\left(\frac{\li(e^x)}{e^x} - \sum_{k = 1}^{n} \frac{(k-1)!}{x^{k}} \right),
+\end{align*}
+so that
+$$f_n(\log x) = \frac{(\log x)^{n}}{n!}\left(\frac{\li(x)}{x} - \sum_{k = 1}^{n} \frac{(k-1)!}{(\log x)^{k}} \right) = {(\log x)^{n}}\frac{1}{x} \int_0^x \frac{dt} {(\log t)^{n+1}}.$$
+From the asymptotic expansion
+\begin{align*}
+\frac{\li(e^x)}{e^x} \sim \sum_{k = 0}^\infty {\frac {k!}{x^{k+1}}} \ (x \to \infty)
+\end{align*}
+we easily obtain the asymptotic expansion
+\begin{align*}
+f_n(x) \sim \sum_{k = 0}^\infty \frac{(k+n)!}{n!} \frac{1}{x^{k+1}} \ (x \to \infty)
+\end{align*}
+and therefore also
+\begin{align*}
+f_n(x) \sim \sum_{k = 0}^\infty \frac{\mu_{n,k}}{x^{k+1}} \ (x \to \infty)
+\end{align*}
+for all $n \geq 0$.  If we also let
+$$g_n(x) = \frac{x^{n}}{n!}\left(\PP(e^x) - \sum_{k = 1}^{n} \frac{(k-1)!}{x^{k}} \right),$$
+then by the same argument we have
+\begin{align*}
+g_n(x) \sim \sum_{k = 0}^\infty \frac{\mu_{n,k}}{x^{k+1}} \ (x \to \infty).
+\end{align*}
+By Theorems \ref{mutheorem} and \ref{mutheorem1cc}, then, we have the following.
+
+\begin{theorem}\label{gentheorem}
+For all nonnegative integers $n$ one has the asymptotic continued fraction expansions
+$$\frac{\PP(x) - \sum_{k = 1}^{n} \frac{(k-1)!}{(\log x)^{k}}}{\frac{n!}{(\log x)^{n}}} \sim \,  \cfrac{1}{\log x \,-} \ \cfrac{n+1}{1 \,-}\  \cfrac{1}{\log x \,-}\  \cfrac{n+2}{1 \,-}\  \cfrac{2}{\log x \,-}\  \cfrac{n+3}{1 \,-} \  \cfrac{3}{\log x \,-}\  \cfrac{n+4}{1 \,-}  \ \cdots \ (x \to \infty)$$
+and
+$$\frac{\PP(x) - \sum_{k = 1}^{n} \frac{(k-1)!}{(\log x)^{k}}}{\frac{n!}{(\log x)^{n}}}  \,  \sim \, \cfrac{1}{\log x -n-1\,-} \  \cfrac{n+1}{\log x - n - 3 \,-}\  \cfrac{2(n+2)}{\log x-n-5 \,-}\  \cfrac{3(n+3)}{\log x - n - 7 \,-}  \ \cdots \  (x \to \infty).$$
+Moreover, the same asymptotic continued fraction expansions hold for the function $$F_n(x) = {(\log x)^{n}}\frac{1}{x} \int_0^x \frac{dt} {(\log t)^{n+1}},$$ and  for all nonnegative integers $n$ and all $t > 0$ one has
+$$ \frac{\PP(x) - \sum_{k = 1}^{n} \frac{(k-1)!}{(\log x)^{k}}}{\frac{n!}{(\log x)^{n}}} =  F_n(x) + o\left( \frac{1}{(\log x)^t}\right) \ (x \to \infty).$$
+\end{theorem}
+
+To provide some further context, we note that the fundamental asymptotic expansion
+\begin{align*}
+\PP(x) \sim \sum_{k = 1}^\infty {\frac {(k-1)!}{(\log x)^{k}}} \ (x \to \infty)
+\end{align*}
+used in the proof of the theorem is by definition equivalent to 
+\begin{align*}
+\frac{\PP(x) - \sum_{k = 1}^{n} \frac{(k-1)!}{(\log x)^{k}}}{\frac{n!}{(\log x)^{n}}}  \sim \frac{1}{\log x}, \quad n \geq 0.
+\end{align*}
+
+We  also provide motivation for our choice of the functions
+\begin{align*}
+f_n(x) = F_n(e^x)  = \frac{x^{n}}{n!}\left(\frac{\li(e^x)}{e^x} - \sum_{k = 1}^{n} \frac{(k-1)!}{x^{k}} \right) =  x^{n}{e^{-x}} \int_0^{e^x} \frac{dt} {(\log t)^{n+1}},
+\end{align*}
+as follows.  Let $\mu$ be a finite measure on $\RR$.  Let
+$${\mathcal S}_\mu(x+0i) = \lim_{\varepsilon \to 0^+}  {\mathcal S}_\mu(x+\varepsilon i)  = \lim_{\varepsilon \to 0} \int_{-\infty}^\infty \frac{(x-t) \, d \mu}{(x-t)^2+\varepsilon^2} - i \lim_{\varepsilon \to 0} \int_{-\infty}^\infty \frac{\varepsilon\, d \mu}{(x-t)^2+\varepsilon^2}$$
+for all $x \in \RR$ such that the limit exists.  In fact the limit exists for all $x \in \RR$ outside a set of Lebesgue measure zero, and  its real part by definition is equal to $\pi$ times the {\it Hilbert transform} 
+$${\mathcal H}_\mu(x) = \frac{1}{\pi}  \operatorname{Re} {\mathcal S}_\mu(x+0i)  = \frac{1}{\pi} \lim_{\varepsilon \to 0} \int_{-\infty}^\infty \frac{(x-t) \, d \mu}{(x-t)^2+\varepsilon^2}$$
+of the meausure $\mu$ \cite{PSZ}.  If $\mu$ has a density function $\rho(t)$, then ${\mathcal H}_\mu(x)$ coincides with the ordinary Hilbert transform $\mathcal{H}(\rho)(x)$ of $\rho(x)$.  Moreover, by the Sokhotski-Plemelj inversion theorem, if $\operatorname{supp} \mu \subseteq [0,\infty)$ and $\rho(t)$ is continuous on $[0,\infty)$  and satisfies $\rho(t) = O(1/t) \ (t \to \infty)$, then ${\mathcal S}_\mu(x+0i)$ exists and satisfies
+$${\mathcal S}_\mu(x+0i)  = \pi{\mathcal H}_\mu(x) -  \pi i\rho(x)$$
+for all $x >0$.  For the measure $\mu_n$ used above in the proof of Theorem \ref{gentheorem} one has
+$${\mathcal S}_{\mu_n}(x+0i)  = \lim_{\varepsilon \to 0^+}\left( -e^{-(x+\varepsilon i)}E_n(-(x+\varepsilon i)) \right) = f_n(x)- \frac{x^{n}e^{-x}}{n! }\pi i,$$
+and therefore
+$$f_n(x) =  \pi {\mathcal H}_{\mu_n}(x) = \operatorname{Re}{\mathcal S}_{\mu_n}(x+0i)$$
+for all $x > 0$.  Thus for the particular measure $\mu = \mu_n$ we have the asymptotic expansion
+\begin{align}\label{mun}
+\operatorname{Re}{\mathcal S}_{\mu}(x+0i) \sim \sum_{k = 0}^\infty \frac{m_k(\mu)}{x^{k+1}} \ (x \to \infty),
+\end{align}
+so that the function $f_n(x) = \operatorname{Re}{\mathcal S}_{\mu_n}(x+0i)$ satisfies the equivalent conditions of Theorem \ref{mutheorem}. 
+
+It is certainly not the case that the asymptotic expansion (\ref{mun}) is limited just to the measures $\mu = \mu_n$.  %For example, by the Sokhotski-Plemelj theorem it holds if $\mu$ is supported on a closed interval with a density function that is continuous on the interval. 
+ Unfortunately, however, we do not know a general characterization of the measures $\mu$  for which  (\ref{mun}) holds.  One can generalize this problem by considering the expansion (\ref{mun}) instead to some finite order $N$.  It is known, for example, that if $\mu$ has a density function in the Schwartz class, then the expansion (\ref{mun}) holds at least to first order \cite{tao}:
+\begin{align*}
+\operatorname{Re}{\mathcal S}_{\mu}(x+0i) \sim \frac{m_0(\mu)}{x} \ (x \to \infty).
+\end{align*}
+To accommodate more general measures for which the Hilbert transform may not be defined everywhere, one can pose the same problem relative to  the set $\XX = \{x \in \RR: \operatorname{Re}{\mathcal S}_{\mu}(x+0i) \text{ exists}\}$ or any of its subsets.  
+
+%Suppose that $f(x)$ is a complex-valued function defined on some subset $\Omega$ of $\RR$.  Suppose also that $a \in \RR \cup \{\pm \infty\}$ is a limit point of $\Omega$ (where $\infty$ is a limit point if and only if $\Omega \cap \RR_{>0}$ is unbounded, and similarly for $-\infty$).  We write
+%$$f(x) =  O(g(x)) \ (x \to a)_\Omega,$$
+%$$f(x) =  o(g(x)) \ (x \to a)_\Omega,$$
+%$$f(x) \sim \sum_{n = 1}^N a_n \varphi_n(x) \ (x \to a)_\Omega,$$
+%\begin{align*}
+%f(x) \, \sim \, a_0(x) +\cfrac{b_1(x)}{a_1(x)+\cfrac{b_2(x)}{a_2(x)+\cfrac{b_3(x)}{a_3(x)+\cdots}}} \ \ (x \to a)_\Omega,
+%\end{align*}
+%etc., if the corresponding condition holds when relativized to the subset $\Omega$, in the obvious sense.  In this manner one is able consider asymptotic expansions of functions of a discrete variable, e.g., of arithmetic functions, which are define on the set $\ZZ_{> 0}$ all positive integers.  
+
+%\begin{theorem}\label{mutheorem2}
+%Let $\mu$ be a measure on $[0, \infty)$ with infinite support and finite moments, and let $v(x)$ be any complex-valued function of a real defined on an unbounded subset $\Omega$ of $\RR_{>0}$.   Then $v(x)$ has the asymptotic expansion
+%$$v(x) \sim \sum_{k = 0}^\infty \frac{m_k(\mu)}{x^{k+1}} \ (x \to \infty)_\Omega$$
+%if and only if $v(x)$ has the  asymptotic continued fraction expansion
+%$$v(x) = \cfrac{a_1}{x-\cfrac{a_2}{1-\cfrac{a_3}{x-\cfrac{a_4}{1-\cdots}}}}\ \ (x \to \infty)_\Omega,$$
+%where the $a_n \in \RR_{> 0}$ are as in Theorem \ref{mutheorem1}(1).
+%\end{theorem}
+
+
+%It is possible, but unlikely, that this asymptotic expansion is coincidental.  As we noted in Theorem \ref{mutheorem}, for any measure $\mu$ on $[0,\infty)$ with infinite support and finite moments, the Stieltjes transform ${\mathcal S}_\mu(z)$ for all $\varepsilon > 0$ has the asymptotic expansion
+%$${\mathcal S}_\mu(z) \sim \sum_{k = 0}^\infty \frac{m_k(\mu)}{z^{k+1}} \ (z \to \infty), \quad |\operatorname{Arg}(z)| \geq \varepsilon,$$ so it seems that a good candidate for a function $v(x)$ that satisfies the asymptotic expansion $$v(x) \sim \sum_{k = 0}^\infty \frac{m_k(\mu)}{x^{k+1}} \ (x \to \infty)$$ of Theorem \ref{mutheorem} is the function $v(x) =  \pi {\mathcal H}_{\mu}(x) = \operatorname{Re} {\mathcal S}_\mu(x+0i)$.
+%Certainly this asymptotic expansion holds for $v(x) = \pi {\mathcal H}_{\mu}(x)$ if $\mu$ has compact support.  Theorem \ref{mutheorem} and (\ref{mun}) therefore motivate the following problem.
+
+%\begin{problem}
+%For which measures $\mu$ on $\RR$ with infinite support and finite moments, besides those with compact support, does one have the asymptotic expansion
+%$$\pi {\mathcal H}_{\mu}(x)  \sim \sum_{k = 0}^\infty  \frac{m_k(\mu)}{x^{k+1}} \ (x \to \infty)?$$
+%In particular, does this asymptotic expansion hold if the density function $\rho(t)$ is in $C^1(\RR)$ and satisfies $\varphi(x) = O(1/x) \ (x \to \infty)$?
+%\end{problem}
+
+``Secondary measures'' allow one to construct further families of measures satisfying (\ref{mun}).  The {\it secondary measure} associated to a measure $\mu$ on $\RR$ satisfying the hypotheses of Theorem \ref{mutheorem1bb} with density function $\rho(t)$   is the unique measure $\nu$ on $\RR$ such that
+$${\mathcal S}_\mu(z) = \frac{a_1}{z+b_1 - {\mathcal S}_{\nu}(z)},$$
+or, equivalently,
+$${\mathcal S}_{\nu}(z) =   \cfrac{a_2}{z+b_2 \,-} \  \cfrac{a_3}{z+b_3 \,-} \  \cfrac{a_4}{z+b_4 \,-}  \ \cdots,$$
+for all $z \in \CC\backslash \RR$ \cite[p.\ 68]{sher} \cite{grou}.   Note that $a_1 = m_0(\mu)$ and $b_1 = -\frac{m_1(\mu)}{m_0(\mu)}.$  By \cite[p.\ 374]{grou}, if $\mu$ is supported on $[0,\infty)$ and satisfies Sokhotski-Plemelj inversion and ${\mathcal S}_\mu(x+0i)$  exists for all $x> 0$, then the measure $\nu$ has a density function $\sigma(t)$ given explicity by
+$$\sigma(t) = \frac{\rho(t)}{| {\mathcal S}_\mu(t+0i)|^2} = \frac{\rho(t)}{\pi^2({\mathcal H}(\rho)(t))^2+ \rho(t)^2)}.$$
+By considering the asymptotic expansions of their Cauchy transforms, one sees that the moments  $\mu$ and $\nu$ are related through their generating functions  by the equation
+\begin{align}\label{munu}
+X\sum_{k = 0}^\infty m_k(\nu) X^{k}  =\frac{1}{X}- \frac{m_1(\mu)}{m_0(\mu)} -\frac{m_0(\mu)}{X\sum_{k = 0}^\infty m_k(\mu) X^{k}}.
+\end{align}
+It also follows that the measure $\mu$ satisfies (\ref{mun}) if and only if its secondary measure $\nu$ satisfies (\ref{mun}).  As done in \cite{groux2}, one can  iterate this process by considering the secondary measure of $\nu$, and so on.  In this way, from any measure $\mu$ supported on $[0,\infty)$ satisfying (\ref{mun}) and Sokhotski-Plemelj inversion such that ${\mathcal S}_\mu(x+0i)$  exists for all $x> 0$, one can produce an infinite sequence of measures with the same properties.
+
+Let us consider, for example, the secondary measure $\nu$ of the measure $\mu$ on $[0,\infty)$ with density function $\rho(t) = e^{-t}$ that was used in the proof of Theorem \ref{maincontthm1}.  It is the unique measure $\nu$ on $[0,\infty)$ such that
+$${\mathcal S}_\mu(z) = \frac{1}{z-1 - {\mathcal S}_\nu(z)},$$
+or, equivalently,
+$${\mathcal S}_\nu(z)  = z - 1 - \frac{1}{{\mathcal S}_\mu(z)} =  \cfrac{1}{z-3 \,-} \  \cfrac{4}{z-5 \,-}\  \cfrac{9}{z-7 \,-}\  \cfrac{16}{z-9 \,-} \  \cdots,$$ 
+for all $z \in \CC\backslash [0,\infty)$.  It has density function given by
+$$\sigma(t) = \frac{e^{-t}}{(e^{-t}\li(e^t))^2+\pi^2e^{-2t}} = \frac{e^t}{\li(e^t)^2+\pi^2}.$$
+ Moreover, from (\ref{munu}) it follows that the moments of the measure $\nu$ are given by
+$$m_k(\nu) = I_{k+2},$$
+where $I_n$, as defined in Section 3, the number of indecomposable permutations of $\{1,2,3,\ldots,n\}$.  
+Therefore, from (\ref{expans2}) we have the asymptotic expansion
+\begin{align*}
+A(e^x) - 1  \sim \sum_{k = 0}^\infty {\frac {m_{k}(\nu)}{x^{k+1}}} \ (x \to \infty).
+\end{align*}
+It follows from Theorem \ref{mutheorem}, then, that one has the asymptotic continued fraction expansion
+\begin{align*}
+A(e^x) - 1 \, \sim \,  \cfrac{1}{x-3 \,-} \  \cfrac{4}{x-5 \,-}\  \cfrac{9}{x-7 \,-}\  \cfrac{16}{x-9 \,-} \ \cdots \ (x \to \infty),
+\end{align*}
+This expansion can be derived immediately from Theorem \ref{maincontthm1}, but the observations above provide further context for the coefficients $I_{k+1}$ in the asymptotic expansion  (\ref{Axsym}) of $A(x)$ found by Panaitopol in 2000.
+
+\section{Further asymptotic expansions of $\pi(x)$}
+
+In this final section we provide some methods for deriving further asymptotic expansions of the prime density function.  The first of these is of a more combinatorial nature and is based on the following lemma, whose proof is a straightforward application of the binomial theorem.
+
+\begin{lemma}\label{asympprop2b}
+Let $a_n, c_n \in \CC$ for all $n \geq 0$.  Any asymptotic expansion  
+$$f(x) \sim \sum_{n = 0}^\infty \frac{a_n}{x^n} \ (x \to \infty)$$
+of a complex-valued function $f(x)$ at $x = \infty$ with respect to $\left\{\frac{1}{x^n} \right\}$
+is equivalent to the asymptotic expansion
+$$f(x) \sim \sum_{n = 0}^\infty \left( \sum_{k = 0}^n {n \choose k} a_k c_k^{n-k} \right) \! \frac{1}{(x+c_n)^n} \ (x \to \infty)$$
+of $f(x)$ at $x = \infty$ with respect to $\left\{\frac{1}{(x+c_n)^n} \right\}$.
+\end{lemma}
+
+An application of the lemma to (\ref{asex2}) yields the following.
+
+\begin{proposition}\label{basicp}
+One has the asymptotic expansions
+$$\PP(x) \sim \sum_{n=1}^\infty \frac{D_{n-1}}{(\log x-1)^n} \ (x \to \infty)$$
+and
+$$\PP(ex) \sim \sum_{n=1}^\infty \frac{D_{n-1}}{(\log x )^n} \ (x \to \infty),$$
+where $D_n = n!\sum_{k = 0}^n \frac{(-1)^k}{k!}$ for any nonnegative integer $n$ denotes the number of derangements of an $n$ element set.  Similarly, one has the asymptotic expansions
+$$\PP(x) \sim \sum_{n=1}^\infty \frac{A_{n-1}}{(\log x+1)^n} \ (x \to \infty)$$
+and
+$$\PP(x/e) \sim \sum_{n=1}^\infty \frac{A_{n-1}}{(\log x )^n} \ (x \to \infty),$$
+where $A_n$ is the number $n! \sum_{k = 0}^n \frac{1}{k!}$ of arrangements of an $n$ element set. 
+\end{proposition}
+
+The sequence $D_n$ begins $1,0,1,2,9,44,265,\ldots$.   In particular, since $D_1 = 0$, the proposition provides another explanation for the fact that $\PP(x) - \frac{1}{\log x -1}$ is asymptotic to $\frac{1}{(\log x)^3}$ despite the fact that $\PP(x) - \frac{1}{\log x-a}$ is asymptotic to $\frac{1-a}{(\log x)^2}$ for all $a \neq 1$.
+
+The sequence  $A_n$  begins $1,2,5,16,65,326,1957,\ldots$.    Thus one has
+$$\PP(x/e) \sim \frac{1}{\log x} +  \frac{2}{(\log x)^2} + \frac{5}{(\log x)^3} + \frac{16}{(\log x)^4} + \frac{65}{(\log x)^5}  + \cdots \ (x \to \infty).$$
+Coincidentally, squaring the asymptotic expansion $\PP(x) \sim \sum_{k = 1}^\infty \frac{(n-1)!}{(\log x)^n}$ of $\PP(x)$ yields
+$$\PP(x)^2 \sim \frac{1}{(\log x)^2} +  \frac{2}{(\log x)^3} + \frac{5}{(\log x)^4} + \frac{16}{(\log x)^5} + \frac{64}{(\log x)^6}  + \cdots \ (x \to \infty),$$
+and therefore one has
+$$ \PP(x/e) - \PP(x)^2 \log x  \sim \frac{1}{(\log x)^6} \ (x \to \infty).$$
+It follows that
+$$\PP(x)^2 \log x  < \PP(x/e)$$ for sufficiently large $x$, which is equivalent to Ramanujan's famous inequality
+$$\pi(x)^2 < \frac{ex}{\log x} \pi(x/e), \quad x \gg 0.$$
+
+
+The two examples above show that combinatorial relationships between various sequences related to the factorials can yield interesting consequences for the asymptotic behavior of $\pi(x)$. 
+
+Proposition \ref{basicp} may be generalized as follows.  Note first that the functions $E_n(z)$ used in the previous section generalize to complex values of $n$ by
+$$E_s(z) = z^{s-1} \Gamma(1-s, z).$$
+For all nonnegative integers $n$ one has
+$$n! \sum_{k = 0}^n \frac{z^k}{k!} = e^z \Gamma(n+1,z) = z^{n+1} e^z E_{-n}(z),  \quad  z \neq 0$$
+(and, incidentally, also $E_{-n}(z) = (-1)^n\frac{d^n}{dz^n} \frac{ e^{-z}}{z})$).  Moreover, one has $$e^{z} \Gamma(s,z)  =  \cfrac{ z^{s}}{z -s+ 1 \, -} \  \cfrac{s-1}{z - s + 3 \,-}\  \cfrac{2(s-2)}{z-s+5 \,-}\  \cfrac{3(s-3)}{z-s+7} \ \cdots $$
+for all $z \in \CC\backslash(-\infty,0]$ and all $s \in \CC$.  Thus, from Lemma \ref{asympprop2b} we also obtain the following.
+
+\begin{proposition}
+For every $t \in \RR_{> 0}$ one has the asymptotic expansions
+$$\PP(x) \sim \sum_{n=0}^\infty \frac{p_n(t)}{(\log x+t)^{n+1}} \ (x \to \infty)$$
+and
+$$\PP(x/t) \sim \sum_{n=0}^\infty \frac{p_n(\log t)}{(\log x)^{n+1}} \ (x \to \infty)$$
+where $$p_n(t) =n! \sum_{k = 0}^n \frac{t^k}{k!}  = e^t \Gamma(n+1,t) = t^{n+1} e^t E_{-n}(t)$$
+and
+$$p_n(t) =   \cfrac{t^{n+1}}{t -n \, -} \  \cfrac{n}{t - n + 2 \,-}\  \cfrac{2(n-1)}{t-n+4 \,-}\  \cfrac{3(n-2)}{t-n+6 \, - } \ \cdots \ \cfrac{n}{t-n+2n} $$ for every positive integer $n$ (assuming the limiting value if $t \in \{n,n-2,\ldots, n \operatorname{mod} 2\})$.
+\end{proposition}
+
+Note that (\ref{exp}) is equivalent to $p_n(0) = n!$, while Proposition \ref{basicp} is equivalent to the fact that $p_n(-1) = D_{n}$ and $p_n(1) = A_{n}$ for all $n \geq 1$.    Let 
+$$q_n(t) =  p_n(\log t) =n! \sum_{k = 0}^n \frac{(\log t)^k}{k!} = t\Gamma(n+1,\log t)$$
+for all $n$.  Note that
+$$q_n(t) \sim   t \cdot n! = t \cdot q_n(1)  \ (n \to \infty)$$
+(and therefore $\frac{q_n(t)}{q_n(u)} \sim \frac{t}{u} \ (n \to \infty)$ for all $t, u \in \RR_{> 0}$).  Thus, for example, one has
+$$q_{n}(e^{-1}) = D_{n} \sim \, e^{-1} \cdot n! \ (n \to \infty)$$
+and
+$$q_{n}(e) = A_{n} \sim \, e \cdot n! \ (n \to \infty),$$
+which are well known asymptotics for the sequences $D_n$ and $A_n$.  
+
+
+Let us now seek further asymptotic expansions of $\PP(x)$ by applying Proposition \ref{asympprop2a} of Section 2 to various asymptotic sequences that are ``equivalent'' to $\left\{ \frac{1}{(\log x)^n}\right\}$.    First, we recall that the {\it harmonic numbers} $H_n$ are defined by $$H_n = \sum_{k = 1}^n \frac{1}{k}, \quad n \geq 1.$$  The harmonic numbers are interpolated by the continuous function
+$$H_x = \Psi(x+1)+ \gamma =  \int_0^1 \frac{1-t^x}{1-t} dt, \quad x>0,$$
+where $\Psi(z) = \frac{\Gamma'(z)}{\Gamma(z)}$ is the {\it digamma function}, which  in turn is the logarithmic derivative of the gamma function $\Gamma(z)$.  It is well known that
+$$H_x -\gamma -\log x \sim \frac{1}{2x} \ (x \to \infty)$$  and that
+ $$H_x - \gamma = \Psi(x+1) = \Psi(x) + \frac{1}{x}$$ for all $x >0$.
+Thus, from Proposition \ref{asympprop2a}  we deduce
+the following.  
+
+\begin{proposition}\label{simpleprop}
+Let $f(x)$ be a complex-valued function of a real variable defined to the right of $0$, and let $g(x)$ be the function $f(1/\log x)$ defined in a neighborhood of $\infty$; equivalently, we may let  $g(x)$ be any complex-valued function  of a real variable defined in a neighborhood of $\infty$ and let $f(x) = g(e^{1/x})$ to the right of $0$. Let $a_n \in \CC$ for all $n \geq 0$, let $N$ be a positive integer, and let $L(x)$ be any function such that $L(x) = \log x + o \left(\frac{1}{(\log x)^{N-2}} \right) (x \to \infty)$ (such as $L(x) = \log x$, $L(x) = H_x - \gamma$, or $L(x) = \Psi(x)$). Then the following asymptotic expansions of order $N+1$  are equivalent:
+\begin{enumerate}
+\item $ \displaystyle f(x) \sim \sum_{n = 0}^N a_n x^n \ (x \to 0^+).$
+\item $ \displaystyle f(x^2) \sim \sum_{n = 0}^N a_n x^{2n} \ (x \to 0).$
+\item $ f(1/x) = \displaystyle g(e^x) \sim \sum_{n = 0}^N \frac{a_n }{x^n }\ (x \to \infty).$
+\item $\displaystyle g(x) \sim \sum_{n = 0}^N \frac{a_n }{(L(x))^n} \ (x \to \infty)$.
+\item $ \displaystyle g(x) \sim \sum_{n = 0}^N \frac{a_n }{(\log x)^n }\ (x \to \infty).$
+\item $ \displaystyle g(x) \sim \sum_{n = 0}^N \frac{a_n }{(H_x - \gamma)^n} \ (x \to \infty).$
+\item $ \displaystyle g(x) \sim \sum_{n = 0}^N \frac{a_n }{(\Psi(x))^n} \ (x \to \infty).$
+\end{enumerate}
+\end{proposition}
+
+
+
+%A graph of the function $P(x)$ on the interval $[0.1, 2]$ is provided in Figure \ref{graphPP}.
+%\begin{figure}[ht!]
+%\centering
+%\includegraphics[width=80mm]{primesPP.png}
+%\caption{Graph of $\PP(e^{1/x})$ on  $[0.1, 2]$  \label{graphPP}}
+%\end{figure}
+
+
+Combining Proposition \ref{simpleprop} with previous results, we obtain the following.
+
+
+\begin{corollary}\label{pas}
+Let $L(x)$ be any function such that $L(x) = \log x + o ((\log x)^t) \  (x \to \infty)$ for all $t \in \RR$.  One has the following asymptotic expansions.
+\begin{enumerate}
+\item $\displaystyle \PP(x) \sim \sum_{n = 1}^\infty {\frac {(n-1)!}{L(x)^{n}}} \ (x \to \infty).$
+\item $\displaystyle \PP(x) \sim \sum_{n = 1}^\infty {\frac {D_{n-1}}{(L(x)-1)^{n}}} \ (x \to \infty).$
+\item $\displaystyle  \PP(x) \sim \sum_{n = 1}^\infty {\frac {A_{n-1}}{(L(x)+1)^{n}}} \ (x \to \infty).$
+\item $\displaystyle L(x) - \frac{1}{\PP(x)} \sim  \sum_{n = 0}^{\infty} {\cfrac {I_{n+1}}{L(x)^{n}}} \ (x \to \infty).$
+\item $\displaystyle {\PP(x)}\,  \sim \, \cfrac{1}{L(x) \,-} \  \cfrac{1}{1 \, -} \  \cfrac{1}{L(x) \,-}\  \cfrac{2}{1 \,-}\  \cfrac{2}{L(x) \,-}  \ \cfrac{3}{1 \,-}\  \cfrac{3}{L(x) \,-} \  \cdots \ (x \to \infty).$
+\item $\displaystyle {\PP(x)} \,  \sim \, \cfrac{1}{L(x)-1 \,-} \  \cfrac{1}{L(x)-3 \,-} \  \cfrac{4}{L(x)-5 \,-}\  \cfrac{9}{L(x)-7 \,-}\  \cfrac{16}{L(x)-9 \,-} \  \cdots \ (x \to \infty).$
+\end{enumerate}
+\end{corollary}
+
+\begin{corollary}\label{pas2}
+For all $a \in \RR$ one has the following.
+\begin{enumerate}
+\item $\displaystyle \PP(x) - \frac{1}{H_x-a} \sim  \frac{1+\gamma-a}{(\log x)^2} \ (x \to \infty)$, if $a \neq 1+\gamma.$
+\item $\displaystyle \PP(x) - \frac{1}{H_x-(1+\gamma)} \sim  \frac{1}{(\log x)^3} \ (x \to \infty).$
+\item $\displaystyle H_x -(1+\gamma) -\frac{1}{\PP(x)}  \sim \frac{1}{\log x} \ (x \to \infty).$
+\item $\displaystyle \lim_{x \to \infty} \left(H_x -\frac{1}{\PP(x)} \right) = 1+\gamma.$
+\item $\displaystyle \PP(x) \sim \sum_{n = 0}^\infty \left(\sum_{k = 0}^n \frac{n!}{k!}\gamma^k \right)\! \frac{1}{H_x^{n+1}} \ (x \to \infty).$
+\end{enumerate}
+\end{corollary}
+
+
+The third of the Mertens' theorems, which was stated in the introduction, can be improved to show that the function 
+$L(x) = e^{-\gamma}\prod_{p \leq x}\left(1-\frac{1}{p}\right)^{-1} $ also satisfies the condition $L(x) \sim \log x + o ((\log x)^t) \  (x \to \infty)$ for all $t \in \RR$.   Indeed, it can be shown that  following proposition follows  from the clasical result \cite[p.\ 201--203]{land} of Landau applied specifically to the function $F(u) = \log \left(1-\frac{1}{u}\right)$, and the result is improved considerably  in \cite{lam} using more powerful methods.
+
+\begin{proposition}[{cf.,  \cite[p.\ 201--203]{land},  \cite{lam}}]\label{mertensprop}
+One has the following.
+\begin{enumerate}
+\item  $\displaystyle \sum_{p \leq x}\log \left(1-\frac{1}{p}\right) = -\log \log x - \gamma + O \left(e^{(\log x)^{-1/14}} \right) \ (x \to \infty).$
+\item  $\displaystyle \sum_{p \leq x}\log \left(1-\frac{1}{p}\right) = -\log \log x - \gamma + o ((\log x)^t) \  (x \to \infty)$ for all $t \in \RR$
+\item $\displaystyle e^{\gamma} \prod_{p \leq x}\left(1-\frac{1}{p}\right)  =  \frac{1}{\log x}+  o ((\log x)^t) \  (x \to \infty)$ for all $t \in \RR$
+\item $\displaystyle e^{-\gamma} \prod_{p \leq x}\left(1-\frac{1}{p}\right)^{-1}  =  \log x +  o ((\log x)^t) \  (x \to \infty)$ for all $t \in \RR$
+\end{enumerate}
+\end{proposition}
+
+\begin{corollary}
+One has the following.
+\begin{enumerate}
+\item  $\displaystyle e^{\gamma} \prod_{p \leq x}\left(1-\frac{1}{p}\right)  =  \frac{1}{H_x-\gamma}+ o \left( \frac{1}{(H_x)^{t}} \right) \ (x \to \infty)$ for all $t > 0$.
+\item $\gamma+ \displaystyle e^{-\gamma} \prod_{p \leq x}\left(1-\frac{1}{p}\right)^{-1}  =  H_x  + o \left( \frac{1}{(H_x)^{t}} \right) \ (x \to \infty)$ for all $t > 0$.
+\item $\displaystyle \PP(x) - e^{\gamma} \prod_{p \leq x}\left(1-\frac{1}{p}\right)  \sim  \sum_{k = 2}^\infty \frac{(k-1)!}{(\log x)^k} \ (x \to \infty)$.
+\item $\displaystyle \PP(ex) - e^{\gamma} \prod_{p \leq x}\left(1-\frac{1}{p}\right)  \sim  \sum_{k = 3}^\infty \frac{D_{k-1}}{(\log x)^k} \ (x \to \infty).$
+\end{enumerate}
+\end{corollary}
+
+
+One can also express many of our asymptotic expansions in terms of the asymptotic sequences
+ $\left\{\left(\frac{\li(x)}{x}\right)^n\right\}$ and $\{\PP(x)^n\}$ by ``inverting'' the expansion 
+$$\frac{\li(x)}{x} \sim \sum_{n = 1}^\infty \frac{(n-1)!}{(\log x)^n} \ (x \to \infty)$$ 
+as one does formal  power series under composition.  Let $G(X) = - \sum_{n= 1}^\infty G_n X^n$ denote  the series inversion of the formal power series $$F(X) = \sum_{n = 1}^\infty (n-1)! X^{n},$$
+that is, the unique formal series  such that 
+$$X = G(F(X)) = F(G(X)).$$
+One has $G_1 = -1$, and the sequence $\{G_n\}_{n = 2}^\infty$ appears as OEIS sequence A134988, with first several terms given by  $1, 0, 1, 4, 22, 144, 1089, 9308, 88562, \ldots$.  In particular, $G_n$ for any $n \geq 2$ is the number of generators in arity $n$ of the operad $\mathfrak{Lie}$ when considered as a free non-symmetric operad \cite{salv}, and $G_n$ for all $n \geq 2$ also has a de Rham cohomological interpretation as $\dim_\QQ H^{n-2}({\mathfrak M}^\delta_{0,n+1}, \QQ)$, where ${\mathfrak M}^\delta_{0,n}$ for any $n \geq 3$ is a certain smooth affine scheme that approximates the moduli space ${\mathfrak M}_{0,n}$, defined over $\ZZ$, of smooth $n$-pointed curves of genus 0  \cite{brow}.    It is also known that
+$$\frac{X}{G(X)} = \sum_{n = 0}^\infty J_nX^n,$$
+where $J_n$ is the number of ``stabilized-interval-free'' permutations of $\{1, 2, \cdots , n\}$ and is OEIS sequence A075834, with first several terms given by $1,1,1,2,7,34, 206,1476, 12123,\ldots$ \cite{call}.   The following proposition follows.
+
+
+
+\begin{proposition}
+Let $L(x)$ be any function such that $L(x) = \log x + o ((\log x)^t) \  (x \to \infty)$ for all $t \in \RR$, and let $P(x)$ be any function such that $P(x) = \frac{\li(x)}{x} + o ((\log x)^t) \  (x \to \infty)$ for all $t \in \RR$.  One has the following asymptotic expansions.
+\begin{enumerate}
+\item  $\displaystyle L(x) \PP(x) \sim \sum_{n = 0}^\infty  \frac{n!}{L(x)^n} \ (x \to \infty)$.
+\item $\displaystyle \frac{1}{L(x)} \sim -\sum_{n = 1}^\infty G_n P(x)^n \ (x \to \infty)$.
+\item $\displaystyle \frac{1}{L(x)\PP(x)} \sim -\sum_{n = 0}^\infty G_{n+1} P(x)^n \ (x \to \infty).$
+\item $\displaystyle {L(x) \PP(x)} \sim   \sum_{n = 0}^\infty J_n P(x)^n \ (x \to \infty)$.
+\item $\displaystyle {L(x)} \sim   \sum_{n = -1}^\infty J_{n+1} P(x)^n \ (x \to \infty)$.
+\end{enumerate}
+\end{proposition}
+
+
+\begin{corollary}
+For $P(x) = \frac{\li(x)}{x}$ (or for $P(x) = \PP(x)$), one has the following asymptotic expansions.
+\begin{enumerate}
+\item $\displaystyle \frac{1}{\log x} \sim -\sum_{n = 1}^\infty G_n P(x)^n \ (x \to \infty)$.
+\item $\displaystyle \frac{1}{H_x-\gamma} \sim -\sum_{n = 1}^\infty G_n P(x)^n \ (x \to \infty)$.
+\item $\displaystyle e^{\gamma} \prod_{p \leq x}\left(1-\frac{1}{p}\right) \sim -\sum_{n = 1}^\infty G_n P(x)^n \ (x \to \infty)$.
+\item $\displaystyle \frac{e^{\gamma} \prod_{p \leq x}\left(1-\frac{1}{p}\right) }{\PP(x)} \sim -\sum_{n = 0}^\infty G_{n+1} P(x)^n \ (x \to \infty)$.
+\item $\displaystyle \PP(x) \log x\sim \sum_{n = 0}^\infty J_n P(x)^n \ (x \to \infty)$.
+\item $\displaystyle \frac{\PP(x)}{ e^{\gamma} \prod_{p \leq x}\left(1-\frac{1}{p}\right)} \sim \sum_{n = 0}^\infty J_n P(x)^n \ (x \to \infty)$.
+\item $\displaystyle A(x) = \log x - \frac{1}{\PP(x)}  \sim \sum_{n = 0}^\infty J_{n+1} P(x)^n \ (x \to \infty)$.
+\item $\displaystyle \log x   \sim \sum_{n = -1}^\infty J_{n+1} P(x)^n \ (x \to \infty)$.
+\item $\displaystyle H_x-\gamma  \sim \sum_{n = -1}^\infty J_{n+1} P(x)^n \ (x \to \infty)$.
+\end{enumerate}
+\end{corollary}
+
+
+
+The asymptotic expansions of the prime counting function we have considered in this paper are all in some sense equivalent to (\ref{PNTET}), which we have seen is a weakening of the prime number theorem with error term.  In 1901 von Koch proved \cite{koch} that the  Riemann hypothesis is equivalent to a considerable {\it strengthening} of the prime number theorem with error term, namely, to
+$$\pi(x) = \li(x) + O(\sqrt{x}\log x) \ (x \to \infty).$$
+Using the following lemma, we find a  reformulation of von Koch's result in which $\li(x)$ is replaced with an appropriate expression involving the harmonic numbers.   (By Corollary \ref{pas2} an expression of the form $\frac{x}{H_x-a}$ will not suffice.) 
+
+\begin{lemma}\label{limlem}
+The limit
+$$\lim_{n \to \infty} \left(\li(n) - \sum_{k = 1}^n\frac{1}{H_k-\gamma}\right)$$
+exists.
+\end{lemma}
+
+\begin{proof}
+That the limit 
+\begin{align}\label{rhlim1}
+\lim_{n \to \infty} \left (\li(n) - \sum_{k = 2}^{n} \frac{1}{\log k} \right) 
+\end{align}
+exists is clear since the function $\frac{1}{\log t}$ is decreasing on $[2,\infty)$.   Thus it suffices to show that the limit
+\begin{align}\label{rhlim2}
+\lim_{n \to \infty} \left(\sum_{k = 2}^n \frac{1}{\log k} - \sum_{k = 2}^n\frac{1}{H_k-\gamma}\right) = \sum_{k = 2}^\infty \left(\frac{1}{\log k} - \frac{1}{H_k-\gamma}\right)
+\end{align}
+also exists.  But one has
+$$\frac{1}{2k+1} < H_k -\gamma - \log k < \frac{1}{2k}, \quad k \geq 1,$$
+and therefore 
+ $$0 < \frac{1}{\log k} - \frac{1}{H_k-\gamma}  < \frac{1}{2k (\log k)^2}, \quad k \geq 2,$$
+so the limit (\ref{rhlim2}) exists by comparison with the convergent sum $\sum_{k = 2}^\infty \frac{1}{2k (\log k)^2}$ .
+\end{proof}
+
+Because the limit (\ref{rhlim1}) exists, von Koch's result implies that the Riemann hypothesis is equivalent to
+\begin{align*}
+\pi(n) =  \sum_{k = 2}^{n} \frac{1}{\log k}  + O(\sqrt{n} \log n) \ (n \to \infty).
+\end{align*}
+Likewise, by Lemma \ref{limlem}, we have the following.
+
+\begin{proposition}\label{RHequiv}
+The Riemann hypothesis is equivalent to
+\begin{align*}
+\pi(n) =  \sum_{k = 1}^{n} \frac{1}{H_k -\gamma}  + O(\sqrt{n} H_n) \ (n \to \infty)
+\end{align*}
+\end{proposition}
+
+The equivalent form of the Riemann hypothesis above is noteworthy because of its simplicity:  it makes no explicit mention of transcendental functions and the only numbers involved that may not be rational are $\sqrt{n}$ and $\gamma$.  %However, it has little computational use because of the difficulty in estimating the given sum, although such estimates are made much easier by employing the identity $H_k - \gamma = \Psi(k+1)$ and known series expansions of $\Psi(z)$.   
+
+We note that by the lemma the well known lower bound 
+$$\pi(x)-\li(x) = \Omega_{\pm} \left(\frac{\sqrt{x} \log \log \log x }{\log x}\right)$$
+on the growth of $\pi(x)-\li(x)$ proved by Littlewood in 1914 \cite{litt} applies to the functions $\pi(n) -  \sum_{k = 2}^{n} \frac{1}{\log k}$ and  $\pi(n) -  \sum_{k = 1}^{n} \frac{1}{H_k -\gamma}$ as well.  We also note that Proposition \ref{RHequiv} can also be deduced from the inequalities
+\begin{align*}
+\sum_{k = 3}^{n+1} \frac{1}{\log k} < \sum_{k = 2}^n \frac{1}{H_k-\gamma} < \int_2^{n+1} \frac{dt}{\log t} = \li(n+1)-\li(2) < \sum_{k = 2}^n \frac{1}{\log k} < \li(n) <   \sum_{k = 1}^{n-1} \frac{1}{H_k-\gamma},
+\end{align*}
+which can be verified to hold for all integers $n \geq 8$ using the fact that $\log(x+1/2) < \Psi(x+1) = H_{x} - \gamma < \log (x+1)$ for all $x > -1/2$.    Note that the difference between each of the above quantities is bounded and approaches a finite limit as $n \to \infty$. 
+
+
+
+Note also that by results in \cite{land} the Riemann hypothesis is equivalent to
+$$e^{-\gamma} \prod_{p \leq x}\left(1-\frac{1}{p}\right)^{-1} =  \log x + O\left( \frac{(\log x)^2}{\sqrt{x}} \right) \ (x \to \infty)$$
+and therefore also to
+$$e^{-\gamma} \prod_{p \leq n}\left(1-\frac{1}{p}\right)^{-1} =  H_n-\gamma + O\left( \frac{(H_n)^2}{\sqrt{n}} \right) \ (n \to \infty)$$
+and to
+$$e^{\gamma} \prod_{p \leq n}\left(1-\frac{1}{p}\right) =  \frac{1}{H_n-\gamma} + O\left( \frac{1}{\sqrt{n}} \right) \ (n \to \infty).$$
+
+%\item  $\displaystyle \PP(x) \sim \sum_{k = 1}^\infty (n-1)!  \, e^{n\gamma} \prod_{p \leq x}\left(1-\frac{1}{p}\right)^{n} \ (x \to \infty).$
+
+%\begin{table}
+%\caption{Approximations of $\pi(x)$} \bigskip
+%\centering 
+%\begin{tabular}{|r|r|r|r|r|r|r|r|r|} \hline 
+%$n$ & $\pi(n)$ &  $\displaystyle \sum_{k = 3}^{n+1} \frac{1}{\log k}$ & $\displaystyle \sum_{k = 2}^n \frac{1}{H_k-\gamma}$  &  $\li(n+1)-\li(2)$ &  $\displaystyle  \sum_{k = 2}^n \frac{1}{\log k}$ &  $\li(n)$ &  $\displaystyle \sum_{k = 1}^{n-1} \frac{1}{H_k-\gamma}$  \\ \hline \hline
+%$10^1$  &  $4$   &  $5.11$ &  $5.50$  & $5.55$  & $6.14$ & $6.17$  & $7.44$  \\ \hline
+%$10^2$  &   $25$  &  $28.77$  &  $29.25$   & $29.30$  &  $29.99 $ & $30.13$ &  $31.40$ \\ \hline
+%$10^3$  &  $168$   &  $176.14$ &  $176.66$  & $176.71$  &  $177.44 $ & $177.61$ & $178.88$  \\ \hline
+%$10^4$  & $1229$   &  $1244.61$  & $1245.15$  &  $1245.20$ &  $1245.95$ &  $1246.14$ & $1247.41$ \\ \hline
+%$10^5$  &   $9592$  & $9628.25$  & $9628.8$   &   $9628.85$ & $9629.61$ &  $9629.81$ & $9631.08 $ \\ \hline
+%$10^6$  &  $78498$ & $78625.97$  &  $78626.5$  &  $78626.57$ & $78627.34$ & $78627.55 $ &   $78628.8 $   \\ \hline
+%$10^7$  &  $664579$ &  $664916.81$  &   &  $664917.42$ &  $664918.19$  &   $664918.41$  & \\ \hline
+%$10^8$  &  $5761455$ &  $5762207.77$  &  &  $5762208.38$ &  $5762209.16$ &   $5762209.38$ & \\ \hline
+%$10^9$  &  $50847534$ &  $50849233.34$   &  & $50849233.96$ & $50849234.74$  & $50849234.96$  &  \\ \hline
+%\end{tabular}
+%\end{table}
+
+
+\begin{thebibliography}{}
+
+\bibitem{akh} N.\ I.\  Akhiezer, {\it The Classical Moment Problem: and Some Related Questions in Analysis}, University Mathematical Monographs, Olver \& Boyd, London, 1965.
+
+\bibitem{brow} F.\ Brown and J.\ Bergstr\"om, Inversion of series and the cohomology of the moduli spaces ${\mathcal M}^\delta_{0,n}$, in {\it Motives, quantum field theory, and pseudodifferential operators}, Clay Math.\ Proc.\ 12 (2010) 119-126, Amer.\ Math.\ Soc., Providence.
+
+
+\bibitem{call} D.\ Callan, Counting stabilized-interval-free permutations, J.\ Integer Sequences 7 (2004) Article 04.1.8.
+
+\bibitem{cuyt} A.\ A.\ M.\ Cuyt, V.\ Petersen, B.\ Verdonk, H.\ Waadeland, and W.\ B.\ Jones, {\it Handbook of Continued Fractions for Special Functions}, Springer Science \& Business Media, 2008.
+
+\bibitem{val1} C.-J.\ de la Vall\'ee Poussin, Recherches analytiques la th\'eorie des nombres premiers,  Ann.\ Soc.\ scient.\ Bruxelles 20 (1896) 183--256.
+
+\bibitem{val2}  C.-J.\ de la Vall\'ee Poussin, Sur la fonction Zeta de Riemann et le nombre des nombres premiers inferieur a une limite donn\'ee, C.\ M\'em.\ Couronn\'es Acad.\ Roy.\ Belgique 59 (1899) 1--74.
+
+
+\bibitem{gau}  C.\ F.\ Gauss, {\it Werke}, Bd.\ 2, First Edition, G\"ottingen, 1863, pp.\ 444--447.
+
+\bibitem{grou} R.\ Groux, Sur une mesure rendant orthogonaux les polyn\^{o}mes secondaires, C.\ R.\ Acad.\ Sci.\ Paris, Ser.\ I 345 (2007) 373--376.
+
+\bibitem{groux2}   R.\ Groux, Some explicit formulas for a sequence of secondary measures, arXiv:1104.4559 [math.CA].
+
+
+\bibitem{had} J.\ Hadamard,  Sur la distribution des z\'eros de la fonction $\zeta(s)$ et ses cons\'equences arithm\'etiques,  Bull.\ Soc.\ math.\ France 24 (1896) 199--220.
+
+
+\bibitem{koch}  H.\ von Koch, Sur la distribution des nombres premiers, Acta Mathematica
+24 (1901) 159--182.
+
+
+\bibitem{lam}  Y.\ Lamzouri, A bias in Mertens’ product formula, Int.\ J.\ Number Theory 12 (01) (2016) 97--109.
+
+\bibitem{land}  E.\ Landau, {\it Handbuch der Lehre von de Verteilung de Primzahlen}, B.\ G.\ Teubner, Leipzig, 1909.
+
+
+
+\bibitem{litt} J.\ E.\ Littlewood, Sur la distribution des nombres premiers, Comptes Rendus Acad.\ Sci.\ Paris 158 (1914) 1869--1872.
+
+\bibitem{pan} L.\ Panaitopol, A formula for $\pi(x)$ applied to a result of Konick-Ivi\'c, Nieuw Arch.\ Wiskd.\ (5) 1 (1) (2000)  55--56.
+
+\bibitem{PSZ} A.\ Poltoratski, B.\ Simon, and M.\ Zinchenko, The Hilbert transform of a measure, J.\ Anal.\ Math.\ 111 (1) (2010) 247--265.
+
+\bibitem{salv}  P.\ Salvatore and R.\ Tauraso, The operad Lie is free, J.\ Pure Appl.\ Algebra 213 (2) 2009 (224--230).
+
+\bibitem{sher} J.\ Sherman, One the numerators of the convergents of the Stieltjes continued fractions,  Trans.\ Amer.\ Math.\ Soc.\ 35 (1) (1933) 64--87.
+
+\bibitem{tao} T.\ Tao,``Lecture Notes 4 for 247A,'' www.math.ucla.edu/$\scriptstyle \sim$tao/247a.1.06f/notes4.pdf.
+ 
+% \bibitem{ross} J.\ B.\ Rosser and L.\ Schoenfeld, Approximate formulas for some functions of prime numbers,  Illinois J.\ Math.\ 6 (1) (1962) 64--94.
+
+\end{thebibliography}
+\end{document}

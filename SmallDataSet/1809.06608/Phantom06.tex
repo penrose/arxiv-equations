@@ -1,0 +1,525 @@
+\documentclass[a4paper,11pt]{article}
+%\documentclass[a4paper,superscriptaddress,twocolumn,prb,showkeys]{revtex4}
+\usepackage{graphicx}
+%\usepackage[outdir=./]{epstopdf}
+\usepackage{epstopdf}
+\usepackage{subfigure}
+\usepackage{dcolumn}
+\addtolength{\textwidth}{3.5cm}
+\addtolength{\hoffset}{-1.75cm}
+\addtolength{\textheight}{2cm}
+\addtolength{\voffset}{-1cm}
+\usepackage{amsfonts,amsmath,amssymb}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{tabularx,ragged2e,booktabs,caption}
+\newcommand{\al}[1]{\begin{align} #1 \end{align}}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\f}[2]{\frac{#1}{#2}}
+\usepackage{epsfig,multicol,bbm}
+\newcommand{\ttbs}{\char'134}
+\newcommand{\dbar} {\ensuremath{\,\mathchar'26\mkern-12mu d}}
+\newcommand\fverb{\setbox\pippobox=\hbox\bgroup\verb}
+\newcommand\fverbit{\egroup\item[\fbox{\unhbox\pippobox}]}
+\def\dd{\displaystyle}
+\newbox\pippobox
+\newcommand{\name}{\raisebox{-4pt}{\epsfig{file=JHEPlogo.eps, width=2.5em}}}
+\DeclareMathOperator{\sech}{sech}
+\begin{document}
+\title{\bf  Phantom Origin for f(R) Inflation}
+\author{Shahrokh Assyyaee\thanks{Electronic address: s\_assyyaee@sbu.ac.ir}\;,\;\;\;{Nematollah Riazi\thanks{Electronic address: n\_riazi@sbu.ac.ir}}
+\\
+\small Department of Physics, Shahid Beheshti University, G.C., Evin, Tehran 19839,  Iran}
+\maketitle
+\begin{abstract}
+We argue that for $f(R)=R+\alpha R^n$ model of the early universe, the de Sitter point appears as  partial attractor for phantom paths. The phantom trajectories then bend their way to the oscillatory period passing near the de Sitter saddle point. Surprisingly, this vicinity is minimized for $1<n\le 3$ where a trajectory could cross the phantom border tangential to the de Sitter point. The only integers in this interval are $2$ and $3$ where $n=2$ reproduces also the most acceptable $f(R)$ model of inflation with strong motivations from quantum theory and also avoiding the vacuum meta-stability. Therefore, one may ask about a possible phantom pre-inflationary scenario. Combining with the increasing chance of falling in a phantom era in our time, proposing a singularity-free cyclic universe seems appealing, too. We use the dynamical system approach throughout this work which allows us to provide numerical support for the analytical discussions.    
+\end{abstract}
+\maketitle
+\section{Introduction}
+Having weird properties, phantom-like cosmology \cite{neg,qdc} has received less attention in the mainstream of cosmology. But recently and particularly after Planck elaborate results, it is impossible to ignore phantom energy, since it is currently the most probable equation of state \cite{Pk1,Pk2,phm,cid,dpe,bde}. Of course, this privilege is very marginal since quintessence and dark energy still have enough chance to be the dominant energy in the recent era. The first candidate to realize the phantom energy is a scalar degree of freedom with the wrong sign of kinetic term \cite{neg}. This possibility has been disfavored for many reasons including the negative norm, negative probability, unboundedness, and instability \cite{prm}. The next possibility is a non-minimally coupled quintessence \cite{ama2} which in fact reduces to Brans-Dicke theory \cite{ama2,beg}. On the other hand, there are attempts to adapt $f(R)$ models \cite{beg} to explain late time accelerated expansion \cite{bois,mgwn,gann,moto,cerv,barv,yoko,vik,ama1,ama3,mdp}. These authors try to produce a prolong unstable matter dominated era ending with a stable expanding dark energy era.
+
+ Here in this paper, we employ the same mechanism to argue about the early time trajectories. There is a fact about phantom energy domination which makes it undesirable for inflationary or pre-inflationary modeling; there is no chance for a single scalar field with negative kinetic term to pass the $w=-1$ threshold. Therefore, a hybrid mechanism is needed to impose a successful exit from phantom era to standard cosmology \cite{pio,clo}. To realize this hybrid water fall mechanism, an additional scalar degree of freedom has to be proposed \cite{pio}. We aim to omit this additional degree of freedom by introducing a self-guiding exit corridor in a typical $f(R)$ inflation.The possibility of phantom crossing in $f(R)$ models has previously been explored \cite{cpdm,Nod} but such studies have mainly focused on late time phantom crossing (where the universe crosses the border to enter the phantom era) and use more sophisticated language. Instead, our study is simpler, more decisive and delivers a clear discussion about phantom origin of inflation in $f(R)$ modified gravity. Moreover, using the dynamical system method \cite{mgwn} allows us to furnish the analysis with elusive numerical plots. We mainly use dynamical systems to estimate the cosmological trajectories. In our analysis, contrary to the late time, we can ignore matter and radiation contributions, which are not present on the scene until reheating or preheating processes do their quantum job. Ignoring radiation and matter for the very early time, we invoke a two dimensional dynamical system and the immediate advantage is plotting much illusive two dimensional planar phase portraits. The result is that in the mentioned situations de Sitter expansion never appears as a stable point, instead it could be a saddle or an unstable fixed point. For the unstable case, one requires the initial point to lie near the de Sitter fixed point, and the paths which have started from the phantom region cannot reach this standard inflationary region. On the other hand, a saddle point provides an interesting conditions in which a phantom path could get very close to the de Sitter fixed point and then finding its way toward the oscillatory fixed point. In our analysis, we do not discuss reheating and preheating processes, and our survey ends when the Ricci scalar approaches the $R=0$ fixed point since this point is assumed as the starting point for the reheating process in general $f(R)$ theories \cite{imgg,reh,fel}.
+
+We have a main reason for ignoring preheating and reheating in our study. First of all, there are many uncertainties about the preheating and reheating and researches always remain in a very general view of decaying the inflaton in its local minimum into the bosonic and fermionic particles and anti particles, ending with a thermalization process \cite{reh2}. From this point of view, preheating and reheating processes have quantum origin and therefore stand out of the scope of our paper. Instead, in our study, we track the universe dynamics in phantom region, de Sitter point and oscillatory period which the latter provides the necessary oscillatory conditions for reheating or preheating stages \cite{imgg,fel}, while at the oscillatory fixed point the exponential expansion is finished and interactions have opportunity to do their job for the first time. Since our study claims to introduce a clear picture of the possible scenarios, we try to avoid unnecessary complications to remain clear and decisive. Of course, in a more general discussion, we will show the compatibility between phantom behavior and the Starobinsky model \cite{sby}.
+
+From an independent point of view, considering a cyclic behavior for the Universe \cite{Ein}, requires concern about the entropy blow up of the cycles \cite{tol}. Dark energy may provide a way to overcome this problem by moving all constituents of the universe out of the causal patch and set the entropy to zero \cite{cyc,Pt}. Still any cyclic scenario tries to accommodate big crunch as a necessary end part of a cycle. We have a simple claim; It is now accepted that the arrow of time is an scale dependent concept. Although the Boltzmann's suggestion that initial conditions break the time symmetry in microscopic systems is applicable in quantum systems \cite{Blz}, it is possible to manipulate the arrow of time by means of the second law of thermodynamics and initial conditions \cite{reve}. In the macroscopic scale, a wormhole could realize the time traveling in the case of violating second law of thermodynamics and energy conditions \cite{wmh}. The phantom era has the same role on cosmological scales \cite{wec,mcb} since the entropy decreases during such an era. Dark energy or quintessence \cite{nhr} need big crunch to fulfill cyclic universe since neither has the ability to increase the energy density during expansion. Cyclic Universe receives some motivations from brane cosmology as a modern hypothesis \cite{mcb}. So it is a natural idea to search for the conditions in which a cyclic cosmology happens in the presence of phantom era. There is no need for big crunch since a phantom epoch increases the energy density while decreasing the entropy inside a causal patch. Very surprisingly, our study shows that such a condition is in accord with the most promising inflationary $f(R)$ model, i.e. the Starobinsky model. There are still much to be learned about the phantom era, even some studies try to explain it as a quantum system which lays out of our classical scope of this research, but opens the window for thinking about a possible cyclic universe. As mentioned earlier, there are attempts to show that quantum effects may prevent a phantom era to fall into the big rip singularity \cite{qpc,prm}.
+
+
+The outline of this paper is as follows: First, in the next section, we review the Friedman equations in a pure $f(R)$ cosmology. As stated before, there are $f(R)$ models which deal with the dynamics of the Universe before the hot big bang stage. We also mention the necessary conditions for producing an inflationary period. Then in section 3, we introduce our main calculations which are based on dynamical system analysis. Like any other dynamical system, we determine the dynamics of the system by building first order differential equations. Then, we calculate the fixed points and their behavior in terms of a cosmological perfect fluid. The system develops three fixed points which we analyze their properties using the corresponding eigenvalues. The aim is to find the behavior of all fixed points as being sink, source or saddle. In section 5, we introduce two changes of variables in which the dynamics may be demonstrated in a more clear manner. One of these new sets of variables includes $w_{eff}$ as one of two independent variables and therefore is useful to follow the evolution of the equation of state; what we do in the section 6. The analytical discussions of section 6 are supported by numerical calculations and plots. Section 7 includes a brief discussion about the way phantom controls entropy and energy density. In section 8, we will discuss the results to show their consistency with the general form of an acceptable $f(R)$ theory. Finally, the last section is devoted to our concluding remarks.
+
+
+\section{Basic Equations}
+Since we focus on the inflationary period, matter and radiation will be absent in our calculations. For simplicity, we take the reduced Planck mass $1/\sqrt{8\pi G}=1$. Then the action, in the absence of matter source reads \cite{imgg,mgwn,fel,for,cfp}
+\begin{equation}
+\mathcal{A}=\int d^4 x \sqrt{-g}\:\frac{f(R)}{2}
+\end{equation}
+From the least action principle, one obtains
+\begin{equation}
+F R_{\mu\nu}-\frac{1}{2}g_{\mu\nu}f+g_{\mu\nu}g^{\rho\theta}\nabla_\rho\nabla_\theta F-\nabla_\mu \nabla_\nu F=0,
+\end{equation}
+where $F\equiv df/dR$. Considering the FLRW metric, the following equations result \cite{eos} 
+\begin{equation}
+3 F H^2=\frac{FR-f}{2}-3H\dot{F},
+\label{E1}
+\end{equation}
+and
+\begin{equation}
+-2 F \dot{H}=\ddot{F}-H\dot{F},
+\label{E2}
+\end{equation}
+In which $H$ is the Hubble parameter.
+Considering the extra $f(R)$ terms as a perfect cosmological fluid, one can define the effective pressure and density as 
+\begin{equation}
+\rho\equiv \frac{1}{2}(F R-f)-3 H \dot{F}+3 H^2(1-F)
+\end{equation}
+and
+\begin{equation}
+p\equiv \ddot{F}+2H\dot{F}-\frac{1}{2}(F R-f)-(2 \dot{H}+3 H^2)(1-F),
+\end{equation}
+which satisfies the standard cosmological perfect fluid equation $\dot{\rho}+3H(\rho+p)=0$, and $f(R)=R$ recovers the standard Friedmann equations if matter sources are added to the equations. We have also the following equation which is the consequence of choosing a flat FLRW background:
+\begin{equation}
+R=6(2 H^2+\dot{H}).
+\label{flrw}
+\end{equation}
+In the absence of any matter source, there are two slow-roll conditions \cite{imgg,fel,for}
+\begin{equation}
+\epsilon\equiv -\frac{\dot{H}}{H^2}\ll 1
+\label{eps}
+\end{equation}
+and
+\begin{equation}
+\eta\equiv \frac{\dot{F}}{3 F H^2}\ll 1.
+\label{eta}
+\end{equation}
+A successful inflation requires $\epsilon,\eta\ll1$ for sufficient time period (50-60 e-folds) and inflation ends when these conditions fail. 
+\section{Dynamical Variables, Dynamical Equations}
+Following \cite{ama1,ama3} we introduce the following dynamical variables
+\begin{equation}
+\chi_1\equiv -\frac{\dot{F}}{H F},\;\:\;\chi_2\equiv\frac{R}{6H^2} ,\;\:\; \chi_3\equiv-\frac{f}{6 F H^2}.
+\end{equation}
+These choices of variables enable us to write (\ref{E1}) as
+\begin{equation}
+\chi_1+\chi_2+\chi_3=1.
+\label{one}
+\end{equation} 
+We have to emphasize that since matter and radiation are absent in our calculations, this relation is only appropriate to use in phantom era and inflation. The end of inflation is determined by an oscillatory attractor, which is almost the inevitable short era coming right after an inflationary period. Using (\ref{one}), we are able to omit one variable in favor of the two others. Since $\chi_1$ and $\chi_2$ are directly connected to slow-roll conditions (\ref{eps}, \ref{eta}) we keep them and write (\ref{E1}) and (\ref{E2}) as  
+\begin{equation}
+\frac{d\chi_1}{d N}=\chi_1(\chi_1+3)+\chi_2(2-\chi_1)-4,
+\label{d1}
+\end{equation}
+\begin{equation}
+\frac{d\chi_2}{d N}=-\frac{\dot{R}}{6 H^3}-2\chi_2(\chi_2-2),
+\label{d2}
+\end{equation}
+where $N$ is the e-folding ($dN\equiv d\ln a= da/a=H dt$). We must show that our equations are closed with respect to $\chi_1$ and $\chi_2$. One can write the ${\dot{R}}/{6 H^3}$ term as  
+\begin{equation}
+\frac{\dot{R}}{6 H^3}=\frac{\dot{F}}{6 H^3 F, _R}=-(\chi_1 \chi_2)\frac{F}{R F, _R}.
+\label{p1}
+\end{equation}
+The term ${F}/{R F, _R}$ in a $f(R)$ theory is a pure function of $R$ and its final form is completely model dependent. For our case of interest, the extended Starobinsky model which is defined as \cite{nsim}
+\begin{equation} 
+f(R)=R+\alpha R^n,
+\label{mod0}
+\end{equation}
+one obtains
+\begin{equation}
+\frac{F}{R F, _R}=\frac{1}{n-1}\left(\frac{1}{n \alpha R^{n-1}}+1  \right),
+\label{p2}
+\end{equation}
+
+which requires ($n>1$). On the other hand, one can find
+\begin{equation}
+r\equiv\frac{\chi_2}{\chi_3}=-\frac{RF}{f}=-\frac{1+n\alpha R^{n-1}}{1+\alpha R^{n-1}},
+\label{p3}
+\end{equation}
+where in the last stage we have used $f(R)=R+\alpha R^n$. 
+It is straightforward to infer
+\begin{equation}
+R=\sqrt[n-1]{-\frac{1+r}{\alpha(n+r)}}=\sqrt[n-1]{\frac{\chi_1-1}{\alpha\left(n(1-\chi_1)+\chi_2(1-n)\right)}},
+\label{p4}
+\end{equation}
+where in the last stage we have used $\chi_1+\chi_2+\chi_3=1$ to eliminate $\chi_3$. 
+Using (\ref{p1}), (\ref{p2}) and (\ref{p4}) one finds that for the (\ref{mod0}) model, (\ref{d2}) is closed and (\ref{d2}) can be written as
+\begin{equation}
+\frac{d\chi_2}{d N}=\frac{\chi_1\chi_2 ^2}{\chi_1-1}+\frac{n+1}{n-1}\chi_1\chi_2-2\chi_2(\chi_2-2).
+\label{d22}
+\end{equation}
+ Of course, the closeness of (\ref{d1}) and (\ref{d2}) is a model independent fact but the functionality is model dependent \cite{ama1}.
+In our choice of dynamical variables from the model parameters $\alpha$ and $n$, only $n$ appears explicitly in the equations.
+The effective equation of state is defined as
+\begin{equation}
+w_{eff} \equiv \frac{P_{eff}}{\rho_{eff}}= -1-\frac{2\dot{H}}{3 H^2}=\frac{1}{3}(1-2 \chi_2)
+\end{equation}
+where $P_{eff}$ and $\rho_{eff}$ have already been defined in (\ref{E1}) and (\ref{E2}).
+
+\section{Fixed Points,  Eigenvalues and their Behaviors}
+Equating (\ref{d1}) and (\ref{d22}) to zero, the fixed points will be obtained as 
+\begin{align*}
+%\begin{split}
+P_1: (\chi_1,\chi_2)=(-4,0)\; \longrightarrow\; w_{eff}=\frac{1}{3}, \\ 
+P_2: (\chi_1,\chi_2)=(0,2)\; \longrightarrow\; w_{eff}=-1, \\
+P_3: (\chi_1,\chi_2)=(1,0)\; \longrightarrow\; w_{eff}=\frac{1}{3}, \\
+%\end{split}
+\end{align*} 
+One can also compute the eigenvalues straightforwardly
+\begin{align*}
+P_1: \lambda_1=-5,\; \lambda_2=\frac{8}{1-n},\\
+P_2: \lambda_{1,2}=\frac{\pm\sqrt{9 n^2+14 n-23}-3 n+3}{2 (n-1)},\\
+P_3: \lambda_1=5,\; \lambda_2=\frac{5n-3}{n-1}.
+\end{align*}
+These eigenvalues determine the behavior of the dynamical system around the fixed points. Note that although $P_1-P_3$ values are independent of $n$, their eigenvalues, do depend on this parameter.
+\begin{itemize}
+\item $P_1$:  From the calculated eigenvalues one can infer that $P_1$ is always a source for $n>1$. Since our entire discussions is only valid for $n>1$, therefore $P_1$ remains source in our scope. A closer look reveals more facts abut this point: $\chi_1=1$ means $\dot{F}=-H F$. Substituting it into (\ref{E1}) one obtains $f=F R$ which is satisfied for $n=1$ and has already been excluded from our calculations. Moreover, $n=1$ implies $\dot{F}=0$ and again from (\ref{E1}) one concludes that $H=0$. In this regard, for achieving $R=12 H^2+6\dot{H}=0$ the system must satisfy the Einstein static universe conditions ($\dot{a}=\ddot{a}=0$) that is an unstable point and this instability has been attributed to $P_1$ from the early days of  the general relativistic cosmology. One still has a chance to become close to $P_1$ but the cost is making $\alpha$ smaller and smaller. Therefore, the unstable fixed point $P_1$ seems less interesting.  
+
+
+\item $P_2$: The second fixed point $P_2$ corresponds de Sitter expansion phase. In our $n>1$ regime, the eigenvalues always have opposite signs which means that de Sitter point $(\chi_1=0,\chi_2=2)$ is always an unstable saddle point. One has to remember that if the particle horizon had exited the inflationary event horizon exactly at $P_2$, then the perturbations spectrum on the CMB becomes pure Harrison-Zeldovich, which is not the case. 
+
+\item  $P_3$: This point is always a sink since both eigenvalues remain negative for $n>1$.  One has to note that although the equation of state mimics radiation dominated era ($w_{eff}=1/3$),  $0<w_{eff}<1$ can also represent an oscillating phase. We do not need to prove this because there are some pioneering works that have already shown that oscillations around $R=0$ in a typical $f(R)$ inflationary model marks oscillatory post-inflationary stage and the time average of $w_{eff}$ is $1/3$ during these oscillations (\cite{nons,Vilen,Mijic}). We deliberately avoid using the kinetic dominated term for this point since it resembles free scalar dynamics with $w=1$. For our favorite case, the oscillations need to be caused by a potential larger but comparable to the kinetic energy. In terms of $f(R)$ gravity, it corresponds to oscillations around $R=0$ \cite{nons,Vilen,Mijic,fel}. Here, we have to mention a tricky point: $R=0$ has been excluded from our range since it makes the (\ref{p1}) ill-defined, our approach is not able to show the ultimate oscillations which must contain $R=0$. But we successfully demonstrate the end of de Sitter era and asymptotic motion to the $w_{eff}=1/3$ ($R=0$) oscillatory phase. If one is interested to follow the post inflationary dynamics the Jordan frame provides much more suitable platform \cite{fel}. It is also worth mentioning that although inflation must proceed radiation dominated era to generate the standard hot big bang, but this transition is not a gravitational process instead is thought to be due to reheating during a short oscillatory period. Moreover, in our formalism, we do not consider radiation since we have set $T_{\mu\nu}=0$, and the matter field is absent. 
+\end{itemize}
+\section{Two Auxiliary Phase Portraits}
+It is constructive to recast the equations using $w_{eff}$, since $\chi_2=(1-3w_{eff})/2$. Then we can move to the $\chi_1- w_{eff}$ phase plane and plot the stream lines in order to get more information about the dynamics. In this choice of variables, dynamical equations, fixed points and the eigenvalues turn into
+%\begin{split}
+\begin{equation}
+\frac{d\chi_1}{dN}=\chi_1^2+\frac{5}{2}\chi_1+\frac{3}{2}w_{eff}(\chi_1-2)-3,
+\label{wef1}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+\frac{d w_{eff}}{dN}=\frac{(1-3 w_{eff})}{3}\times\;\;\\\left(\frac{1+n}{1-n}\chi_1+(1-3 w_{eff})\left(\frac{\chi_1}{2(1-\chi_1)}+1\right) -4\right)
+\end{aligned}
+\end{equation}
+\begin{equation}
+\begin{aligned}
+P_1: (\chi_1,w_{eff})=(-4,\frac{1}{3}),\;
+P_2: (\chi_1,w_{eff})=(0,-1),\\\;
+P_3: (\chi_1,w_{eff})=(1,\frac{1}{3}).
+%\end{split}
+\end{aligned} 
+\end{equation}
+The eigenvalues then read
+\begin{equation}
+\begin{aligned}
+P_1: \lambda_1=-5,\; \lambda_2=\frac{8}{1-n},\\
+P_2: \lambda_{1,2}=\frac{\pm\sqrt{9 n^2+14 n-23}-3 n+3}{2 (n-1)},\\
+P_3: \lambda_1=5,\; \lambda_2=\frac{5n-3}{n-1}.
+\end{aligned}
+\end{equation}
+
+Another useful set of variables are $\chi_1$ and the slow-roll parameter $\epsilon$ which can be calculated using (\ref{eps}) as $\chi_2=\epsilon-2$. In this configuration, one obtains for dynamical equations and fixed points
+\begin{equation}
+\frac{d\chi_1}{dN}=\chi_1(\chi_1+1)+\epsilon(\chi_1-2),
+\end{equation}
+\begin{equation}
+\frac{d\epsilon}{dN}=(2-\epsilon)\left(2\epsilon+\left(\frac{1+n}{1-n}+\frac{2-\epsilon}{\chi_1-1}\right)\chi_1-8 \right).
+\end{equation}
+\begin{equation}
+\begin{aligned}
+P_1: (\chi_1,\epsilon)=(-4,2),\;
+P_2: (\chi_1,\epsilon)=(0,4),\;\\
+P_3: (\chi_1,\epsilon)=(1,2)\;.
+\end{aligned} 
+\end{equation}
+\begin{equation}
+\begin{aligned}
+P_1: \lambda_1=-5,\; \lambda_2=\frac{8}{1-n},\\
+P_2: \lambda_{1,2}=\frac{\pm\sqrt{9 n^2+14 n-23}-3 n+3}{2 (n-1)},\\
+P_3: \lambda_1=5,\; \lambda_2=\frac{5n-3}{n-1}.
+\end{aligned}
+\end{equation}
+
+We frequently switch between these choices of variables, particularly in plotting and interpreting the stream lines, which will be presented in section 8.
+
+
+\section{Chasing the Phantom}
+Looking at the ($\chi_1,w_{eff}$) phase plane, the only point we need to discuss is $P_2$, which represents the de Sitter expansion. So let us find its properties more closely. As we have inferred earlier, the dynamical equations develop a fixed point at $(0,-1)$ in the ($\chi_1,w_{eff}$) phase plane, and the corresponding eigenvalues are
+\begin{equation}
+ \lambda_{1}=\frac{\sqrt{9 n^2+14 n-23}}{2 (n-1)}-\frac{3}{2},
+\end{equation}
+and
+\begin{equation}
+ \lambda_{2}=-\frac{\sqrt{9 n^2+14 n-23}}{2 (n-1)}-\frac{3}{2}.
+\end{equation}
+These eigenvalues never develop a negative real part, simultaneously. More precisely, for $n>1$ the eigenvalues are always real with opposite sign. Therefore, in our analysis, the de Sitter point never becomes stable, which is an appropriate result while one is interested in a transient de Sitter expansion period. Still, the eigenvalues have much more to tell: first of all, $\lambda_1\times\lambda_2<0$ infers that the de Sitter point is a saddle, attracting some paths repelling the others. The question which arises is that can de Sitter point attract some trajectories from Phantom region $w<-1$ and push them toward standard cosmological domain with $w>-1$. To answer this question, one can analyze the field flow in the vicinity of the de Sitter fixed point at  $(\chi_1=0,w_{eff}=-1)$. 
+
+
+\begin{center}
+  \begin{tabular}{ | c || c | c | c | c |}
+    \hline
+       & $\chi_1\rightarrow 0^-$ &$\chi_1\rightarrow 0^-$  & $\chi_1\rightarrow 0^+$& $\chi_1\rightarrow 0^+$\\
+       & $w\rightarrow -1^-$ & $w\rightarrow -1^+$ & $w\rightarrow -1^-$& $w\rightarrow -1^+$ \\ \hline\hline
+    ${d \chi_1}/{d N}$ &$+$ & $-$ & $+$ & $+$\\ \hline
+    ${d w}/{d N}$ &$+$ & $+$ & $+$ & $-$\\
+    \hline
+      \end{tabular}
+      \captionsetup{width=0.9\linewidth, font=small}
+      \captionof{table}{This table shows the tangent vector directions around the de Sitter point in the $\chi_1,w_{eff}$ plane for $n=2$. What one concludes from two $\chi_1\rightarrow 0^-$ columns is that for flows in the left of the de Sitter point is a strictly increasing function of $N$. In other words, the trajectories in this region start from phantom energy condition $w_{eff}<-1$ and move toward $w_{eff}>-1$ and particularly to the stable fixed point at  $(\chi_1=-4,w_{eff}=0)$. It is also clear that for the region which is specified by $\chi_1<0$ and $w_{eff}<-1$, the de Sitter fixed point appears as an attractor point. All this arguments are supported numerically in the plots.}
+\label{tab} 
+\end{center}
+
+
+ \textbf{de Sitter point as a pharos for phantoms:  }
+To understand how much a phantom field flow can get close to the de Sitter point at $(\chi_1=0,w_{eff}=-1)$, we have to do some calculations. The importance of knowing about this   closeness is obvious: The CMB analysis depicts that inflation happens in a quasi exponential regime, much close to the Harisson-Zeldovich scale invariant spectrum. In our language of dynamical systems it means that the phase trajectory of our universe (in the case of having a phantom origin), have had the chance to become very close to the de Sitter point before bending its way toward oscillationary period and reheating. To this goal we derive the necessary conditions for having an increasing $w_{eff}$ function of $N$ around the de Sitter point.
+\begin{equation}
+\left.\frac{d w_{eff}}{d N}\right|_{w_{eff}=-1}>0
+\end{equation}
+If one takes into account the auxiliary condition $n>1$, then the above inequality reduces to
+\begin{equation}
+\begin{aligned}
+\left(1<n\leq 3\land \left(\chi_1<0\lor \frac{3-n}{n+1}<\chi_1<1\right)\right)\lor \\\left(n>3\land \left(\chi_1<\frac{3-n}{n+1}\lor 0<\chi_1<1\right)\right),
+\end{aligned}
+\end{equation}
+in which ''$\land$'' stands for '' $and$'' and ''$\lor$'' stands for ''$or$''. 
+The best choice for our purpose lies in the interval $(1<n\leq 3)\land (\chi_1<0)$. This is the only option in which the trajectories may pass the de Sitter point tangentially and reach the stable fixed point at $w_{eff}=1/3$ (Figure \ref{n2n5}). Surprisingly, the Starobinsky model ($n=2$) as the most successful $f(R)$ inflationary model, is exactly at the center of this range. This means that assuming the Starobinsky model for inflation there will be two applicable scenarios for initial condition: the universe might start by putting the initial point close to the de Sitter point which is considered as a fine tuning, or we can imagine an ensemble of phantom flows in which some of them are inevitably pulled by the de Sitter saddle point and pushed to the standard cosmology. The latter does not need fine tuning, instead, one needs to reconcile with the weird phantom properties. For the $n>3$ case, still phantomic trajectories cross $w_{eff}=-1$ border but the closest distance between their paths and the de Sitter point is $\frac{n-3}{n+1}$ at $w_{eff}=-1$. This interval begins from $0.25$ for $n=4$ and asymptotically reaches $1$ as $n$ grows. So $n>3$ is excluded from the phantom originated models of inflation. 
+
+
+
+
+
+
+\begin{figure}{\label{fig1}}
+\subfigure[]{\includegraphics[width=7cm]{n2}}% fig3/n2
+\hfill
+\subfigure[]{\includegraphics[width=7cm]{n6}}% fig3/n2
+\hfill
+\captionsetup{width=0.9\linewidth, font=small}
+\caption{(a) The field flows has been plotted for $n=2$ in $\chi_1-w_{eff}$ plane. All the three discussed fixed points are seen. One obviously recognized how the phantomic flows attract to the de Sitter point $(\chi_1=0,w_{eff}=-1)$ before bending their trajectories toward oscillatory stable fixed point $(\chi_1=-4,w_{eff}=1/3)$. (b) The same phase portrait for $n=6$ shows that the trajectories can not become much close to the de Sitter point as the $n=2$ case while passing the phantom border. This property is in complete accord with the calculation results.}
+\label{n2n5}
+\end{figure}
+
+\section{Entropy and Phantom Energy}
+In this short section, we explore the interplay of phantom cosmology and the behavior of horizon entropy, very concisely.
+ 
+Black hole thermodynamics is a brilliant attempt to invoke thermodynamical concepts to general relativistic geometrical interpretation of time and space \cite{bht}. The crucial idea to relate general relativity and thermodynamics stems from attributing an entropy to black holes, proportional to their event horizon area \cite{thd1,thd2,thd3,thd4}. By this, one can also define an effective temperature for black holes \cite{thd1,thd2,thd3,thd4}. It is possible to extend this idea to accommodate de Sitter cosmology since, one readily finds observer's event horizon for it \cite{thd5}. Of course, the situation is more complicated for a general FLRW metric. However, even in a typical FLRW metric, one is able to replace the role of Schwarzschild horizon by apparent or trapping horizons. For apparent horizon one finds for the entropy \cite{ent}
+\begin{equation}
+S=\frac{3}{8 \rho},
+\label{Sent}
+\end{equation}
+and 
+\begin{equation}
+\dot{S}=\frac{9 H}{8 \rho^2}(P+\rho).
+\label{Sdot}
+\end{equation}
+Relation (\ref{Sdot}) confirms that violating the energy condition $p+\rho\geq 0$ leads to a decreasing entropy. This violence of the weak energy condition, of course, is not unprecedented if it happens in a certain time interval, since the same situation happens in bulk viscous stress due to particle production \cite{vis}. On the other hand, for the adiabatic expansion of the universe one obtains \cite{cfp}
+\begin{equation}
+\dot{\rho}=-3H(P+\rho)=-3H(1+w)\rho.
+\end{equation}
+If one defines the deviation from dark energy by $b\equiv1+w$, then one finds
+\begin{equation}
+\rho=A e^{3\int{ b H dt}},
+\end{equation}
+for positive constant $A$. This equation reveals that for an expanding universe, the only way to increase the dominant ingredient density during expansion is violating the weak energy condition $w<-1$. So while the phantom energy density increases during phantom epoch, the apparent horizon entropy decreases. 
+ 
+
+ 
+\section{Conclusion}
+
+We used the dynamical system approach for the early universe to find the requirements in which a phantom initial condition may evolve to the standard cosmology. As a regular dynamical system method, we introduced appropriate dynamical variables and linearized the Friedmann equations in FLRW background. Focusing on pre-inflationary and inflationary periods helps us to be simple and decisive. The analytical calculations shows that for $R+\alpha R^n$ models, $1<n\le 3$ fits our desire for the best. Therefore, the starobinsky model can be a stable candidate. Other choices for $f(R)$ may attract paths from the phantom region but the only stable scenario in which $n$ is an integer number and the trajectories can become tangetially close to the de Sitter point is the original Starobinsky model. We discussed that this feature may encourage cyclic universe scenario, since phantom era is able to decrease the entropy for a causal patch while the phantom energy density is increasing. This idea, circumvent the big crunch necessity in a cycle, instead the universe ends in a phantom era and then some regions may evolve trajectories from phantom patch to the de Sitter and the standard cosmology, again. In this proposal, of course, the cyclic destiny happens in some parts of the original patch while other patches have been pushed out of causal link by the phantom. This means that a cyclic universe may realize, somehow, through softening the big bang and the big rip, without requiring them as singularities. 
+
+
+Our survey did not include the preheating or reheating processes since their quantum origin keeps them outside the scope of the present proposal and they have received much attention in the literature. Instead, we argued the stable oscillatory fixed point as the appropriate initial conditions for reheating or preheating processes since the Ricci scalar or additional degree of freedom of $f(R)$ models, depending on the choice of frame,  start oscillating around the minimum at this point. 
+
+All the analytical calculations were supported by numerical calculations and the corresponding plots. 
+
+
+\begin{thebibliography}{99}
+\bibitem[1]{neg}
+R. R. Caldwell, Phys. Lett. B 545, 23 (2002); R. R.
+Caldwell, M. Kamionkowski, and N. N. Weinberg, Phys.
+Rev. Lett. 91, 071301 (2003); S. M. Carroll, M. Hoffman,
+and M. Trodden, Phys. Rev. D 68, 023509 (2003); P.
+Singh, M. Sami, and N. Dadhich, Phys. Rev. D 68,
+023522 (2003).
+\bibitem[2]{qdc}
+%Quantum de Sitter cosmology and phantom matter
+S. Nojiri and S. D. Odintsov, Phys. Lett. B562 (2003).
+\bibitem[3]{Pk1}
+P.A.R. Ade, et al. [Planck Collaboration], A\&A 594, A13 (2016).
+%planck 2015 dark energy and modified gravity
+\bibitem[4]{Pk2}
+P.A.R. Ade, et al. [Planck Collaboration],  A\&A
+571, A22, (2014).
+%Chasing the phantom: A closer look at type Ia supernovae and the dark
+%energy equation of state
+\bibitem[5]{phm}
+D. L. Shafer, D. Huterer, Phys. Rev. D 89, 063510 (2014), A. Vikman, Phys. Rev. D 71, 023515 (2005)
+%Can dark energy evolve to the phantom?
+\bibitem[6]{cid}
+A. A. Costa,a Xiao-Dong Xu, B. Wangc and E. Abdallaa, JCAP01 028, (2017) 
+% Constraints on interacting dark energy models from Planck 2015 and redshift-space distortion data
+\bibitem[7]{dpe}
+% Conditions for the cosmological viability of fR dark energy models
+A. Melchiorri, L. Mersini, C. J. Odman, and M.
+Trodden, Phys. Rev. D 68, 043509 (2003).
+\bibitem[8]{bde}
+J. S. Alcaniz, Phys. Rev. D 69 083521 (2004).
+\bibitem[9]{prm}
+J. M. Cline, S. Jeon, and G. D. Moore, Phys. Rev. D 70,
+043543 (2004); N. Arkani-Hamed, H. C. Cheng, M. A.
+Luty, and S. Mukohyama, J. High Energy Phys. 05
+(2004) 074; F. Piazza and S. Tsujikawa, J. Cosmol.
+Astropart. Phys. 07 004 (2004).
+\bibitem[10]{ama2}
+L. Amendola, Phys. Rev. D 62, 043511 (2000).%phi
+\bibitem[11]{beg}
+S. Capozziello, V. Faraoni, Beyond Einstein Gravity, Springer Dordrecht Heidelberg London New Yorkm, (2011).
+\bibitem[12]{bois}
+ B. Boisseau, G. Esposito-Farèse, D. Polarski, and A. A. Starobinsky
+Phys. Rev. Lett. 85, 2236 (2000).
+\bibitem[13]{mgwn}
+%Modified gravity with negative and positive powers of the curvature: Unification of the inflation and of the cosmic acceleration
+S. Nojiri and S. D. Odintsov, Phys. Rev. D68 (2003), S. Nojiri and S. D. Odintsov, Phys.Rev. D74 (2006).
+\bibitem[14]{gann}
+R. Gannouji, D. Polarski, A. Ranquet, and A. A. Starobinsky, JCAP 0609, 016, (2006).
+\bibitem[15]{moto}
+H. Motohashi, A. A. Starobinsky, and J. Yokoyama, JCAP 1106, 006 (2011).
+\bibitem[16]{cerv}
+J. L. Cervantes-Cota, H. Dehnen, Nucl. Phys. B 442,  391–412 (1995).
+\bibitem[17]{barv}
+A. O. Barvinsky, A. Yu. Kamenshchik and A. A. Starobinsky, JCAP 0811, 021 (2008).
+\bibitem[18]{yoko}
+M. He, A. A. Starobinsky and J. Yokoyama, JCAP 1805,  064 (2018).
+\bibitem[19]{vik}
+Alexander Vikman,  Phys. Rev. D 71, 023515 (2005).
+\bibitem[20]{ama1}
+L. Amendola, R. Gannouji, D. Polarski, S. Tsujikawa Phys. Rev. D 75, 083504 (2007).
+\bibitem[21]{ama3}
+L. Amendola, D. Polarski, S.Tsujikawa, PRL 98, 131302 (2007).
+\bibitem[22]{mdp}
+S. Capozziello, S. Nojiri, S.D. Odintsovc, A. Troisi, Physics Letters B 639 (2006). %reverse
+\bibitem[23]{pio}
+Y. S. Piao, Y. Z. Zhang, Phys. Rev. D70 063513 (2004).
+\bibitem[24]{clo}
+S. M. Carroll, M. Hoffman and M. Trodden, Phys. Rev. D 68 023509 (2003).
+%wierd
+\bibitem[25]{cpdm}
+%Crossing of the phantom divide in modified gravity
+K. Bamba, C. Geng, S. Nojiri and S. D. Odintsov, Phys. Rev. D79 (2009).
+%Initial and final de Sitter universes from modified f(R) gravity
+G. Cognola, E. Elizalde, S. D. Odintsov, P. Tretyakov, S. Zerbini, Phys. Rev. D79 (2009).
+\bibitem[26]{Nod}
+%Non-Singular Modified Gravity Unifying Inflation with Late-Time Acceleration and Universality of Viscous Ratio Bound in F(R) Theory
+S. Nojiri and  S. D. Odintsov, Progress of Theoretical Physics Supplement, 190, (2011). S. Nojiri and  S. D. Odintsov, Phys. Rept. 505 (2011).
+\bibitem[27]{imgg}
+%Introduction to modified gravity and gravitational alternative for dark energy
+S. Nojiri and S. D. Odintsov, Int. J. Geom. Meth. Mod. Phys. 4 (2007).
+%Modified Gravity Theories on a Nutshell: Inflation, Bounce and Late-time Evolution
+S. Nojiri, S. D. Odintsov and V.K. Oikonomou, Phys. Rept. 692 (2017).
+\bibitem[28]{reh}
+%Reheating after f(R) inflation
+ H. Motohashi, A.Nishizawa. Phys. Rev. D86 083514 (2012).
+ %,Reheating processes after Starobinsky
+T. Takahiro, W. Yuki, Y.Yusuke, Y. Jun'ichi, JHEP 105. 26.  (2015).
+\bibitem[29]{fel}
+A. D. Felice, S. Tsujikawa, Living Rev. Rel. 13: 3, (2010).
+\bibitem[30]{reh2}
+L. Kofman, A. Linde, A. A. Starobinsky, Phys. Rev. Lett. 73:3195-3198, (1994).
+\bibitem[31]{sby}
+A. A. Starobinsky, Phys. Lett. 91B, 99 (1980).
+%Phantom
+\bibitem[32]{Ein}
+A. Einstein, Sitzungsberichte der Preussischen Akademie der Wissenschaften, Physikalisch-mathematische Klasse,  235–237, (1931).
+%Zum kosmologischen Problem der allgemeinen Relativitätstheorie
+\bibitem[33]{tol}
+R. C. Tolman, Relativity, Thermodynamics, and Cosmology. New York: Dover. ISBN 0-486-65383-8. Oxford, The Clarendon Press, (1934).
+\bibitem[34]{cyc}
+P. J. Steinhardt, Neil Turok, Phys. Rev. D65:126003, (2002).
+\bibitem[35]{Pt}
+P. F. Gonz´alez-D´ýaz and Carmen L. Sig¨uenza, Nuclear Physics B, Volume 697, Issues 1–2, 363-386 (2004).
+%Phantom Thermodynamics
+\bibitem[36]{Blz}
+L. Boltzmann, Ann. Phys. (Leipzig) 57 (1896) 773;
+Sitzungsberichte Akad. Wiss., Vienna, part II, 75 (1877)
+67 (translated and reprinted in: S.G. Brush, Kinetic Theory
+2, 218, 188 (Pergamon, Oxford, 1966).
+\bibitem[37]{reve}
+K. Micadei, J. P. S. Peterson, A. M. Souza, R. S. Sarthour,I. S.
+Oliveira, G. T. Landi, T. B. Batalhão, R. M. Serra, and E. Lutz, arXiv:1711.03323v1 [quant-ph] (2017).
+\bibitem[38]{wmh}
+M. S. Morris, K. S. Thorne, and U. Yurtsever
+Phys. Rev. Lett. 61, 1446 (1988).
+\bibitem[39]{wec}
+ U. Alam, V. Sahni, T. D. Saini, and A. A. Starobinsky, Mon. Not. R.
+Astron. Soc. 354, 275 (2004); B. A. Bassett, P. S.
+Corasaniti, and M. Kunz, Astrophys. J. 617, L1 (2004).% less than -1
+\bibitem[40]{mcb}
+C. Molina-Parı´s and M. Visser, Phys. Lett. B 455, 90 (1999). %bounce
+\bibitem[41]{nhr}
+B. Ratra, P. J. E. Peebles, Phys. Rev. D 37, 3406 (1988).
+\bibitem[42]{qpc}
+%Quantum phantom cosmology
+M. P. Dabrowski, C. Kiefer, and B. Sandhofer
+Phys. Rev. D 74, 044022 (2006)
+\bibitem[43]{for}
+T. P. Sotiriou, V. Faraoni, Rev. Mod. Phys. 82:451-497, (2010).
+\bibitem[44]{cfp}
+D. Lyth, Cosmology for Physicists, CRC Press (2016).  
+\bibitem[45]{eos}
+J. C. Hwang, Astrophys. J. 375, 443 (1991).
+\bibitem[46]{nsim}
+%Nearly Starobinsky inflation from modified gravity
+L. Sebastiani, G. Cognola, R. Myrzakulov and S. D. Odintsov, S. Zerbini, Phys. Rev. D89 (2014).
+%Inflationary universe from higher-derivative quantum gravity
+R. Myrzakulov, S. Odintsov and L. Sebastiani, Phys. Rev. D91 (2015).
+%Beyond-one-loop quantum gravity action yielding both inflation and late-time acceleration
+E. Elizalde, S.D. Odintsov, L. Sebastiani and R. Myrzakulov, Nucl.Phys. B921 (2017).
+\bibitem[47]{nons}
+A. A. Starobinsky, “Nonsingular model of the Universe with the quantum-gravitational
+de Sitter stage and its observational consequences”, in Quantum Gravity, Proceedings of
+the 2nd Seminar on Quantum Gravity, Moscow, 13 – 15 October 1981, pp. 58–72, (INR
+Press, Moscow, 1982). Reprinted in: Markov, M.A. and West, P.C., eds., Quantum Gravity,
+(Plenum Press, New York, 1984), pp. 103–128.
+\bibitem[48]{Vilen}
+A. Vilenkin, Phys. Rev. D, (1985).
+%, “Classical and quantum cosmology of the Starobinsky inflationary model”ar
+\bibitem[49]{Mijic}
+M. B. Mijic, M. S. Morris and W. M. Suen, Phys. Rev. D, 34, (1986). 
+%\bibitem[50]{meas}
+% L. Amendola And S. Tsujikawa, Phys. Lett. B, 660, (2008). D. Bazeia, B. Carneiro da Cunha, R. Menezes,  and  A.Y. Petrov, Phys. Lett. B, 649, (2007). K. Atazadeh and  H. R. Sepangi, Int. J. Mod. Phys. D, 16, (2007).
+%\bibitem[51]{prd}
+%H. R. Kausar, Eur. Phys. J. C 77, 374 (2017),
+%C. van de Bruck et al., Int. J. Mod. Phys. D 26, 1750152 (2017),
+%M. Abdelwahab et al., arXiv:1412.6350,
+%A. de la Cruz-Dombriz et al., Phys. Rev. D 89, 064029(2014),
+%L.G. Jaime, L. Patino, M. Salgado, Phys. Rev. D 87, 024029 (2013),
+%A. Abebe, A. de la Cruz-Dombriz, and P.K.S. Dunsby, Phys. Rev. D 88, 044050 (2013),
+%T. Clifton et al., Phys. Rev. D 87, 063517 (2013),
+%M. Abdelwahab, R. Goswami, and P.K.S. Dunsby, Phys. Rev. D 85, 083511 (2012),
+%A.M. Nzioki et al., Phys. Rev. D 83, 024030 (2011),
+%N. Goheer et al., Phys. Rev. D 80, 061301 (2009),
+%S. Carloni, P.K.S. Dunsby, and A. Troisi, arXiv:0906. (1998),
+%N. Goheer et al., Class. Quantum Grav. 24, 5689 (2007),
+%J.A. Leach, S. Carloni, and P.K.S. Dunsby, Class. Quantum Grav. 23, 4915 (2006),
+%S. Carloni et al., Class. Quantum Grav. 22, 4839 (2005).
+\bibitem[50]{bht}
+R. M. Wald, Quantum Field Theory in Curved Space-
+time and Black Hole Thermodynamics (Chicago University
+Press, Chicago, 1995); Living. Rev. Rel. 4, 6 (2001);
+Class. Quantum Grav. 16, A177 (1999).
+\bibitem[51]{thd1}
+ J. D. Bekenstein, Phys. Rev. D 7  2333 (1973).
+\bibitem[52]{thd2}
+ S. W. Hawking, Nature 248 30 (1970).
+\bibitem[53] {thd3}
+S. W. Hawking, Comm. Math. Phys. 43 199 (1975); Erratum 46 206 (1976).
+\bibitem[54]{thd4}
+W. Gibbons and S.W. Hawking, Phys. Rev. D 152738 (1977).
+\bibitem[55]{thd5}
+T. W. Baumgarte and S.L. Shapiro, Phys. Rept. 376 41 (2003).
+\bibitem[56]{ent}
+%Cosmological apparent and trapping horizons
+V. Faraoni, Phys. Rev. D 84, 024003 (2011).
+\bibitem[57]{vis}
+J. D. Barrow, Nucl. Phys. B 310, 743 (1988).
+\bibitem[58]{adaa}
+%Autonomous dynamical system approach for  f(R)  gravity
+D. Odintsov,K. Oikonomou .Phys. Rev. D96 (2017),
+%Dynamical Systems Perspective of Cosmological Finite-time Singularities in  f(R)  Gravity and Interacting Multifluid Cosmology
+D. Odintsov, K. Oikonomou, Phys. Rev. D98 (2018).
+\end{thebibliography}
+\end{document}
+
+
+
+
+
+

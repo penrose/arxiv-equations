@@ -1,0 +1,866 @@
+\documentclass[11pt]{article}
+
+\topmargin =0mm \headheight=0mm \headsep=0mm \textheight =220mm
+\textwidth =160mm \oddsidemargin=0mm\evensidemargin =0mm
+\sloppy \brokenpenalty=10000
+
+\usepackage{mathrsfs}
+\usepackage{nicefrac}
+\usepackage[T1]{fontenc}
+\usepackage{latexsym,amssymb,amsmath,amsfonts,amsthm}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[utf8]{inputenc}
+\usepackage{authblk}
+\usepackage{bm}
+\usepackage{accents}
+\usepackage{booktabs}  
+\usepackage[pdftex,colorlinks=true,citecolor=blue,linkcolor=blue]{hyperref}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{remark}{Remark}[section]
+\newtheorem{example}{Example}[section]
+\DeclareMathOperator*{\Null}{null}
+\DeclareMathOperator*{\Range}{range}
+\DeclareMathOperator*{\rank}{rank}
+\DeclareMathOperator*{\diag}{diag}
+\DeclareMathOperator*{\tr}{tr}
+\DeclareMathOperator*{\Retr}{Re\,tr}
+\def\theequation{\thesection.\arabic{equation}}
+
+%\makeatletter
+%\def\widebar{\accentset{{\cc@style\underline{\mskip14mu}}}}
+%\def\wideubar{\underaccent{{\cc@style\underline{\mskip14mu}}}}
+%\makeatother
+
+\linespread{1.1}
+
+\begin{document}
+	
+\title{On the perturbation of the Moore--Penrose inverse of a matrix}
+%
+\author{
+Xuefeng Xu% 
+\thanks{LSEC, Institute of Computational Mathematics and Scientific/Engineering Computing, Academy of Mathematics and Systems Science, Chinese Academy of Sciences, Beijing 100190, China, and School of Mathematical Sciences, University of Chinese Academy of Sciences, Beijing 100049, China (\texttt{xuxuefeng@lsec.cc.ac.cn}).}
+}
+%\affil{}
+%
+\date{\today}
+%	
+\maketitle
+	
+\begin{abstract}
+
+Over the past decades, the Moore--Penrose inverse has been extensively investigated and widely applied in many fields. One reason for this interest is that the Moore--Penrose inverse can succinctly express some important geometric constructions in finite-dimensional spaces, such as the orthogonal projection onto a subspace and the linear least squares problem. However, the entries of a matrix will seldom be known exactly in numerical applications, so it is necessary to develop some bounds to characterize the effects of matrix perturbation. In this paper, we establish new perturbation bounds for the Moore--Penrose inverse of a matrix, which include some sharper counterparts of the existing upper bounds. Numerical examples are also provided to illustrate our theoretical results.
+
+\end{abstract}
+	
+\noindent{\bf Keywords:} Moore--Penrose inverse, perturbation, singular value decomposition
+
+\medskip
+
+\noindent{\bf AMS subject classifications:} 15A09, 15A18, 47A55, 65F35
+
+\section{Introduction}
+
+Let $\mathbb{C}^{m\times n}$, $\mathbb{C}^{m\times n}_{r}$, and $\mathscr{U}_{n}$ be the set of all $m\times n$ complex matrices, the set of all $m\times n$ complex matrices of rank $r$, and the set of all unitary matrices of order $n$, respectively. For any $M\in\mathbb{C}^{m\times n}$, the symbols $M^{\ast}$, $\rank(M)$, $\|M\|_{\mathscr{U}}$, $\|M\|_{2}$, and $\|M\|_{F}$ denote the conjugate transpose, the rank, the general unitarily invariant norm, the spectral norm, and the Frobenius norm of $M$, respectively.
+
+The Moore--Penrose (MP) inverse of $M\in\mathbb{C}^{m\times n}$ is denoted by $M^{\dagger}$, which is defined as the unique matrix $X\in\mathbb{C}^{n\times m}$ satisfying the following equations~\cite{Penrose1955,Penrose1956}:
+\begin{displaymath}
+{\rm (i)} \ MXM=M, \quad {\rm (ii)} \ XMX=X, \quad {\rm (iii)} \ (MX)^{\ast}=MX, \quad {\rm (iv)} \ (XM)^{\ast}=XM.
+\end{displaymath}
+When $M$ is square and nonsingular, $M^{\dagger}$ is identical with the usual inverse $M^{-1}$. The MP inverse can concisely express some important geometric constructions in finite-dimensional spaces, such as the orthogonal projection onto a subspace and the linear least squares problem. More specifically, the orthogonal projections onto the column spaces of $A$ and $A^{\ast}$ can be expressed as $P_{A}=AA^{\dagger}$ and $P_{A^{\ast}}=A^{\dagger}A$, respectively. Recall that the linear least squares problem can be stated as follows: Find $x_{\star}\in\mathbb{C}^{n}$ such that
+\begin{equation}\label{LSP}
+x_{\star}\in\mathop{\arg\min}_{x\in\mathbb{C}^{n}}\|Ax-b\|_{2},
+\end{equation}
+where $A\in\mathbb{C}^{m\times n}$, $b\in\mathbb{C}^{m}$, and $\|\cdot\|_{2}$ denotes the usual Euclidean norm (i.e., $\ell^{2}$-norm). It is well known that the solutions of~\eqref{LSP} can be formulated as follows:
+\begin{displaymath}
+x_{\star}=A^{\dagger}b+(I_{n}-A^{\dagger}A)z,
+\end{displaymath}
+where $I_{n}$ denotes the identity matrix of order $n$ and $z\in\mathbb{C}^{n}$ is arbitrary. Moreover, the minimum $\ell^{2}$-norm solution of~\eqref{LSP} is $x_{\star}=A^{\dagger}b$.
+
+The MP inverse has been extensively investigated (see, e.g.,~\cite{Boullion1971,Rao1971,Ben2003}), which has wide applications in many fields such as matrix computation, algorithm analysis, statistics, and engineering (see, e.g.,~\cite{Pisinger2007,Drineas2011,Hoyle2011,Smoktunowicz2012,Bodnar2016,Schost2016}). However, in some numerical applications, the entries of a matrix will seldom be known precisely. Thus, it is necessary to establish some bounds to characterize the uncertainties caused by matrix perturbation. Over the past decades, many researchers have developed various perturbation bounds for the MP inverse of a matrix, which can be found, e.g., in~\cite{Ben1966,Stewart1969,Wedin1973,Abdelmalek1974,Stewart1977,Sun2001,Meng2010,Cai2011,Li2018}.
+
+Let $A\in\mathbb{C}^{m\times n}_{r}$, $B\in\mathbb{C}^{m\times n}_{s}$, and $E=B-A$. It was proved by Wedin~\cite{Wedin1973} that
+\begin{equation}\label{Wedin1}
+\|B^{\dagger}-A^{\dagger}\|\leq\mu\max\big\{\|A^{\dagger}\|_{2}^{2},\|B^{\dagger}\|_{2}^{2}\big\}\|E\|,
+\end{equation}
+where $\mu$ is given by Table~\ref{tab:Wedin1}. In particular, if $s=r$, then
+\begin{equation}\label{Wedin2}
+\|B^{\dagger}-A^{\dagger}\|\leq\nu\|A^{\dagger}\|_{2}\|B^{\dagger}\|_{2}\|E\|,
+\end{equation}
+where $\nu$ is given by Table~\ref{tab:Wedin2}.
+
+\begin{table}[h!!]
+\centering
+\setlength{\tabcolsep}{4mm}{
+\begin{tabular}{@{} cccc @{}}
+\toprule
+$\|\cdot\|_{\mathscr{U}}$ & $\|\cdot\|_{2}$ & $\|\cdot\|_{F}$\\
+\midrule
+3  &  $\frac{1+\sqrt{5}}{2}$  &  $\sqrt{2}$ \\
+\bottomrule
+\end{tabular}}
+\caption{\small The values of $\mu$ in~\eqref{Wedin1}.}
+\label{tab:Wedin1}
+\end{table} 
+
+\begin{table}[h!!]
+\centering
+\setlength{\tabcolsep}{4mm}{
+\begin{tabular}{@{} lcccc @{}}
+\toprule
+Condition & $\|\cdot\|_{\mathscr{U}}$ & $\|\cdot\|_{2}$ & $\|\cdot\|_{F}$\\
+\midrule
+$r<\min\{m,n\}$  &  3  &  $\frac{1+\sqrt{5}}{2}$  &  $\sqrt{2}$ \\
+$r=\min\limits_{m\neq n}\{m,n\}$ &  2  &  $\sqrt{2}$  &  1 \\
+$r=m=n$  &  1  &  $1$  &  1 \\
+\bottomrule
+\end{tabular}}
+\caption{\small The values of $\nu$ in~\eqref{Wedin2}.}
+\label{tab:Wedin2}
+\end{table}
+
+In 2010, Meng and Zheng~\cite[Theorems 2.1 and 2.2]{Meng2010} improved the estimates~\eqref{Wedin1} and~\eqref{Wedin2} under the Frobenius norm. They derived that
+\begin{equation}\label{Meng1}
+\|B^{\dagger}-A^{\dagger}\|_{F}\leq\max\big\{\|A^{\dagger}\|_{2}^{2},\|B^{\dagger}\|_{2}^{2}\big\}\|E\|_{F}.
+\end{equation}
+In particular, if $s=r$, then
+\begin{equation}\label{Meng2}
+\|B^{\dagger}-A^{\dagger}\|_{F}\leq\|A^{\dagger}\|_{2}\|B^{\dagger}\|_{2}\|E\|_{F}.
+\end{equation}
+Recently, Li et al.~\cite[Theorem 3.1]{Li2018} further refined the estimate~\eqref{Meng1} and showed that
+\begin{align}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\max\big\{\|A^{\dagger}\|_{2}^{4},\|B^{\dagger}\|_{2}^{4}\big\}\|E\|_{F}^{2}-\frac{1}{2}\bigg(\max\bigg\{\frac{\|A^{\dagger}\|_{2}^{2}}{\|B^{\dagger}\|_{2}^{2}},\frac{\|B^{\dagger}\|_{2}^{2}}{\|A^{\dagger}\|_{2}^{2}}\bigg\}-1\bigg)&\notag\\
+\times\big(\|A^{\dagger}EB^{\dagger}\|_{F}^{2}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}\big).&\label{Li1}
+\end{align}
+If $A\in\mathbb{C}^{m\times n}_{n}$ ($m\geq n$) and $B=A+E\in\mathbb{C}^{m\times n}_{s}$, Li et al.~\cite[Theorem 3.2]{Li2018} also proved that
+\begin{equation}\label{Li2.1}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\frac{\|A^{\dagger}\|_{2}^{2}\|B^{\dagger}\|_{2}^{2}}{\|A^{\dagger}\|_{2}^{2}+\|B^{\dagger}\|_{2}^{2}}\bigg(\|EA^{\dagger}\|_{F}^{2}+\|EB^{\dagger}\|_{F}^{2}+(n-s)\frac{\|A^{\dagger}\|_{2}^{2}}{\|B^{\dagger}\|_{2}^{2}}\bigg).
+\end{equation}
+In particular, if $s=n$, then
+\begin{equation}\label{Li2.2}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\min\big\{\|B^{\dagger}\|_{2}^{2}\|EA^{\dagger}\|_{F}^{2},\|A^{\dagger}\|_{2}^{2}\|EB^{\dagger}\|_{F}^{2}\big\}.
+\end{equation}
+
+Although the estimate~\eqref{Li1} has sharpened~\eqref{Meng1}, the upper bound in~\eqref{Li1} is still too large in certain cases. We now give a simple example. Let
+\begin{equation}\label{Ex0}
+A=\begin{pmatrix}
+1 & 0 \\
+0 & 0
+\end{pmatrix} \quad \text{and} \quad B=\begin{pmatrix}
+\frac{1}{1+2\tau} & 0 \\
+0 & \tau
+\end{pmatrix},
+\end{equation}
+where $0<\tau<\frac{1}{2}$. In this example, we have that $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}=4\tau^{2}+\frac{1}{\tau^{2}}$. Direct calculation yields that the upper bound in~\eqref{Li1} is
+\begin{displaymath}
+4\tau^{2}+\frac{1}{\tau^{2}}+\frac{4}{\tau^{2}(1+2\tau)^{2}}-4=:u(\tau).
+\end{displaymath}
+It is easy to see that
+\begin{displaymath}
+u(\tau)-\|B^{\dagger}-A^{\dagger}\|_{F}^{2}=\frac{4}{\tau^{2}(1+2\tau)^{2}}-4,
+\end{displaymath}
+which is very large when $0<\tau\ll\frac{1}{2}$. Furthermore, if $\tau$ is sufficiently small, then
+\begin{displaymath}
+u(\tau)\simeq\frac{5}{\tau^{2}}\simeq 5\|B^{\dagger}-A^{\dagger}\|_{F}^{2}.
+\end{displaymath}
+
+In this paper, we revisit the perturbation of the MP inverse of a matrix and establish some new upper bounds for $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}$. Theoretical analysis suggests that some of our upper bounds are sharper than that in~\eqref{Wedin1}--\eqref{Li2.2}. To characterize the deviation of the MP inverse of a matrix after perturbation, we also develop some novel lower bounds for $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}$. Moreover, we give two numerical examples to illustrate our theoretical results.
+
+The rest of this paper is organized as follows. In section~\ref{sec:pre}, we introduce an interesting trace inequality and several auxiliary estimates for $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}$. In section~\ref{sec:main}, we present some new upper and lower bounds for $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}$. Theoretical comparisons between the new results and the existing ones are also provided. In section~\ref{sec:numer}, we show the performances of our perturbation bounds via two numerical examples. Finally, some conclusions are given in section~\ref{sec:con}.
+
+\section{Preliminaries}
+
+\label{sec:pre}
+
+\setcounter{equation}{0}
+
+In this section, we introduce some auxiliary results, which play an important role in our analysis.
+
+Let $\{\sigma_{i}(M)\}_{i=1}^{t}$ and $\{\sigma_{i}(N)\}_{i=1}^{t}$ be the singular values of $M\in\mathbb{C}^{m\times n}$ and $N\in\mathbb{C}^{m\times n}$, respectively, where $t=\min\{m,n\}$. Assume that $\{\sigma_{i}(M)\}_{i=1}^{t}$ and $\{\sigma_{i}(N)\}_{i=1}^{t}$ are arranged in the same (increasing or decreasing) order. Let $\Retr(\cdot)$ be the real part of the trace of a matrix. The celebrated von Neumann's trace inequality~\cite{Neumann1937} reads
+\begin{displaymath}
+\Retr(UMVN^{\ast})\leq\sum_{i=1}^{t}\sigma_{i}(M)\sigma_{i}(N),
+\end{displaymath}
+where $U\in\mathscr{U}_{m}$ and $V\in\mathscr{U}_{n}$ are arbitrary. In fact, the following more accurate result~\cite{Neumann1937} is valid.
+
+\begin{lemma}
+Let $M\in\mathbb{C}^{m\times n}$, $N\in\mathbb{C}^{m\times n}$, and $t=\min\{m,n\}$. Let $\{\sigma_{i}(M)\}_{i=1}^{t}$ and $\{\sigma_{i}(N)\}_{i=1}^{t}$ be the singular values of $M$ and $N$, respectively, which are arranged in the same (increasing or decreasing) order. Then
+\begin{equation}\label{von}
+\max_{\substack{U\in\mathscr{U}_{m}\\ V\in\mathscr{U}_{n}}}\Retr(UMVN^{\ast})=\sum_{i=1}^{t}\sigma_{i}(M)\sigma_{i}(N).
+\end{equation}
+\end{lemma}
+
+On the basis of the singular value decomposition (SVD) of a matrix, we can derive some useful identities on $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}$. Let $A\in\mathbb{C}^{m\times n}_{r}$ and $B\in\mathbb{C}^{m\times n}_{s}$ have the following SVDs:
+\begin{subequations}
+\begin{align}
+&A=U\begin{pmatrix}
+\Sigma_{1} & 0 \\
+0 & 0
+\end{pmatrix}V^{\ast}=U_{1}\Sigma_{1}V_{1}^{\ast},\label{SVD-A}\\
+&B=\widetilde{U}\begin{pmatrix}
+\widetilde{\Sigma}_{1} & 0 \\
+0 & 0 
+\end{pmatrix}\widetilde{V}^{\ast}=\widetilde{U}_{1}\widetilde{\Sigma}_{1}\widetilde{V}_{1}^{\ast},\label{SVD-B}
+\end{align}
+\end{subequations}
+where $U=(U_{1},U_{2})\in\mathscr{U}_{m}$, $V=(V_{1},V_{2})\in\mathscr{U}_{n}$, $\widetilde{U}=(\widetilde{U}_{1},\widetilde{U}_{2})\in\mathscr{U}_{m}$, $\widetilde{V}=(\widetilde{V}_{1},\widetilde{V}_{2})\in\mathscr{U}_{n}$, $U_{1}\in\mathbb{C}^{m\times r}$, $V_{1}\in\mathbb{C}^{n\times r}$, $\widetilde{U}_{1}\in\mathbb{C}^{m\times s}$, $\widetilde{V}_{1}\in\mathbb{C}^{n\times s}$, $\Sigma_{1}=\diag(\sigma_{1},\ldots,\sigma_{r})$, $\widetilde{\Sigma}_{1}=\diag(\widetilde{\sigma}_{1},\ldots,\widetilde{\sigma}_{s})$, $\sigma_{1}\geq\cdots\geq\sigma_{r}>0$, and $\widetilde{\sigma}_{1}\geq\cdots\geq\widetilde{\sigma}_{s}>0$. In view of~\eqref{SVD-A} and~\eqref{SVD-B}, $A^{\dagger}$ and $B^{\dagger}$ can be explicitly expressed as follows:
+\begin{subequations}
+\begin{align}
+&A^{\dagger}=V\begin{pmatrix}
+\Sigma_{1}^{-1} & 0 \\
+0 & 0
+\end{pmatrix}U^{\ast}=V_{1}\Sigma_{1}^{-1}U_{1}^{\ast},\label{MP-A}\\
+&B^{\dagger}=\widetilde{V}\begin{pmatrix}
+\widetilde{\Sigma}_{1}^{-1} & 0 \\
+0 & 0
+\end{pmatrix}\widetilde{U}^{\ast}=\widetilde{V}_{1}\widetilde{\Sigma}_{1}^{-1}\widetilde{U}_{1}^{\ast}.\label{MP-B}
+\end{align}
+\end{subequations}
+Based on~\eqref{SVD-A}, \eqref{SVD-B}, \eqref{MP-A}, and~\eqref{MP-B}, we can obtain the following identities on $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}$.
+
+\begin{lemma}\label{identity}
+Let $A\in\mathbb{C}^{m\times n}_{r}$ and $B\in\mathbb{C}^{m\times n}_{s}$ have the SVDs~\eqref{SVD-A} and~\eqref{SVD-B}, respectively, and let $E=B-A$. Then
+\begin{subequations}
+\begin{align}
+&\|B^{\dagger}-A^{\dagger}\|_{F}^{2}=\|\widetilde{\Sigma}_{1}^{-1}\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}+\|\widetilde{V}_{2}^{\ast}V_{1}\Sigma_{1}^{-1}\|_{F}^{2}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2},\label{ide1.1}\\
+&\|B^{\dagger}-A^{\dagger}\|_{F}^{2}=\|\widetilde{U}_{2}^{\ast}U_{1}\Sigma_{1}^{-1}\|_{F}^{2}+\|\widetilde{\Sigma}_{1}^{-1}\widetilde{V}_{1}^{\ast}V_{2}\|_{F}^{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}.\label{ide1.2}
+\end{align}
+\end{subequations}
+\end{lemma}
+
+\begin{proof}
+By~\eqref{MP-A} and~\eqref{MP-B}, we have
+\begin{align*}
+&\widetilde{V}^{\ast}(B^{\dagger}-A^{\dagger})U=\begin{pmatrix}
+\widetilde{\Sigma}_{1}^{-1}\widetilde{U}_{1}^{\ast}U_{1}-\widetilde{V}_{1}^{\ast}V_{1}\Sigma_{1}^{-1} & \widetilde{\Sigma}_{1}^{-1}\widetilde{U}_{1}^{\ast}U_{2} \\
+-\widetilde{V}_{2}^{\ast}V_{1}\Sigma_{1}^{-1} & 0
+\end{pmatrix},\\
+&V^{\ast}(B^{\dagger}-A^{\dagger})\widetilde{U}=\begin{pmatrix}
+V_{1}^{\ast}\widetilde{V}_{1}\widetilde{\Sigma}_{1}^{-1}-\Sigma_{1}^{-1}U_{1}^{\ast}\widetilde{U}_{1} & -\Sigma_{1}^{-1}U_{1}^{\ast}\widetilde{U}_{2} \\
+V_{2}^{\ast}\widetilde{V}_{1}\widetilde{\Sigma}_{1}^{-1}  & 0
+\end{pmatrix}.
+\end{align*}
+Then
+\begin{subequations}
+\begin{align}
+&\|B^{\dagger}-A^{\dagger}\|_{F}^{2}=\|\widetilde{\Sigma}_{1}^{-1}\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}+\|\widetilde{V}_{2}^{\ast}V_{1}\Sigma_{1}^{-1}\|_{F}^{2}+\|\widetilde{\Sigma}_{1}^{-1}\widetilde{U}_{1}^{\ast}U_{1}-\widetilde{V}_{1}^{\ast}V_{1}\Sigma_{1}^{-1}\|_{F}^{2},\label{rela1.1}\\
+&\|B^{\dagger}-A^{\dagger}\|_{F}^{2}=\|\Sigma_{1}^{-1}U_{1}^{\ast}\widetilde{U}_{2}\|_{F}^{2}+\|V_{2}^{\ast}\widetilde{V}_{1}\widetilde{\Sigma}_{1}^{-1}\|_{F}^{2}+\|V_{1}^{\ast}\widetilde{V}_{1}\widetilde{\Sigma}_{1}^{-1}-\Sigma_{1}^{-1}U_{1}^{\ast}\widetilde{U}_{1}\|_{F}^{2}.\label{rela1.2}
+\end{align}
+\end{subequations}
+In addition, using~\eqref{SVD-A}, \eqref{SVD-B}, \eqref{MP-A}, and~\eqref{MP-B}, we can get
+\begin{align*}
+&\widetilde{V}^{\ast}B^{\dagger}EA^{\dagger}U=\begin{pmatrix}
+\widetilde{V}_{1}^{\ast}V_{1}\Sigma_{1}^{-1}-\widetilde{\Sigma}_{1}^{-1}\widetilde{U}_{1}^{\ast}U_{1} & 0 \\
+0 & 0
+\end{pmatrix},\\
+&V^{\ast}A^{\dagger}EB^{\dagger}\widetilde{U}=\begin{pmatrix}
+\Sigma_{1}^{-1}U_{1}^{\ast}\widetilde{U}_{1}-V_{1}^{\ast}\widetilde{V}_{1}\widetilde{\Sigma}_{1}^{-1} & 0 \\
+0 & 0
+\end{pmatrix}.
+\end{align*}
+Hence,
+\begin{subequations}
+\begin{align}
+&\|B^{\dagger}EA^{\dagger}\|_{F}^{2}=\|\widetilde{V}_{1}^{\ast}V_{1}\Sigma_{1}^{-1}-\widetilde{\Sigma}_{1}^{-1}\widetilde{U}_{1}^{\ast}U_{1}\|_{F}^{2},\label{B+EA+}\\
+&\|A^{\dagger}EB^{\dagger}\|_{F}^{2}=\|\Sigma_{1}^{-1}U_{1}^{\ast}\widetilde{U}_{1}-V_{1}^{\ast}\widetilde{V}_{1}\widetilde{\Sigma}_{1}^{-1}\|_{F}^{2}.\label{A+EB+}
+\end{align}
+\end{subequations}
+
+Combining~\eqref{rela1.1} and~\eqref{B+EA+}, we can obtain the identity~\eqref{ide1.1}. Similarly, the identity~\eqref{ide1.2} follows immediately from~\eqref{rela1.2} and~\eqref{A+EB+}. This completes the proof.
+\end{proof}
+
+Using Lemma~\ref{identity}, we can easily obtain the following corollary, which is the foundation of our analysis.
+
+\begin{corollary}
+Under the assumptions of Lemma~\ref{identity}, we have
+\begin{subequations}
+\begin{align}
+&\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\|B^{\dagger}\|_{2}^{2}\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}+\|A^{\dagger}\|_{2}^{2}\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2},\label{upE+1.1}\\
+&\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\|A^{\dagger}\|_{2}^{2}\|\widetilde{U}_{2}^{\ast}U_{1}\|_{F}^{2}+\|B^{\dagger}\|_{2}^{2}\|\widetilde{V}_{1}^{\ast}V_{2}\|_{F}^{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}.\label{upE+1.2}
+\end{align}
+\end{subequations}
+Furthermore,
+\begin{subequations}
+\begin{align}
+&\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\geq\frac{\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}}{\|B\|_{2}^{2}}+\frac{\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}}{\|A\|_{2}^{2}}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2},\label{lowE+1.1}\\
+&\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\geq\frac{\|\widetilde{U}_{2}^{\ast}U_{1}\|_{F}^{2}}{\|A\|_{2}^{2}}+\frac{\|\widetilde{V}_{1}^{\ast}V_{2}\|_{F}^{2}}{\|B\|_{2}^{2}}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}.\label{lowE+1.2}
+\end{align}
+\end{subequations}
+\end{corollary}
+
+If $\rank(B)=\rank(A)$, then the following important relations (see~\cite[Lemma~2.2]{Chen2016}) hold.
+
+\begin{lemma}\label{s=r}
+Let $A\in\mathbb{C}^{m\times n}_{r}$ and $B\in\mathbb{C}^{m\times n}_{s}$ have the SVDs~\eqref{SVD-A} and~\eqref{SVD-B}, respectively. If $s=r$, then
+\begin{displaymath}
+\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}=\|\widetilde{U}_{2}^{\ast}U_{1}\|_{F} \quad \text{and} \quad \|\widetilde{V}_{1}^{\ast}V_{2}\|_{F}=\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}.
+\end{displaymath}
+\end{lemma}
+
+\section{Main results}
+
+\label{sec:main}
+
+\setcounter{equation}{0}
+
+In this section, we develop some new upper and lower bounds for $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}$. Some of our upper bounds have improved the existing results.
+
+The first theorem provides an interesting estimate for $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}$, which depends only on the singular values of $A$ and $B$.
+
+\begin{theorem}
+Let $A\in\mathbb{C}^{m\times n}_{r}$ and $B\in\mathbb{C}^{m\times n}_{s}$ have the positive singular values $\{\sigma_{i}\}_{i=1}^{r}$ and $\{\widetilde{\sigma}_{i}\}_{i=1}^{s}$, respectively, where $\sigma_{1}\geq\cdots\geq\sigma_{r}$ and $\widetilde{\sigma}_{1}\geq\cdots\geq\widetilde{\sigma}_{s}$.
+
+{\rm (i)} If $s\leq r$, then
+\begin{equation}\label{up+low1}
+\sum_{i=1}^{s}\bigg(\frac{1}{\sigma_{i}}-\frac{1}{\widetilde{\sigma}_{i}}\bigg)^{2}+\sum_{i=s+1}^{r}\frac{1}{\sigma_{i}^{2}}\leq\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\sum_{i=1}^{s}\bigg(\frac{1}{\sigma_{i}}+\frac{1}{\widetilde{\sigma}_{i}}\bigg)^{2}+\sum_{i=s+1}^{r}\frac{1}{\sigma_{i}^{2}}.
+\end{equation}
+
+{\rm (ii)} If $s>r$, then
+\begin{equation}\label{up+low2}
+\sum_{i=1}^{r}\bigg(\frac{1}{\sigma_{i}}-\frac{1}{\widetilde{\sigma}_{i}}\bigg)^{2}+\sum_{i=r+1}^{s}\frac{1}{\widetilde{\sigma}_{i}^{2}}\leq\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\sum_{i=1}^{r}\bigg(\frac{1}{\sigma_{i}}+\frac{1}{\widetilde{\sigma}_{i}}\bigg)^{2}+\sum_{i=r+1}^{s}\frac{1}{\widetilde{\sigma}_{i}^{2}}.
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+It is easy to see that
+\begin{equation}\label{trace}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}=\tr\big((B^{\dagger}-A^{\dagger})^{\ast}(B^{\dagger}-A^{\dagger})\big)=\sum_{i=1}^{s}\frac{1}{\widetilde{\sigma}_{i}^{2}}+\sum_{i=1}^{r}\frac{1}{\sigma_{i}^{2}}-2\Retr\big(A^{\dagger}(B^{\dagger})^{\ast}\big).
+\end{equation}
+By~\eqref{von}, we have
+\begin{equation}\label{real}
+-\sum_{i=1}^{\min\{s,r\}}\frac{1}{\sigma_{i}\widetilde{\sigma}_{i}}\leq\Retr\big(A^{\dagger}(B^{\dagger})^{\ast}\big)\leq\sum_{i=1}^{\min\{s,r\}}\frac{1}{\sigma_{i}\widetilde{\sigma}_{i}}.
+\end{equation}
+Combining~\eqref{trace} and~\eqref{real}, we can obtain the inequalities~\eqref{up+low1} and~\eqref{up+low2}.
+\end{proof}
+
+\begin{remark}\rm
+According to the lower bounds in~\eqref{up+low1} and~\eqref{up+low2}, we deduce that a necessary condition for $\lim_{B\rightarrow A}B^{\dagger}=A^{\dagger}$ ($B$ is viewed as a variable) is that $\rank(B)=\rank(A)$ always holds when $B$ tends to $A$. Indeed, it is also a sufficient condition for $\lim_{B\rightarrow A}B^{\dagger}=A^{\dagger}$ (see~\cite{Stewart1969}).
+\end{remark}
+
+\begin{remark}\rm
+If we apply~\eqref{up+low2} to the example in~\eqref{Ex0}, the lower and upper bounds in~\eqref{up+low2} are $4\tau^{2}+\frac{1}{\tau^{2}}$ and $4(1+\tau)^{2}+\frac{1}{\tau^{2}}$, respectively. Obviously, the lower bound has attained the exact value $4\tau^{2}+\frac{1}{\tau^{2}}$, and the upper bound is very tight when $\tau$ is small.
+\end{remark}
+
+\subsection{Upper bounds}
+
+\label{subsec:upper}
+
+In this subsection, we present some new upper bounds for $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}$, which involve the perturbation $E=B-A$.
+
+\begin{theorem}\label{up-thm1}
+Let $A\in\mathbb{C}^{m\times n}_{r}$, $B\in\mathbb{C}^{m\times n}_{s}$, and $E=B-A$. Then
+\begin{equation}\label{up1}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\min\big\{\alpha_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2},\alpha_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}\big\},
+\end{equation}
+where
+\begin{align*}
+&\alpha_{1}:=\|A^{\dagger}\|_{2}^{2}\big(\|A^{\dagger}E\|_{F}^{2}-\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}\big)+\|B^{\dagger}\|_{2}^{2}\big(\|EB^{\dagger}\|_{F}^{2}-\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}\big),\\
+&\alpha_{2}:=\|A^{\dagger}\|_{2}^{2}\big(\|EA^{\dagger}\|_{F}^{2}-\|BB^{\dagger}EA^{\dagger}\|_{F}^{2}\big)+\|B^{\dagger}\|_{2}^{2}\big(\|B^{\dagger}E\|_{F}^{2}-\|B^{\dagger}EA^{\dagger}A\|_{F}^{2}\big).
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+By~\eqref{SVD-A}, \eqref{SVD-B}, \eqref{MP-A}, and~\eqref{MP-B}, we have
+\begin{align*}
+&U^{\ast}EB^{\dagger}\widetilde{U}=\begin{pmatrix}
+U_{1}^{\ast}\widetilde{U}_{1}-\Sigma_{1}V_{1}^{\ast}\widetilde{V}_{1}\widetilde{\Sigma}_{1}^{-1} & 0 \\
+U_{2}^{\ast}\widetilde{U}_{1} & 0
+\end{pmatrix},\\
+&U^{\ast}AA^{\dagger}EB^{\dagger}\widetilde{U}=\begin{pmatrix}
+U_{1}^{\ast}\widetilde{U}_{1}-\Sigma_{1}V_{1}^{\ast}\widetilde{V}_{1}\widetilde{\Sigma}_{1}^{-1} & 0 \\
+0 & 0
+\end{pmatrix}.
+\end{align*}
+Hence,
+\begin{equation}\label{U1starU2}
+\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}=\|EB^{\dagger}\|_{F}^{2}-\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}.
+\end{equation}
+Similarly, we have
+\begin{align*}
+&V^{\ast}A^{\dagger}E\widetilde{V}=\begin{pmatrix}
+\Sigma_{1}^{-1}U_{1}^{\ast}\widetilde{U}_{1}\widetilde{\Sigma}_{1}-V_{1}^{\ast}\widetilde{V}_{1} & -V_{1}^{\ast}\widetilde{V}_{2} \\
+0 & 0
+\end{pmatrix},\\
+&V^{\ast}A^{\dagger}EB^{\dagger}B\widetilde{V}=\begin{pmatrix}
+\Sigma_{1}^{-1}U_{1}^{\ast}\widetilde{U}_{1}\widetilde{\Sigma}_{1}-V_{1}^{\ast}\widetilde{V}_{1} & 0 \\
+0 & 0
+\end{pmatrix}.
+\end{align*}
+Thus,
+\begin{equation}\label{V2starV1}
+\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}=\|A^{\dagger}E\|_{F}^{2}-\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}.
+\end{equation}
+Using~\eqref{upE+1.1}, \eqref{U1starU2}, and~\eqref{V2starV1}, we obtain
+\begin{equation}\label{part1.1}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\alpha_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}.
+\end{equation}
+Interchanging the roles of $A$ and $B$ yields
+\begin{equation}\label{part1.2}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\alpha_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}.
+\end{equation}
+The desired result~\eqref{up1} then follows by combining~\eqref{part1.1} and~\eqref{part1.2}.
+\end{proof}
+
+\begin{remark}\rm
+If $A\in\mathbb{C}^{m\times n}_{n}$ $(m\geq n)$, then $V_{1}=V$ and $V_{2}$ vanishes. Hence, $\alpha_{1}$ and $\alpha_{2}$ reduce to
+\begin{align*}
+&\alpha_{1}=\|B^{\dagger}\|_{2}^{2}\big(\|EB^{\dagger}\|_{F}^{2}-\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}\big)+(n-s)\|A^{\dagger}\|_{2}^{2},\\
+&\alpha_{2}=\|A^{\dagger}\|_{2}^{2}\big(\|EA^{\dagger}\|_{F}^{2}-\|BB^{\dagger}EA^{\dagger}\|_{F}^{2}\big).
+\end{align*}
+Note that
+\begin{displaymath}
+\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}\geq\frac{\|A^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}} \quad \text{and} \quad \|BB^{\dagger}EA^{\dagger}\|_{F}^{2}\geq\frac{\|B^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}.
+\end{displaymath}
+In light of~\eqref{up1}, we have
+\begin{align*}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}&\leq\frac{\|A^{\dagger}\|_{2}^{2}\|B^{\dagger}\|_{2}^{2}}{\|A^{\dagger}\|_{2}^{2}+\|B^{\dagger}\|_{2}^{2}}\bigg(\frac{\alpha_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}+\frac{\alpha_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}\bigg)\\
+&\leq\frac{\|A^{\dagger}\|_{2}^{2}\|B^{\dagger}\|_{2}^{2}}{\|A^{\dagger}\|_{2}^{2}+\|B^{\dagger}\|_{2}^{2}}\bigg(\|EA^{\dagger}\|_{F}^{2}+\|EB^{\dagger}\|_{F}^{2}+(n-s)\frac{\|A^{\dagger}\|_{2}^{2}}{\|B^{\dagger}\|_{2}^{2}}\bigg).
+\end{align*}
+Therefore, the estimate~\eqref{up1} has improved~\eqref{Li2.1}.
+\end{remark}
+
+\begin{remark}\rm
+If $A\in\mathbb{C}^{m\times n}_{n}$ and $B\in\mathbb{C}^{m\times n}_{n}$ $(m\geq n)$, then
+\begin{align*}
+&\alpha_{1}=\|B^{\dagger}\|_{2}^{2}\big(\|EB^{\dagger}\|_{F}^{2}-\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}\big),\\ &\alpha_{2}=\|A^{\dagger}\|_{2}^{2}\big(\|EA^{\dagger}\|_{F}^{2}-\|BB^{\dagger}EA^{\dagger}\|_{F}^{2}\big).
+\end{align*}
+Due to $\rank(B)=\rank(A)$, it follows that
+\begin{displaymath}
+\|EB^{\dagger}\|_{F}^{2}-\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}=\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}=\|\widetilde{U}_{2}^{\ast}U_{1}\|_{F}^{2}=\|EA^{\dagger}\|_{F}^{2}-\|BB^{\dagger}EA^{\dagger}\|_{F}^{2},
+\end{displaymath}
+where we have used Lemma~\ref{s=r}. Then
+\begin{align*}
+&\alpha_{1}=\|B^{\dagger}\|_{2}^{2}\big(\|EA^{\dagger}\|_{F}^{2}-\|BB^{\dagger}EA^{\dagger}\|_{F}^{2}\big)\leq\|B^{\dagger}\|_{2}^{2}\|EA^{\dagger}\|_{F}^{2}-\|B^{\dagger}EA^{\dagger}\|_{F}^{2},\\
+&\alpha_{2}=\|A^{\dagger}\|_{2}^{2}\big(\|EB^{\dagger}\|_{F}^{2}-\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}\big)\leq\|A^{\dagger}\|_{2}^{2}\|EB^{\dagger}\|_{F}^{2}-\|A^{\dagger}EB^{\dagger}\|_{F}^{2},
+\end{align*}
+because
+\begin{displaymath}
+\|BB^{\dagger}EA^{\dagger}\|_{F}^{2}\geq\frac{\|B^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}} \quad \text{and} \quad \|AA^{\dagger}EB^{\dagger}\|_{F}^{2}\geq\frac{\|A^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}.
+\end{displaymath}
+Using~\eqref{up1}, we obtain
+\begin{displaymath}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\min\big\{\|B^{\dagger}\|_{2}^{2}\|EA^{\dagger}\|_{F}^{2},\|A^{\dagger}\|_{2}^{2}\|EB^{\dagger}\|_{F}^{2}\big\},
+\end{displaymath}
+which is exactly the estimate~\eqref{Li2.2}. Thus, the estimate~\eqref{up1} has improved~\eqref{Li2.2} as well.
+\end{remark}
+
+Based on Theorem~\ref{up-thm1}, we can get the following two corollaries.
+
+\begin{corollary}\label{corup1}
+Under the assumptions of Theorem~\ref{up-thm1}, it holds that
+\begin{equation}\label{corup1.1}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\min\big\{\beta_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2},\beta_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}\big\},
+\end{equation}
+where
+\begin{align*}
+&\beta_{1}:=\|A^{\dagger}\|_{2}^{4}\big(\|E\|_{F}^{2}-\|EB^{\dagger}B\|_{F}^{2}\big)+\|B^{\dagger}\|_{2}^{4}\big(\|E\|_{F}^{2}-\|AA^{\dagger}E\|_{F}^{2}\big),\\
+&\beta_{2}:=\|A^{\dagger}\|_{2}^{4}\big(\|E\|_{F}^{2}-\|BB^{\dagger}E\|_{F}^{2}\big)+\|B^{\dagger}\|_{2}^{4}\big(\|E\|_{F}^{2}-\|EA^{\dagger}A\|_{F}^{2}\big).
+\end{align*}
+\end{corollary}
+
+\begin{proof}
+In view of~\eqref{SVD-A}, \eqref{SVD-B}, \eqref{MP-A}, and~\eqref{MP-B}, we have
+\begin{align}
+&U^{\ast}E\widetilde{V}=\begin{pmatrix}
+U_{1}^{\ast}\widetilde{U}_{1}\widetilde{\Sigma}_{1}-\Sigma_{1}V_{1}^{\ast}\widetilde{V}_{1} & -\Sigma_{1}V_{1}^{\ast}\widetilde{V}_{2} \\
+U_{2}^{\ast}\widetilde{U}_{1}\widetilde{\Sigma}_{1} & 0
+\end{pmatrix},\label{E1}\\
+&U^{\ast}EB^{\dagger}B\widetilde{V}=\begin{pmatrix}
+U_{1}^{\ast}\widetilde{U}_{1}\widetilde{\Sigma}_{1}-\Sigma_{1}V_{1}^{\ast}\widetilde{V}_{1} & 0 \\
+U_{2}^{\ast}\widetilde{U}_{1}\widetilde{\Sigma}_{1} & 0
+\end{pmatrix},\label{EB+B}\\
+&U^{\ast}AA^{\dagger}E\widetilde{V}=\begin{pmatrix}
+U_{1}^{\ast}\widetilde{U}_{1}\widetilde{\Sigma}_{1}-\Sigma_{1}V_{1}^{\ast}\widetilde{V}_{1} & -\Sigma_{1}V_{1}^{\ast}\widetilde{V}_{2} \\
+0 & 0
+\end{pmatrix}.\label{AA+E}
+\end{align}
+From~\eqref{E1}, \eqref{EB+B}, and~\eqref{AA+E}, we deduce that
+\begin{align*}
+&\|\widetilde{V}_{2}^{\ast}V_{1}\Sigma_{1}\|_{F}^{2}=\|E\|_{F}^{2}-\|EB^{\dagger}B\|_{F}^{2},\\ &\|\widetilde{\Sigma}_{1}\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}=\|E\|_{F}^{2}-\|AA^{\dagger}E\|_{F}^{2}.
+\end{align*}
+Then
+\begin{align*}
+&\|A^{\dagger}E\|_{F}^{2}-\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}=\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}\leq\|A^{\dagger}\|_{2}^{2}\|\widetilde{V}_{2}^{\ast}V_{1}\Sigma_{1}\|_{F}^{2}=\|A^{\dagger}\|_{2}^{2}\big(\|E\|_{F}^{2}-\|EB^{\dagger}B\|_{F}^{2}\big),\\
+&\|EB^{\dagger}\|_{F}^{2}-\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}=\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}\leq\|B^{\dagger}\|_{2}^{2}\|\widetilde{\Sigma}_{1}\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}=\|B^{\dagger}\|_{2}^{2}\big(\|E\|_{F}^{2}-\|AA^{\dagger}E\|_{F}^{2}\big).
+\end{align*}
+Hence,
+\begin{displaymath}
+\alpha_{1}\leq\|A^{\dagger}\|_{2}^{4}\big(\|E\|_{F}^{2}-\|EB^{\dagger}B\|_{F}^{2}\big)+\|B^{\dagger}\|_{2}^{4}\big(\|E\|_{F}^{2}-\|AA^{\dagger}E\|_{F}^{2}\big).
+\end{displaymath}
+Similarly,
+\begin{displaymath}
+\alpha_{2}\leq\|A^{\dagger}\|_{2}^{4}\big(\|E\|_{F}^{2}-\|BB^{\dagger}E\|_{F}^{2}\big)+\|B^{\dagger}\|_{2}^{4}\big(\|E\|_{F}^{2}-\|EA^{\dagger}A\|_{F}^{2}\big).
+\end{displaymath}
+Using~\eqref{up1}, we can obtain the estimate~\eqref{corup1.1} immediately.
+\end{proof}
+
+\begin{corollary}\label{corup2}
+Under the assumptions of Theorem~\ref{up-thm1}, it holds that
+\begin{equation}\label{corup1.2}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\min\big\{\gamma_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}, \gamma_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}\big\},
+\end{equation}
+where
+\begin{align*}
+&\gamma_{1}:=\|A^{\dagger}\|_{2}^{2}\bigg(\|A^{\dagger}E\|_{F}^{2}-\frac{\|A^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}\bigg)+\|B^{\dagger}\|_{2}^{2}\bigg(\|EB^{\dagger}\|_{F}^{2}-\frac{\|A^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}\bigg),\\
+&\gamma_{2}:=\|A^{\dagger}\|_{2}^{2}\bigg(\|EA^{\dagger}\|_{F}^{2}-\frac{\|B^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}\bigg)+\|B^{\dagger}\|_{2}^{2}\bigg(\|B^{\dagger}E\|_{F}^{2}-\frac{\|B^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}\bigg).
+\end{align*}
+\end{corollary}
+
+\begin{proof}
+It is easy to check that
+\begin{displaymath}
+\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}\geq\frac{\|A^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}} \quad \text{and} \quad \|AA^{\dagger}EB^{\dagger}\|_{F}^{2}\geq\frac{\|A^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}.
+\end{displaymath}
+The desired estimate~\eqref{corup1.2} then follows by applying Theorem~\ref{up-thm1}.
+\end{proof}
+
+The following theorem gives the sharper counterparts of the estimates~\eqref{Meng1}, \eqref{Meng2}, and~\eqref{Li1}.
+
+\begin{theorem}\label{up-thm2}
+Let $A\in\mathbb{C}^{m\times n}_{r}$, $B\in\mathbb{C}^{m\times n}_{s}$, and $E=B-A$. Then
+\begin{equation}\label{up2.1}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\min\big\{\delta_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}, \delta_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}\big\},
+\end{equation}
+where
+\begin{align*}
+&\delta_{1}:=\max\big\{\|A^{\dagger}\|_{2}^{4},\|B^{\dagger}\|_{2}^{4}\big\}\bigg(\|E\|_{F}^{2}-\max\bigg\{\frac{\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}},\frac{\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}\bigg\}\bigg),\\
+&\delta_{2}:=\max\big\{\|A^{\dagger}\|_{2}^{4},\|B^{\dagger}\|_{2}^{4}\big\}\bigg(\|E\|_{F}^{2}-\max\bigg\{\frac{\|BB^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}},\frac{\|B^{\dagger}EA^{\dagger}A\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}\bigg\}\bigg).
+\end{align*}
+In particular, if $s=r$, then
+\begin{equation}\label{up2.2}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\min\big\{\varepsilon_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}, \varepsilon_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}\big\},
+\end{equation}
+where
+\begin{align*}
+&\varepsilon_{1}:=\|A^{\dagger}\|_{2}^{2}\|B^{\dagger}\|_{2}^{2}\bigg(\|E\|_{F}^{2}-\max\bigg\{\frac{\|BB^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}},\frac{\|B^{\dagger}EA^{\dagger}A\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}\bigg\}\bigg),\\
+&\varepsilon_{2}:=\|A^{\dagger}\|_{2}^{2}\|B^{\dagger}\|_{2}^{2}\bigg(\|E\|_{F}^{2}-\max\bigg\{\frac{\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}},\frac{\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}\bigg\}\bigg).
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+According to~\eqref{E1}, we deduce that
+\begin{align*}
+\|E\|_{F}^{2}&=\|(U_{1}^{\ast}\widetilde{U}_{1}-\Sigma_{1}V_{1}^{\ast}\widetilde{V}_{1}\widetilde{\Sigma}_{1}^{-1})\widetilde{\Sigma}_{1}\|_{F}^{2}+\|\Sigma_{1}V_{1}^{\ast}\widetilde{V}_{2}\|_{F}^{2}+\|U_{2}^{\ast}\widetilde{U}_{1}\widetilde{\Sigma}_{1}\|_{F}^{2}\\
+&\geq\frac{\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}+\frac{\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}+\frac{\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}
+\end{align*}
+and
+\begin{align*}
+\|E\|_{F}^{2}&=\|\Sigma_{1}(\Sigma_{1}^{-1}U_{1}^{\ast}\widetilde{U}_{1}\widetilde{\Sigma}_{1}-V_{1}^{\ast}\widetilde{V}_{1})\|_{F}^{2}+\|\Sigma_{1}V_{1}^{\ast}\widetilde{V}_{2}\|_{F}^{2}+\|U_{2}^{\ast}\widetilde{U}_{1}\widetilde{\Sigma}_{1}\|_{F}^{2}\\
+&\geq\frac{\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}+\frac{\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}+\frac{\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}.
+\end{align*}
+Hence,
+\begin{equation}\label{up-UV1}
+\frac{\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}+\frac{\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}\leq\|E\|_{F}^{2}-\max\bigg\{\frac{\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}},\frac{\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}\bigg\}.
+\end{equation}
+Using~\eqref{upE+1.1} and~\eqref{up-UV1}, we obtain
+\begin{displaymath}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\max\big\{\|A^{\dagger}\|_{2}^{4},\|B^{\dagger}\|_{2}^{4}\big\}\bigg(\frac{\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}+\frac{\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}\bigg)+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}\leq\delta_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}.
+\end{displaymath}
+Interchanging the roles of $A$ and $B$, we arrive at
+\begin{displaymath}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\delta_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}.
+\end{displaymath}
+Therefore, the estimate~\eqref{up2.1} is valid.
+
+We next consider the special case that $s=r$. Direct computation yields
+\begin{displaymath}
+\widetilde{U}^{\ast}EV=\begin{pmatrix}
+\widetilde{\Sigma}_{1}\widetilde{V}_{1}^{\ast}V_{1}-\widetilde{U}_{1}^{\ast}U_{1}\Sigma_{1} & \widetilde{\Sigma}_{1}\widetilde{V}_{1}^{\ast}V_{2} \\
+-\widetilde{U}_{2}^{\ast}U_{1}\Sigma_{1} & 0
+\end{pmatrix},
+\end{displaymath}
+which leads to
+\begin{equation}\label{E2}
+\|E\|_{F}^{2}=\|\widetilde{\Sigma}_{1}\widetilde{V}_{1}^{\ast}V_{1}-\widetilde{U}_{1}^{\ast}U_{1}\Sigma_{1}\|_{F}^{2}+\|\widetilde{\Sigma}_{1}\widetilde{V}_{1}^{\ast}V_{2}\|_{F}^{2}+\|\widetilde{U}_{2}^{\ast}U_{1}\Sigma_{1}\|_{F}^{2}.
+\end{equation}
+If $s=r$, by~\eqref{E2} and Lemma~\ref{s=r}, we have that
+\begin{align*}
+\|E\|_{F}^{2}&=\|(\widetilde{\Sigma}_{1}\widetilde{V}_{1}^{\ast}V_{1}\Sigma_{1}^{-1}-\widetilde{U}_{1}^{\ast}U_{1})\Sigma_{1}\|_{F}^{2}+\|\widetilde{\Sigma}_{1}\widetilde{V}_{1}^{\ast}V_{2}\|_{F}^{2}+\|\widetilde{U}_{2}^{\ast}U_{1}\Sigma_{1}\|_{F}^{2}\\
+&\geq\frac{\|BB^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}+\frac{\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}+\frac{\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}
+\end{align*}
+and
+\begin{align*}
+\|E\|_{F}^{2}&=\|\widetilde{\Sigma}_{1}(\widetilde{V}_{1}^{\ast}V_{1}-\widetilde{\Sigma}_{1}^{-1}\widetilde{U}_{1}^{\ast}U_{1}\Sigma_{1})\|_{F}^{2}+\|\widetilde{\Sigma}_{1}\widetilde{V}_{1}^{\ast}V_{2}\|_{F}^{2}+\|\widetilde{U}_{2}^{\ast}U_{1}\Sigma_{1}\|_{F}^{2}\\
+&\geq\frac{\|B^{\dagger}EA^{\dagger}A\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}+\frac{\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}+\frac{\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}.
+\end{align*}
+Thus,
+\begin{equation}\label{up-UV2}
+\frac{\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}+\frac{\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}\leq\|E\|_{F}^{2}-\max\bigg\{\frac{\|BB^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}},\frac{\|B^{\dagger}EA^{\dagger}A\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}\bigg\}.
+\end{equation}
+By~\eqref{upE+1.1} and~\eqref{up-UV2}, we have
+\begin{displaymath}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\|A^{\dagger}\|_{2}^{2}\|B^{\dagger}\|_{2}^{2}\bigg(\frac{\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}}+\frac{\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}}\bigg)+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}\leq\varepsilon_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}.
+\end{displaymath}
+Interchanging the roles of $A$ and $B$ yields
+\begin{displaymath}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\varepsilon_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}.
+\end{displaymath}
+Hence, the estimate~\eqref{up2.2} is proved. This completes the proof.
+\end{proof}
+
+\begin{remark}\rm
+From~\eqref{up2.1}, we deduce that
+\begin{equation}\label{comp1}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\leq\frac{1}{2}\big(\delta_{1}+\delta_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}\big).
+\end{equation}
+Using
+\begin{displaymath} \|AA^{\dagger}EB^{\dagger}\|_{F}^{2}\geq\frac{\|A^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}} \quad \text{and} \quad \|BB^{\dagger}EA^{\dagger}\|_{F}^{2}\geq\frac{\|B^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|B^{\dagger}\|_{2}^{2}},
+\end{displaymath}
+we arrive at
+\begin{align*}
+\delta_{1}+\delta_{2}&\leq\max\big\{\|A^{\dagger}\|_{2}^{4},\|B^{\dagger}\|_{2}^{4}\big\}\bigg(2\|E\|_{F}^{2}-\frac{\|A^{\dagger}EB^{\dagger}\|_{F}^{2}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|A^{\dagger}\|_{2}^{2}\|B^{\dagger}\|_{2}^{2}}\bigg)\\
+&=2\max\big\{\|A^{\dagger}\|_{2}^{4},\|B^{\dagger}\|_{2}^{4}\big\}\|E\|_{F}^{2}-\max\bigg\{\frac{\|A^{\dagger}\|_{2}^{2}}{\|B^{\dagger}\|_{2}^{2}},\frac{\|B^{\dagger}\|_{2}^{2}}{\|A^{\dagger}\|_{2}^{2}}\bigg\}\big(\|A^{\dagger}EB^{\dagger}\|_{F}^{2}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}\big)\\
+&\leq 2\max\big\{\|A^{\dagger}\|_{2}^{4},\|B^{\dagger}\|_{2}^{4}\big\}\|E\|_{F}^{2}-\big(\|A^{\dagger}EB^{\dagger}\|_{F}^{2}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}\big).
+\end{align*}
+Therefore, the estimate~\eqref{comp1} is sharper than both~\eqref{Meng1} and~\eqref{Li1}. In addition, because
+\begin{displaymath}
+\|B^{\dagger}\|_{2}^{2}\|BB^{\dagger}EA^{\dagger}\|_{F}^{2}\geq\|B^{\dagger}EA^{\dagger}\|_{F}^{2} \quad \text{and} \quad \|A^{\dagger}\|_{2}^{2}\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}\geq\|A^{\dagger}EB^{\dagger}\|_{F}^{2},
+\end{displaymath}
+it follows that the estimate~\eqref{up2.2} is sharper than~\eqref{Meng2}.
+\end{remark}
+
+\subsection{Lower bounds}
+
+\label{subsec:lower}
+
+It is well known that the MP inverse of a matrix is not necessarily a continuous function of the entries of the matrix~\cite{Stewart1969}. In this subsection, we are devoted to establishing some novel lower bounds for the deviation $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}$.
+
+\begin{theorem}\label{low-thm1}
+Let $A\in\mathbb{C}^{m\times n}_{r}$, $B\in\mathbb{C}^{m\times n}_{s}$, and $E=B-A$. Then
+\begin{equation}\label{low1}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\geq\max\big\{\alpha'_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2},\alpha'_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}\big\},
+\end{equation}
+where
+\begin{align*}
+&\alpha'_{1}:=\frac{\|A^{\dagger}E\|_{F}^{2}-\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}}{\|A\|_{2}^{2}}+\frac{\|EB^{\dagger}\|_{F}^{2}-\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|B\|_{2}^{2}},\\
+&\alpha'_{2}:=\frac{\|EA^{\dagger}\|_{F}^{2}-\|BB^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|A\|_{2}^{2}}+\frac{\|B^{\dagger}E\|_{F}^{2}-\|B^{\dagger}EA^{\dagger}A\|_{F}^{2}}{\|B\|_{2}^{2}}.
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+Using~\eqref{lowE+1.1}, \eqref{U1starU2}, and~\eqref{V2starV1}, we obtain
+\begin{displaymath}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\geq\frac{\|A^{\dagger}E\|_{F}^{2}-\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}}{\|A\|_{2}^{2}}+\frac{\|EB^{\dagger}\|_{F}^{2}-\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|B\|_{2}^{2}}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}.
+\end{displaymath}
+Interchanging the roles of $A$ and $B$, we get
+\begin{displaymath}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\geq\frac{\|EA^{\dagger}\|_{F}^{2}-\|BB^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|A\|_{2}^{2}}+\frac{\|B^{\dagger}E\|_{F}^{2}-\|B^{\dagger}EA^{\dagger}A\|_{F}^{2}}{\|B\|_{2}^{2}}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}.
+\end{displaymath}
+Therefore, the estimate~\eqref{low1} is verified.
+\end{proof}
+
+On the basis of Theorem~\ref{low-thm1}, we can derive the following two corollaries.
+
+\begin{corollary}
+Under the assumptions of Theorem~\ref{low-thm1}, it holds that
+\begin{equation}\label{corlow1.1}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\geq\max\big\{\beta'_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2},\beta'_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}\big\},
+\end{equation}
+where
+\begin{align*}
+&\beta'_{1}:=\frac{\|E\|_{F}^{2}-\|EB^{\dagger}B\|_{F}^{2}}{\|A\|_{2}^{4}}+\frac{\|E\|_{F}^{2}-\|AA^{\dagger}E\|_{F}^{2}}{\|B\|_{2}^{4}},\\
+&\beta'_{2}:=\frac{\|E\|_{F}^{2}-\|BB^{\dagger}E\|_{F}^{2}}{\|A\|_{2}^{4}}+\frac{\|E\|_{F}^{2}-\|EA^{\dagger}A\|_{F}^{2}}{\|B\|_{2}^{4}}.
+\end{align*}
+\end{corollary}
+
+\begin{proof}
+Similarly to the proof of Corollary~\ref{corup1}, we have
+\begin{align*}
+&\|A^{\dagger}E\|_{F}^{2}-\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}=\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}\geq\frac{\|\widetilde{V}_{2}^{\ast}V_{1}\Sigma_{1}\|_{F}^{2}}{\|A\|_{2}^{2}}=\frac{\|E\|_{F}^{2}-\|EB^{\dagger}B\|_{F}^{2}}{\|A\|_{2}^{2}},\\
+&\|EB^{\dagger}\|_{F}^{2}-\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}=\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}\geq\frac{\|\widetilde{\Sigma}_{1}\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}}{\|B\|_{2}^{2}}=\frac{\|E\|_{F}^{2}-\|AA^{\dagger}E\|_{F}^{2}}{\|B\|_{2}^{2}}.
+\end{align*}
+Thus,
+\begin{align*}
+&\alpha'_{1}\geq\frac{\|E\|_{F}^{2}-\|EB^{\dagger}B\|_{F}^{2}}{\|A\|_{2}^{4}}+\frac{\|E\|_{F}^{2}-\|AA^{\dagger}E\|_{F}^{2}}{\|B\|_{2}^{4}},\\
+&\alpha'_{2}\geq\frac{\|E\|_{F}^{2}-\|BB^{\dagger}E\|_{F}^{2}}{\|A\|_{2}^{4}}+\frac{\|E\|_{F}^{2}-\|EA^{\dagger}A\|_{F}^{2}}{\|B\|_{2}^{4}}.
+\end{align*}
+Using~\eqref{low1}, we can get the estimate~\eqref{corlow1.1}.
+\end{proof}
+
+\begin{corollary}
+Under the assumptions of Theorem~\ref{low-thm1}, it holds that
+\begin{equation}\label{corlow1.2}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\geq\max\big\{\gamma'_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2},\gamma'_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}\big\},
+\end{equation}
+where
+\begin{align*}
+&\gamma'_{1}:=\frac{\|A^{\dagger}E\|_{F}^{2}-\|B\|_{2}^{2}\|A^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|A\|_{2}^{2}}+\frac{\|EB^{\dagger}\|_{F}^{2}-\|A\|_{2}^{2}\|A^{\dagger}EB^{\dagger}\|_{F}^{2}}{\|B\|_{2}^{2}},\\
+&\gamma'_{2}:=\frac{\|EA^{\dagger}\|_{F}^{2}-\|B\|_{2}^{2}\|B^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|A\|_{2}^{2}}+\frac{\|B^{\dagger}E\|_{F}^{2}-\|A\|_{2}^{2}\|B^{\dagger}EA^{\dagger}\|_{F}^{2}}{\|B\|_{2}^{2}}.
+\end{align*}
+\end{corollary}
+
+Using the similar argument as in Theorem~\ref{up-thm2}, we can obtain the following theorem.
+
+\begin{theorem}\label{low-thm2}
+Let $A\in\mathbb{C}^{m\times n}_{r}$, $B\in\mathbb{C}^{m\times n}_{s}$, and $E=B-A$. Then
+\begin{equation}\label{low2.1}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\geq\max\big\{\delta'_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2},\delta'_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}\big\},
+\end{equation}
+where
+\begin{align*}
+&\delta'_{1}:=\frac{\|E\|_{F}^{2}-\min\big\{\|B\|_{2}^{2}\|AA^{\dagger}EB^{\dagger}\|_{F}^{2},\|A\|_{2}^{2}\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}\big\}}{\max\big\{\|A\|_{2}^{4},\|B\|_{2}^{4}\big\}},\\ &\delta'_{2}:=\frac{\|E\|_{F}^{2}-\min\big\{\|A\|_{2}^{2}\|BB^{\dagger}EA^{\dagger}\|_{F}^{2},\|B\|_{2}^{2}\|B^{\dagger}EA^{\dagger}A\|_{F}^{2}\big\}}{\max\big\{\|A\|_{2}^{4},\|B\|_{2}^{4}\big\}}.
+\end{align*}
+In particular, if $s=r$, then
+\begin{equation}\label{low2.2}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\geq\max\big\{\varepsilon'_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2},\varepsilon'_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}\big\},
+\end{equation}
+where
+\begin{align*}
+&\varepsilon'_{1}:=\frac{\|E\|_{F}^{2}-\min\big\{\|A\|_{2}^{2}\|BB^{\dagger}EA^{\dagger}\|_{F}^{2},\|B\|_{2}^{2}\|B^{\dagger}EA^{\dagger}A\|_{F}^{2}\big\}}{\|A\|_{2}^{2}\|B\|_{2}^{2}},\\ &\varepsilon'_{2}:=\frac{\|E\|_{F}^{2}-\min\big\{\|B\|_{2}^{2}\|AA^{\dagger}EB^{\dagger}\|_{F}^{2},\|A\|_{2}^{2}\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}\big\}}{\|A\|_{2}^{2}\|B\|_{2}^{2}}.
+\end{align*}
+\end{theorem}
+
+\begin{proof}
+In view of~\eqref{E1}, we have
+\begin{align*}
+&\|E\|_{F}^{2}\leq\|B\|_{2}^{2}\|AA^{\dagger}EB^{\dagger}\|_{F}^{2}+\|A\|_{2}^{2}\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}+\|B\|_{2}^{2}\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2},\\
+&\|E\|_{F}^{2}\leq\|A\|_{2}^{2}\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}+\|A\|_{2}^{2}\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}+\|B\|_{2}^{2}\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}.
+\end{align*}
+Then
+\begin{equation}\label{low-UV1}
+\|B\|_{2}^{2}\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}+\|A\|_{2}^{2}\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}\geq\|E\|_{F}^{2}-\min\big\{\|B\|_{2}^{2}\|AA^{\dagger}EB^{\dagger}\|_{F}^{2},\|A\|_{2}^{2}\|A^{\dagger}EB^{\dagger}B\|_{F}^{2}\big\}.
+\end{equation}
+By~\eqref{lowE+1.1} and~\eqref{low-UV1}, we have
+\begin{displaymath}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\geq\frac{\|B\|_{2}^{2}\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}+\|A\|_{2}^{2}\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}}{\max\big\{\|A\|_{2}^{4},\|B\|_{2}^{4}\big\}}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}\geq\delta'_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}.
+\end{displaymath}
+Interchanging the roles of $A$ and $B$ yields
+\begin{displaymath}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\geq\delta'_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}.
+\end{displaymath}
+Hence, the inequality~\eqref{low2.1} is proved.
+
+We next consider the special case that $s=r$. If $s=r$, using~\eqref{E2} and Lemma~\ref{s=r}, we get
+\begin{align*}
+&\|E\|_{F}^{2}\leq\|A\|_{2}^{2}\|BB^{\dagger}EA^{\dagger}\|_{F}^{2}+\|B\|_{2}^{2}\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}+\|A\|_{2}^{2}\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2},\\
+&\|E\|_{F}^{2}\leq\|B\|_{2}^{2}\|B^{\dagger}EA^{\dagger}A\|_{F}^{2}+\|B\|_{2}^{2}\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}+\|A\|_{2}^{2}\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}.
+\end{align*}
+Then
+\begin{equation}\label{low-UV2}
+\|A\|_{2}^{2}\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}+\|B\|_{2}^{2}\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}\geq\|E\|_{F}^{2}-\min\big\{\|A\|_{2}^{2}\|BB^{\dagger}EA^{\dagger}\|_{F}^{2},\|B\|_{2}^{2}\|B^{\dagger}EA^{\dagger}A\|_{F}^{2}\big\}.
+\end{equation}
+By~\eqref{lowE+1.1} and~\eqref{low-UV2}, we have
+\begin{displaymath}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\geq\frac{\|A\|_{2}^{2}\|\widetilde{U}_{1}^{\ast}U_{2}\|_{F}^{2}+\|B\|_{2}^{2}\|\widetilde{V}_{2}^{\ast}V_{1}\|_{F}^{2}}{\|A\|_{2}^{2}\|B\|_{2}^{2}}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}\geq\varepsilon'_{1}+\|B^{\dagger}EA^{\dagger}\|_{F}^{2}.
+\end{displaymath}
+Interchanging the roles of $A$ and $B$, we derive
+\begin{displaymath}
+\|B^{\dagger}-A^{\dagger}\|_{F}^{2}\geq\varepsilon'_{2}+\|A^{\dagger}EB^{\dagger}\|_{F}^{2}.
+\end{displaymath}
+Thus, the inequality~\eqref{low2.2} holds. This completes the proof.
+\end{proof}
+
+\section{Numerical experiments}
+
+\label{sec:numer}
+
+\setcounter{equation}{0}
+
+In section~\ref{sec:main}, we have established some new upper and lower bounds for the deviation $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}$, and provided some theoretical comparisons between the new upper bounds and the existing ones. In this section, we give two examples to illustrate the perturbation bounds developed in section~\ref{sec:main}. To show the numerical performance intuitively, we plot some figures of the bounds.
+
+The first one is in fact the example in~\eqref{Ex0}, which is used to illustrate the performances of the new upper bounds in subsection~\ref{subsec:upper}.
+
+\begin{example}\rm\label{Ex1}
+Let
+\begin{displaymath}
+A=\begin{pmatrix}
+1 & 0 \\
+0 & 0
+\end{pmatrix} \quad \text{and} \quad B=\begin{pmatrix}
+\frac{1}{1+2\tau} & 0 \\
+0 & \tau
+\end{pmatrix},
+\end{displaymath}
+where $\frac{1}{10}<\tau<\frac{1}{2}$.
+\end{example}
+
+Straightforward calculation yields that $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}=4\tau^{2}+\frac{1}{\tau^{2}}$. Under the setting of Example~\ref{Ex1}, the upper bounds in~\eqref{Li1}, \eqref{up1}, \eqref{corup1.1}, \eqref{corup1.2}, and~\eqref{up2.1} are listed in Table~\ref{tab:up}, and the numerical behaviors of these upper bounds are shown in Figure~\ref{fig:up}.
+
+\begin{table}[h!!]
+\centering
+\setlength{\tabcolsep}{6mm}{
+\begin{tabular}{@{} cc @{}}
+\toprule
+\text{Estimate} & \text{Upper bound for $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}$} \\
+\midrule
+\eqref{Li1} & $4\tau^{2}+\frac{1}{\tau^{2}}+\frac{4}{\tau^{2}(1+2\tau)^{2}}-4$ \\
+\eqref{up1} & $4\tau^{2}+\frac{1}{\tau^{2}}$ \\
+\eqref{corup1.1} & $4\tau^{2}+\frac{1}{\tau^{2}}$ \\
+\eqref{corup1.2} & $4\tau^{2}+\frac{1}{\tau^{2}}+\frac{4\tau^{2}}{(1+2\tau)^{2}}-4\tau^{4}$ \\
+\eqref{up2.1} & $4\tau^{2}+\frac{1}{\tau^{2}}$ \\
+\bottomrule
+\end{tabular}}
+\caption{\small The upper bounds in~\eqref{Li1}, \eqref{up1}, \eqref{corup1.1}, \eqref{corup1.2}, and~\eqref{up2.1}.}
+\label{tab:up}
+\end{table}
+
+\begin{figure}[h!!]
+\centering
+\includegraphics[width=3.5in]{Fig1-upper.pdf} 
+\caption{\small Numerical behaviors of the upper bounds in~\eqref{Li1}, \eqref{up1}, \eqref{corup1.1}, \eqref{corup1.2}, and~\eqref{up2.1}.}
+\label{fig:up}
+\end{figure}
+
+From Table~\ref{tab:up}, we see that the upper bounds in~\eqref{up1}, \eqref{corup1.1}, and~\eqref{up2.1} have attained the exact value $4\tau^{2}+\frac{1}{\tau^{2}}$. Moreover, Figure~\ref{fig:up} shows that the upper bound in~\eqref{corup1.2} is very close to the exact value (see also Table~\ref{tab:up}), whereas the upper bound in~\eqref{Li1} has deviated the exact value seriously when $\tau$ approaches $0.1$.
+
+Next, we give another example to illustrate the performances of the lower bounds established in subsection~\ref{subsec:lower}.
+
+\begin{example}\rm\label{Ex2}
+Let
+\begin{displaymath}
+A=\begin{pmatrix}
+1 & 0 \\
+0 & 0
+\end{pmatrix} \quad \text{and} \quad B=\begin{pmatrix}
+\frac{\tau}{1+\tau} & 0 \\
+0 & 2\tau
+\end{pmatrix},
+\end{displaymath}
+where $\frac{1}{10}<\tau<\frac{1}{2}$.
+\end{example}
+
+Direct computation yields that $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}=\frac{5}{4\tau^{2}}$. Under the setting of Example~\ref{Ex2}, the lower bounds in~\eqref{low1}--\eqref{low2.1} are listed in Table~\ref{tab:low}, and the numerical behaviors of these lower bounds are shown in Figure~\ref{fig:low}.
+
+\begin{table}[h!!]
+\centering
+\setlength{\tabcolsep}{6mm}{
+\begin{tabular}{@{} cc @{}}
+\toprule
+\text{Estimate} & \text{Lower bound for $\|B^{\dagger}-A^{\dagger}\|_{F}^{2}$} \\
+\midrule
+\eqref{low1} & $\frac{5}{4\tau^{2}}$ \\
+\eqref{corlow1.1} & $\frac{5}{4\tau^{2}}$ \\
+\eqref{corlow1.2} & $\frac{5}{4\tau^{2}}+\frac{1}{(1+\tau)^{2}}-4$ \\
+\eqref{low2.1} & $4\tau^{2}+\frac{1}{\tau^{2}}$ \\
+\bottomrule
+\end{tabular}}
+\caption{\small The lower bounds in~\eqref{low1}--\eqref{low2.1}.}
+\label{tab:low}
+\end{table}
+
+\begin{figure}[h!!]
+\centering
+\includegraphics[width=3.5in]{Fig2-lower.pdf} 
+\caption{\small Numerical behaviors of the lower bounds in~\eqref{low1}--\eqref{low2.1}.}
+\label{fig:low}
+\end{figure}
+
+According to Table~\ref{tab:low}, we see that the lower bounds in~\eqref{low1} and~\eqref{corlow1.1} have attained the exact value $\frac{5}{4\tau^{2}}$. Furthermore, Figure~\ref{fig:low} displays that the lower bounds in~\eqref{corlow1.2} and~\eqref{low2.1} are close to the exact value. We also observe that the lower bound in~\eqref{corlow1.2} (resp.,~\eqref{low2.1}) is closer to the exact value than that in~\eqref{low2.1} (resp.,~\eqref{corlow1.2}) when $\tau$ approaches $0.1$ (resp., $0.5$).
+
+\section{Conclusions}
+
+\label{sec:con}
+
+In this paper, we have established novel perturbation bounds (including upper and lower bounds) for the MP inverse of a matrix. Theoretical analysis demonstrates that some of our upper bounds are sharper than the existing ones. Two numerical examples are also provided to illustrate the superiorities of our estimates.
+
+\section*{Acknowledgments}
+
+The author is grateful to Professor Chen-Song Zhang for his helpful suggestions. This work was supported by the National Key Research and Development Program of China (Grant No. 2016YFB0201304), the Major Research Plan of National Natural Science Foundation of China (Grant Nos. 91430215, 91530323), and the Key Research Program of Frontier Sciences of CAS.
+
+\bibliographystyle{abbrv}
+\bibliography{references}
+
+\end{document}

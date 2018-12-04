@@ -1,0 +1,24 @@
+\begin{figure*}[t]
+  \centering
+  \includegraphics[trim=20mm 00mm 10mm 20mm,clip,height=0.23\textwidth]{map_photo.pdf}~ %
+  \includegraphics[trim=00mm 00mm 00mm 45mm,clip,height=0.23\textwidth]{map_side.pdf}~
+    \begin{tikzpicture}
+        \definecolor{green}{rgb}   {0.0,0.7,0.0}
+        \node[inner sep = 0,anchor=north west] at (0,0) {\includegraphics[trim=05mm 09mm 00mm 10mm,clip,height=0.23\textwidth]{map_top_down.pdf}};
+        \draw[thick,fill=green,draw=black,fill opacity=0.5] (0.4,-3.0) -- (0.9,-2.8) arc (24:88:0.54) -- cycle;
+        \fill (0.4,-3.0) circle [radius=2pt];
+  \end{tikzpicture}
+  \vspace{-4.5ex}
+  \caption{3D map from the initial manual flight. The top-down view (right) shows the dimensions of the acquired map of the \SI[product-units = single]{100 x 60}{\meter} warehouse. The camera perspective is highlighted in green. The warehouse contains tight, self-repetitive, and cluttered structures like shelves and stock, and larger, far-away structures like walls. For robust localization, the MAV has to employ a map of the structure of the large building.}
+  \label{fig:mapping}
+  \vspace{-3ex}
+\end{figure*}
+
+Our MAV, shown in \reffig{fig:MAV}, is based on the DJI Matrice~600 platform with a diameter of approximately $\SI{170}{\centi\meter}$. It is equipped with a lightweight, yet powerful, Intel NUC6i7KYK onboard PC with an Intel Core i7-6770HQ quadcore CPU running at \SI{2.6/3.5}{\giga\hertz} and \SI{32}{\giga\byte} of RAM.
+As primary environment perception sensor, a Velodyne Puck LITE lidar is deployed. It features a low weight of \SI{590}{\gram} and yields 300,000 range measurements per second in 16 horizontal scan lines at a vertical angle of $\SI{30}{\degree}$. Its maximum range is \SI{100}{\meter}.
+
+In order to perceive visual tags in nearby shelf panels during flight, the MAV is equipped with two synchronized global shutter Point Grey Blackfly-S U3-51S5C-C color cameras with 5.0\,MP. The Computar M0814MP2 lens features an apex angle of \SI[product-units = single]{56,3 x 43,7}{\degree}. Each camera captures 3 frames per second. For detection of RFID tags, the MAV is also equipped with a ThingMagic M6e RFID reader with a SkyeTek SP-AN-04-UF-BB6LP antenna.
+
+The low weight of the components (\SI{11.2}{\kilo\gram} take-off weight) and a battery capacity of 600\,Wh, yields a flight time of approximately \SI{20}{\minute} which allows to capture \SI{1}{\kilo\meter} of shelf. Since the batteries are hot-swappable, continuous operation can be performed with only minimal interruptions.
+
+The system uses the robot operating system (ROS) as middleware on both the MAV and an additional ground control station. We show an overview of the system in \reffig{fig:system_diagram}.

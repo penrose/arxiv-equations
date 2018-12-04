@@ -1,0 +1,557 @@
+\documentclass{twocol}
+\usepackage{flushend}
+\twocolumn
+\lat
+
+
+
+\title{Cryogenic differential amplifier for NMR applications}
+
+\rtitle{Cryogenic differential amplifier for NMR applications}
+
+\sodtitle{Cryogenic differential amplifier for NMR applications}
+
+\author {
+  V.~V.~Zavjalov\/\thanks{email: vladislav.zavyalov@aalto.fi},
+  A.~M.~Savin
+  P.~J.~Hakonen
+}
+\address{Low Temperature Laboratory,
+Department of Applied Physics, Aalto University,
+PO Box 15100, FI-00076 AALTO, Finland}
+\dates{18 Sep 2018}{*}
+
+\rauthor{V.~V.~Zavjalov, A.~M.~Savin, P.~J.~Hakonen}
+
+\sodauthor{Zavjalov, Savin, Hakonen}
+
+\abstract{
+We have designed and characterized  a cryogenic amplifier for
+use in $^3$He NMR spectrometry. The amplifier, with a power consumption
+of  $\sim 2.5$~mW, works at temperatures down to 4~K. It has a
+hi-impedance input for measuring a signal from NMR resonant circuit, and
+a 50~$\mathrm{\Omega}$ differential input which can be used for pick-up
+compensation and gain calibration. At 4.2~K, the amplifier has a voltage
+gain of 45, output resistance 146~$\mathrm{\Omega}$ and a 4.4~MHz
+bandwidth starting from DC. At 1~MHz, the voltage and current noise
+amount to 1.3~\nVsHz{}  and 12~\fAsHz{}, respectively, which yields an
+optimal source impedance of $\sim 100$~k$\mathrm{\Omega}$. }
+
+\PACS{}
+
+
+%\graphicspath{{pics/}}
+\newcommand{\image}[3]{
+\begin{figure}[#1]
+\begin{center}
+\includegraphics{full_#2.eps}
+\caption{\small#3}
+\label{image:#2}
+\end{center}
+\end{figure}
+}
+
+
+\def\nVsHz{%
+$\mbox{nV}/\sqrt{\mbox{Hz}}$}
+\def\pAsHz{%
+$\mbox{pA}/\sqrt{\mbox{Hz}}$}
+\def\fAsHz{%
+$\mbox{fA}/\sqrt{\mbox{Hz}}$}
+
+
+\begin{document}
+
+\maketitle
+
+Keywords: cryogenic amplifier; HEMT; low-noise; differential input
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\image{h!}{amp1}{Schematics and a photo of component layout.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+Many scientific and research applications benefit from the use of
+cryogenically cooled amplifiers. Reduction of the amplifier operation
+temperature leads to significant improvement of the signal-to-noise
+ratio, which finally improves sensitivity of measurements.
+
+Nowadays almost all commercially available transistors and operational
+amplifiers use silicon technology, and they do not work below 10~K. On
+the other hand most cryostats have a 4~K plate or liquid-helium bath
+where cold amplifiers can be placed. With silicon-based amplifiers,
+overheating with temperature stabilization can be
+used~\cite{2009_hayashi} for normal operation. Many non-silicon
+transistors used previously for cold amplifiers~\cite{1985_bloyet} are
+not available anymore. Now there are a few types of low-noise non-silicon
+transistors produced commercially which are designed for GHz frequencies.
+They include GaAs HEMT-technology FET transistors made by Avago (ATF
+series), CEL (CE series) or TriQuint (TGF series) and SiGe:C npn bipolar
+transistors made by Infineon (BFP series). These transistors can be used
+not only at high
+frequencies~\cite{2005_pospieszalski,2004_roschier,2005_hu} but also for
+low frequency
+applications~\cite{2000_koivuniemi,2004_oukhanski,2004_robinson,2006_dicarlo,2008_mathur,2012_beev,2013_arakawa,2017_hirata}.
+The performance of cooled low-frequency  amplifiers has also been
+promoted by special, foundry-made transistors~\cite{2014_dong}.
+
+In this paper, we present a cryogenic amplifier based on easily-available, commercial Avago ATF33143 HEMT components
+and Infineon BFP640 npn transistors. The goal has been to design 
+a preamplifier for NMR experiments which operate around 1 MHz 
+ and utilize tank circuits with high impedance ($\sim 100$~k$\mathrm{\Omega}$).
+
+
+
+\section{Design}
+
+The schematics and a photograph of the amplifier are shown in Fig.~1. The
+differential cascode input stage consists of four HEMT transistors
+$T_1-T_4$. The stage is powered by a current supply made of two npn
+transistors $T_5-T_6$. The current is set by the bias voltage $V_0$ and a
+19.1~k$\mathrm{\Omega}$ resistor. Cascode design together with non-symmetric
+inputs are used to reduce the Miller effect~\cite{miller}. This effect takes
+place when the output voltage couples to the input through transistor's
+parasitic capacitance, and then, after amplification, decreases the total
+gain. A 50~$\mathrm{\Omega}$ resistor on input~2 forms a divider with the
+parasitic capacitance which reduces the effect. In equilibrium, the
+current in both arms is half of the total current, and the output of
+the amplifier is biased near $V_0/2$. A follower with npn
+transistor $T_7$ is used to reduce the output resistance of the
+amplifier. All transistors have 100~$\mathrm{\Omega}$ resistors connected to their
+bases/gates. These resistors are needed to damp high-frequency resonances
+caused by parasitic inductances of the circuit and to improve the stability of the amplifier. 
+At the input terminals, the 100~$\mathrm{\Omega}$ resistors are shunted
+by 24~nH inductors at the relevant signal frequencies. The bias voltage
+line is connected through an RC-filter with a 100~$\mathrm{\Omega}$ resistor, a
+150~$\mu$F tantalum capacitor and a 9.1~nF ceramic capacitor.
+
+For the input stage we use Avago ATF33143 HEMTs. We have tested
+comparable transistors with smaller gate areas (ATF34143, ATF35143)  and
+obtained similar results. For the current supply and the output follower
+we use Infineon BFP640 npn SiGe transistors. Passive components for
+cryogenic applications need to demonstrate both mechanical and electrical
+stability at low temperatures. We use ceramic C0G
+capacitors~\cite{2010_teyssandier}, tantalum
+capacitors~\cite{2006_teverovsky}, and metal-film resistors.
+
+With a bias voltage $V_0=4$~V the current source gives $\sim 0.2$~mA and
+the total power consumption of the device amount to~$\sim 2.5$~mW. Low power
+consumption has certain disadvantages, namely high output resistance and
+low slew rate. This makes the amplifier performance to be dependent on
+the output circuit. If the amplifier is connected to the
+output line with capacitance, two effects are observed at high
+frequencies: the gain drops because the line capacitance forms an RC-filter
+with the output resistance; at high amplitudes the signal is distorted
+because the output current of the amplifier is limited and this restricts
+the charging rate of the line capacitance. Thte second effect can be estimated
+using the known parameters of the amplifier: the current limit is determined by the bias
+voltage and the resistor in the output follower, $I_{\mbox{max}} \sim
+0.4$~mA. The charging rate is constrained as~$\dot V = 2\pi f\,V =
+I_{\mbox{max}} / C_{\mbox{line}}$. For~$C_{\mbox{line}}=500$~pF
+and at~$f=1$~MHz, the distortion starts at the output amplitude
+of~$V\sim 130$~mV. This estimation agrees with measurements.
+
+
+\section{Measurements}
+
+To obtain output parameters of the amplifier (gain, bandwidth and the
+output resistance), we measured the gain as a function of frequency for a
+few different configurations: amplifier connected directly to a
+measurement device (lock-in amplifier); 1~nF capacitor added to the
+output of the amplifier; a 60~$\mathrm{\Omega}$ grounding resistor added after the
+capacitor. All the data were fitted simultaneously with a simple
+electrical model with four parameters: gain, bandwidth, the output
+resistance and the cable capacitance. Measurements were done at room
+temperature (300~K), temperature of liquid nitrogen (77~K) and liquid
+helium (4.2~K). Typical cable capacitance in our setup is $\sim580$~pF
+and temperature-independent. Other parameters are presented in Table~\ref{table}.
+In all measurements presented here we used input~1 while input~2 was
+shunted to ground by 50~$\mathrm{\Omega}$ resistor. With swapped input
+connections, we obtained very similar gain characteristics as expected
+for a differential amplifier. The measured gain of the amplifier (without
+the additional capacitor and grounding resistor on the output) is plotted
+as a function of bias voltage~$V_0$ (at 1~MHz) and frequency
+(at~$V_0=4$~V) in Fig.~2a and~2b, respectively. The measured cut-off
+frequency~$\sim 1$~MHz in Fig.~2b is determined mostly by capacitance of
+the output cable which forms an RC filter with the output resistance of
+the amplifier. The obtained intrinsic gain of the amplifier
+extends over DC--4~MHz and it is illustrated in Fig.~2b by dashed curves.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\image{h}{gain}{ {\bf (a)} Measured AC gain at 1~MHz as a function of the bias
+voltage~$V_0$. {\bf (b)} Measured AC gain at $V_0 = 4$~V as a function of
+frequency. The 1~MHz cut-off frequency here is determined by the output
+resistance of the amplifier ($\sim$150~$\mathrm{\Omega}$) and the capacitance of
+output cables ($\sim$580~pF). The obtained intrinsic bandwidth~$\sim4$~MHz
+is shown by dashed lines. Measurements were done at $T=300$~K, 77~K, and 4.2~K.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\image{h}{noise}{ Model for noise measurements {\bf (a)}, measured
+voltage {\bf (b)} and current {\bf (c)} noise of the amplifier.
+Measurements were done at 300~K, 77~K and 4.2~K using bias $V_0=4$~V.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+A model used for our noise measurement analysis is shown in Fig.~3a. The amplifier
+consists of a noiseless amplifier with voltage gain~$K$, voltage input
+noise source $U_{\mbox{in}}$, and current input noise
+source~$I_{\mbox{in}}$. The input of the amplifier is connected to a
+resistor~$R_S$ which also works as a source of thermal noise~$I_R^2 =
+4k_BT/R$, where $T$ is the temperature of the resistor. Parasitic
+capacitance~$C_S$ of the input circuit is also taken into account. Output of the
+amplifier is connected to a digital oscilloscope which is used to record
+noise spectra. The noise source~$U_{\mbox{out}}$ represents the noise of
+the oscilloscope.
+
+If the noise sources are not correlated, we can make a square sum of average
+noise voltages produced by each source. Then the square of the measured
+noise spectral density becomes
+\begin{equation}\nonumber
+U^2 = U_{\mbox{out}}^2 + K^2 \left[ U_{\mbox{in}}^2
+   + \left(I_{\mbox{in}}^2 + I_R^2\right) |Z_S|^2 \right],
+\end{equation}
+$$
+|Z_S|^2 = \frac{R_S^2}{1+(\omega R_S C_S)^2}.
+$$
+Here $Z_S$ is the total impedance of the source ($R_S$ and $C_S$ in parallel)
+and~$\mathrm{\Omega}$ denotes the angular frequency.
+
+It is easy to find~$U_{\mbox{out}}$ and~$U_{\mbox{in}}$ by measuring two
+noise spectra: one with the amplifier powered off ($K=0$) and another
+with shorted input ($R_S=0$). For finding~$U_{\mbox{in}}$, we used the
+measured gain to convert the output voltage noise spectra to the input.
+
+To determine the input current noise~$I_{\mbox{in}}$, we recorded noise
+spectra with non-zero source resistance~$R_S$. The noise with~$R_S=0$ was
+subtracted (removing the effects of $U_{\mbox{out}}$ and~$U_{\mbox{in}}$) and
+the result was converted to amplifier input. This gives us a source-dependent
+component of the input noise, $(I_{\mbox{in}}^2 + I_R^2) |Z_S|^2$. For
+small~$R_S$, the main contribution is due to thermal noise. A cut-off frequency $1/R_S
+C_S$ is clearly seen on the corresponding noise spectra, which allows us
+to obtain an estimate for the capacitance at the input $C_S=6.7$~pF. Knowing $C_S$, we can evaluate the impedance~$Z_S(\omega)$ and
+extract the current noise. We did this using $R_S=10$~M$\mathrm{\Omega}$ at which
+the thermal current noise generator $I_R$ is smaller. The obtained values for~$U_{\mbox{in}}$
+and~$I_{\mbox{in}}$ are displayed in Fig.~3b and~3c.
+
+The voltage noise determination described above is well defined and
+straightforward, but the measurement of the current noise is more tricky:
+a large thermal  noise part has to be subtracted from the result.
+To decrease the thermal noise $I_R$ one has to use huge source resistances,
+but this limits the bandwidth because of the $RC$-filtering by the input
+capacitance of the amplifier. In addition, the parasitic input resistance could
+affect the result if it were comparable with the source resistance.
+
+In order to improve the accuracy of the current-noise measurements, we
+made another experiment utilizing a resonant circuit as a high-impedance
+source, similarly to the work in Ref.~\cite{2000_koivuniemi}. The circuit
+was formed by a niobium coil with $L=100$~$\mu$H and a capacitor
+with~$C=200$~pF to obtain a resonance frequency near 1~MHz. We used an
+American Technical Ceramics porcelain capacitor (100B series) which has
+very low dissipation. Any resistive metal near the coil leads to extra
+rf-dissipation as well as thermal noise. To avoid this, we used a
+superconducting wire without normal-metal matrix. The circuit was placed
+in a solder-covered copper box which worked as a superconducting
+enclosure. We concluded that if a small piece of normal metal inside the
+enclose does not decrease the $Q$-value below a few thousand, then it has
+no substential effect on the noise.  This confirms that the measured
+noise is originated from the amplifier.
+
+The output voltage noise was recorded as described above. The gain of the amplifier was
+calibrated using an external noise source connected to input~2. Near
+1~MHz, the equivalent input noise contains a constant voltage noise
+($\approx1.3$~nV/$\sqrt{\mbox{Hz}}$) and a Lorentzian-shaped noise peak,
+produced by current noise imposed on the impedance of the tank circuit.
+
+With all the precautions, we managed to reach $Q\approx1.2\cdot10^6$,
+which corresponds to the maximum impedance $Z=0.9$~G$\mathrm{\Omega}$ and
+an effective dissipative resistance 0.5~m$\mathrm{\Omega}$ in series with
+the coil. This confirms that the input impedance of the amplifier is
+higher than~$0.9$~G$\mathrm{\Omega}$. It is hard to make good noise
+measurements with such a high $Q$-value circuit because of the long time
+needed for good frequency resolution and frequency drifts during this
+time. For avoiding these problems in our tank-circuit noise measurements, 
+we added a small resistor to reduce the $Q$-value to $40\cdot10^3$
+($Z=28$~M$\mathrm{\Omega}$). The noise curve measured with such a circuit
+is depicted in Fig.~4. According to the obtained data, the current noise
+of the amplifier is 11.8~fA/$\sqrt{\mbox{Hz}}$, which is in a good
+agreement with the above-described measurements with a
+10~M$\mathrm{\Omega}$ resistive source.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\image{h!}{tank_circuit}{Noise measured using a hi-Q tank circuit at the
+input of the amplifier. The curve is a sum of small input voltage noise 1.3~nV/$\sqrt{\mbox{Hz}}$
+and input current noise 11.8~fA/$\sqrt{\mbox{Hz}}$ imposed on the impedance of the tank circuit. }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\begin{table}
+\begin{tabular}{|l|c|c|c|}\hline
+Temperature $T$,~K           & 300  & 77   & 4.2 \\\hline
+Gain $K_0$                   & 21.3 & 38.7 & 44.5 \\
+$R_{\mbox{out}}$,~$\mathrm{\Omega}$   & 233  & 128  & 146  \\
+Cut-off frequency $f_c$, MHz & 3.23 & 4.02 & 4.41\\[5pt]
+Voltage noise, nV/$\sqrt{\mbox{Hz}}:$&&&\\
+at 10~kHz                    & 35.2 & 14.9 & 6.0 \\
+at 100~kHz                   &  8.4 &  3.6 & 2.1 \\
+at 1~MHz                     &  3.8 &  1.6 & 1.3 \\
+Current noise, fA/$\sqrt{\mbox{Hz}}:$&&&\\
+at 10~kHz                    & 17.5 &  6.2 &  6.4 \\
+at 100~kHz                   & 30.9 &  9.3 &  7.7 \\
+at 1~MHz                     & 83.3 & 21.4 & 14.5 \\
+Optimal source impedance, $\mathrm{\Omega}$:&&&\\
+at 10~kHz                    & 2.0M & 2.4M & 930k \\
+at 100~kHz                   & 270k & 390k & 270k \\
+at 1~MHz                     &  45k &  74k &  89k \\
+\hline
+\end{tabular}
+\caption{Characteristics of the amplifier measured at three different
+temperatures. Bias voltage~$V_0=4$~V has been  employed in all
+measurements. Current noise at all frequencies is measured with resistive
+source. More accurate measurement with a resonant circuit
+gives~11.8~fA/$\sqrt{\mbox{Hz}}$ at 1~MHz.}
+\label{table}
+\end{table}
+
+We made and tested a few similar amplifiers. Altogether, it was easy to make a
+working device and to get the expected characteristics. The gain is determined by
+the input HEMT transistors, the characteristics of which may vary. We observed about 15\% scatter in
+the gain value between different devices. The balancing of the transistors is
+also important: one has to check that the DC response is symmetric and
+replace HEMT transistors if needed. We did not observe any noticeable
+change of the amplifier characteristics after $10-20$ fast cooling and heating
+cycles. Floating of input~1 can cause electrostatic damage to the input HEMT
+transistor. To avoid this one can ground input~1 by a 1~M$\mathrm{\Omega}$ resistor,
+but depending on the impedance of the signal source, the noise contribution of
+this resistor can be significant. Noise coming from input~2 can increase
+both the current and voltage noise of the amplifier. One has to incorporate a sufficient amount 
+attenuation at low $T$ when connecting input~2 to room-temperature devices.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\image{h}{appl}{Application example.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Application example}
+
+We use the amplifier for NMR experiments in superfluid~$^3$He. Schematics
+of the NMR spectrometer is shown in Fig.~5. The $^3$He sample is placed
+in a magnetic field of $20-30$~mT. A pair of crossed coils is used to
+apply an RF excitation from a generator and to pick up a signal from
+precessing magnetization. The pick-up coil ($L\sim50\mu$H) together with
+a capacitor forms a tank circuit with a resonant frequency $\sim 1$~MHz,
+$Q \sim 200$ and an on-resonance resistance of $\sim
+70$~k$\mathrm{\Omega}$. This source resistance is close to the optimal
+impedance of the amplifier, which means that effects of voltage and
+current noise are comparable. Using the values from Table~1, one obtains
+the total input noise~2.3~nV/$\sqrt{\mbox{Hz}}$.
+
+Even outside the nuclear magnetic resonance condition, there is a coupled
+signal on the amplifier due to the mutual inductance and capacitance
+between the excitation and pick-up coils. We use the second input of the
+amplifier to compensate for this signal. This compensation is not
+affected by possible drifts of the amplifier gain and can be used also
+for calibration of the NMR signal amplitude.
+
+\section{Conclusions}
+
+A differential cryogenic amplifier has been developed and used for
+high-resolution NMR measurements. The amplifier consumes only 2.5~mW of
+power, which facilitates installation of many such amplifiers on a 4~K
+stage of a regular dilution refrigerator. The input current noise of the
+amplifier is 12~fA/$\sqrt{\mbox{Hz}}$ at 1~MHz, which renders our
+amplifier excellent for high-$Q$, tuned NMR probes up to impedances of a
+few hundred k$\mathrm{\Omega}$.  For the intended NMR applications, it is also
+important to be able to compensate for the cross-talk input signal on the
+first amplifier stage, and to measure the amplifier gain in-situ using
+the differential input. Our design can be operated even at a smaller
+power consumption level, but with a slight loss in the amplifier gain. In
+future, after optimization for lower bias voltage operation, we plan to
+position the amplifier on the still plate of a
+dilution refrigerator, which would further help in minimizing possible
+external interferences and parasitic impedance problems in cryogenic
+input circuitry.
+
+This work was performed as part of the ERC QuDeT project (670743). It was
+also supported by Academy of Finland grants 310086 (LTnoise) and 312295
+(CoE QTF). This research project made use of the Aalto University
+OtaNano/LTL infrastructure which is part of European Microkelvin
+Platform.
+
+A commercial version of the amplifier is available from Aivon OY~\cite{aivon}.
+
+\begin{thebibliography}{}
+
+% Si device, 10K
+\bibitem{2009_hayashi}
+%A current to voltage converter for cryogenics using a CMOS operational amplifier
+K.Hayashi, K.Saiton, Y.Shibayama, K.Shirahama,
+\textit{J. of Phys.: Conference series} {\bf 150}, 012016 (2009)
+
+% old FETs
+\bibitem{1985_bloyet}
+%Very-low-noise amplifier for low-temperature pulsed NMR experiments,
+D. Bloyet, J. Lepaisant, E. Varoquaux,
+\textit{Rev. Sci. Instrum.} {\bf 56}, 1763 (1985)
+
+
+% self-made HEMT
+\bibitem{2014_dong}
+%Ultra-low noise high electron mobility transistors for high-impedance and low-frequency deep cryogenic readout electronics,
+Q. Dong, Y. X. Liang, D. Ferry, A. Cavanna, U. Gennser, L. Couraud, Y. Jin,
+\textit{Appl. Phys. Lett.} {\bf 105}, 013504 (2014)
+
+
+% high frequency
+\bibitem{2005_pospieszalski}
+%Extremely low-noise amplification with cryogenic FETs and HFETs: 1970-2004
+M. W. Pospieszalski,
+\textit{Microwave Magazine} {\bf 6}, 62 (2005)
+
+% high frequency
+\bibitem{2004_roschier}
+%Design of cryogenic 700 MHz amplifier
+L. Roschier, P. Hakonen,
+\textit{Cryogenics} {\bf 44}, 783 (2004)
+
+% high frequency
+\bibitem{2005_hu}
+%A cryogenic voltage amplifier with 36MHz bandwidth using discrete GaAs metal-semiconductor field-effect transistors,
+B. H. Hu, C. H. Yang,
+\textit{Rev. Sci. Instrum.} {\bf 76}, 124702-1 (2005)
+
+
+% noise voltage: 2.2~nV/sqrt(Hz)
+% noise voltage: 4.6~fA/sqrt(Hz)
+% optimal source resistance: 230 kOhm
+% dissipation at 4K: 15 mW
+% frequency: 699, 916 kHz
+% tank circuit measurement!
+\bibitem{2000_koivuniemi}
+%Noise temperature of cryogenic FET amplifier with high-Q resonator,
+J. Koivuniemi, M. Krusius,
+\textit{Phys. B: Cond. Matter} {\bf 284-288}, 2149 (2000)
+
+%\bibitem{2003_oukhanski}
+%N. Oukhanski, M. Grajcar, E. Ilichev, and H.-G. Meyer
+%Low noise, low power consumption high electron mobility transistors amplifier, for temperatures below 1 K
+%Review of Scientific Instruments {\bf 74}, 1145 (2003)
+
+% frequency: 100kHz - 35 MHz
+% working temperature 380~mK
+% voltage noise at 1MHz: 0.2~nV
+% current noise at 1MHz: 10~fA (1~fA at 3-5MHz)
+% power dissipation: 0.1-0.6 mW
+\bibitem{2004_oukhanski}
+%Ultrasensitive radio-frequency pseudomorphic high-electron-mobility-transistor readout for quantum devices
+N. Oukhanskia, E. Hoenig,
+\textit{Appl. Phys. Lett.} {\bf 85}, 2956 (2004)
+
+% 0.7 nV/sqrt(Hz)
+% 25 fA/sqrt(Hz)
+\bibitem{2004_robinson}
+%Cryogenic amplifier for $\sim 1$~MHz with a high input impedance using a commercial pseudomorphic high electron mobility transistor,
+A. M. Robinson, V. I. Talyanskii,
+\textit{Rev. Sci. Instrum.} {\bf 75}, 3169 (2004)
+
+% cross correlation!
+% voltage noise 0.4 nV
+% current noise 5 fA
+\bibitem{2006_dicarlo}
+%System for measuring auto- and cross correlation of current noise at low temperatures,
+L. Di Carlo, Y. Zhang, D. T. McClure, C. M. Marcus, L. N. Pfeiffer, K. W. West,
+\textit{Rev. Sci. Instrum.} {\bf 77}, 073906 (2006)
+
+% gain: 250
+% freq: DC-850kHz
+% voltage noise @ 100kHz 13 nV/sqrt(Hz)
+% voltage noise @ 1MHz    2.2 nV/sqrt(Hz)
+% dissipation at 4K: 10~mW
+% input impedance: 10M
+\bibitem{2008_mathur}
+%A Low-Noise Broadband Cryogenic Preamplifier Operated in a High-Field Superconducting Magnet,
+R. Mathur and R. W. Knepper and P. B. O'Connor,
+\textit{Trans. Appl. Supercond.} {\bf 18}, 1781 (2008)
+
+% temperature: 10K
+% frequency 10hZ-10MHz
+% voltage noise @1MHz 0.3 nV
+% current noise @1MHz 120 fA
+% optimal resistance  2.5 kOhm
+\bibitem{2012_beev}
+%Note: Cryogenic low-noise dc-coupled wideband differential
+%amplifier based on SiGe heterojunction bipolar transistors
+N. Beev, M. Kiviranta,
+\textit{Rev. Sci. Instrum.} {\bf 83}, 066107 (2012)
+
+% frequency 0.2 - 4MHz
+% voltage noise: 1.5 nV
+\bibitem{2013_arakawa}
+%Cryogenic amplifier for shot noise measurement at 20 mK,
+T. Arakawa, Y. Nishihara, M. Maeda, S. Norimoto, K. Kobayashi,
+\textit{Appl. Phys. Lett.} {\bf 103}, 172104 (2013)
+
+
+% freq: 0.2MHz - 6MHz
+% voltage noise @ 100kHz  0.8 nV/sqrt(Hz)
+% voltage noise @ 1MHz    0.8 nV/sqrt(Hz)
+\bibitem{2017_hirata}
+%Development of Cryogenic Enhancement-Mode Pseudomorphic High-Electron-Mobility Transistor Amplifier,
+T. Hirata, T. Okazaki, K. Obara, H. Yano, O. Ishikawa,
+\textit{J. Low Temp. Phys.} {\bf 187}, 596 (2017)
+
+% % frequency: 20-50 MHz
+% \bibitem{2018_johansen}
+% D. H. Johansen, J. D. Sanchez-Heredia, J. R. Petersen, T. K. Johansen, V. Zhurbenko, J. H. Ardenkjr-Larsen,
+% Cryogenic Preamplifiers for Magnetic Resonance Imaging,
+% Transactions on Biomedical Circuits and Systems {\bf 12}, 202 (2018)
+
+% Miller effect
+\bibitem{miller}
+P. Horowitz, W. Hill,
+The Art of Electronics, 3rd edn., (Cambridge University Press, 2015), pp.~113--115 %section 2.4.5
+
+% capacitors
+\bibitem{2010_teyssandier}
+%Commercially Available Capacitors at Cryogenic Temperatures,
+F. Teyssandier, D. Prele,
+\textit{Ninth International Workshop on Low Temperature Electronics - WOLTE9, Jun 2010, Guaruja, Brazil}
+
+% capacitors
+\bibitem{2006_teverovsky}
+A. Teverovsky,
+Performance and reliability of solid tantalum capacitors at cryogenic conditions,
+(NASA GSFC, 2006).
+
+\bibitem{aivon}
+Aivon Oy, Valimotie 13A FI-00380, Helsinki, Finland,
+http://aivon.fi/
+
+
+
+%\bibitem{1995_Hastings}
+%Characterization of a complementary metal-oxide semiconductor operational amplifier from 300 to 4.2 K,
+%J.T. Hastings, K.-W. Ng,
+%Review of Scientific Instruments {\bf 66}, 3691 (1995)
+
+% Si devices
+
+%A cryogenic amplifier for direct measurement of high-frequency signals from a single-electron transistor,
+%S. L. Pohlen, R. J. Fitzgerald, J. M. Hergenrother, M. Tinkham,
+%Applied Physics Letters {\bf 74}, 2884 (1999)
+
+% old FETs ?
+%frequency 1kHz - 1MHz
+% not many details
+
+%A cryogenic voltage amplifier with 36MHz bandwidth using discrete GaAs metal-semiconductor field-effect transistors,
+%B. H. Hu, C. H. Yang,
+%Review of Scientific Instruments {\bf 76}, 124702-1 (2005)
+
+% high frequency
+
+\end{thebibliography}
+
+\end{document}
+
+

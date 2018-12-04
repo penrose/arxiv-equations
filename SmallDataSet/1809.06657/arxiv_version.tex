@@ -1,0 +1,1941 @@
+
+%% bare_jrnl.tex
+%% V1.4b
+%% 2015/08/26
+%% by Michael Shell
+%% see http://www.michaelshell.org/
+%% for current contact information.
+%%
+%% This is a skeleton file demonstrating the use of IEEEtran.cls
+%% (requires IEEEtran.cls version 1.8b or later) with an IEEE
+%% journal paper.
+%%
+%% Support sites:
+%% http://www.michaelshell.org/tex/ieeetran/
+%% http://www.ctan.org/pkg/ieeetran
+%% and
+%% http://www.ieee.org/
+
+%%*************************************************************************
+%% Legal Notice:
+%% This code is offered as-is without any warranty either expressed or
+%% implied; without even the implied warranty of MERCHANTABILITY or
+%% FITNESS FOR A PARTICULAR PURPOSE! 
+%% User assumes all risk.
+%% In no event shall the IEEE or any contributor to this code be liable for
+%% any damages or losses, including, but not limited to, incidental,
+%% consequential, or any other damages, resulting from the use or misuse
+%% of any information contained here.
+%%
+%% All comments are the opinions of their respective authors and are not
+%% necessarily endorsed by the IEEE.
+%%
+%% This work is distributed under the LaTeX Project Public License (LPPL)
+%% ( http://www.latex-project.org/ ) version 1.3, and may be freely used,
+%% distributed and modified. A copy of the LPPL, version 1.3, is included
+%% in the base LaTeX documentation of all distributions of LaTeX released
+%% 2003/12/01 or later.
+%% Retain all contribution notices and credits.
+%% ** Modified files should be clearly indicated as such, including  **
+%% ** renaming them and changing author support contact information. **
+%%*************************************************************************
+
+
+% *** Authors should verify (and, if needed, correct) their LaTeX system  ***
+% *** with the testflow diagnostic prior to trusting their LaTeX platform ***
+% *** with production work. The IEEE's font choices and paper sizes can   ***
+% *** trigger bugs that do not appear when using other class files.       ***                          ***
+% The testflow support page is at:
+% http://www.michaelshell.org/tex/testflow/
+
+
+
+\documentclass[journal,10pt,onecolumn,draftclsnofoot,]{IEEEtran}
+%
+% If IEEEtran.cls has not been installed into the LaTeX system files,
+% manually specify the path to it like:
+% \documentclass[journal]{../sty/IEEEtran}
+
+
+
+
+
+% Some very useful LaTeX packages include:
+% (uncomment the ones you want to load)
+
+
+% *** MISC UTILITY PACKAGES ***
+%
+%\usepackage{ifpdf}
+% Heiko Oberdiek's ifpdf.sty is very useful if you need conditional
+% compilation based on whether the output is pdf or dvi.
+% usage:
+% \ifpdf
+%   % pdf code
+% \else
+%   % dvi code
+% \fi
+% The latest version of ifpdf.sty can be obtained from:
+% http://www.ctan.org/pkg/ifpdf
+% Also, note that IEEEtran.cls V1.7 and later provides a builtin
+% \ifCLASSINFOpdf conditional that works the same way.
+% When switching from latex to pdflatex and vice-versa, the compiler may
+% have to be run twice to clear warning/error messages.
+
+\usepackage{amsmath, amssymb, amsthm, mathtools}  	% Math packages
+\usepackage{adjustbox}			% To adjust size of pictures
+\usepackage{standalone}			% To add standalone tikz pictures
+%\usepackage{IEEEtrantools}		% Math tools for IEEE papers
+\usepackage{xcolor}				% To make color marks in the text
+\usepackage{tikz, pgfplots}		% To draw vector graphics and include matlab2tikz figures
+\usepackage{float}				% To set figures position (look: http://tex.stackexchange.com/questions/8625/force-figure-placement-in-text)
+\usepackage{caption}				% To centering figure captions
+\usepackage{subcaption}
+\usepackage[shortlabels]{enumitem}	% To customize description environment
+\usepackage{verbatim}			% To add comments
+\usepackage{algorithm}			% To write algorithms in pseudo code
+\usepackage[noend]{algpseudocode} %No end to remove endif, endfor etc.
+\usepackage{caption}			% to add title to table
+\usepackage{array}				% to specify width of table cell
+\usepackage{bm}
+\usepackage{todonotes}
+\usepackage{subfiles}
+\usepackage{pifont}       % for checkmarks and and xmark
+%\renewcommand{\Comment}[2][0.55\linewidth]{\leavevmode\hfill\makebox[#1][l]{$\blacktriangleright$~#2}}
+\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
+\newcommand{\cmark}{\ding{51}} % checkmark
+\newcommand{\xmark}{\ding{53}} % xmark
+
+\usetikzlibrary{arrows.meta}		% Arrows library
+\usetikzlibrary{shapes.geometric,calc,patterns,angles,quotes}	% Geometric library
+\usepgfplotslibrary{fillbetween}
+\usetikzlibrary{patterns}
+\usetikzlibrary{calc}
+\pgfplotsset{compat=1.11}
+
+\usepgfplotslibrary{groupplots}
+
+\newcommand\figurescale{1}
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{assumption}{Assumption}
+\newtheorem{proposition}{Proposition}
+\newtheorem*{proposition*}{Proposition}
+\newtheorem{claim}{Claim}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+\newtheorem*{corollary}{Corollary}
+\DeclareMathOperator{\argmin}{argmin}
+\DeclareMathOperator{\minimise}{minimise}
+\DeclareMathOperator{\st}{subject ~ to}
+\DeclareMathOperator{\diag}{\mathbf{diag}}
+\DeclareMathOperator{\kernel}{\mathbf{ker}}
+\DeclareMathOperator{\dom}{\mathbf{dom}}
+\DeclareMathOperator{\image}{\mathbf{im}}
+\DeclareMathOperator{\Real}{Re}
+\DeclareMathOperator{\Imag}{Im}
+
+\begin{comment}
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \list{}{%
+    \settowidth{\leftmargin}{\itshape\proofname:\hskip\labelsep}%
+    \setlength{\labelwidth}{0pt}%
+    \setlength{\itemindent}{-\leftmargin}%
+  }%
+  \item[\hskip\labelsep\itshape#1\@addpunct{:}]\ignorespaces
+}{%
+  \popQED\endlist\@endpefalse
+}
+\end{comment}
+
+\renewcommand{\algorithmicrequire}{\textbf{Input:}}
+\renewcommand{\algorithmicensure}{\textbf{Output:}}
+\algdef{SE}[DOWHILE]{Do}{doWhile}{\algorithmicdo}[1]{\algorithmicwhile\ #1}%
+\presetkeys{todonotes}{color=yellow!20}{}
+
+\pdfminorversion=4
+
+% *** CITATION PACKAGES ***
+%
+\usepackage{cite}
+% cite.sty was written by Donald Arseneau
+% V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
+% \cite{} output to follow that of the IEEE. Loading the cite package will
+% result in citation numbers being automatically sorted and properly
+% "compressed/ranged". e.g., [1], [9], [2], [7], [5], [6] without using
+% cite.sty will become [1], [2], [5]--[7], [9] using cite.sty. cite.sty's
+% \cite will automatically add leading space, if needed. Use cite.sty's
+% noadjust option (cite.sty V3.8 and later) if you want to turn this off
+% such as if a citation ever needs to be enclosed in parenthesis.
+% cite.sty is already installed on most LaTeX systems. Be sure and use
+% version 5.0 (2009-03-20) and later if using hyperref.sty.
+% The latest version can be obtained at:
+% http://www.ctan.org/pkg/cite
+% The documentation is contained in the cite.sty file itself.
+
+
+
+
+
+
+% *** GRAPHICS RELATED PACKAGES ***
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+\fi
+% graphicx was written by David Carlisle and Sebastian Rahtz. It is
+% required if you want graphics, photos, etc. graphicx.sty is already
+% installed on most LaTeX systems. The latest version and documentation
+% can be obtained at: 
+% http://www.ctan.org/pkg/graphicx
+% Another good source of documentation is "Using Imported Graphics in
+% LaTeX2e" by Keith Reckdahl which can be found at:
+% http://www.ctan.org/pkg/epslatex
+%
+% latex, and pdflatex in dvi mode, support graphics in encapsulated
+% postscript (.eps) format. pdflatex in pdf mode supports graphics
+% in .pdf, .jpeg, .png and .mps (metapost) formats. Users should ensure
+% that all non-photo figures use a vector format (.eps, .pdf, .mps) and
+% not a bitmapped formats (.jpeg, .png). The IEEE frowns on bitmapped formats
+% which can result in "jaggedy"/blurry rendering of lines and letters as
+% well as large increases in file sizes.
+%
+% You can find documentation about the pdfTeX application at:
+% http://www.tug.org/applications/pdftex
+
+
+
+
+
+% *** MATH PACKAGES ***
+%
+%\usepackage{amsmath}
+% A popular package from the American Mathematical Society that provides
+% many useful and powerful commands for dealing with mathematics.
+%
+% Note that the amsmath package sets \interdisplaylinepenalty to 10000
+% thus preventing page breaks from occurring within multiline equations. Use:
+%\interdisplaylinepenalty=2500
+% after loading amsmath to restore such page breaks as IEEEtran.cls normally
+% does. amsmath.sty is already installed on most LaTeX systems. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/amsmath
+
+
+
+
+
+% *** SPECIALIZED LIST PACKAGES ***
+%
+% \usepackage{algorithmic}
+% algorithmic.sty was written by Peter Williams and Rogerio Brito.
+% This package provides an algorithmic environment fo describing algorithms.
+% You can use the algorithmic environment in-text or within a figure
+% environment to provide for a floating algorithm. Do NOT use the algorithm
+% floating environment provided by algorithm.sty (by the same authors) or
+% algorithm2e.sty (by Christophe Fiorio) as the IEEE does not use dedicated
+% algorithm float types and packages that provide these will not provide
+% correct IEEE style captions. The latest version and documentation of
+% algorithmic.sty can be obtained at:
+% http://www.ctan.org/pkg/algorithms
+% Also of interest may be the (relatively newer and more customizable)
+% algorithmicx.sty package by Szasz Janos:
+% http://www.ctan.org/pkg/algorithmicx
+
+
+
+
+% *** ALIGNMENT PACKAGES ***
+%
+%\usepackage{array}
+% Frank Mittelbach's and David Carlisle's array.sty patches and improves
+% the standard LaTeX2e array and tabular environments to provide better
+% appearance and additional user controls. As the default LaTeX2e table
+% generation code is lacking to the point of almost being broken with
+% respect to the quality of the end results, all users are strongly
+% advised to use an enhanced (at the very least that provided by array.sty)
+% set of table tools. array.sty is already installed on most systems. The
+% latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/array
+
+
+% IEEEtran contains the IEEEeqnarray family of commands that can be used to
+% generate multiline equations as well as matrices, tables, etc., of high
+% quality.
+
+
+
+
+% *** SUBFIGURE PACKAGES ***
+%\ifCLASSOPTIONcompsoc
+%  \usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+%\else
+%  \usepackage[caption=false,font=footnotesize]{subfig}
+%\fi
+% subfig.sty, written by Steven Douglas Cochran, is the modern replacement
+% for subfigure.sty, the latter of which is no longer maintained and is
+% incompatible with some LaTeX packages including fixltx2e. However,
+% subfig.sty requires and automatically loads Axel Sommerfeldt's caption.sty
+% which will override IEEEtran.cls' handling of captions and this will result
+% in non-IEEE style figure/table captions. To prevent this problem, be sure
+% and invoke subfig.sty's "caption=false" package option (available since
+% subfig.sty version 1.3, 2005/06/28) as this is will preserve IEEEtran.cls
+% handling of captions.
+% Note that the Computer Society format requires a larger sans serif font
+% than the serif footnote size font used in traditional IEEE formatting
+% and thus the need to invoke different subfig.sty package options depending
+% on whether compsoc mode has been enabled.
+%
+% The latest version and documentation of subfig.sty can be obtained at:
+% http://www.ctan.org/pkg/subfig
+
+
+
+
+% *** FLOAT PACKAGES ***
+%
+%\usepackage{fixltx2e}
+% fixltx2e, the successor to the earlier fix2col.sty, was written by
+% Frank Mittelbach and David Carlisle. This package corrects a few problems
+% in the LaTeX2e kernel, the most notable of which is that in current
+% LaTeX2e releases, the ordering of single and double column floats is not
+% guaranteed to be preserved. Thus, an unpatched LaTeX2e can allow a
+% single column figure to be placed prior to an earlier double column
+% figure.
+% Be aware that LaTeX2e kernels dated 2015 and later have fixltx2e.sty's
+% corrections already built into the system in which case a warning will
+% be issued if an attempt is made to load fixltx2e.sty as it is no longer
+% needed.
+% The latest version and documentation can be found at:
+% http://www.ctan.org/pkg/fixltx2e
+
+
+%\usepackage{stfloats}
+% stfloats.sty was written by Sigitas Tolusis. This package gives LaTeX2e
+% the ability to do double column floats at the bottom of the page as well
+% as the top. (e.g., "\begin{figure*}[!b]" is not normally possible in
+% LaTeX2e). It also provides a command:
+%\fnbelowfloat
+% to enable the placement of footnotes below bottom floats (the standard
+% LaTeX2e kernel puts them above bottom floats). This is an invasive package
+% which rewrites many portions of the LaTeX2e float routines. It may not work
+% with other packages that modify the LaTeX2e float routines. The latest
+% version and documentation can be obtained at:
+% http://www.ctan.org/pkg/stfloats
+% Do not use the stfloats baselinefloat ability as the IEEE does not allow
+% \baselineskip to stretch. Authors submitting work to the IEEE should note
+% that the IEEE rarely uses double column equations and that authors should try
+% to avoid such use. Do not be tempted to use the cuted.sty or midfloat.sty
+% packages (also by Sigitas Tolusis) as the IEEE does not format its papers in
+% such ways.
+% Do not attempt to use stfloats with fixltx2e as they are incompatible.
+% Instead, use Morten Hogholm'a dblfloatfix which combines the features
+% of both fixltx2e and stfloats:
+%
+% \usepackage{dblfloatfix}
+% The latest version can be found at:
+% http://www.ctan.org/pkg/dblfloatfix
+
+
+
+
+%\ifCLASSOPTIONcaptionsoff
+%  \usepackage[nomarkers]{endfloat}
+% \let\MYoriglatexcaption\caption
+% \renewcommand{\caption}[2][\relax]{\MYoriglatexcaption[#2]{#2}}
+%\fi
+% endfloat.sty was written by James Darrell McCauley, Jeff Goldberg and 
+% Axel Sommerfeldt. This package may be useful when used in conjunction with 
+% IEEEtran.cls'  captionsoff option. Some IEEE journals/societies require that
+% submissions have lists of figures/tables at the end of the paper and that
+% figures/tables without any captions are placed on a page by themselves at
+% the end of the document. If needed, the draftcls IEEEtran class option or
+% \CLASSINPUTbaselinestretch interface can be used to increase the line
+% spacing as well. Be sure and use the nomarkers option of endfloat to
+% prevent endfloat from "marking" where the figures would have been placed
+% in the text. The two hack lines of code above are a slight modification of
+% that suggested by in the endfloat docs (section 8.4.1) to ensure that
+% the full captions always appear in the list of figures/tables - even if
+% the user used the short optional argument of \caption[]{}.
+% IEEE papers do not typically make use of \caption[]'s optional argument,
+% so this should not be an issue. A similar trick can be used to disable
+% captions of packages such as subfig.sty that lack options to turn off
+% the subcaptions:
+% For subfig.sty:
+% \let\MYorigsubfloat\subfloat
+% \renewcommand{\subfloat}[2][\relax]{\MYorigsubfloat[]{#2}}
+% However, the above trick will not work if both optional arguments of
+% the \subfloat command are used. Furthermore, there needs to be a
+% description of each subfigure *somewhere* and endfloat does not add
+% subfigure captions to its list of figures. Thus, the best approach is to
+% avoid the use of subfigure captions (many IEEE journals avoid them anyway)
+% and instead reference/explain all the subfigures within the main caption.
+% The latest version of endfloat.sty and its documentation can obtained at:
+% http://www.ctan.org/pkg/endfloat
+%
+% The IEEEtran \ifCLASSOPTIONcaptionsoff conditional can also be used
+% later in the document, say, to conditionally put the References on a 
+% page by themselves.
+
+
+
+
+% *** PDF, URL AND HYPERLINK PACKAGES ***
+%
+%\usepackage{url}
+% url.sty was written by Donald Arseneau. It provides better support for
+% handling and breaking URLs. url.sty is already installed on most LaTeX
+% systems. The latest version and documentation can be obtained at:
+% http://www.ctan.org/pkg/url
+% Basically, \url{my_url_here}.
+
+
+
+
+% *** Do not adjust lengths that control margins, column widths, etc. ***
+% *** Do not use packages that alter fonts (such as pslatex).         ***
+% There should be no need to do such things with IEEEtran.cls V1.6 and later.
+% (Unless specifically asked to do so by the journal or conference you plan
+% to submit to, of course. )
+
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\setlength{\textfloatsep}{2pt}
+\setlength{\intextsep}{2pt}
+
+\begin{document}
+%
+% paper title
+% Titles are generally capitalized except for words such as a, an, and, as,
+% at, but, by, for, in, nor, of, on, or, the, to and up, which are usually
+% not capitalized unless they are the first or last word of the title.
+% Linebreaks \\ can be used within to get better formatting as desired.
+% Do not put math or special symbols in the title.
+\title{Low-Voltage Distribution Network \\ Impedances Identification Based on \\ Smart Meter Data}
+%
+%
+% author names and IEEE memberships
+% note positions of commas and nonbreaking spaces ( ~ ) LaTeX will not break
+% a structure at a ~ so this keeps an author's name from being broken across
+% two lines.
+% use \thanks{} to gain access to the first footnote area
+% a separate \thanks must be used for each paragraph as LaTeX2e's \thanks
+% was not built to handle multiple paragraphs
+%
+
+\author{Sergey~Iakovlev,
+        Robin~J.~Evans,~\IEEEmembership{Life Fellow,~IEEE,}
+        Iven~Mareels,~\IEEEmembership{Fellow,~IEEE,}
+       % Girish Nair,~\IEEEmembership{Member,~IEEE,}% <-this % stops a space
+%\thanks{M. Shell was with the Department
+%of Electrical and Computer Engineering, Georgia Institute of Technology, Atlanta,
+%GA, 30332 USA e-mail: (see http://www.michaelshell.org/contact.html).}% <-this % stops a space
+%\thanks{J. Doe and J. Doe are with Anonymous University.}% <-this % stops a space
+%\thanks{Manuscript received April 19, 2005; revised August 26, 2015.}}
+\thanks{The authors are with the Department of Electrical
+and Electronic Engineering, The University of Melbourne, Melbourne, VIC 3010,
+Australia. (e-mail: siakovlev@unimelb.edu.au)}}
+
+% note the % following the last \IEEEmembership and also \thanks - 
+% these prevent an unwanted space from occurring between the last author name
+% and the end of the author line. i.e., if you had this:
+% 
+% \author{....lastname \thanks{...} \thanks{...} }
+%                     ^------------^------------^----Do not want these spaces!
+%
+% a space would be appended to the last name and could cause every name on that
+% line to be shifted left slightly. This is one of those "LaTeX things". For
+% instance, "\textbf{A} \textbf{B}" will typeset as "A B" not "AB". To get
+% "AB" then you have to do: "\textbf{A}\textbf{B}"
+% \thanks is no different in this regard, so shield the last } of each \thanks
+% that ends a line with a % and do not let a space in before the next \thanks.
+% Spaces after \IEEEmembership other than the last one are OK (and needed) as
+% you are supposed to have spaces between the names. For what it is worth,
+% this is a minor point as most people would not even notice if the said evil
+% space somehow managed to creep in.
+
+
+
+% The paper headers
+%\markboth{IEEE Transactions on Control of Network Systems,~Vol.~N, No.~M, Date~2018}%
+%{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for IEEE Journals}
+
+% The only time the second header will appear is for the odd numbered pages
+% after the title page when using the twoside option.
+% 
+% *** Note that you probably will NOT want to include the author's ***
+% *** name in the headers of peer review papers.                   ***
+% You can use \ifCLASSOPTIONpeerreview for conditional compilation here if
+% you desire.
+
+
+
+
+% If you want to put a publisher's ID mark on the page you can do it like
+% this:
+%\IEEEpubid{0000--0000/00\$00.00~\copyright~2015 IEEE}
+% Remember, if you use this you must call \IEEEpubidadjcol in the second
+% column for its text to clear the IEEEpubid mark.
+
+
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+
+
+% make the title area
+\maketitle
+
+% As a general rule, do not put math, special symbols or citations
+% in the abstract or keywords.
+\begin{abstract}
+Under conditions of high penetration of renewables, the low-voltage (LV) distribution network needs to be carefully managed. In such a scenario, an accurate real-time low-voltage power network model is an important prerequisite, which opens up the possibility for application of many advanced network control and optimisation methods thus providing improved power flow balancing, reduced maintenance costs, and enhanced reliability and security of a grid. 
+
+Smart meters serve as a source of information in LV networks and allow for accurate measurements at almost every node, which makes it advantageous to use data driven methods. In this paper, we formulate a non-linear and non-convex problem, solve it efficiently, and propose a number of fully smart meter data driven methods for line parameters estimation. Our algorithms are fast, recursive in data, scale linearly with the number of nodes, and can be executed in a decentralised manner by running small algorithms inside each smart meter. The performance of these algorithms is demonstrated for different measurement accuracy scenarios through simulations.
+\begin{comment}
+The low-voltage (LV) distribution network has been largely excluded from detailed analytical consideration and as a consequence it is now the least understood and most unpredictable element of the electricity grid. Many advanced network control and optimisation methods require feeder parameters to be known in advance and thus accurate low-voltage power network models are an important prerequisite. Smart meters, being the only reliable source of information in such networks, improve the affordability of low voltage automation infrastructure and allow for accurate measurements at almost every node. We propose a fully smart meter data driven method for line impedance calculations based on least squares (LS) estimation techniques. In addition, our algorithms can be executed in a decentralised manner so that every smart meter runs its own piece of code and estimates neighboring power line impedances using data from smart meters connected via these lines. The performance of our algorithms are demonstrated for different measurement accuracy scenarios through simulations.
+\end{comment}
+\end{abstract}
+
+% Note that keywords are not normally used for peerreview papers.
+\begin{IEEEkeywords}
+low-voltage distribution grid, smart meter measurements, impedances identification
+\end{IEEEkeywords}
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+\section{Introduction}
+
+% The very first letter is a 2 line initial drop letter followed
+% by the rest of the first word in caps.
+% 
+% form to use if the first word consists of a single letter:
+% \IEEEPARstart{A}{demo} file is ....
+% 
+% form to use if you need the single drop letter followed by
+% normal text (unknown if ever used by the IEEE):
+% \IEEEPARstart{A}{}demo file is ....
+% 
+% Some journals put the first two words in caps:
+% \IEEEPARstart{T}{his demo} file is ....
+% 
+% Here we have the typical use of a "T" for an initial drop letter
+% and "HIS" in caps to complete the first word.
+
+\IEEEPARstart{T}{he} deployment of smart meters at the level of a single customer in the LV power grid opens up the possibility of advanced control and monitoring functions, identification of faults and detection of topology changes. However the most important and developed techniques in state estimation \cite{huang2012state, della2014electrical}, optimal power flow \cite{lam2012distributed}, active filtering \cite{tarkiainen2004identification} and economic dispatch all require line impedances and the topology of feeder systems to be known \cite{wood2012power, jahangiri2013distributed}. This information is not always available and when it is available it is often inaccurate. Moreover the increasing emergence of plug-and-play parts in the modern LV distribution grid (e.g. hybrid electric vehicles, renewable generators etc.) further exacerbates this situation. Additionally, certain assumptions for transmission lines in the high voltage (HV) network do not hold for the LV case. For example PMU measurements are a mature technology for HV grids, whereas in LV distribution grids PMU measurements are usually not available primarily due to the high cost \cite{de2010synchronized}. However, the analysis of LV distribution grid estimation in the existing literature often assumes the availability of PMU synchronised measurements \cite{yang2010online, cavraro2015data, deka2016estimating}. These factors make it difficult to apply the control and optimisation methods mentioned above. Hence building a LV grid model based on SM data is an important and potentially valuable opportunity. Smart meters serve as a source of data and provide reliable information about the LV grid which can enable realistic modelling \cite{alahakoon2016smart}. 
+
+The most recent research activity is focused on impedance identification methods that allow identification of every single power line impedance (\cite{han2016automated, yang2010online}) rather than the grid equivalent impedance as previously \cite{cobreces2009grid, ciobotaru2011line}. With accurate models these methods open up the possibility for real-time tracking of aging related degradation, faults and electricity theft detection and localisation. Theft is indeed a real issue, e.g. 50\% of electricity in developing countries \cite{tariq2016electricity}, 1-3\% (\$6 billion) of total revenue in US \cite{van2011electricity} and 1\% (1200GWh) of electrical energy in Netherlands annually \cite{sahoo2015electricity}. The most common approach to stealing electricity is a direct connection to the low voltage grid bypassing meter infrastructure completely. Real-time estimation of single power line impedances can help to localise such situations \cite{tariq2016electricity}.  
+
+This paper presents four contributions. First, we propose a recursive approach to low-voltage network modelling based on smart meter data only. Second, we provide a fully decentralised scalable system identification method based on this model and prove its optimality under certain conditions. Third, the method we propose finds a global solution for a class of non-convex optimisation problems in iterative fashion. Fourth, we consider two practical modifications that can improve algorithm performance for industrial applications. Importantly, our algorithms do not require PMU synchronised measurements as is often assumed \cite{de2010synchronized}. 
+
+The paper is organised as follows. Section \RNum{2} introduces a recursive model for the low-voltage power distribution grid, notations, and presents the main assumptions used through the paper. Section \RNum{3} provides a description of the proposed identification approach and introduces the idea of decentralised grid identification. In Section \RNum{4}, the algorithm is tested via MATLAB simulations on IEEE test feeder data and its applicability and performance are illustrated. Section \RNum{5} concludes the paper. The appendix contains proofs of certain theoretical results that are used in the paper. 
+
+%\begin{description}[leftmargin=!,labelwidth=2.25cm]
+%\item[$N \in \mathbb{N}$] number of nodes;
+%\end{description}
+
+%\begin{table}[H]
+% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{Notation}
+%\label{notation}
+%\centering
+% Some packages, such as MDW tools, offer better commands for making tables
+% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c|c|c|}
+%\hline
+%scalar & $a_n$ & $a_n$ \\
+%\hline
+%vector & $\bm{a}_n$ & $[a_{1, n}, \ldots, a_{m, n}]^T$ \\
+%\hline
+%matrix & $\bm{A}_n$ & $[\bm{a}_1, \ldots, \bm{a}_n]$ \\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+%\hfill mds
+ 
+%\hfill August 26, 2015
+
+%\subsection{Subsection Heading Here}
+%Subsection text here.
+
+% needed in second column of first page if using \IEEEpubid
+%\IEEEpubidadjcol
+
+%\subsubsection{Subsubsection Heading Here}
+%Subsubsection text here.
+
+
+% An example of a floating figure using the graphicx package.
+% Note that \label must occur AFTER (or within) \caption.
+% For figures, \caption should occur after the \includegraphics.
+% Note that IEEEtran v1.7 and later has special internal code that
+% is designed to preserve the operation of \label within \caption
+% even when the captionsoff option is in effect. However, because
+% of issues like this, it may be the safest practice to put all your
+% \label just after \caption rather than within \caption{}.
+%
+% Reminder: the "draftcls" or "draftclsnofoot", not "draft", class
+% option should be used if it is desired that the figures are to be
+% displayed while in draft mode.
+%
+%\begin{figure}[!t]
+%\centering
+%\includegraphics[width=2.5in]{myfigure}
+% where an .eps filename suffix will be assumed under latex, 
+% and a .pdf suffix will be assumed for pdflatex; or what has been declared
+% via \DeclareGraphicsExtensions.
+%\caption{Simulation results for the network.}
+%\label{fig_sim}
+%\end{figure}
+
+% Note that the IEEE typically puts floats only at the top, even when this
+% results in a large percentage of a column being occupied by floats.
+
+
+% An example of a double column floating figure using two subfigures.
+% (The subfig.sty package must be loaded for this to work.)
+% The subfigure \label commands are set within each subfloat command,
+% and the \label for the overall figure must come after \caption.
+% \hfil is used as a separator to get equal spacing.
+% Watch out that the combined width of all the subfigures on a 
+% line do not exceed the text width or a line break will occur.
+%
+%\begin{figure*}[!t]
+%\centering
+%\subfloat[Case I]{\includegraphics[width=2.5in]{box}%
+%\label{fig_first_case}}
+%\hfil
+%\subfloat[Case II]{\includegraphics[width=2.5in]{box}%
+%\label{fig_second_case}}
+%\caption{Simulation results for the network.}
+%\label{fig_sim}
+%\end{figure*}
+%
+% Note that often IEEE papers with subfigures do not employ subfigure
+% captions (using the optional argument to \subfloat[]), but instead will
+% reference/describe all of them (a), (b), etc., within the main caption.
+% Be aware that for subfig.sty to generate the (a), (b), etc., subfigure
+% labels, the optional argument to \subfloat must be present. If a
+% subcaption is not desired, just leave its contents blank,
+% e.g., \subfloat[].
+
+
+% An example of a floating table. Note that, for IEEE style tables, the
+% \caption command should come BEFORE the table and, given that table
+% captions serve much like titles, are usually capitalized except for words
+% such as a, an, and, as, at, but, by, for, in, nor, of, on, or, the, to
+% and up, which are usually not capitalized unless they are the first or
+% last word of the caption. Table text will default to \footnotesize as
+% the IEEE normally uses this smaller font for tables.
+% The \label must come after \caption as always.
+%
+%\begin{table}[!t]
+%% increase table row spacing, adjust to taste
+%\renewcommand{\arraystretch}{1.3}
+% if using array.sty, it might be a good idea to tweak the value of
+% \extrarowheight as needed to properly center the text within the cells
+%\caption{An Example of a Table}
+%\label{table_example}
+%\centering
+%% Some packages, such as MDW tools, offer better commands for making tables
+%% than the plain LaTeX2e tabular which is used here.
+%\begin{tabular}{|c||c|}
+%\hline
+%One & Two\\
+%\hline
+%Three & Four\\
+%\hline
+%\end{tabular}
+%\end{table}
+
+
+% Note that the IEEE does not put floats in the very first column
+% - or typically anywhere on the first page for that matter. Also,
+% in-text middle ("here") positioning is typically not used, but it
+% is allowed and encouraged for Computer Society conferences (but
+% not Computer Society journals). Most IEEE journals/conferences use
+% top floats exclusively. 
+% Note that, LaTeX2e, unlike IEEE journals/conferences, places
+% footnotes above bottom floats. This can be corrected via the
+% \fnbelowfloat command of the stfloats package.
+
+\section{Model Formulation}
+
+In this section we develop a circuit theory approach for low voltage power network analysis by considering a linear feeder first and then generalise the results for a tree network.
+
+\subsection{Notation and preliminaries}
+\begin{figure*}[!t]
+  %\captionsetup{justification=centering}
+  \centering
+  \begin{tikzpicture}
+    \draw[fill] (0,0) circle [radius=0.1] node[above]{$v_{0}$} node[below right]{$0$};
+    \draw[thick] (0,0) -- (9,0) node[pos=2/9, above]{$z_{1}$} node[pos=6/9, above]{$z_{2}$};
+    \draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (0,0) -- (2,0)  node[below]{$j_{1}$};
+    \draw[fill] (4,0) circle [radius=0.1] node[above]{$v_{1}$} node[below right]{$1$};
+    \draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (4,0) -- (6,0)  node[below]{$j_{2}$};
+    \draw[arrows = {-Stealth[fill=none, inset=0pt, angle=90:10pt]}, thick] (4,0) -- (4,-1.5);
+    \draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (4,0) -- node[left]{$i_{1}$}(4,-1);
+    \draw[fill] (8,0) circle [radius=0.1] node[above]{$v_{2}$} node[below right]{$2$};
+    \draw[arrows = {-Stealth[fill=none, inset=0pt, angle=90:10pt]}, thick] (8,0) -- (8,-1.5);
+    \draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (8,0) -- node[left]{$i_{2}$}(8,-1);
+    \draw[dotted, thick] (9,0) -- (10,0);
+    \draw[thick] (10,0) -- (11,0);
+    \draw[fill] (11,0) circle [radius=0.1] node[above]{$v_{N-1}$} node[below right]{$N-1$};
+    \draw[arrows = {-Stealth[fill=none, inset=0pt, angle=90:10pt]}, thick] (11,0) -- (11,-1.5);
+    \draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (11,0) -- node[left]{$i_{N-1}$}(11,-1);
+    \draw[thick] (11,0) -- node[above]{$z_{N}$}(15,0);
+    \draw[fill] (15,0) circle [radius=0.1] node[above]{$v_{N}$} node[below right]{$N$};
+    \draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (11,0) -- (13,0)  node[below]{$j_{N}$};
+    \draw[arrows = {-Stealth[fill=none, inset=0pt, angle=90:10pt]}, thick] (15,0) -- (15,-1.5);
+    \draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (15,0) -- node[left]{$i_{N}$}(15,-1);
+
+    \draw[dotted, thin] (0, 2) -- (17,2);
+    \draw[fill] (0,2) circle [radius=0.1] node[above]{$0$};
+    \draw[fill] (4,2) circle [radius=0.1] node[above]{$1$};
+    \draw[fill] (8,2) circle [radius=0.1] node[above]{$2$};
+    \draw[fill] (11,2) circle [radius=0.1] node[above]{$N-1$};
+    \draw[fill] (15,2) circle [radius=0.1] node[above]{$N$};
+
+    \coordinate (a1) at (0,2);
+    \coordinate (b1) at (2,2);
+    \coordinate (c1) at (1.9,1.3);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (a1) node[right = 1cm]{$\delta_{0}$}--(c1) node[right]{$|v_0|$};
+    \pic[draw,<-,>=stealth,angle eccentricity=1.3, angle radius=1cm] {angle=c1--a1--b1};
+
+    \coordinate (a2) at (4,2);
+    \coordinate (b2) at (6,2);
+    \coordinate (c2) at (5.9,1.4);
+    \coordinate (d2) at (5.4,0.7);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (a2) node[right = 1cm]{$\delta_{1}$}--(c2) node[right]{$|v_1|$};
+    \pic[draw,<-,>=stealth,angle eccentricity=1.3, angle radius=1cm] {angle=c2--a2--b2};
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (a2) -- (d2) node[right]{$|i_1|$};
+    \pic["$\theta_1$", draw,<-,>=stealth,angle eccentricity=1.4, angle radius=1cm] {angle=d2--a2--c2};
+
+    \coordinate (a3) at (8,2);
+    \coordinate (b3) at (10,2);
+    \coordinate (c3) at (9.9,1.5);
+    \coordinate (d3) at (9.6,0.9);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (a3) node[right = 1cm]{$\delta_{2}$}--(c3) node[right]{$|v_2|$};
+    \pic[draw,<-,>=stealth,angle eccentricity=1.3, angle radius=1cm] {angle=c3--a3--b3};
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (a3) -- (d3) node[right]{$|i_2|$};
+    \pic["$\theta_2$", draw,<-,>=stealth,angle eccentricity=1.4, angle radius=1cm] {angle=d3--a3--c3};
+
+    \coordinate (aN-1) at (11,2);
+    \coordinate (bN-1) at (13,2);
+    \coordinate (cN-1) at (12.9,1.7);
+    \coordinate (dN-1) at (12.5,1);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (aN-1) node[right = 1cm]{$\delta_{N-1}$}--(cN-1) node[right]{$|v_{N-1}|$};
+    \pic[draw,<-,>=stealth,angle eccentricity=1.6, angle radius=1cm] {angle=cN-1--aN-1--bN-1};
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (aN-1) -- (dN-1) node[right]{$|i_{N-1}|$};
+    \pic["$\theta_{N-1}$", draw,<-,>=stealth,angle eccentricity=1.5, angle radius=1cm] {angle=dN-1--aN-1--cN-1};
+
+    \coordinate (aN) at (15,2);
+    \coordinate (bN) at (17,2);
+    \coordinate (cN) at (16.7,1.3);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (aN)--(bN) node[right]{$|v_N|$};
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (aN) -- (cN) node[right]{$|i_N|$};
+    \pic["$\theta_N$", draw,<-,>=stealth,angle eccentricity=1.4, angle radius=1cm] {angle=cN--aN--bN};
+
+  \end{tikzpicture}
+  \caption{Bottom: model of a single-phase linear low-voltage distribution feeder. 
+  Top: global voltage ($v^g_n$) and current ($i_{n}e^{i\delta_n}$) phasors at each node. In this figure the phase reference is chosen with respect to the last node $N$.}
+  \label{f1}
+\end{figure*}
+
+The following conventions are used for description of a low-voltage network:
+\begin{itemize}
+  \item Node $0$ represents a substation transformer.
+  \item Linear feeder nodes and lines are indexed such that $n$-th power line connects nodes $n-1$ and $n$, we denote it as $(n-1, n)$. Therefore all linear feeder parameters have one index.
+  \item A radial power network is represented by a tree graph $G(\mathcal{N}, \mathcal{E})$ where each node in $\mathcal{N}$ denotes a bus number and each link $(k, n) \in \mathcal{E}$ denotes a power line between nodes $k$ and $n$. Power line related parameters in the radial network require two indices.
+  \item We limit our study to steady state behaviour of a single phase LV grid, when all voltages and currents can be represented as phasors.
+  \item Small Latin letters are used for complex or real scalars, i.e. $a_n = |a_n|e^{i\angle a_n}$ where $|a_n|$ - amplitude of the complex scalar $a_n$ and $\angle a_n$ - its angle. Bold letters are used for vectors ($\bm{a}_n = \big[a_{1, 1}, \ldots, a_{M, n}\big]^T = \big[a_{1:M, n}\big]^T$) and bold capital letters for matrices ($\bm{A}_n = \big[a_{1:M, 1:N}\big] = \big[\bm{a}_{1:N}\big]$). 
+\end{itemize}
+
+\subsection{Linear feeder. Models} 
+
+Consider a single phase model of a linear low-voltage distribution feeder (Fig. \ref{f1}) where $N$ buses (nodes $1, \ldots, N$) are connected in series to a distribution transformer (node $0$). Every bus $n$ has voltage $v_n$ and current $i_n$, that are represented as phasors with angle $\theta_n$ between them. When $\theta_n > 0$, current is lagging the voltage. Power line impedances and corresponding line currents are denoted by $z_n$ and $j_n$ respectively. By $\delta_n$ we denote the phase of a voltage phasor with respect to a global reference, for example in Figure \ref{f1} the phase reference is chosen with respect to the last node $N$.
+
+Throughout this paper we distinguish between global variables, i.e. variables defined with respect to a global phase reference, and local variables, i.e. variables that do not contain global phase angle ($\delta_n$) information:
+
+\begin{itemize}
+  \item $v_n \coloneqq |v_n|$ - local voltage at the node $n$;
+  \item $v_n^g \coloneqq |v_n|e^{i\delta_n}$ - global voltage at the node $n$;
+  \item $i_{n} \coloneqq |i_{n}|e^{i\theta_n}$ - local current (consumed or injected) at the node $n$;
+  \item $i^g_{n} \coloneqq |i_{n}|e^{i(\theta_n + \delta_n)} = i_{n}e^{i\delta_n}$ - global current (consumed or injected) at the node $n$;
+\end{itemize}
+
+Given only local information $v_n, i_n, \theta_n, z_n$ for all nodes $n$, we can calculate unknown node phases $\delta_n$ and line currents $j_n$ using Propositions \ref{backward_prop} and \ref{forward-prop}. 
+
+\begin{proposition}[Backward model]
+  Refer to Fig. \ref{f1}. Let the phase reference be chosen with respect to the last node $N$ (as in Fig. \ref{f1}), i.e. $\delta_N = 0$. Also, let $j_{n} \coloneqq |j_{n}|e^{i\beta_n}$ is a local line current, then
+  \begin{equation}
+    \begin{split}
+    v_{n-1}e^{i\Delta_{n}} - v_{n} = j_{n}z_{n}, \\
+    j_{n-1} = i_{n-1} + j_{n}e^{-i\Delta_{n}}
+    \end{split}
+    \label{l_pi_original}
+  \end{equation}
+  for all $n$, where $\Delta_{n} = \delta_{n-1} - \delta_{n}$ is the phase increment corresponding to the power line $(n-1, n)$. 
+  \label{backward_prop}
+\end{proposition}
+
+\begin{proof}
+Define a global line current, flowing between nodes $n-1$ and $n$ as $j^{g}_{n} \coloneqq j_{n}e^{i\delta_n} = |j_{n}|e^{i(\beta_n + \delta_n)}$, i.e. its phase is calculated with respect to the (receiving) node $n$, which gives $j^{g}_{N} = i_N$. Using Ohm's law, we can find the ($N-1$)-th node's phase $\delta_{N-1}$: 
+  $$v_{N-1}e^{i\delta_{N-1}} - v_{N} = j^{g}_{N}z_{N},$$
+and from Kirchoff's current law we calculate current $j^{g}_{N-1} = i^g_{N-1} + j^{g}_{N}$ flowing between nodes $N-1$ and $N$.
+We repeat this procedure for nodes $N-2, N-3, \ldots, 0$, find all phases and obtain the following recursive relations for phases and line currents in the feeder:
+\begin{equation*}
+  \begin{split}
+  v_{n-1}e^{i\delta_{n-1}} - v_{n}e^{i\delta_n} = j^{g}_{n}z_{n}, \\
+  j^{g}_{n-1} = i^g_{n-1} + j^{g}_{n}.
+  \end{split}
+\end{equation*}
+Divide the first equation by $e^{i\delta_{n}}$, the second by $e^{i\delta_{n-1}}$, and then noting that $j^{g}_n e^{-i\delta_n} = j_n$, we obtain the model (\ref{l_pi_original}) written in terms of phase increments and local variables.
+\end{proof}
+
+It is often convenient to choose the phase reference with respect to the distribution transformer which leads to the alternative model. 
+\begin{proposition}[Forward model]
+  Refer to Fig. \ref{f1}. Let the phase reference be chosen with respect to the first node in the network, i.e. $\delta_0 = 0$. Also, let $j_{n} \coloneqq |j_{n}|e^{i\phi_n}$ is a local line current, then
+  \begin{equation}
+    \begin{split}
+    v_{n-1} - v_{n}e^{-i\Delta_{n}} = j_{n}z_{n}, \\
+    j_{n+1} = j_{n}e^{i\Delta_{n}} - i_{n}
+    \end{split}
+    \label{lf-forward1}
+  \end{equation}
+  for all $n$, where $\Delta_{n} = \delta_{n-1} - \delta_{n}$ is the phase increment corresponding to the power line $(n-1, n)$. 
+  \label{forward-prop}
+\end{proposition}
+
+\begin{proof}
+  Define a global line current as $j^{g}_{n} \coloneqq j_{n}e^{i\delta_{n-1}} = |j_{n}|e^{i(\phi_n + \delta_{n-1})}$ , i.e. its phase is defined with respect to the (sending) node $n-1$. This definition enables us to start consideration from the first node of the linear feeder, where $\delta_0 = 0$. Following the same procedure as in the proof of Proposition \ref{backward_prop} we obtain:
+  \begin{equation*}
+    \begin{split}
+    v_{n-1}e^{i\delta_{n-1}} - v_{n}e^{i\delta_n} = j^{g}_{n}z_{n}, \\
+    j^{g}_{n+1} = j^{g}_{n} - i^g_{n}.
+    \end{split}
+  \end{equation*}
+  Divide the first equation by $\delta_{n-1}$ and the second one by $\delta_{n}$ we get a model (\ref{lf-forward1}) written in terms of phase increments and local variables. 
+\end{proof}
+
+\begin{remark} \hfill
+\begin{itemize}
+  \begin{comment}
+  \item Another useful forward model formulation is obtained after excluding the phase term $e^{i\Delta_{n}}$:
+        \begin{equation}
+        \begin{split}
+        |v_{n-1}| - |v_{n}|e^{-i\Delta_{n}} = j_{n}z_{n} \\
+        j_{n+1} = j_{n}\frac{|v_{n-1}|}{|v_{n}|} - z_{n}^*\frac{|j_{n}|^2}{|v_{n}|} - i_{n}
+        \end{split}
+        \label{lf-forward2}
+        \end{equation}
+  \end{comment}
+  \item The forward model has some limitations. For instance, it requires knowledge of the substation transformer current (i.e. $j_{1}$ on fig. \ref{f1}). In the context of impedance identification this means that its magnitude and phase should be known from measurements. However, this is not always the case for LV distribution grids. Another limitation will become apparent when considering the tree network case. 
+  \item The forward and backward models are essentially equivalent in that the forward model (\ref{lf-forward1}) can be obtained from (\ref{l_pi_original}) by multiplying the first equation by $e^{-i\Delta_{n}}$ and noting the difference in phases for line current definitions.  
+\end{itemize} 
+\end{remark}
+
+\subsection{Tree network}{}
+
+The results of the previous subsection can be extended to the case of a tree topology. We start from a simple branching example, show how to resolve it using the system of equations (\ref{l_pi_original}) and then generalise this approach for any tree network.
+\begin{proposition}
+  The backward model (\ref{l_pi_original}) resolves any network with tree topology.
+\end{proposition}{}
+\begin{proof}[Proof (Outline)]
+  Consider the network topology case depicted on Fig. \ref{f2} which consists of three buses{} connected in the form of the simplest branching.
+  \begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+  \draw[fill] (0, 0) circle [radius=0.1] node[above left]{$0$};
+  \draw[thick] (0, 0) -- (3, 0);
+  \draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (0,0) -- (1.5,0)  node[above]{$j_{0,1}$};
+  \draw[fill] (3, 0) circle [radius=0.1] node[above left]{$1$};
+  %\draw[arrows = {-Stealth[fill=none, inset=0pt, angle=90:10pt]}, thick] (3, 0) -- (3, -2);
+  %\draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (3,0) -- (3, -1)  node[right]{$i_{1}$};
+  \draw[thick] (3, 0) -- (6, 0);
+  \draw[fill] (6, 0) circle [radius=0.1] node[above left]{$2$};
+  %\draw[arrows = {-Stealth[fill=none, inset=0pt, angle=90:10pt]}, thick] (6,0) -- (6,-2);
+  %\draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (6,0) -- (6, -1)  node[right]{$i_{2}$};
+  \draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (3,0) -- (4, 0)  node[above]{$j_{1,2}$};
+  \draw[thick] (3, 0) -- (3, -1) -- (6, -1);
+  \draw[fill] (6, -1) circle [radius=0.1] node[above left]{$3$};
+  %\draw[thick] (3, 2) -- (2, 2);
+  %\draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, ultra thick, dotted] (6.5,1) -- (5,1)  node[pos=1/2, above]{\textbf{BCI}$_1$};
+  %\draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, ultra thick, dotted] (4,2.5) -- (4,1)  node[pos=1/2, right]{\textbf{BCI}$_2$};
+  %\draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (3, 2) -- (2, 2)  node[above]{$i_{3}$};
+  %\draw[arrows = {-Stealth[fill=none, inset=0pt, angle=90:10pt]}, thick] (2, 2) -- (2, 1);
+  \draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (3, -1) -- (4, -1) node[above]{$j_{1,3}$};
+  %\draw[dotted, thick] (6, 0) -- (6.5, 0);
+  %\draw[dotted, thick] (3, 2) -- (3, 2.5);
+  \end{tikzpicture}
+  \caption{The simplest branching case}
+  \label{f2}
+  \end{figure}
+  Apply backward model (\ref{l_pi_original}) to branches $(1, 3)$ and $(1, 2)$ simultaneously and find $\Delta_{1,3}$, $\Delta_{1,2}$, $j_{0, 1}$:
+  \begin{equation}
+    \begin{split}
+      &{} v_{1}e^{i\Delta_{1,3}} - v_{3} = j_{1,3}z_{1,3}, \\
+      & v_{1}e^{i\Delta_{1,2}} - v_{2} = j_{1,2}z_{1,2},
+    \end{split}
+  \end{equation}
+  where $j_{1,3} = i_3$ and $j_{1,2} = i_2$. Then 
+  $$j_{0, 1} = j_{0, 1}^ge^{-i\delta_{1}} = j_{1,3}e^{-i\Delta_{1,3}} + j_{1,2}e^{-i\Delta_{1,2}} + i_1.$$
+  Next, we choose the global phase reference and find absolute values of phases at every point in the network. Without loss of generality we can pick $\delta_2 = 0$, which gives $\delta_1 = \Delta_{1,2}$. Therefore, using the definition of the phase increment introduced earlier, $\delta = [\delta_0, \delta_1, \delta_3]^T$ can be found from the following system of linear equations:
+  \begin{equation*}
+  \begin{bmatrix}
+  \Delta_{0,1} \\
+  \Delta_{1,2} \\
+  \Delta_{1,3}
+  \end{bmatrix} = 
+  \begin{bmatrix}
+  1 & -1 & 0 \\
+  0 & 1 & 0 \\
+  0 & 1 & -1  
+  \end{bmatrix}
+  \begin{bmatrix}
+  \delta_{0} \\
+  \delta_{1} \\
+  \delta_{3} 
+  \end{bmatrix}.
+  \end{equation*}
+  The same calculation can be immediately generalised to the case when node $1$ has $n > 2$ links:
+  \begin{equation*}
+  \begin{bmatrix}
+  \Delta_{0,1} \\
+  \Delta_{1,2} \\
+  \vdots \\
+  \Delta_{1,n-1} \\
+  \Delta_{1,n}
+  \end{bmatrix} = 
+  \begin{bmatrix}
+  1 & -1 & 0 & \ldots & 0 & 0 \\
+  0 & 1 & 0 & \ldots & 0 & 0 \\
+  \vdots & \vdots & \vdots & \ddots & \vdots & \vdots \\
+  0 & 1 & 0 & \ldots & -1 & 0 \\
+  0 & 1 & 0 & \ldots & 0 & -1 \\
+  \end{bmatrix}
+  \begin{bmatrix}
+  \delta_{0} \\
+  \delta_{1} \\
+  \vdots \\
+  \delta_{n-1} \\
+  \delta_{n}
+  \end{bmatrix}.
+  \end{equation*}
+  It is known from graph theory, that for any tree graph the number of vertices is equal to the number of branches minus one \cite[Corollary $1.5.3$]{diestel2005graph}, i.e. for any tree graph $G(\mathcal{N}, \mathcal{E})$ with number of nodes/vertices $|\mathcal{N}|$ and 
+  number of branches $|\mathcal{E}|$, $|\mathcal{N}| = |\mathcal{E}| - 1.$
+  Thus any tree can be iteratively constructed by adding a pair consisting of a vertex and branch, which shows that the above procedure works for a linear feeder as well as for branching with $n$ links, therefore it is applicable for any tree network. 
+\end{proof}
+\begin{remark} \hfill
+\begin{itemize}
+  \item The phase matching procedure is required at branching nodes in a tree topology case, as briefly described in the proof above. For the complete algorithm refer to Algorithm \ref{phase_matching_procedure} in Section \ref{system_identification_section}.
+  \item The forward model (\ref{lf-forward1}) is more cumbersome in a branching case. There are additional unknowns that need to be carried until termination. As an example, for the branching on Figure \ref{f2}:
+  $$j^g_{0,1} = i_{1}e^{i\Delta_{0, 1}} + j_{1,2}^g + j_{1,3}^g,$$
+  currents $j_{1,2}^g$ and $j_{1,3}^g$ are unknown, i.e. there are 2 equations, 4 unknowns.
+\end{itemize}
+\end{remark}
+
+\subsection{Discussion}
+
+As we saw in the previous sections, the forward model is not well suited to a complete low-voltage network description, hence we use the backward model further in the remainder of this paper. 
+
+To conclude the modelling part we present an iterative model directly based on the backward model (\ref{l_pi_original}) for a single phase low-voltage network that we will exploit for impedance identification purposes. For any node $n$, the set of its ancestors ($\mathcal{A}_n$) and children ($\mathcal{C}_n$) in $G(\mathcal{N}, \mathcal{E})$ obey an iterative relationship:
+\begin{equation}
+\begin{split}
+&{} v_{n}e^{i\Delta_{n, l}} - v_{l} = j_{n, l}z_{n, l}, \quad l \in \mathcal{C}_n,\\
+& \sum_{k \in \mathcal{A}_n} j_{k, n} = i_{n} + \sum_{l \in \mathcal{C}_n} j_{n, l}e^{-i\Delta_{n, l}}.
+\end{split}
+\label{l_pi_general}
+\end{equation}
+Finally, it is worth noting that the system of equations (\ref{l_pi_general}) is not a new model for power networks. 
+\begin{proposition}
+  The system of equations (\ref{l_pi_general}) implies the standard power flow model:
+  \begin{equation}
+    \begin{split}
+    &{} v_{n}^2 = v_{l}^2 + S_{n, l}z_{n, l}^* + S_{n, l}^*z_{n, l} + |j_{n, l}^gz_{n, l}|^2, \quad l \in \mathcal{C}_n, \\
+    & \sum_{k \in \mathcal{A}_n} S_{k, n} - \sum_{l \in \mathcal{C}_n} (S_{n, l} + |j_{n, l}^g|^2z_{n, l})- s_{n} = 0.
+    \end{split}
+    \label{bpf_general}
+  \end{equation}
+  where $S_{n, l} = j_{n, l}^{g*}v_l^g$ and $s_{n} = i^{g*}_{n}v^{g}_{n}$.
+\end{proposition}
+\begin{proof}
+  Exclude the phase term $e^{i\Delta_{n, l}}$ in (\ref{l_pi_general}) and introduce the \textit{receiving-end} \footnote{Note that the sign for terms with $|j_{n, l}|^2$ in resulting power flow equations is reversed with respect to the case when branch power is defined as sending-end complex power flow, i.e. $S_{n, l}=j_{n, l}^*v_n$.} complex power flow from $n$ to $l$ as $S_{n, l}=j_{n, l}^{g*}v_l^g = j_{n, l}^*|v_l|$ (since $ j_{n, l}^{g*}v_l^g = j_{n, l}^*e^{-i\delta_l}|v_l|e^{i\delta_l} = j_{n, l}^*|v_l|$), and  complex power injection $s_{n}$ to obtain:
+  \begin{equation*}
+    \begin{split}
+    &{} v_{n}e^{i\Delta_{n, i}} - v_{i} = j_{n, i}z_{n, i}, \quad i \in \mathcal{C}_n,\\
+    & \sum_{k \in \mathcal{A}_n} S_{k, n}^* = s_{n} + \sum_{i \in \mathcal{C}_n} (S_{n, i}^* + |j_{n, i}|^2z_{n, i}^*).
+    \end{split}
+  \end{equation*}
+  Next, transfer the $v_i$ term to the right-hand side, take the magnitude squared of the first equation (also, note that $|j_{n, i}|^2 = |j_{n, i}^g|^2$) and complex conjugate of the second equation to obtain the well known power flow model (\ref{bpf_general}).
+\end{proof} 
+
+\begin{remark}
+  Comparing equations (\ref{bpf_general}) and (\ref{l_pi_general}), we notice that the impedance term in the power flow model appears as $z_{n, l}$ and $|z_{n, l}|^2$, whereas the backward model has only $z_{n, l}$. Therefore, (\ref{l_pi_general}) is a better conditioned set of equations and we prefer it over (\ref{bpf_general}) for the problem of impedance identification, that we consider in detail in the next section.
+\end{remark}
+
+\section{System identification}
+\label{system_identification_section}
+In this section we consider the problem of system identification, that is, the problem of identifying impedances in a low-voltage network and we develop an approach that exploits the iterative structure of the backward model (\ref{l_pi_general}). We work through the details for a linear feeder model, however the proposed method can be generalised to any tree network as described earlier. We first formulate the optimisation problem for the whole network and then consider two methods to solve it approximately.
+
+We start by considering the same linear feeder model as before (fig. \ref{f1}) with the following measurements available:
+\begin{itemize}
+  \item $\bm{v}_0$ - RMS \footnote{Root mean square} substation transformer voltage,
+  \item $\bm{v}_{n} = \big[ v_{n}^{(1)}, \ldots, v_{n}^{(M)} \big]^T$ - RMS voltage measurements at node $n$,
+  \item $|\bm{i}_{n}| = \big[ |i_{n}^{(1)}|, \ldots, |i_{n}^{(M)}| \big]^T$ - RMS consumption current measurements at node $n$, 
+  \item $\bm{\theta}_{n} = \big[\theta_{n}^{(1)}, \ldots, \theta_{n}^{(M)}]^T$ - angle measurements between voltage and current phasors,
+\end{itemize}
+where indices $n = 1:N$ and $m = 1:M$ are used for node and measurement number respectively, e.g. $v_{n}^{(m)}$ - RMS value of the voltage at node $n$ corresponding to the $m$-th measurement\footnote{Although the index $m$ is used for measurement number, it does not necessarily mean that the corresponding quantity is measured, e.g. the value of $j_{n}^{(m)}$ corresponds to $m$-th measurement, but it is not measured directly and must be derived from other measurements.}. According to the minimum functionality requirements for smart metering infrastructure in Australia, every smart meter should be capable of measuring total active power, reactive power and voltage magnitude \cite[Table $6-2$]{SMmin_au}, which is equivalent to availability of $\bm{v}_{n}, |\bm{i}_{n}|, \bm{\theta}_n$ for all $n$. 
+
+Regarding the measurements we assume the following.
+
+\textbf{Assumption 1}. Smart meter measurements can be considered time synchronised with respect to system changes, i.e. for the $m$-th measurement taken from every node, load impedances remain constant. Refer to Fig. \ref{time_synchronicity}.
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \coordinate (zero) at (0, 0);
+    \coordinate (node_n) at (8, 0);
+    \coordinate (tn) at (0, 2);
+    \coordinate (g0) at (0, 0.5);
+    \coordinate (g1) at (0, 1.5);
+    \coordinate (g2) at (8, 1.5);
+    \coordinate (g3) at (8, 0.5);
+    \draw[dotted, thin, fill=gray!50] (g0)--(g1)--node[above]{$m$-th measurement timespan}(g2)--(g3)--(g0);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (zero) -- (node_n) node[above]{$n$};
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (zero) -- (tn) node[left]{$t$};
+
+    % dot coordinates
+    \coordinate (d0) at (1, 0.7);
+    \coordinate (d0p) at (1, 0);
+    \coordinate (d1) at (2, 1.3);
+    \coordinate (d1p) at (2, 0);
+    \coordinate (d2) at (3, 1.1);
+    \coordinate (d2p) at (3, 0);
+    \coordinate (d3) at (4, 1.2);
+    \coordinate (d3p) at (4, 0);
+    \coordinate (d4) at (6, 1.3);
+    \coordinate (d4p) at (6, 0);
+    \coordinate (d5) at (7, 0.9);
+    \coordinate (d5p) at (7, 0);
+
+    \draw[fill] (d0) circle [radius=0.1]; \draw[dotted] (d0) -- (d0p)node[below]{$1$};
+    \draw[fill] (d1) circle [radius=0.1]; \draw[dotted] (d1) -- (d1p)node[below]{$2$};
+    \draw[fill] (d2) circle [radius=0.1]; \draw[dotted] (d2) -- (d2p)node[below]{$3$};
+    \draw[fill] (d3) circle [radius=0.1]; \draw[dotted] (d3) -- (d3p)node[below]{$4$};
+    \draw[fill] (d4) circle [radius=0.1]; \draw[dotted] (d4) -- (d4p)node[below]{$N-1$};
+    \draw[fill] (d5) circle [radius=0.1]; \draw[dotted] (d5) -- (d5p)node[below]{$N$};
+  \end{tikzpicture}
+  \caption{Time synchronicity assumption. Gray region is a single time stamp corresponding to $m$-th measurement.}
+  \label{time_synchronicity}
+\end{figure}
+This is justified because smart metering minimum functionality specifications require smart meters to maintain measurement time clocks to within a few seconds across a network, see e.g. \cite[Chapter $7.5$]{SMmin_au},\cite[Chapter $6$]{NMI_au}. 
+\begin{remark}
+Importantly, the smart meter measurements are not phase synchronous and phase synchronicity is not needed for our algorithms. Figure \ref{f3} shows the difference between phase and time synchronicity for measurements in phasor representation.
+\end{remark}
+\begin{figure}[H]
+  \centering
+  \begin{tikzpicture}
+    \coordinate (t0) at (0, 0.5);
+    \coordinate (tn) at (8, 0.5);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (t0) -- (tn) node[above]{$t$};
+
+    % arrows 1
+    \coordinate (a1) at (0, 2);
+    \coordinate (c1) at (1.9, 1.7);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (a1) -- (c1);
+    \draw[thin, dotted](a1) -- (0, 0.5);
+
+    \coordinate (a2) at (0,1.5);
+    \coordinate (c2_) at (1.9, 1.2);
+    \coordinate (c2) at (1.9, 1);
+    %\draw[dotted, thin, fill=gray!50] (a2)--(c2)--(c2_)--(a2);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (a2) -- (c2_);
+
+    \coordinate (text1) at (1, 0);
+    \node[text width=2cm] at (text1){time: \cmark \\ phase: \cmark};
+
+    % arrows 2
+    \coordinate (a3) at (3,2);
+    \coordinate (c3) at (4.9,1.7);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (a3) -- (c3);
+    \draw[thin, dotted](a3) -- (3, 1.5);
+
+    \coordinate (a4) at (3, 1.5);
+    \coordinate (a4_) at (3.2, 1.5);
+    \coordinate (c4) at (5.1, 1.2);
+    \draw[dotted, thin, fill=gray!50] (a4_)--(a4)--(3, 0.5)--(3.2, 0.5)--(a4_);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (a4_) -- (c4);
+
+    \coordinate (text2) at (4, 0);
+    \node[text width=2cm] at (text2){time: \xmark \\ phase: \cmark};
+
+    % arrows 3
+    \coordinate (a5) at (6,2);
+    \coordinate (c5) at (7.9,1.7);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (a5) -- (c5);
+    \draw[thin, dotted](a5) -- (6, 0.5);
+
+    \coordinate (a6) at (6,1.5);
+    \coordinate (c6_) at (7.9, 1.2);
+    \coordinate (c6) at (7.9, 1);
+    \draw[dotted, thin, fill=gray!50] (a6)--(c6)--(c6_)--(a6);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (a6) -- (c6);
+
+    \coordinate (text3) at (7, 0);
+    \node[text width=2cm] at (text3){time: \cmark \\ phase: \xmark};
+  \end{tikzpicture}
+  \caption{Difference between phase and time synchronicity of measurements. Phasor representation.}
+  \label{f3}
+\end{figure}
+\textbf{Assumption 2} Line impedances and grid topology remain unchanged during the whole measurement process. 
+\begin{remark} 
+Algorithms that we develop in the next section allow us to monitor varying line impedances and, therefore, detect topology changes.
+\end{remark}
+\textbf{Assumption 3}. Smart meter measurement uncertainty is approximated by Gaussian noise $\mathcal{N}(0, \sigma)$, where $\sigma$ corresponds to $1\%$ full scale error which is practical for the majority of household smart meters, see e.g. technical reports \cite[Chapter $4$]{NMI_au}, \cite[Chapter $7.1$]{SMmin_au}.
+\begin{remark}
+  Note, however, that $1\%$ of full scale error for voltage, current and angle corresponds to about $2\%$ error in measured power, i.e. this setup can be considered as a worst case. Thus, we also consider $0.5\%$ and $0.1\%$ of full scale error cases.
+\end{remark}
+
+\subsection{Problem formulation. Linear feeder}
+
+Consider a linear feeder (Fig. \ref{f1}) and formulate the problem of identifying impedances based on the backward model (\ref{l_pi_original}) written in multidimensional form (i.e. when multiple measurements are gathered):
+\begin{equation}
+\begin{split}
+&{} \bm{v}_{n-1}e^{i\bm{\Delta}_{n}} - \bm{v}_{n} = \bm{j}_{n}z_{n}, \\
+& \bm{j}_{n-1} = \bm{i}_{n-1} + \bm{j}_{n}e^{-i\bm{\Delta}_{n}},
+\end{split}
+\label{lf-sysid-model}
+\end{equation}
+where $\bm{v}_{n} = \big[ v^{(1)}_{n}, \ldots, v^{(M)}_{n} \big]^T$, $\bm{j}_{n} = \big[ j^{(1)}_{n}, \ldots, j^{(M)}_{n} \big]^T$, $\bm{\Delta_n} = \big[ \Delta^{(1)}_{n}, \ldots, \Delta^{(M)}_{n} \big]^T$ and $e^{i\bm{\Delta}_{n}}$ is a component-wise operation as well as multiplication of two vectors $\bm{v}_{n-1}e^{i\bm{\Delta}_{n}}$ and $\bm{j}_{n}e^{i\bm{\Delta}_{n}}$.
+
+Next, define a cost function for the $n$-th power line based on the first equation in (\ref{lf-sysid-model}): 
+\begin{equation}
+c_n(z_{n}, \bm{j}_n, \bm{\Delta}_{n}) = \Big\| \bm{v}_{n-1}e^{i\bm{\Delta}_{n}} - \bm{v}_{n} - \bm{j}_{n}z_{n} \Big\|_2^2,
+\label{cost_function}
+\end{equation} 
+and introduce a cost-to-go function
+\begin{equation}
+J_{k:N} = \sum_{n = k}^{N} c_n(z_{n}, \bm{j}_n, \bm{\Delta}_{n})
+\label{total_cost}
+\end{equation}
+for lines $N, N-1, \ldots, k$. Using the second equation in (\ref{lf-sysid-model}) we formulate the problem of impedance identification in a linear feeder:
+\begin{equation}
+\begin{aligned}
+& \minimise_{z_{1:N}, \bm{\Delta}_{0:N-1}}
+& & J_{1:N} \\
+& \st
+& & \bm{j}_{n-1} = \bm{i}_{n-1} + \bm{j}_{n}e^{-i\bm{\Delta}_{n}}, \\
+&&& \bm{j}_{N} = \bm{i}_{N}, \\
+&&& n = 1,\ldots, N-1.
+\end{aligned}
+\label{pf_network}
+\end{equation}
+The resulting optimisation problem is non-linear and non-convex. In the next subsections we consider simplifications that allow solution for different practical scenarios.
+
+\subsection{Identification algorithm. Linearised case}
+
+The first simplification is based on the following assumption.
+
+\textbf{Assumption 4} The phase increments $\Delta_n$ are negligibly small. 
+
+To justify this, consider the backward model (\ref{l_pi_original}) and take the imaginary part of the first equation: 
+$\sin{\Delta_{n}} = \frac{\Imag{(j_{n}z_{n})}}{|v_{n-1}|} \le \frac{|j_{n}z_{n}|}{|v_{n-1}|}.$
+Thus, the value of the phase increment is bounded by the voltage drop of the corresponding power line, which is a very small quantity for low-voltage networks due to short length (up to a few hundred meters) of the power lines.
+\begin{remark}
+Note, that we neglect the phase increments but we do not neglect the absolute phase at each node in the network. 
+\end{remark}
+Under Assumption 3, the model (\ref{lf-sysid-model}) takes the form:
+\begin{equation}
+  \begin{split}
+  \bm{v}_{n-1} - \bm{v}_{n} = \bm{j}_{n}z_{n}, \\
+  \bm{j}_{n-1} = \bm{i}_{n-1} + \bm{j}_{n}.
+  \end{split}
+  \label{lf-sysid-model-lin}
+\end{equation}
+Then the cost function (\ref{cost_function}) can be linearised and rewritten as follows by splitting it into real and imaginary parts:
+\begin{equation}
+  c^{l}_n(\bm{z}_{n}, \bm{j}_n) = \Big\| \bm{v}_{n-1} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}_{n} \Big\|_2^2 + \Big\|\bm{J}_{n}\bm{Q}_2\bm{z}_{n} \Big\|_2^2,
+  \label{cost_function-lin}
+\end{equation}
+where $\bm{J}_n \coloneqq \big[ \Real{\bm{j}_n} \quad \Imag{\bm{j}_n}\big]$, $\bm{z}_n \coloneqq \big[ \Real{z_n} \quad \Imag{z_n} \big]^T$, $\bm{Q}_1 \coloneqq 
+\begin{bmatrix}
+1 & 0 \\
+0 & -1
+\end{bmatrix}$ and $\bm{Q}_2 \coloneqq
+\begin{bmatrix}
+0 & 1 \\
+1 & 0
+\end{bmatrix}$.
+Therefore, we obtain the optimisation problem of the form:
+\begin{equation}
+  \begin{aligned}
+  & \minimise_{\bm{z}_{1:N}} 
+  & & J^l_{1:N} \\
+  & \st
+  & & \bm{j}_{n-1} = \bm{i}_{n-1} + \bm{j}_{n}, \\
+  &&& \bm{j}_{N} = \bm{i}_{N}, \\
+  &&& n = 1,\ldots, N-1.
+  \end{aligned}
+  \label{lf-sysid-problem-lin}
+\end{equation}
+where $J^l_{1:N} = \sum_{n = 1}^{N} c^l_n(\bm{z}_{n}, \bm{j}_n)$ is the corresponding linearised cost-to-go function. The following proposition shows how this problem can be further simplified.
+\begin{proposition}
+Minimising the sum in (\ref{lf-sysid-problem-lin}) is equivalent to minimising each term $c^l_n(\bm{z}_{n}, \bm{j}_n)$ separately.
+\end{proposition}
+\begin{proof}
+  To show this, consider the cost-to-go function for the last two power lines:
+  \begin{equation*}
+    \begin{split}
+    &{}J_{N-1:N} = \min_{\bm{z}_{N-1:N}} \big[ c^l_{N-1}(\bm{z}_{N-1}, \bm{j}_{N-1}) + c^l_N(\bm{z}_{N}, \bm{j}_{N}) \big] = \\
+    & = \min_{\bm{z}_{N-1}} \big[ c_{N-1}(\bm{z}_{N-1}, \bm{i_{N-1}} + \bm{j}_{N}) \big] + \min_{\bm{z}_{N}} \big[ c^l_N(\bm{z}_{N}, \bm{j}_{N}) \big],
+    \end{split}
+  \end{equation*}
+  where both terms are the impedance identification problems for lines $N$ and $N-1$. Using the same argument for $N$ power lines, we conclude that minimising sum in (\ref{pf_network}) is equivalent to minimising each term separately.
+\end{proof}
+\begin{remark}
+\hfill
+\begin{itemize}
+  \item Minimisation of $c^l_n(\bm{z}_n, \bm{j}_n)$ with respect to $\bm{z}_n$ is a simple unconstrained least squares problem, where the second term can be interpreted as a regularisation term. Note, that it appears naturally in the problem formulation.
+  \item Formally, measurement noise affects the $\bm{J}_n$ term, since it contains data (real and imaginary parts of $\bm{j}_n$) derived from measurements. In practice, the main source of error is the voltage measurement noise, therefore the error in matrix $\bm{J}_n$ can be neglected in favour of using a linear least squares approach. Linear least squares estimation is also preferable as a simple (from a computational perspective for decentralised implementation) and flexible (i.e. has recursive, weighted modifications) method. This allows real-time tracking of impedances in the network as new measurements become available. Nevertheless, when errors in $\bm{J}_n$ need to be taken into account, total least squares (TLS) techniques can be used \cite{golub1999tikhonov}.
+\end{itemize}
+\end{remark}
+As a result, we obtain the algorithm that solves problem (\ref{lf-sysid-problem-lin}). Since it identifies the network starting from the edge node and propagating all the way through to the first node, we call it LBCI (Linearised Backward Calculation of Impedances):
+\begin{algorithm}[H]
+\caption{LBCI algorithm for a linear feeder}
+\label{a2}
+\begin{algorithmic}[1]
+\State $\mathcal{M} \coloneqq \{\bm{v}_{n}, |\bm{i}_{n}|, \bm{\theta}_{n} ~\big|~ n=1, \ldots, N \} \cup \{ \bm{v}_0 \}$
+\Function{LBCI}{$\mathcal{M}$}
+\State $\bm{j}_{N} = \bm{i}_{N}$
+\For{$n = N : 1$}
+\State $\widehat{\bm{z}}_n = \argmin_{\bm{z}_{n}} c^{l}_n(\bm{z}_{n}, \bm{j}_n)$
+\State $\bm{j}_{n-1} = \bm{i}_{n-1} + \bm{j}_{n}$
+\EndFor
+\State \Return $\widehat{\bm{Z}} = \big[ \widehat{\bm{z}}_{1:N} \big], \bm{J} = \big[ \bm{j}_{1:N} \big]$
+\EndFunction
+\end{algorithmic}
+\end{algorithm} 
+
+Generalisation to a tree topology feeder involves one extra step: we need to keep track of phase increments in order to match the absolute phases of line currents at the intersection point. Note, that because of linearisation we do not obtain correct values of absolute phases, however this is not an issue for identification purposes, since the backward model (\ref{l_pi_original}) is based on the incremental phase information. 
+
+Let $\mathcal{M}^{i}$ and $\mathcal{M}^{j}$ be the sets of measurements for branches $i$ and $j$ that have a common node $n^*$ and sets of indices $\mathcal{N}^i$ and $\mathcal{N}^j$ correspondingly. We briefly summarise the procedure of phase matching:
+\begin{algorithm}[H]
+\caption{Phase matching procedure}
+\label{phase_matching_procedure}
+\begin{algorithmic}[1]
+%\Require $\mathcal{M}^i$, $\mathcal{M}^j$
+\State Calculate: $$\widehat{\bm{Z}}^i, \bm{J}^i =\textproc{LBCI}(\mathcal{M}^i), \quad \widehat{\bm{Z}}^j, \bm{J}^j = \textproc{LBCI}(\mathcal{M}^j).$$
+\State For a common node $n^*$ find absolute phases as a sum of phase increments $\bm{\Delta}_{k}$ \footnotemark:
+$$\bm{\Delta}_{k} = \frac{\bm{J}_{k}\bm{Q}_2 \widehat{\bm{z}}^i_{k}}{\bm{v}_{k-1}}, \quad \bm{\delta}^i_{n*} \approx \sum_{k \in \mathcal{N}_i} \bm{\Delta}_{k} , \quad \bm{\delta}^j_{n*} \approx \sum_{k \in \mathcal{N}_j} \bm{\Delta}_{k}.$${}
+\State Chose $\bm{\delta}^i_{n*}$ as a reference and update phases in branch $j$ by a factor of $\bm{\delta}^i_{n*} - \bm{\delta}^j_{n*}$. This is shown by black arrows in Fig. \ref{f4}.
+%\Ensure $\widehat{\bm{Z}} = \big[ \widehat{\bm{z}}_{1:N} \big], \bm{J} = \big[ \bm{j}_{1:N} \big]$
+\end{algorithmic}
+\end{algorithm}
+\footnotetext{Formula for $\bm{\Delta}_{k}$ is obtained from (\ref{lf-sysid-model}) after taking imaginary part of the first equation.}
+\begin{figure}[ht]
+  \centering
+  \begin{tikzpicture}
+    \coordinate (a0) at (-1, 3);
+    \coordinate (a1) at (1, 2.5); 
+    \coordinate (a2) at (2, 2.5);
+    \coordinate (a3) at (3, 2.5); 
+    \coordinate (a4) at (4, 2.5); 
+    \coordinate (a5) at (5, 2.5); 
+    \coordinate (a6) at (6, 2.5); 
+
+    \coordinate (b0) at (0, 3); 
+    \coordinate (b1) at (1, 3.5); \draw[fill] (b1) circle [radius=0.1];
+    \coordinate (b2) at (2, 3.5); \draw[fill] (b2) circle [radius=0.1];
+    \coordinate (b3) at (3, 3.5); \draw[fill] (b3) circle [radius=0.1];
+    \coordinate (b4) at (4, 3.5); \draw[fill] (b4) circle [radius=0.1];
+    \coordinate (b5) at (5, 3.5); \draw[fill] (b5) circle [radius=0.1];
+    \coordinate (b6) at (6, 3.5); \draw[fill] (b6) circle [radius=0.1];
+
+    \coordinate (a0_) at (0, 1.3); \draw[fill] (a0_) circle [radius=0.01];
+    \coordinate (a1_) at (1, 1.25); \draw[fill] (a1_) circle [radius=0.01];
+    \coordinate (a2_) at (2, 1.1); \draw[fill] (a2_) circle [radius=0.01];
+    \coordinate (a3_) at (3, 1); \draw[fill] (a3_) circle [radius=0.01];
+    \coordinate (a4_) at (4, 0.7); \draw[fill] (a4_) circle [radius=0.01];
+    \coordinate (a5_) at (5, 0.65); \draw[fill] (a5_) circle [radius=0.01];
+    \coordinate (a6_) at (6, 0.5); \draw[fill] (a6_) circle [radius=0.01];
+
+    \coordinate (b0_) at (0, 1.7); \draw[fill] (b0_) circle [radius=0.01];
+    \coordinate (b1_) at (1, 1.55); \draw[fill] (b1_) circle [radius=0.01];
+    \coordinate (b2_) at (2, 1.35); \draw[fill] (b2_) circle [radius=0.01];
+    \coordinate (b3_) at (3, 1.1); \draw[fill] (b3_) circle [radius=0.01];
+    \coordinate (b4_) at (4, 0.85); \draw[fill] (b4_) circle [radius=0.01];
+    \coordinate (b5_) at (5, 0.7); \draw[fill] (b5_) circle [radius=0.01];
+    \coordinate (b6_) at (6, 0.5); \draw[fill] (b6_) circle [radius=0.01];
+
+    \coordinate (y0) at (7, 0);
+    \coordinate (y1) at (7, 1.7);
+    \coordinate (x0) at (7, 0.5);
+    \coordinate (x1) at (-1, 0.5);
+
+    \draw[dotted] (a0) -- (b0) node[above left]{\footnotesize $n^*$};
+    \draw (b0) -- node[above left]{\footnotesize $j$}(b1) -- (b2) -- (b3);
+    \draw (b0) -- node[below left]{\footnotesize $i$}(a1) -- (a2) -- (a3);
+    \draw[dotted] (b3) -- (b4);
+    \draw[dotted] (a3) -- (a4);
+    \draw (b4) -- (b5) -- (b6) node[right]{\footnotesize $\textproc{LBCI}(\mathcal{M}^j)$};
+    \draw (a4) -- (a5) -- (a6) node[right]{\footnotesize $\textproc{LBCI}(\mathcal{M}^i)$};
+
+    \draw[gray!50, dotted] (b0) -- (0, 0.5);
+    \draw[gray!50, dotted] (a1) -- (1, 0.5);
+    \draw[gray!50, dotted] (a2) -- (2, 0.5);
+    \draw[gray!50, dotted] (a3) -- (3, 0.5);
+    \draw[gray!50, dotted] (a4) -- (4, 0.5);
+    \draw[gray!50, dotted] (a5) -- (5, 0.5);
+    \draw[gray!50, dotted] (a6) -- (6, 0.5);
+
+    \draw[gray!50, fill] (b0) circle [radius=0.1];
+    \draw[fill, gray!50] (a1) circle [radius=0.1];
+    \draw[fill, gray!50] (a2) circle [radius=0.1];
+    \draw[fill, gray!50] (a3) circle [radius=0.1];
+    \draw[fill, gray!50] (a4) circle [radius=0.1];
+    \draw[fill, gray!50] (a5) circle [radius=0.1];
+    \draw[fill, gray!50] (a6) circle [radius=0.1];
+    
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (y0) -- (y1) node[right]{\footnotesize $\bm{\delta}$}; \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (x0) node[right]{\footnotesize $\bm{0}$} -- (x1)node[below]{\footnotesize $n$};
+
+    \draw[gray!50, thick] (a0_) -- (a1_) -- (a2_) -- (a3_); \draw[gray!50, dotted] (a3_) -- (a4_); \draw[gray!50, thick] (a4_) -- (a5_) -- (a6_);
+    \draw[gray!50, dotted] ($(a0_) - (1, 0)$) -- (a0_);
+
+    
+    \draw[thick, dashed] (b0_) node[above left]{\footnotesize $\bm{\delta}^j_{n*}$} -- (b1_) -- (b2_) -- (b3_); \draw[dotted] (b3_) -- (b4_); \draw[thick, dashed] (b4_) -- (b5_) -- (b6_);
+    \draw[fill] (b0_) circle [radius=0.05];
+    \draw[dotted] (b1_) -- ($(b1_) + (2, 0)$);
+    \draw[dotted] (b2_) -- ($(b2_) + (1, 0)$);
+    \draw[<->, >=stealth, line width=0.1pt] ($(b1_) + (2, 0)$) -- node[right]{\footnotesize $\bm{\Delta}_{k}$} ($(b2_) + (1, 0)$);
+
+    \coordinate (shift) at ($(a0_) - (b0_)$); 
+    \draw[thick] ($(b0_) + (shift)$) node[below left]{\footnotesize $\bm{\delta}^i_{n*}$}-- ($(b1_) + (shift)$) -- ($(b2_) + (shift)$) -- ($(b3_) + (shift)$); \draw[dotted] ($(b3_) + (shift)$) -- ($(b4_) + (shift)$); \draw[thick] ($(b4_) + (shift)$) -- ($(b5_) + (shift)$) -- ($(b6_) + (shift)$);
+    \draw[fill, gray!50] ($(b0_) + (shift)$) circle [radius=0.05];
+
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (b0_) -- ($(b0_) + (shift)$);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (b1_) -- ($(b1_) + (shift)$);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (b2_) -- ($(b2_) + (shift)$);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (b3_) -- ($(b3_) + (shift)$);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (b4_) -- ($(b4_) + (shift)$);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (b5_) -- ($(b5_) + (shift)$);
+    \draw[arrows = {-Stealth[inset=0pt, angle=25:5pt]}] (b6_) -- ($(b6_) + (shift)$);
+
+  \end{tikzpicture}
+  \caption{Phase matching procedure example. Top: two branches $i$ (gray dots) and $j$ (black dots). Bottom: corresponding phase plots. The gray line is the phase of the reference branch $i$, dotted line shows the initial phase for branch $j$, black solid line is the updated phase for branch $j$.}
+  \label{f4}
+\end{figure}
+
+\noindent The illustration of this procedure is given in Figure \ref{f4}, where the black dotted line, corresponding to the phases along $j$-th branch before matching, gets shifted by the amount of phase difference at the node $n^*$. The complete algorithm for a tree topology case can be obtained by combining this procedure with the linear feeder algorithm. Therefore, under the linearisation assumption (Assumption 3), the problem of impedance identification can be solved optimally. 
+
+To conclude, the developed algorithm is fast, simple and can be implemented in a distributed fashion, as discussed in Section \ref{practical_modifications_section}. However, we lose information about phase angle increments at each power line which leads to unknown absolute phase at each node. It turns out that we can address this issue very efficiently without losing the key properties of the developed algorithm. 
+
+\subsection{Identification algorithm. Nonlinear case}
+
+In this section we consider an alternative simplification of (\ref{pf_network}) where minimisation of each cost function (\ref{cost_function}) is a non-linear and non-convex problem. Noticeably, any such problem has certain properties that can be exploited in order to solve it globally. Although the modification we introduce does not lead to a global solution of the original nonlinear problem (\ref{pf_network}), we show that any solution it finds is closer to the global optimum of (\ref{pf_network}) than that found in linearised case.
+
+Consider the cost function (\ref{cost_function}) and, using the notation introduced in (\ref{cost_function-lin}), write it as follows by splitting real and imaginary parts:
+\begin{equation}
+\begin{split}
+c_n(\bm{z}_{n}, \bm{j}_n, \bm{\gamma}_{n}) ={}& \Big\| \bm{V}_{n-1}\bm{\gamma}_{n} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}_{n} \Big\|_2^2 + \\
+& \Big\|\bm{V}_{n-1}\sqrt{\bm{1} - \bm{\gamma}^2_{n}} - \bm{J}_{n}\bm{Q}_2\bm{z}_{n} \Big\|_2^2,
+\end{split}
+\label{cost_function-nlin}
+\end{equation}
+where $\bm{\gamma}_n \coloneqq \cos{\bm{\Delta}_{n}}$, $\bm{V}_n \coloneqq \diag{(\bm{v}_{n})}$, $\bm{1} = \big[1, \ldots, 1 \big]^T$, operations $\sqrt{(\cdot)}$, $\cos{(\cdot)}$ and $(\cdot)^2$ are component-wise. 
+
+Next, instead of minimising the original cost $c_n(\bm{z}_{n}, \bm{j}_n, \bm{\gamma}_{n})$ at each step, we minimise the first term and use the second term as a constraint:
+\begin{equation}
+\begin{aligned}
+& \minimise_{\bm{\gamma}_{n}, \bm{z}_{n}} 
+& & \Big\| \bm{V}_{n-1}\bm{\gamma}_{n} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}_{n} \Big\|_2^2 \\
+& \st
+& & \bm{\gamma}_{n} = \sqrt{\bm{1} - \frac{(\bm{J}_{n}\bm{Q}_2\bm{z}_{n})^2}{\bm{v}^2_{n-1}}},
+\end{aligned}
+\label{sysid-nlin}
+\end{equation}
+where operations $\frac{(\cdot)}{(\cdot)}$ and $(\cdot)^2$ are component-wise. The reasoning behind this formulation will become clear in the next subsection where we make comparison with the LBCI algorithm.
+\begin{remark}
+In the constraint equation for $\bm{\gamma}_{n}$ we use only the positive root. By doing so, we restrict consideration for phase angles $\Delta^{(m)}_{n} \in [-\pi/2; \pi/2]$ (or $0 \le \gamma^{(m)}_{n} \le 1$) which is practical for low-voltage power networks.
+\end{remark}
+
+The main idea for the optimisation algorithm is based on Lemma \ref{lemma1} (see Appendix). In the context of problem (\ref{sysid-nlin}), let:
+\begin{equation*}
+\begin{split}
+{}& f(\bm{\gamma}_{n}, \bm{z}_n) \coloneqq \Big\| \bm{V}_{n-1}\bm{\gamma}_{n} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}_{n} \Big\|_2^2, \\
+& \bm{g}(\bm{z}_{n}) \coloneqq \sqrt{\bm{1} - \frac{(\bm{J}_{n}\bm{Q}_2\bm{z}_{n})^2}{\bm{v}^2_{n-1}}}, \\
+& \bm{h}(\bm{\gamma}_{n}) \coloneqq \big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger} (\bm{V}_{n-1}\bm{\gamma}_{n} - \bm{v}_{n}).
+\end{split}
+\end{equation*}
+First, we check if the requirements of Lemma \ref{lemma1} are satisfied:
+\begin{itemize}
+\item $\bm{V}_{n-1}$ is a full rank matrix since $\bm{V}_{n-1} = \diag{(\bm{v}_{n-1})}$. Regarding $\bm{J}_{n}$, we assume that it is a full rank matrix, in other words, there should be enough variation in measurements.
+\item $\bm{g}(\bm{z}_{n})$ is a surjective mapping for all $\bm{z}_{n}$ that satisfy:
+$$(\bm{J}_{n}\bm{Q}_2\bm{z}_{n})^2 \le \bm{v}^2_{n-1}$$
+This condition requires that the voltage drop at the line is less than or equal to the voltage at its node, which is always true for low-voltage networks.
+\end{itemize}
+\begin{remark}
+  $\bm{J}_n$ is not a full rank matrix if it contains identical measurements or if the line current is zero for all measurements except one. Both cases are pathological, and to handle them in practise, we introduce regularisation term into the problem formulation (see the next subsection). There is another case when $\bm{J}_n$ becomes singular: a power factor among all loads in the feeder is the same and remains constant, which is also highly improbable. We address this problem in simulations (see section \ref{num_sim_section}). 
+  \label{remark_nonzero_J}
+\end{remark}
+
+Second, according to Lemma \ref{lemma1} we need to find a fixed point of $\bm{g} \circ \bm{h}$. 
+\begin{proposition}
+A fixed point of $\bm{g} \circ \bm{h}$ can be found via the following iteration:
+\begin{equation}
+\begin{split} 
+\bm{\gamma}_{n}^{(i+1)} = \bm{\gamma}_{n}^{(i)} + \alpha\Big[\bm{g} \circ \bm{h}( \bm{\gamma}_{n}^{(i)} ) - \bm{\gamma}_{n}^{(i)}\Big], ~\bm{\gamma}_{n}^{(0)} = \bm{1}, 
+\end{split}
+\label{iteration}
+\end{equation}
+where $0 < \alpha < 1$.
+\end{proposition}
+\begin{proof}
+  Rewrite (\ref{iteration}) in the form of the Richardson iteration \cite{kelleyiterative}:
+  \begin{equation*}
+    \bm{\gamma}_{n}^{(i+1)} = \bm{\gamma}_{n}^{(i)} (\bm{I} - \bm{A}) + \alpha \bm{g} \circ \bm{h}( \bm{\gamma}_{n}^{(i)})
+  \end{equation*}
+  where $\bm{A} \coloneqq \alpha \bm{I}$ and $\bm{I}$ is the identitiy matrix. 
+  It follows that $\|\bm{I} - \bm{A}\|_2 < 1$ since $0 < \alpha < 1$. Therefore applying Corollary 1.2.1 of the Lemma 1.2.1 from \cite{kelleyiterative} the iteration (\ref{iteration}) converges to a fixed point $\bm{\gamma}_{n}^{*} = \bm{g} \circ \bm{h}( \bm{\gamma}_{n}^{*})$ for any initial $\bm{\gamma}_{n}^{(0)}$.
+\end{proof}
+\begin{remark} \hfill
+\begin{itemize}
+  \item The iteration (\ref{iteration}) is a simple gradient descent algorithm for the area maximisation problem. To see this, consider:
+  \begin{equation*}
+    \begin{split}
+    {}& \nabla_{\bm{\gamma}_{n}} \Big[ \int_{\bm{\gamma}_{n}^{(0)}}^{\bm{\gamma}_{n}} \big[\bm{g} \circ \bm{h}(\bm{\bar{\gamma}}_{n}) - \bm{\bar{\gamma}}_{n}\big] d \bm{\bar{\gamma}_{n}} \Big] = \bm{g} \circ \bm{h}(\bm{\gamma}_{n}) - \bm{\gamma}_{n}.
+    \end{split}
+  \end{equation*}
+  As follows from the properties of definite integrals, the function in brackets is strictly increasing and therefore standard optimisation techniques can be applied in order to find its global maximum. The sign of $\alpha$ defines the direction of integration. For instance, in (\ref{iteration}) the direction is chosen so, that the iteration converges to the $\bm{0} \le \bm{\gamma}_{n}^{*} \le \bm{\gamma}_{n}^{(0)}$. Figure \ref{fig1} illustrates this idea for some scalar function $g \circ h$. Importantly, $\bm{\gamma}_{n}^{*}$ that solves (\ref{sysid-nlin}) is always non-negative, this property allows using iteration (\ref{iteration}) and obtain a global solution. 
+  \begin{figure}[t]
+  \centering
+  \begin{tikzpicture}
+  \begin{axis}[xmin=0,xmax=1,
+              ymin=0,ymax=1,
+              grid=both,
+              grid style={line width=.1pt, draw=gray!10},
+              major grid style={line width=.2pt,draw=gray!50},
+              axis lines=middle,
+              minor tick num=4,
+              enlargelimits={abs=0.2},
+              axis line style={latex-latex},
+              ticklabel style={font=\tiny, fill=white},
+              xlabel style={at={(ticklabel* cs:1)},anchor=north west},
+              ylabel style={at={(ticklabel* cs:1)},anchor=south west},
+              xlabel = {$~\gamma_1$},
+              ylabel = {$\gamma_2$}]
+  \addplot[name path=F,black!,domain={0:1}, samples=101] {sqrt(1 - 0.02*(12*x - 6)^2)} node[pos=0.6, above left]{$g \circ h$};
+  %Sqrt[1 - 0.0000135558 (-200 + 220 x)^2] mathematica approximate result
+  \addplot[name path=G,black,domain={-1:2}] {x};
+  \addplot[pattern=north west lines, pattern color=gray!50]fill between[of=F and G, soft clip={domain=0.82:1}];
+  \node[label={90:{$\gamma^{(0)}$}},circle,fill,inner sep=1pt] at (axis cs:1,1) {};
+  \node[label={90:{$\gamma^*$}},circle,fill,inner sep=1pt] at (axis cs:0.827,0.827) {};
+  \end{axis}
+  \end{tikzpicture}
+  \caption{Area maximisation problem for a scalar case. The objective is to maximise the area between $g \circ h$ and a line, starting from $\gamma^{(0)}$. The result is shown in dashed gray.}
+  \label{fig1}
+  \end{figure}
+  \item In the context of power systems, at the first step ($i = 0$) of the iteration (\ref{iteration}) we solve the minimisation problem (\ref{sysid-nlin}) with linear approximation around $\bm{\gamma}_n = \bm{1}$. This is equivalent to Assumption 2(see previous subsection). At the next iteration the algorithm consequently improves previous estimation converging to the solution. 
+\end{itemize}
+\end{remark}
+
+Finally, we formalise the resulting identification algorithm with iteration (\ref{iteration}) for a single power line between nodes $n-1$ and $n$  in Algorithm \ref{a1}. 
+\begin{algorithm}[ht]
+\caption{Local iteration for a single power line.
+}
+\label{a1}
+\begin{algorithmic}[1]
+\State $\mathcal{M}_{n-1:n} \coloneqq \{\bm{v}_{k}, |\bm{i}_{k}|, \bm{\theta}_{k} ~\big|~ k=n, n-1 \}$
+\Function{LineCalc}{$\mathcal{M}_{n-1:n}, \epsilon, \alpha, \bm{j}_n$}
+%\Comment Data, accuracy and step size
+\State $i = 0$, $\bm{\gamma}_{n}^{(0)} = \mathbf{1}$
+\Do 
+\State $\widehat{\bm{z}}_n^{(i)} = \bm{h}(\bm{\gamma}_{n}^{(i)})$
+\State $\bm{\gamma}_{n}^{(i+1)} = \bm{\gamma}_{n}^{(i)} - \alpha\Big[\bm{g}(\widehat{\bm{z}}_n^{(i)}) - \bm{\gamma}_{n}^{(i)}\Big]$
+%\State $i = i+1$
+\doWhile{$\|\bm{g}(\widehat{\bm{z}}_n^{(i)}) - \bm{\gamma}_{n}^{(i)}\|_2 > \epsilon$}
+\State \Return $\widehat{z}, \bm{\gamma}$
+\EndFunction
+\end{algorithmic}
+\end{algorithm} 
+Note, that this algorithm uses information from the previous line of the network, i.e. it needs $\bm{j}_n$ to be known. Therefore, using the backward model (\ref{l_pi_original}) iteratively we formulate the complete algorithm for a linear feeder identification in Algorithm \ref{a2}
+\begin{algorithm}[H]
+\caption{BCI algorithm for a linear feeder.}
+\label{a2}
+\begin{algorithmic}[1]
+\State $\mathcal{M} \coloneqq \{\bm{v}_{n}, |\bm{i}_{n}|, \bm{\theta}_{n} ~\big|~ n=1, \ldots, N \} \cup \{ \bm{v}_0 \}$
+\Function{BCI}{$\mathcal{M}, \epsilon, \alpha$}
+\State $\bm{j}_{N} = \bm{i}_{N}$
+\For{$n = N : 1$}
+\State $\widehat{\bm{z}}_n, \bm{\gamma}_n = $ \textproc{LineCalc}($\mathcal{M}_{n-1:n}, \epsilon, \alpha, \bm{j}_n$)
+\State $\bm{j}_{n-1} = \bm{i}_{n-1} + \bm{j}_{n}\frac{|v_{n}|}{|v_{n-1}|} + \widehat{z}_n^*\frac{|j_{n}|^2}{|v_{n-1}|}$ 
+\Comment $(\ast)$ 
+\EndFor
+\State \Return $\bm{\gamma}, \widehat{\bm{z}}, \bm{j}$
+\EndFunction
+\end{algorithmic}
+\end{algorithm} 
+\begin{remark}
+Equation $(\ast)$ in the Algorithm \ref{a2} can be obtained from the backward model (\ref{l_pi_original}) after excluding term $e^{i\Delta_n}$. 
+\end{remark}
+
+
+\subsection{Discussion}
+
+The main objective of impedance identification algorithm is to minimise a cost function given by (\ref{cost_function-nlin}) for each power line. In this section we compare the optimality of solutions found by BCI and LBCI algorithms.
+
+Again, consider a power line connecting nodes $n-1$ and $n$. The following proposition holds for solutions found by LBCI and BCI: 
+\begin{proposition}
+\label{prop_bci_vs_lbci}
+Let $(\bm{z}_n^{LBCI}, \bm{1})$ is the solution found by the LBCI algorithm and $(\bm{z}_n^{BCI}, \bm{\gamma}^{BCI}_{n})$ is the solution found by the BCI algorithm.
+Also, let $N(\bm{z}_n, \bm{\gamma}_{n}) \coloneqq \big\| \bm{V}_{n-1}\bm{\gamma}_{n} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}_{n} \big\|_2^2 + \big\|\bm{V}_{n-1}\sqrt{\bm{1} - \bm{\gamma}^2_{n}} - \bm{J}_{n}\bm{Q}_2\bm{z}_{n} \big\|_2^2$ then
+$$N(\bm{z}_n^{BCI}, \bm{\gamma}^{BCI}_{n}) \le N(\bm{z}_n^{LBCI}, \bm{1}),$$
+i.e. the BCI algorithm finds the solution that is closer to the optimum of (\ref{pf_network}) than that of LBCI.
+\end{proposition}
+\begin{proof}
+See appendix.
+\begin{comment}
+Consider a linearised BCI algorithm for the power line between nodes $n-1$ and $n$. The solution it finds satisfies:
+\begin{equation*}
+\begin{split}
+{}& N(\bm{z}_n^{LBCI}, \bm{1}) = \big\| \bm{V}_{n-1} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}^{LBCI}_{n} \big\|_2^2 + \\
+& + \big\|\bm{J}_{n}\bm{Q}_2\bm{z}^{LBCI}_{n} \big\|_2^2 \ge \big\| \bm{V}_{n-1} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}^{LBCI}_{n} \big\|_2^2.
+\end{split}
+\end{equation*}
+
+The corresponding expressions for $\bm{z}_n^{BCI}$ and $\bm{z}_n^{LBCI}$ are given by:  
+\begin{equation*}
+\begin{split}
+{}& \bm{z}_n^{BCI} = \big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger} (\bm{V}_{n-1}\bm{\gamma}^{BCI}_{n} - \bm{v}_{n}), \\
+& \bm{z}_n^{LBCI} = \big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger} (\bm{V}_{n-1} - \bm{v}_{n}),
+\end{split}
+\end{equation*}
+where $\bm{\gamma}^{BCI}_{n} \le \bm{1}$. Therefore:
+\begin{equation*}
+\begin{split}
+{}& N(\bm{z}_n^{BCI}, \bm{\gamma}^{BCI}_{n}) = \big\| \bm{V}_{n-1}\bm{\gamma}^{BCI}_{n} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}^{BCI}_{n} \big\|_2^2 \le\\
+& \Big\|\big[ \bm{I} - \bm{J}_{n}\bm{Q}_1\big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger}\big](\bm{V}_{n-1}\bm{\gamma}^{BCI}_{n} - \bm{v}_{n})\Big\|_2^2 \le \\
+& \Big\|\big[ \bm{I} - \bm{J}_{n}\bm{Q}_1\big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger}\big](\bm{V}_{n-1} - \bm{v}_{n})\Big\|_2^2 = \\
+& \big\| \bm{V}_{n-1} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}^{LBCI}_{n} \big\|_2^2 \le N(\bm{z}_n^{LBCI}, \bm{1}).
+\end{split}
+\end{equation*}
+\end{comment}
+\end{proof}
+\begin{corollary} \label{corollary} In the presence of high measurement noise, we can introduce a regularisation term (as in the LBCI case) for BCI algorithm so that:
+$N(\bm{z}_n^{BCI}, \bm{\gamma}^{BCI}_{n}) \le N(\bm{z}_n^{LBCI}, \bm{1})$. 
+\begin{proof}
+See appendix.
+\end{proof}
+
+\begin{comment}
+To see this, note that:
+\begin{equation*}
+\begin{split}
+{}& N(\bm{z}_n^{BCI}, \bm{\gamma}^{BCI}_{n}) \le \Big\|\big[ \bm{I} - \bm{J}_{n}\bm{Q}_1\big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger}\big](\bm{V}_{n-1} - \bm{v}_{n})\Big\|_2^2 \le \\
+& \Big\|\big[ \bm{I} - \bm{J}_{n}\bm{Q}_1\big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger}\big](\bm{V}_{n-1} - \bm{v}_{n})\Big\|_2^2 + \mu \big\|\bm{J}_{n}\bm{Q}_2\bm{z}^{BCI}_{n} \big\|_2^2 \le \\
+& \Big\|\big[ \bm{I} - \bm{J}_{n}\bm{Q}_1\big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger}\big](\bm{V}_{n-1} - \bm{v}_{n})\Big\|_2^2 + \big\|\bm{J}_{n}\bm{Q}_2\bm{z}^{LBCI}_{n} \big\|_2^2 = \\
+& N(\bm{z}_n^{LBCI}, \bm{1}),
+\end{split}
+\end{equation*}
+where $0 \le \mu \le 1$ is a regularisation parameter.
+\end{comment}
+\end{corollary}
+Importantly, all the key properties of the LBCI algorithm are inhereted by the BCI algorithm, since $\bm{h}(\bm{\gamma}_{n}^{(i)})$ is a least squares solution of the unconstrained problem (\ref{sysid-nlin}) for a given $\bm{\gamma}_{n}^{(i)}$. 
+
+\subsection{Practical modifications}
+\label{practical_modifications_section}
+This subsection describes some additional modifications that improve the LBCI/BCI algorithm performance. 
+
+We start from the idea of decentralised calculations, whereby the BCI algorithm above can be executed by smart meters in a decentralised manner with a modification to take advantage of a known $X/R$ ratio\footnote{$X/R$ ratio is the ratio between inductance and resistance of the cable} from cable data. 
+
+\textbf{Regularisation}. As was mentioned in the section \ref{remark_nonzero_J}, if elements in $\bm{J}_n$ are equal to zero (or close to it) then $\bm{J}_n$ is no longer a full rank. To address this issue we can add regularisation term to the objective function in (\ref{sysid-nlin}), i.e:
+$$\Big\| \bm{V}_{n-1}\bm{\gamma}_{n} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}_{n} \Big\|_2^2 + \mu\|D\bm{z}_n\|_2^2,$$
+where $0 \le \mu \le 1, D = \bm{J}_{n}\bm{Q}_2$ as was discussed in the previous subsection. However, note that the choice of $D$ and $\mu$ depends on a priori knowledge about power lines in the network. Thus an algorithm designer might want to incorporate information, that $X/R$ ratio for a cable is close to 1, by making $D = [1~ -1]$.
+
+\textbf{X/R modification}. One method to improve algorithm performance with respect to noise is to use reactance-to-resistance ratio ($k_n$ for $n$-th power line) usually available from cable specifications. The matrix $\bm{J}_n$ (first defined in (\ref{cost_function-lin})) with $X/R$ modification becomes a vector of size $M$ by $1$, therefore its condition number $\kappa(\bm{J}_n) = 1$, which leads to a better noise resistivity for impedance estimation:
+\begin{equation*}
+\bm{J}_n = \Real{(\bm{j}_n)} - k_n\Imag{(\bm{j}_n)}.
+\end{equation*}
+Whenever the algorithm has information about $X/R$ ratio of a cable we add subscript $(\cdot)_{XR}$ to its name, i.e. BCI$_{XR}$ or LBCI$_{XR}$.
+
+\textbf{Decentralisation}. The LBCI/BCI algorithm estimates power line impedances for all nodes by processing them sequentially. Thus, for large scale networks large memory required in order to store information from all smart meters. However, every iteration uses data only from neighbouring nodes, therefore one iteration can be encapsulated within one smart metering device capable of obtaining data from adjacent nodes, i.e. from neighbouring smart meters. This makes the grid estimation procedure secure and scalable.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+\draw[dotted, thick] (0,0) -- (1,0);
+\node at (4,0) [rectangle,draw] (SM_n) {$\mathbf{[DBCI_{XR}]}_{n}$};
+\draw[thick] (1,0) -- (SM_n);
+\draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (1,0) -- (2, 0)  node[below]{$\bm{j}_{n}$} node[above]{$z_{n}$};
+\draw[thick] (SM_n) -- (7,0);
+\draw[dotted, thick] (7,0) -- (8,0);
+\draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}, thick] (SM_n) -- (6,0)  node[below]{$\bm{j}_{n+1}$} node[above]{$z_{n+1}$};
+%\draw[arrows = {-Stealth[fill=none, inset=0pt, angle=90:10pt]}, thick] (SM_n) -- (4,-1);
+\draw (1,1) -- (3,1) -- (SM_n);
+\draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}] (3, 1) -- (2, 1) node[above]{$\bm{j}_{n}$};
+\draw (SM_n) -- (5,1) -- (7,1);
+\draw[arrows = {-Stealth[inset=0pt, angle=30:10pt]}] (7, 1) -- (6, 1) node[above]{$\bm{j}_{n+1}$};
+%\draw (SM_n) -- (5,-1) -- (7,-1) node[above]{output} node[pos = 1/2, below]{$\bm{j}_{n}, z_{n}$};
+\end{tikzpicture}
+\caption{Smart meter at $n$-th node. Concept of decentralised BCI with known $X/R$ ratio}
+\label{SM_n_bci}
+\end{figure}
+
+Consider the case of the BCI algorithm and suppose that every smart meter can communicate with its immediate neighbours and the smart meter at node $n+1$ has already calculated values of $\bm{j}_{n+1}$ as in Fig. \ref{SM_n_bci}. Then it sends data to the adjacent smart meter at the $n$-th node, which now has enough information to calculate the impedance of the power line connecting these two meters by performing several iterations of the original BCI algorithm. In addition, it calculates the input current $\mathbf{j}_{n}$ and sends it further up the feeder to the next smart meter and so on. Furthermore, this approach allows each device to have its own information about the $X/R$ ratio for the power lines to which it is connected. The resulting algorithm is called Decentralised BCI with $X/R$ modification, i.e. DBCI$_{XR}$.
+
+\section{Numerical simulations}
+\label{num_sim_section}
+In order to test the algorithms a single phase power network linear feeder as in Fig. \ref{f1} was implemented in MATLAB/Simulink with $N = 10$. Each power line is modeled as a series connection of resistance and inductance, which is realistic for low voltage overhead lines up to 1-2 km in length \cite{glover2012power}. Loads are modeled as a parallel connection of resistance, inductance and capacitance. Their load shapes are taken from IEEE Low Voltage European Test Feeder data with minute resolution measurements. Although some domestic loads consist of a very complicated composition of resistive, inductive and nonlinear parts \cite{barker2013empirical, pipattanasomporn2014load} we limit our simulations as described above, since our algorithm has full information about load impedances via smart meter measurements (i.e. algorithms do not require load impedances that can be accurately modelled by). We conduct 5000 measurements for all tests, which is equivalent to around 4 days of a network operation.
+
+\subsection{LBCI/BCI testing under ideal conditions}
+\begin{figure*}[t]
+\begin{subfigure}{0.33\linewidth}
+\centering
+\begin{adjustbox}{width=1\columnwidth}
+\input{z_rel_err.tex}
+\end{adjustbox}
+\end{subfigure}
+\begin{subfigure}{0.33\linewidth}
+\centering
+\begin{adjustbox}{width=1\columnwidth}
+\input{z_rel_err_bci.tex}
+\end{adjustbox}
+\end{subfigure}
+\begin{subfigure}{0.33\linewidth}
+\centering
+\begin{adjustbox}{width=1\columnwidth}
+\input{cond_Jn_bci.tex}
+\end{adjustbox}
+\end{subfigure}
+\caption{Impedance identification error for each power line. FBCI and BCI algorithms under ideal conditions (left, center). Condition number for matrix $\bm{J}_n$(right).}
+\label{z_rel_err}
+\end{figure*}
+We first show BCI performance under ideal conditions, when measuring devices do not have measurement error. To demonstrate the main features of a proposed algorithm we use oversimplified conditions. Each line has the following parameters: length - 50m, $R = 0.4 ~\Omega/km$, $X/R$ ratio - $0.7$. According to IEEE Low Voltage European Test Feeder data description the power factor is kept constant for each load. This is a good assumption for a high level analysis, however, for our algorithms the more detailed behaviour is required. To model uncertainty in power factor we vary it between 0.9 and 1 as a random Gaussian variable ($\mu = 0.95, \sigma = 0.05$) for each load.
+
+We first show algorithm performance with known $X/R$ ratio, since in this case, the result does not depend on the condition number of the measurement matrix ($\bm{J}_n$). Figure \ref{z_rel_err} (left) illustrates identification relative error of BCI algorithm after different number of iterations. The red dotted line on the figure corresponds to the linearised case, i.e. when we assume a small phase difference ($\Delta_n \ll 1$) between two nodes. Blue, and black lines show the relative error after 10 and 100 iterations correspondingly. The step size $\alpha$ was chosen to be 0.1. After about 30 iterations the error is close to simulation accuracy. Note that it is impossible to achieve the same result with LBCI algorithm.
+
+The next figure (Fig. \ref{z_rel_err} - center) compares BCI algorithm performance under ideal conditions with LBCI. Note, that the corresponding line current matrix $\bm{J}_n$ has a condition number around 4-5 for a given set of load shapes from LV European Test Feeder data (Fig. \ref{z_rel_err} - right) and with power factor disturbances introduced. Thus the performance of algorithms is slightly worse than in the previous case, however the result of BCI algorithm is still very close to the simulation accuracy limit.
+
+\begin{figure*}[t]
+\begin{subfigure}{0.33\linewidth}
+\centering
+\begin{adjustbox}{width=1\columnwidth}
+\input{z_rel_err_noisy.tex}
+\end{adjustbox}
+\end{subfigure}
+\begin{subfigure}{0.33\linewidth}
+\centering
+\begin{adjustbox}{width=1\columnwidth}
+\input{z_rel_err_noisy_xr.tex}
+\end{adjustbox}
+\end{subfigure}
+\begin{subfigure}{0.33\linewidth}
+\centering
+\begin{adjustbox}{width=1\columnwidth}
+\input{power_factor1500.tex}
+\end{adjustbox}
+\end{subfigure}
+\caption{Dependence of impedance identification error on measurement number. BCI algorithm under noisy conditions. Averaged over 100 realisations.}
+\label{z_rel_err3}
+\end{figure*}
+
+\begin{figure*}[t]
+\begin{subfigure}{0.33\linewidth}
+\centering
+\begin{adjustbox}{width=1\columnwidth}
+\input{z_rel_err_noisy5000.tex}
+\end{adjustbox}
+\end{subfigure}
+\begin{subfigure}{0.33\linewidth}
+\centering
+\begin{adjustbox}{width=1\columnwidth}
+\input{z_rel_err_noisy_xr5000.tex}
+\end{adjustbox}
+\end{subfigure}
+\begin{subfigure}{0.33\linewidth}
+\centering
+\begin{adjustbox}{width=1\columnwidth}
+\input{power_factor5000.tex}
+\end{adjustbox}
+\end{subfigure}
+\caption{Dependence of impedance identification error on measurement number. BCI algorithm under noisy conditions. Averaged over 100 realisations.}
+\label{z_rel_err4}
+\end{figure*}
+
+\subsection{FCI/BCI testing with modifications under noisy conditions}
+In this subsection we introduce Gaussian noise to model different accuracy classes (1\%FS, 0.5\%FS and 0.1\%FS) of commercially available smart meters and test FBCI and BCI algorithms performance under these conditions. Usually, accuracy class is specified as a percentage of a full scale with 95\% confidence interval (i.e. two standard deviations in our case). Again, we conduct two tests: when $X/R$ ratio is given and without it. In addition we consider a scenario when power factor variations are much larger, i.e. Fig \ref{z_rel_err4} (right) as an example for such variations for a particular load. 
+
+Figure \ref{z_rel_err3} shows the identification error dependence on the measurements number for three accuracy classes listed above using LBCI and BCI algorithms. In Figure \ref{z_rel_err3} (left) the results are shown when $X/R$ ratio is unknown a priori and no regularisation is added to BCI algorithm. In this case LBCI outperform the former, providing more accurate identification as well as significantly smaller amount of computations. However, note how BCI algorithm outperforms LBCI in the Figure \ref{z_rel_err3} (right), i.e. when condition number of $\kappa(\bm{J}_n) = 1$. This shows that when the condition number of matrix $\bm{J}_n$ decreases, the quality of BCI estimation significantly increases. To demonstrate this, we conducted an additional simulation, using the same feeder, but with much higher power factor variations (see Figure \ref{z_rel_err4}). Note, how BCI algorithm outperforms LBCI for measurements with $0.1\%$ accuracy by a factor of 4 when $XR$ ratio is unknown, and by a factor of 5 when it is known, almost achieving $1\%$ of impedances estimation accuracy. 
+\begin{remark}
+Although, LBCI algorithm shows better results for $1\%$ and $0.5\%$ measurement accuracy cases there are two key properties should be mentioned:
+\begin{itemize}
+\item The gap between BCI and LBCI performance curves for different power factor variation scenarious is reduced by a factor of 5 and 3 respectively, which shows that BCI algorithms outperforms LBCI provided enough variation in the grid. 
+\item BCI performance can achieve the same (even slighlty better according to corollary for Proposition \ref{prop_bci_vs_lbci}) level of accuracy by adding a regularisation term.
+\end{itemize}
+\end{remark}
+
+\section{Conclusion}
+A novel power line impedance estimation method for the low-voltage grid has been proposed in this paper and a decentralised implementation suitable for smart meters has been developed. The BCI algorithm is iterative and based on least squares estimation making it very attractive for practical applications. We do not require phase synchronous measurements, and we propose modifications that take advantage of known $X/R$ ratio to develop real-time distributed versions of our algorithms. Simulations in MATLAB have shown algorithm performance and key properties for different numbers of measurements and smart meters accuracy classes. 
+We have also provided a theoretical framework that allows solution of a certain class of non-convex problems that can be generalised in future work. We will also address possible extensions of the BCI algorithm for topology identification and fault detection.
+
+\appendix
+\label{appendix}
+
+\subsection{Theoretical framework}
+
+Consider the following optimisation problem:
+\begin{equation}
+\begin{aligned}
+& \min_{\bm{x}, \bm{y}} 
+& & f(\bm{x}, \bm{y}) \\
+& \st
+& & \bm{y} = \bm{g}(\bm{x}).
+\end{aligned}
+\label{min_f_xy}
+\end{equation}
+where:
+$f(\bm{x}, \bm{y}) = \|\bm{A}\bm{x} - \bm{B}\bm{y} - \bm{c} \|_2^2$ with $\bm{A} \in \mathbb{R}^{m\times n}$, $\bm{B} \in \mathbb{R}^{m\times n}$, $\bm{c} \in \mathbb{R}^{m}$ and $\bm{g}(\bm{x})$ is a continuous and differentiable function. Introduce $\bm{h}(\bm{y}) \coloneqq \argmin_{\bm{x}} f(\bm{x}, \bm{y})$
+
+\begin{lemma}
+\label{lemma1}
+Assume:
+\begin{enumerate}[(1)]
+\item $\bm{A}$ and $\bm{B}$ are full rank matrices;
+\item $\bm{g} \colon \mathbb{R}^m \rightarrow \mathbb{R}^m$ is surjective (onto) mapping; 
+\end{enumerate}
+Then $\bm{y}^* = \bm{g} \circ \bm{h}(\bm{y}^*)$ and $\bm{x}^* = \bm{h}(\bm{y}^*)$ give the solution $(\bm{x}^*, \bm{y}^*)$ of the optimisation problem (\ref{min_f_xy}).
+\end{lemma}
+
+\begin{proof}
+$\bm{h}(\bm{y}) = \bm{A}^{\dagger} (\bm{B}\bm{y} + \bm{c})$ is a linear least squares solution. Provided that $\bm{A}$ is a full rank matrix, $\bm{h}(\bm{y})$ exists and unique for any $\bm{y}$. Thus $\bm{h}(\bm{y})$ is an injective mapping.
+
+Next, note that $f(\bm{x}, \bm{y})$ is strictly convex. KKT conditions for (\ref{min_f_xy}) take the form:
+\begin{equation}
+\begin{split}
+{}& \nabla_{\bm{x}} f(\bm{x}, \bm{y}) + \nabla_{\bm{y}} f(\bm{x}, \bm{y}) \nabla_{\bm{x}} \bm{g}(\bm{x}) = 0, \\
+& \bm{y} = \bm{g}(\bm{x}).
+\end{split}
+\end{equation}
+Since $\bm{B}$ is a full rank matrix, $\nabla_{\bm{y}} f(\bm{x}, \bm{y}) \Big|_{\bm{x} = \bm{h}(\bm{y})} = \bm{0}$ and therefore $\bm{h}(\bm{y})$ is a unique minimiser of $f(\bm{x}, \bm{y})$. 
+
+Observe that a solution of the problem (\ref{min_f_xy}) will necessarily satisfy:
+$
+\begin{cases}
+\bm{x} = \bm{h}(\bm{y}), \\
+\bm{y} = \bm{g}(\bm{x}), 
+\end{cases}
+$
+where from we conclude that the unique $\bm{y}$ can be obtained if $\bm{g} \circ \bm{h}$ form the inverse mapping, i.e. $\bm{h}$ is the right inverse for $\bm{g}$ and $\bm{g}$ is the left inverse for $\bm{h}$. Therefore, using supplementary proposition that are given below:
+\begin{itemize}
+\item The function is injective if and only if it has a left inverse,
+\item The function is surjective if and only if it has a right inverse,
+\end{itemize}
+we proof the statement of the lemma.
+\end{proof}
+
+\subsection{Supplementary propositions}
+
+\begin{proposition}
+Let $X$ and $Y$ are non-empty sets, then $f\colon X \rightarrow Y$ is injective if and only if there exists $g\colon Y \rightarrow X$ such that $g \circ f = id_X$.
+\end{proposition}
+\begin{proof}
+1) Suppose there is $g\colon Y \rightarrow X$ such that $g \circ f = id_X$. Let $f(x) = f(y)$ then $x = id_X(x) = g \circ f(x) = g \circ f(y) = id_X(y) = y$,
+i.e. $f(x) = f(y) \Rightarrow x = y$ which means that $f: X \rightarrow Y$ is injective.
+
+2) Suppose $f\colon X \rightarrow Y$ is injective, i.e. $f(x) = f(y) \Rightarrow x = y$. Then if $y \in \image{f}$, there is unique $x \in X: ~f(x) = y$. Fix some $x \in X$ and define $g\colon Y \rightarrow X$ as follows:
+$$g(y) = 
+\begin{cases} 
+f^{-1}(y), & \mbox{if } y \in \image{f}, \\
+x, & \mbox{if } y \notin \image{f}, 
+\end{cases}$$
+Note that $g \circ f (x) = f^{-1}(f(x)) = x$ by injectivity of $f$ and construction of $g$.
+\end{proof}
+
+\begin{proposition}
+Let $X$ and $Y$ are non-empty sets, then $f\colon X \rightarrow Y$ is surjective if and only if there exists $g\colon Y \rightarrow X$ such that $f \circ g = id_Y$.
+\end{proposition}
+\begin{proof}
+1) Suppose there is $g\colon Y \rightarrow X$ such that $f \circ g = id_Y$. Then for each $y \in Y$ there is $x_y = g(y) \in X$ such that $f \circ g(y) = f(x_y) = id_Y = y$, i.e. f is surjective.
+
+2) Suppose $f\colon X \rightarrow Y$ is surjective. Then for all $y \in Y$ there is $x_y \in X$ such that $f(x_y) = y$. Define $g \colon Y \rightarrow X$ so that it maps each $y$ to $x_y$. Then $\forall y \in Y:~ f \circ g(y) = f(x_y) = y $, 
+i.e. $f \circ g = id_Y$.
+\end{proof}
+
+\subsection{Proof of Proposition \ref{prop_bci_vs_lbci}}
+\begin{proposition*}
+Let $(\bm{z}_n^{LBCI}, \bm{1})$ is the solution found by the LBCI algorithm and $(\bm{z}_n^{BCI}, \bm{\gamma}^{BCI}_{n})$ is the solution found by the BCI algorithm.
+Also, let $N(\bm{z}_n, \bm{\gamma}_{n}) \coloneqq \big\| \bm{V}_{n-1}\bm{\gamma}_{n} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}_{n} \big\|_2^2 + \big\|\bm{V}_{n-1}\sqrt{\bm{1} - \bm{\gamma}^2_{n}} - \bm{J}_{n}\bm{Q}_2\bm{z}_{n} \big\|_2^2$ then
+$$N(\bm{z}_n^{BCI}, \bm{\gamma}^{BCI}_{n}) \le N(\bm{z}_n^{LBCI}, \bm{1}),$$
+i.e. the BCI algorithm finds the solution that is closer to the optimum of (\ref{pf_network}) than that of LBCI.
+\end{proposition*}
+\begin{proof}
+Consider a linearised BCI algorithm for the power line between nodes $n-1$ and $n$. The solution it finds satisfies:
+\begin{equation*}
+\begin{split}
+{}& N(\bm{z}_n^{LBCI}, \bm{1}) = \big\| \bm{V}_{n-1} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}^{LBCI}_{n} \big\|_2^2 + \\
+& + \big\|\bm{J}_{n}\bm{Q}_2\bm{z}^{LBCI}_{n} \big\|_2^2 \ge \big\| \bm{V}_{n-1} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}^{LBCI}_{n} \big\|_2^2.
+\end{split}
+\end{equation*}
+
+The corresponding expressions for $\bm{z}_n^{BCI}$ and $\bm{z}_n^{LBCI}$ are given by:  
+\begin{equation*}
+\begin{split}
+{}& \bm{z}_n^{BCI} = \big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger} (\bm{V}_{n-1}\bm{\gamma}^{BCI}_{n} - \bm{v}_{n}), \\
+& \bm{z}_n^{LBCI} = \big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger} (\bm{V}_{n-1} - \bm{v}_{n}),
+\end{split}
+\end{equation*}
+where $\bm{\gamma}^{BCI}_{n} \le \bm{1}$. Therefore:
+\begin{equation*}
+\begin{split}
+{}& N(\bm{z}_n^{BCI}, \bm{\gamma}^{BCI}_{n}) = \big\| \bm{V}_{n-1}\bm{\gamma}^{BCI}_{n} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}^{BCI}_{n} \big\|_2^2 \le\\
+& \Big\|\big[ \bm{I} - \bm{J}_{n}\bm{Q}_1\big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger}\big](\bm{V}_{n-1}\bm{\gamma}^{BCI}_{n} - \bm{v}_{n})\Big\|_2^2 \le \\
+& \Big\|\big[ \bm{I} - \bm{J}_{n}\bm{Q}_1\big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger}\big](\bm{V}_{n-1} - \bm{v}_{n})\Big\|_2^2 = \\
+& \big\| \bm{V}_{n-1} - \bm{v}_{n} - \bm{J}_{n}\bm{Q}_1\bm{z}^{LBCI}_{n} \big\|_2^2 \le N(\bm{z}_n^{LBCI}, \bm{1}).
+\end{split}
+\end{equation*}
+\end{proof}
+%\subsection{Proof of Corollary for Proposition \ref{prop_bci_vs_lbci}}
+\begin{corollary} In the presence of high measurement noise, we can introduce a regularisation term (as in the LBCI case) for BCI algorithm so that:
+$N(\bm{z}_n^{BCI}, \bm{\gamma}^{BCI}_{n}) \le N(\bm{z}_n^{LBCI}, \bm{1})$.
+\end{corollary}
+\begin{proof}
+To see this, note that:
+\begin{equation*}
+\begin{split}
+{}& N(\bm{z}_n^{BCI}, \bm{\gamma}^{BCI}_{n}) \le \Big\|\big[ \bm{I} - \bm{J}_{n}\bm{Q}_1\big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger}\big](\bm{V}_{n-1} - \bm{v}_{n})\Big\|_2^2 \le \\
+& \Big\|\big[ \bm{I} - \bm{J}_{n}\bm{Q}_1\big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger}\big](\bm{V}_{n-1} - \bm{v}_{n})\Big\|_2^2 + \mu \big\|\bm{J}_{n}\bm{Q}_2\bm{z}^{BCI}_{n} \big\|_2^2 \le \\
+& \Big\|\big[ \bm{I} - \bm{J}_{n}\bm{Q}_1\big[ \bm{J}_{n}\bm{Q}_1 \big]^{\dagger}\big](\bm{V}_{n-1} - \bm{v}_{n})\Big\|_2^2 + \big\|\bm{J}_{n}\bm{Q}_2\bm{z}^{LBCI}_{n} \big\|_2^2 = \\
+& N(\bm{z}_n^{LBCI}, \bm{1}),
+\end{split}
+\end{equation*}
+where $0 \le \mu \le 1$ is a regularisation parameter.
+\end{proof}
+\appendices
+
+\begin{comment}
+% use section* for acknowledgment
+\section*{Acknowledgment}
+
+The authors would like to thank Iman Shames, Michael Cantoni and Steven Low for fruitful discussions. 
+\end{comment}
+
+% Can use something like this to put references on a page
+% by themselves when using endfloat and the captionsoff option.
+\ifCLASSOPTIONcaptionsoff
+  \newpage
+\fi
+
+
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+% references section
+
+% can use a bibliography generated by BibTeX as a .bbl file
+% BibTeX documentation can be easily obtained at:
+% http://mirror.ctan.org/biblio/bibtex/contrib/doc/
+% The IEEEtran BibTeX style support page is at:
+% http://www.michaelshell.org/tex/ieeetran/bibtex/
+\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{Refs}
+%
+% <OR> manually copy in the resultant .bbl file
+% set second argument of \begin to the number of references
+% (used to reserve space for the reference number labels box)
+
+%\begin{thebibliography}{1}
+
+%\bibitem{IEEEhowto:kopka}
+%H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
+%  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
+
+%\end{thebibliography}
+
+% biography section
+% 
+% If you have an EPS/PDF photo (graphicx package needed) extra braces are
+% needed around the contents of the optional argument to biography to prevent
+% the LaTeX parser from getting confused when it sees the complicated
+% \includegraphics command within an optional argument. (You could create
+% your own custom macro containing the \includegraphics command to make things
+% simpler here.)
+%\begin{IEEEbiography}[{\includegraphics[width=1in,height=1.25in,clip,keepaspectratio]{mshell}}]{Michael Shell}
+% or if you just want to reserve a space for a photo:
+
+\begin{comment}
+\begin{IEEEbiography}{Sergey Iakovlev}
+Biography text here.
+\end{IEEEbiography}
+
+% if you will not have a photo at all:
+\begin{IEEEbiographynophoto}{Robin J. Evans}
+Biography text here.
+\end{IEEEbiographynophoto}
+
+% insert where needed to balance the two columns on the last page with
+% biographies
+%\newpage
+
+\begin{IEEEbiographynophoto}{Iven Mareels}
+Biography text here.
+\end{IEEEbiographynophoto}
+\end{comment}
+% You can push biographies down or up by placing
+% a \vfill before or after them. The appropriate
+% use of \vfill depends on what kind of text is
+% on the last page and whether or not the columns
+% are being equalized.
+
+%\vfill
+
+% Can be used to pull up biographies so that the bottom of the last one
+% is flush with the other column.
+%\enlargethispage{-5in}
+
+
+
+% that's all folks
+\end{document}

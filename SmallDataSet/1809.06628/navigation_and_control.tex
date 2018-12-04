@@ -1,0 +1,175 @@
+Autonomous navigation is a key capability for automated stocktaking.
+Operator assistance functions---or optionally fully autonomous operation---opens up the applicability of the system to a large group of end users who are not trained MAV pilots. Autonomy generates a direct interface between logistics personnel and the stocktaking system without the indirection of a professional pilot.
+We implement a hierarchical navigation and control system that makes use of time scale separation between the layers. On the top layer of our navigation stack, global mission planning is executed once per mission. The next layer (allocentric path planning) is run in the order of seconds, while the lowest layer (model predictive trajectory planning) is executed every \SI{20}{\milli\second}.
+
+\subsection{Mission Planning}
+\label{sec:Mission_Planning}
+For the connection to a WMS, we developed a tool that augments the laser-based maps described in Sec.~\ref{sec:Environment_Perception} with semantic information.
+Fig.~\ref{fig:registration} shows the registration of the semantic warehouse model with the laser-based map. After a coarse manual alignment, we use the Iterative Closest Point Algorithm (ICP) to automatically register both maps.
+This enables us to semantically describe an inventory mission and automatically derive shelf numbers and indices of storage places.
+The WMS can specify missions covering whole shelves---with a coverage pattern shown in \reffig{fig:registration}---or single storage units to inspect.
+Here, all common strategies for manual inventory like \eg sampling inventory with sequential probability ratio test (SPRT) can be utilized.
+An ordered list of view poses is then sent to the MAV onboard computer for execution.
+Before execution, this list is simplified to merge collinear path segments, \eg a number of storage units on the same height, to achieve a smooth sweeping motion along the shelves.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[trim=0 150 0 50, clip, width=0.48\linewidth]{combined-unconstrained.pdf}~
+  \includegraphics[trim=0 150 0 50, clip, width=0.48\linewidth]{combined-constrained.pdf}%
+  \vspace{-1ex}
+  \caption{Planning under visibility constraints. Left: Without visibility constraints the shortest path (yellow) from a start (green) to a target position (red) below solely descents in place. Right: With visibility constraints, the MAV has to move within the field of view of the lidar and consequently follows a longer descent path with an angle of \SI{15}{\degree}.}
+  \label{fig:constrained_planning}
+  \vspace{-2ex}
+\end{figure}
+
+\subsection{Path Planning}
+\label{sec:Path_Planning}
+The result of the mission planning is an ordered list of 4D-poses (x,y,z,$\theta$) in a discrete allocentric grid.
+We connect these poses with an instance of A* planning and use the Ramer-Douglas-Peucker algorithm to cull superfluous nodes.
+This is necessary to allow for the generation of longer and more continuous trajectories by our controller, described below.
+During mission execution, the path is frequently replanned to compensate for path deviations of the MAV, either by inaccurate command execution, external disturbances or avoidance of obstacles.
+Replanning takes place whenever a target pose is reached and the next pose from the mission plan is processed or at least every \SI{10}{\second} to correct deviations from the path.
+Grid-based planning resembles the orthogonal structure of warehouses if the aisles are parallel to the planning grid axes.
+The planning grid and the model are, therefore, aligned after the exploration flight.
+Our approach, in contrast to sampling-based planners, has the advantage to follow the shelf-fronts well, without much postprocessing and trajectory smoothing.
+In more generalized settings, the approach could benefit from any-angle planning, \eg Theta*~\cite{thetastar}, which we can omit here.
+
+The onboard lidar does not cover a spherical field of view. To nevertheless allow for safe navigation in cluttered environments or in the presence of dynamic obstacles, we extended our planner with visibility-constrained planning.
+With this extension, the planned MAV movements are restricted to directions in the field of view of the lidar, \ie \SI{15}{\degree} below and above the current horizontal plane.
+To this end, we employ a grid with anisotropic voxels to reduce the ascent and descent angles from \SI{45}{\degree} in a grid with isotropic voxels to the opening angle of the sensor.
+The resulting voxels have a height of $\tan (15^\circ) \approx \frac{1}{4}$ of the horizontal voxel size.
+Furthermore, we remove edges connecting cells directly on top of each other, disallowing ascents and descents in place.
+The direction of flight---discretized to the eight possible transitions in the plane---is introduced as a new planning dimension to penalize changes in the flight direction.
+Angles of up to \SI{45}{\degree} are not penalized. Without this penalty, a zigzag motion to ascent or descent would be equal to larger straight glide paths in path costs, but would significantly slow down the MAV due to numerous stops to change direction.
+\reffig{fig:constrained_planning} illustrates the resulting plans with and without visibility constraints.
+
+\begin{figure}[t]
+  \setlength{\figureheight}{0.41\linewidth}
+  \centering
+  \includegraphics[trim=0 0 0 150, clip, height=\figureheight]{hindernisvermeidung_screenshot-cropped.pdf}~
+  \includegraphics[trim=0 0 0 150, clip, height=\figureheight]{velodyne_hindernisvermeidung-cropped.pdf}%
+  \vspace{-1ex}
+  \caption{Reactive obstacle avoidance with artificial potential fields. A person (circled blue in the laser map) approaches the MAV. The MAV is repelled by the artificial forces (red lines) and dodges the obstacle. Green lines depict the influence of obstacles in the passive avoidance distance.}
+  \label{fig:hindernisvermeidung_screenshot}
+  \vspace{-2ex}
+\end{figure}
+
+\subsection{Reactive Obstacle Avoidance}
+\label{sec:Reactive_Obstacle_Avoidance}
+We use reactive obstacle avoidance as a low-level safety layer complementing the deliberative path planning.
+For our application, reactive obstacle avoidance has two important properties---compared to fast local planning~\cite{3dvfh+}, or optimization-based approaches~\cite{Israelsen2014}.
+First, it has the ability to elude approaching dynamic obstacles, depicted in \reffig{fig:hindernisvermeidung_screenshot}. This might include leaving a hover position or even moving into the opposite direction of the commanded flight path.
+Second, a hazard minimizing solution will always be found even if the distance constraints are violated.
+Furthermore, reactive obstacle avoidance is computationally cheap and, consequently, can be executed with the lidar frequency of \SI{10}{\hertz}.
+Our obstacle avoidance is based on~\cite{nieuwenhuisen2013isprs} but directly modifies the allocentric target waypoints from the global path planner instead of velocity commands to adapt to the new low-level trajectory controller.
+
+We modified the basic algorithm to facilitate smoother flight in narrow spaces by adding two spheres of influence around the MAV, depicted in \reffig{fig:obst-avoidance-vectors}.
+Obstacles in the passive avoidance sphere with radius $d_p$, cause a reduction of the MAV motion into the direction of the obstacles.
+In the active avoidance sphere with radius $d_a$, obstacles exert artificial repulsive forces, increasing with proximity, that push the MAV away.
+By dividing the obstacle avoidance into these two phases, we achieve a stable equilibrium distance between obstacles and MAV regardless of the MAV control inputs without influencing the motion into orthogonal directions in the passive sphere---\eg the MAV can follow an exploration pattern along a shelf even if the commanded pattern is too close to the shelf due to protruding goods.
+In the warehouse, we set $d_a$ and $d_p$ to MAV radius plus \SI{1}{\meter} and \SI{2}{\meter}, respectively.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.32\linewidth]{obstacle_avoidance_velocities_far.pdf}~
+  \includegraphics[width=0.32\linewidth]{obstacle_avoidance_velocities_medium.pdf}~
+  \includegraphics[width=0.32\linewidth]{obstacle_avoidance_velocities_close.pdf}\\[2ex]
+
+  \resizebox{0.8\linewidth}{!}{
+  \input{obstacle_avoidance.pgf}
+  }
+  \vspace{-2ex}
+  \caption{Reactive obstacle avoidance. Top-Left: The MAV velocity setpoint vector $v_{in}$ is split into the projection towards an obstacle $v_{obst}$ and the remainder $v_{free}$. If the MAV is not close to obstacles, the output velocity $v_{out}$ is equal to the setpoint. Top-Middle: When an obstacle is in the passive avoidance sphere (dotted orange), $v_{in}$ is reduced by $v_{slow} = -s_\mathrm{reduce} v_{obst}$. Top-Right: Obstacles in the active avoidance sphere (dotted red) induce an additional repulsive force resulting in the pushing velocity $v_{push}$ directing the MAV into free-space. For simplicity, we depict velocity vectors, the pose modification vectors $c_o$ and $f_o$ follow straightforward. Bottom: Scaling factors in relation to the obstacle distance.}
+  \label{fig:obst-avoidance-vectors}
+  \vspace{-2ex}
+\end{figure}
+
+For simplicity of notation, all further calculations are depicted in an egocentric MAV frame to omit the localization transform matrices.
+If both spheres are obstacle-free, we execute the commands from the planning layer unaltered.
+Egocentric targets farther away than \SI{1}{\meter} are first normalized; shorter vectors are processed without prior normalization to avoid a speed up of the MAV while approaching an obstacle.
+The new egocentric target position $t_{\textrm{new}}$ is calculated as
+\begin{equation*}
+  t_{\textrm{new}} = t_{\textrm{orig}} - c_o s_\mathrm{push} + f_o s_\mathrm{reduce}.
+\end{equation*}
+Here, $c_o$ is the projection of the current target $t_{\textrm{orig}}$ onto the direction of the obstacle, thus, the part of the command that steers the MAV closer to the obstacle.
+The artificial force direction $f_o$ is a normalized vector pointing away from the obstacle.
+The magnitudes of the slow down strength $s_\mathrm{push}$ and the push back strength $s_\mathrm{reduce}$---depicted in \reffig{fig:obst-avoidance-vectors}---are calculated as
+\begin{equation*}
+  s_\mathrm{push} = \frac{d_p + d_a - d}{d_p - d_a}, s_\mathrm{reduce} = \frac{d_a - d}{d_a}
+\end{equation*}
+with distance $d$ to the obstacle. Both results are clipped to the interval $[0,1]$ afterwards.
+
+
+\subsection{Model Predictive Control}
+\label{sec:Model_Predictive_Control}
+Since higher layers assume a straight connection between waypoints (due to Ramer-Douglas-Peucker culling), flying on a straight trajectory is mandatory and overshoot is not permissible despite large turbulences caused by nearby obstacles. Also inventory of large warehouses with multiple kilometers of shelf requires fast flight to reduce the impact on the regular logistic processes.
+We tackle this problem by employing time-optimal trajectory generation and online replanning with \SI{50}{\hertz} for low-level control. We use an extended version of the method described in~\cite{beul2017icuas}. Planning is based on a simple dynamic model of the MAV with three-dimensional jerk $j$ as only input. 
+The method plans smooth, time-optimal trajectories from the current 9-dimensional allocentric MAV state
+\begin{equation*}
+\hspace{2.0em}
+\bm{x} =
+\begin{pmatrix}
+p_{x} & p_{y} & p_{z}\\
+v_{x} & v_{y} & v_{z}\\
+a_{x} & a_{y} & a_{z}
+\end{pmatrix}
+\end{equation*}
+to the corresponding 9-dimensional target state by analytically solving a system of 21 differential equations
+\begin{align*}
+    p_{n} &= p_{n-1} + \int_{t_{n-1}}^{t_{n}}{v_{n}}\,\mathrm{d}t,\\
+    v_{n} &= v_{n-1} + \int_{t_{n-1}}^{t_{n}}{a_{n}}\,\mathrm{d}t, \qquad n = \{1;\dots;7\}\\
+    a_{n} &= a_{n-1} + \int_{t_{n-1}}^{t_{n}}{j_{n}}\,\mathrm{d}t
+\end{align*}
+per axis (x,y,z).
+Generated trajectories consist of up to $n = 7$ phases of constant jerk input, resulting in a bang-singular-bang trajectory.
+Individual axes are coupled by synchronizing the total time of the entire trajectory.
+The trajectories respect per-axis constraints on minimum and maximum velocity, acceleration and jerk.
+
+With the ability to predict the target state, trajectories end in an optimal interception point when the waypoint is non-stationary like shown in \reffig{fig:trajectory_garage_image}.
+Since our method is very fast, we use it in closed loop and send smooth pitch $\theta$, roll $\phi$ and climb rates $v_{z}$ to the DJI flight control.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \node[inner sep = 0,anchor=north west] at (0,0) {\includegraphics[trim=010mm 000mm 000mm 000mm,clip,width=1.0\columnwidth]{trajectory_garage_image_1.pdf}};
+        \node[inner sep = 0,anchor=north west] at (0.43,-0.1) {\includegraphics[trim=000mm 000mm 000mm 000mm,clip,width=0.35\columnwidth]{garage_photo.pdf}};
+        %\draw[semithick,black] (1.92,-1.25) circle (13pt);
+    \end{tikzpicture}
+    \vspace{-2em}
+    \caption{The MAV continuously flies in a figure eight around pillars in a parking garage. All perception and computation is done onboard. Velocities exceeding \SI{1.7}{\meter\per\second} in the vicinity of obstacles require robust methods for state estimation and control. The size of the ring represents the actual MAV size. The arrow depicts the flight direction.}
+    \label{fig:trajectory_garage_image}
+    \vspace{-1ex}
+\end{figure}
+
+We assume the yaw to be decoupled from the translatory axes and use simple proportional control for the yaw. The yaw rate setpoint $\dot\Psi_{setp} = K_{p} \cdot (\Psi_{setp} - \Psi)$ with proportional gain $K_{p}$ is sent to the MAV.
+
+In comparison to approaches that utilize a complex motion model like Kamel \etal~\cite{kamelmpc2016}, our approach is very fast and the model does not need (often abstract) parameters.
+In contrast to complex models, approaches like Mueller \etal~\cite{Mueller2013_2} use a simple motion model and are comparably fast. The generated trajectories however are not time-optimal.
+Simple PID-control is also not suitable, since overshoot is not permissible in the close corridors. Thus, the controller would have to be parameterized very conservative which would result in slow MAV movement.
+
+Please note that we use the same parameters for the controller as in~\cite{ecmr2017_c1} in which we employed the method on a DJI Matrice 100 that weighs only a quarter of the MAV used here with a corresponding bounding box volume ratio of 1:12. This shows the independence of our approach regarding model parameters.
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}
+      \node[inner sep = 0,anchor=north west] at (0,0) {\includegraphics[trim=000mm 000mm 000mm 000mm,clip,width=1.0\columnwidth]{apriltag_new.pdf}};
+      \node[inner sep = 0,anchor=north west] at (6.13,-1.70) {\includegraphics[trim=110mm 010mm 100mm 145mm,clip,width=0.25\columnwidth]{apriltag_detections.pdf}};
+  \end{tikzpicture}
+  \vspace{-2em}
+  \caption{AprilTag detection. With two cameras directed to each side of the aisle we detect AprilTags attached to the stock. The clusters of colored markers show the estimated positions of the detected tags in a subsection of an aisle during two consecutive flights. See \reffig{fig:trajectory_image} for the corresponding trajectories. Detections from the first flight are marked with circles; detections from the second flight are marked with triangles. Different colors correspond to different tag IDs. In the bottom right corner, a detection of ID 14 is shown. One can see the motion-blur induced by the relative motion between AprilTag and MAV. We report statistics in \reftab{tab:results}.}
+  \label{fig:detections}
+  \vspace{-1ex}
+\end{figure}
+
+
+\begin{figure*}[t]
+  \centering \footnotesize
+  \fboxsep0mm
+  a)\includegraphics[trim=028mm 000mm 035mm 000mm,clip,height=0.31\textwidth]{trajectory_image_1.pdf}%
+  b)\includegraphics[trim=255mm 000mm 220mm 000mm,clip,height=0.31\textwidth]{trajectory_image_2.pdf}%
+  \vspace{-1ex}
+  \caption{Visualization of two consecutive flights in a warehouse. a) Side view, b) Top view. Despite flying in close proximity to obstacles, the MAV reaches velocities up to \SI{2.1}{\meter\per\second}. Waypoints are precisely reached without overshoot. It can be seen that the flight behavior is repeatable and that aisle changes are possible. View poses are marked with a red crossed ring. Via points that are inserted by the A* planner are marked with a red ring. Except for the manual start, the whole flight was fully autonomous.}
+  \label{fig:trajectory_image}
+  \vspace{-1ex}
+\end{figure*}
+

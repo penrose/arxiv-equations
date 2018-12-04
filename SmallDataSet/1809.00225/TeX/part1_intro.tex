@@ -1,0 +1,124 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}
+\label{sec:intro}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The \gls{lhc}~\cite{Evans:2008zzb} at CERN is scheduled to undergo a decisive upgrade~\cite{Apollinari:2015bam}, 
+which will extend its physics potential well beyond the initial design goal~\cite{Jakobs:2011zz,Schmidt:2016jra}. 
+The first phase (Phase-I) of the upgrade will take place during the long technical shutdown of the \gls{lhc}, in 
+2019-2020, to improve the injector and the collider collimation system. In the second phase (Phase-II), scheduled 
+for 2024-2026, the \gls{lhc} will be further enhanced with new technologies, including 11-12\,\si{T} triplet magnets 
+and compact crab cavities with ultra-precise phase control. The final High Luminosity LHC (HL-LHC) is expected to 
+begin operation in 2026, delivering proton-proton ($pp$) collisions with a maximum instantaneous luminosity of 
+\SI{7.5e34}{cm^{-2}.s^{-1}} (7.5 times higher than the initial design). In terms of total integrated luminosity, 
+a goal of 3000-4000 $\si{fb^{-1}}$ is defined.
+
+In order to perform in the high intensity radiation environment of the HL-LHC, where up to 200 inelastic $pp$ collisions 
+(pile-up events) per \SI{25}{ns} bunch crossing are expected, the ATLAS detector~\cite{PERF-2007-01} is
+scheduled for upgrade of its sub-detector systems as well as the Trigger and Data AcQuisition (TDAQ) 
+strategies~\cite{CERN-LHCC-2015-020}. In this context, the Phase-II upgrade program foresees the replacement of 
+the readout electronics of the \gls{TileCal}~\cite{TCAL-2010-01,Collaboration:2285583}, the central hadronic 
+calorimeter of ATLAS, with new architectures that will be able to deliver reliable measurements during the 
+HL-LHC operation. Among the different designs proposed and evaluated for the \gls{fe} readout electronics, 
+the Laboratoire de Physique de Clermont-Ferrand (LPC) presented the solution of an ASIC that embedds both
+the analog processing and digitisation of the detector signal, the \gls{fatalic}. The following sections 
+intend to provide a detailed description of the \gls{fatalic} motivation and design, and present simulation 
+and experimental measurements to demonstrate its potential as a \gls{fe} readout system.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The ATLAS Tile Calorimeter}
+\label{sec:TileCal}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\gls{TileCal} is a sampling calorimeter, constructed of steel plates as absorber and scintillating tiles as active 
+medium, and it is important for the measurement of jet- and missing-energy, jet substructure, electron isolation and 
+triggering (including muon information). The position of \gls{TileCal} in the ATLAS calorimeter complex can be seen 
+in Fig.\,\ref{fig:tile_a}. It is divided into four cylinders, two of which form the central Long-Barrel (LB) while 
+the other two constitute Extended-Barrel (EB) partitions, covering the pseudorapidity\footnote{
+%%%%-----------------------------------------------------------------------
+ATLAS uses a right-handed coordinate system, centered at the nominal interaction point. 
+The $x$-axis points towards the center of the LHC ring, the $y$-axis points upwards and 
+the $z$-axis points along the beampipe. Cylindrical coordinates ($r$,$\phi$) are used in 
+the transverse plane, $\phi$ being the azimuthal angle around the $z$-axis. The pseudorapidity 
+is defined in terms of the polar angle $\theta$ as $\eta = -\ln(\tan\frac{\theta}{2})$.}
+%%%%-----------------------------------------------------------------------
+range $|\eta|<1.7$. Each Tile cylinder is made of $64$ wedge modules (Fig.\,\ref{fig:tile_b}) in the azimuthal
+coordinate. The \glspl{pmt} with the associated \gls{fe} readout electronics and high voltage distribution cards 
+are inserted at the outer radius of each module, hosted by a train of two \SI{1.4}{m} long ``drawers'' which form
+a ``super-drawer'' (one super-drawer can host up to 48 \glspl{pmt}).
+
+\begin{figure}[t]
+  \begin{center}
+    \subfloat[]{\includegraphics[width=0.64\textwidth]{figures/tile_cal.pdf}\label{fig:tile_a}}
+    \subfloat[]{\includegraphics[width=0.36\textwidth]{figures/tile_module.pdf}\label{fig:tile_b}}\\
+    \subfloat[]{\includegraphics[width=1.00\textwidth]{figures/tile_towers.pdf}\label{fig:tile_c}}
+    \caption{(a) The calorimeter system of ATLAS. (b) Schematic of a wedge module. (c) Tile cell mapping.
+    \label{fig:general-context:tilcal-views}}
+  \end{center}
+\end{figure}
+
+The scintillation light is collected from the two opposide sides of the tiles by \gls{wls} fibres, which are bundled,
+to define readout cells, and coupled to a pair of \glspl{pmt}. The current pulse induced at the \gls{pmt} anodes, with 
+a typical width of \SI{10}{\ns}, is therefore proportional to the energy deposited in the respective cell and is fed to 
+the \gls{fe} electronics to be amplified, shaped and digitised at the \SI{40}{MHz} \gls{lhc} clock rate. This arrangement 
+of the readout employs a total of 9852 \glspl{pmt} and segments \gls{TileCal} into three radial layers (Fig.\,\ref{fig:tile_c}), 
+classified as "A", "BC" and "D", with depth 1.5, 4.1, and 1.8 interaction lengths, respectively,
+at $\eta=0$. Each A-BC-D cell grouping in the same $\eta$-direction forms a projective tower currently used for the fast 
+trigger. Additional scintillators (E cells) are installed in the region between the LB and the EB, mainly to measure energy 
+escaping the electromagnetic calorimeter, while at higher $|\eta|$, Minimum Bias Trigger Scintillators (MBTS) are used to 
+monitor minimum-bias event rates. The E and MBTS scintillators have been used to monitor the luminosity during van der Meer 
+scans\footnote{
+%------------------------------------------------------------
+Van der Meer scans enable the measurement of the absolute luminosity of a particle collider by 
+sweeping the beams transverselly across each other. Being responsible for luminosity measurements 
+in ATLAS, \gls{TileCal} must be able to measure very low Minimum Bias event rates.}
+%------------------------------------------------------------
+~\cite{Balagura:2011yw} and are also useful in electron identification.
+
+To ensure stable measurements, \gls{TileCal} incorporates three calibration systems. A \gls{cis}~\cite{Tang:2013vya} 
+is used to monitor the response of the \gls{fe} electronics to known injected charge, but also to derive the conversion 
+factors between the electronic responses and the input charge. Next, the \gls{cs} system~\cite{Starchenko:2002ju,Shalanda:2003rq} 
+uses a radioactive $^{137}$Cs $\gamma$-source, hydraulicaly circulated through a system of tubes that traverses every row 
+of scintillating tiles. The illumination of the tiles with \SI{0.662}{MeV} $\gamma$ produces a uniform, low current signal 
+at the \gls{pmt} anodes that allows inter-calibration of the detection chains (scintillators, \gls{wls} fibers, \glspl{pmt}, 
+\gls{fe} electronics). After initial adjustment of the \gls{pmt} gains, the \gls{cs} system is used to measure the small
+variations among the read-out responses, which are used to derive the necessary calibration coefficients with respect to
+a unique reference value. Lastly, the laser system~\cite{system:2016tae} injects light pulses to the \glspl{pmt} for 
+frequent monitoring of the gains between \gls{cs} scans.
+
+%---------------------------------
+\section{Upgrade of the Tile readout}
+\label{sec:PhysicsSpecs}
+%---------------------------------
+
+In the current Tile readout scheme, the 256 super-drawers are interfaced to back-end Read-Out Drivers (RODs) through
+256 optical links (plus another 256 links for redundancy) with a bandwidth of \SI{800}{Mbps} per link. Each super-drawer
+stores the digitised samples from the read-out Tile cells in pipeline memories, while analog trigger signals, corresponding 
+to each Tile tower, are transmitted to the off-detector trigger pre-processor. These trigger signals are formed by summation 
+of the \gls{pmt} outputs, in dedicated analog boards, with rough adjustment in time but without calibration to account for gain
+variations. Upon trigger acceptance, the data of each super-drawer are forwarded to the RODs.
+
+For the HL-LHC, the TDAQ strategy\,\cite{,Collaboration:2285583} foresees a fully digital calorimeter trigger with 
+higher granularity and precision. Each super-drawer is replaced by four independent mini-drawers, with half the length 
+of the current drawers to allow easier access to the electronics and improve the reliability of the cooling circuits. 
+At the \SI{40}{MHz} rate, each mini-drawer transmits the entire set of digitised data to an off-detector PreProcessor 
+(PPr)\,\cite{Carrio:2014hqa} over two \SI{9.6}{Gbps} optical links (the full readout scheme employs 2048 optical links 
+plus another 2048 links for redundancy). The PPr stores the data in pipeline memories and, in parallel, transmits calibrated 
+trigger primitives (energy measured in grouped or individual Tile cells) to the trigger system. Upon receipt of a trigger 
+acceptance signal, the reconstructed energy, the time and a quality factor for each Tile cell are forwarded to the data 
+network for event aggregation and storage.
+
+In the new Tile readout system, the present reliable but outdated Tile \gls{fe} electronics will be replaced by a new
+architecture that will be able to endure the harsh radiation conditions of the HL-LHC and handle the expected dynamic
+range of the signal. The lowest expected signal from physics events is defined by the minimum ionisation Landau peak 
+of muons traversing an A cell (smallest Tile cell) at normal incidence, with a most probable value of
+\SI{350}{MeV}~\cite{Adragna:2009zz}. Considering the typical electromagnetic (EM) scale constant of \SI{1.05}{pC/GeV} 
+and the $e/\mu$ response ratio of $0.91$, the respective charge delivered by a single \gls{pmt} is approximately 
+\SI{200}{fC}. On the other hand, the largest expected signal is that of energetic jets, depositing up to \SI{1.3}{TeV} 
+in EM scale (\SI{1.5}{TeV} in hadronic scale) in a single Tile cell. To cover this range, the maximum charge requirement 
+for one readout channel is set to \SI{800}{pC}. There is however interest in extending the range up to \SI{1.2}{nC} to 
+be able to measure higher energy jets, expected in rare and possibly new physics events. In addition to the processing 
+of physics signals, each \gls{fe} electronic card must include a separate channel for large time-constant integration 
+of low amplitude currents. This channel is needed for calibration scans using the \gls{cs} system ($\SI{50}{nA}-\SI{100}{nA}$) 
+but also for the monitoring of minimum-bias event rates and the instantaneous luminosity ($\SI{20}{pA}-\SI{10}{\mu A}$).
+

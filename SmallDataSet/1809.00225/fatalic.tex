@@ -1,0 +1,81 @@
+\documentclass[a4paper,11pt]{article}
+\pdfoutput=1
+\usepackage{jinstpub}
+\usepackage{fatalic-defs}
+%\usepackage{lineno}
+%\linenumbers
+
+%-------------------------------------------------------------------------------
+% Generic document information
+%-------------------------------------------------------------------------------
+
+% Title, abstract and document
+\title{FATALIC: A novel CMOS front-end readout ASIC for the ATLAS Tile Calorimeter}
+
+\abstract{
+  The present article introduces a novel ASIC architecture, designed in the context of the ATLAS Tile Calorimeter upgrade 
+  program for the High-Luminosity phase of the Large Hadron Collider at CERN. The architecture is based on radiation-tolerant 
+  \SI{130}{\nm} \acrlong{cmos} technology, embedding both analog and digital processing of detector signals. A detailed 
+  description of the ASIC is given in terms of motivation, design characteristics, simulated and measured performance. 
+  Experimental studies, based on 24 prototype units under real particle beam conditions are also presented in order to 
+  demonstrate the potential of the architecture as a reliable front-end readout electronic solution.
+}
+
+\author[]{S.~Angelidakis}
+\author[]{W.M.~Barbe}
+\author[]{R.~Bonnefoy}
+\author[]{H.~Chanal}
+\author[]{C.~Fayard}
+\author[]{R.~Madar}
+\author[]{S.~Manen}
+\author[]{M.-L.~Mercier}
+\author[]{E.~Nibigira}
+\author[]{D.~Pallin}
+\author[]{N.~Pillet}
+\author[]{L.~Royer}
+\author[]{A.~Soulier}
+\author[]{R.~Vanda\"ele}
+\author[]{F.~Vazeille}
+\affiliation[]{Laboratoire de Physique de Clermont-Ferrand, CNRS/IN2P3, Universit\'e Clermont Auvergne}
+
+\keywords{Front-end electronics for detector readout, Calorimeter methods}
+
+%-------------------------------------------------------------------------------
+% Title and Table of Contents
+%-------------------------------------------------------------------------------
+\begin{document}
+\maketitle
+\clearpage
+
+\input{TeX/part1_intro.tex}
+\input{TeX/part2_asic.tex}
+\input{TeX/part3_cards.tex}
+\input{TeX/part4_reco.tex}
+\input{TeX/part5_tbeam.tex}
+
+\section{Conclusion}
+\label{sec:conclusion}
+The above sections conclude the presentation of \gls{fatalic} and demonstrate the full potential of the \SI{130}{nm} CMOS 
+technology, realised as a \gls{fe} readout electronic architecture, for the strenuous conditions of the HL-LHC. The three 
+fast channels offer excellent performance for the processing of detector signal in the input charge up to \SI{1.2}{nC},
+with a noise level of approximately \SI{8}{fC} and linearity better than 0.3\%, up to approximately \SI{850}{pC}, according
+to simulation. Their performance was also probed with test-beam studies, in which \gls{fatalic} was used to measure the 
+energy of electrons, muons and pions, reproducing the nominal estimation of the Tile EM scale constant as well as the
+average energy loss per unit distance of muons traversing the TileCal.
+
+The slow channel also exhibits the expected performance and was successfully used to process low amplitude currents in 
+calibration scans using the \gls{cs} system, in order to correct the \gls{pmt} gains in the respective readout channels. 
+At the same time, however, it exposes the limitations imposed by the CMOS technology, along with possible directions for 
+improvement. The main limitation is the large, approximately \SI{7}{nA} $\sfrac{1}{f}$ noise, introduced by the input 
+stage, which does not comply with the specification ($<$\SI{1}{nA}) defined for new the Tile \gls{fe} electronics. The 
+adopted, current-driven architecture is not offered for further reduction of the noise, which would therefore require 
+migration to a different (bi-CMOS) technology or relocation of the slow channel outside \gls{fatalic}.
+%-------------------------------------------------------------------------------
+
+\clearpage
+%\acknowledgments
+
+\bibliography{fatalic}
+
+\end{document}
+

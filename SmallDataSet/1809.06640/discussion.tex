@@ -1,0 +1,14 @@
+One obvious question is whether we can get a good neural decoder for surface code or other topological codes on large lattices.
+In the case of surface code, the major difference compared to the toric code is the existence of boundaries.
+This means we have to inject some non-translational invariant components into the network.
+For example, we can have a constant tensor $B$ with shape $(L,L,2)$ marks the boundary, e.g. $B(x, y, i)=1$ if $(x,y)$ is at the smooth boundary and $i=0$, or if $(x,y)$ is at the rough boundary and $i=1$; otherwise $B(x, y, i)=0$.
+We then stack $B$ with the old input tensor before feed into the neural decoder.
+More generally, if a renormalization group decoder exists for a topological code, we anticipate that a neural decoder can be trained to have similar or better performance.
+For example, neural decoders for surface code with measurement errors, for topological codes with abelian anyons can be trained following the same procedure described in this paper.
+
+We want to discuss a bit more about running neural networks on specialized chips.
+It is straightforward to run our neural decoder on GPU or TPU~\cite{jouppi2017TPU} as they are supported by Tensorflow~\cite{tensorflow2015-whitepaper}, the neural network library used in this work.
+There is software (e.g. OpenVINO) to compile common neural networks to run on commercially available field-programmable gate arrays (FPGAs), but we do not know how easy it is for our neural decoder\footnote{The only uncommon component of our neural decoder is element-wise parity function.}.
+Apart from power efficiency, there is a study about operating FPGAs at 4K temperature~\cite{Lamb2016AnFPGAbased}.
+Overall, there is a possibility to run neural decoders at low temperature.
+Note that for running on FPGAs or benchmarking the speed, it is likely a good idea to first compress the neural networks, see~\cite{Cheng2018ModelCompression}.

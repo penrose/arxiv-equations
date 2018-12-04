@@ -1,0 +1,816 @@
+%%% Notice: This file contains a large number of \verb's 
+%%%         or verbatim environments in order to display command names
+%%%         or examples.  But the use of \verb/verbatim is *not* recommended. 
+%%% ver.6 2015/01/05 
+%\documentclass[onecolumn]{pasj01}
+\documentclass[proof]{pasj01}
+\usepackage{multirow}
+\usepackage{graphicx}
+%\draft 
+\Received{$\langle$reception date$\rangle$}
+\Accepted{$\langle$acception date$\rangle$}
+\Published{$\langle$publication date$\rangle$}
+%% \SetRunningHead{Astronomical Society of Japan}{Usage of \texttt{pasj00.cls}}
+
+
+%\newcommand{\fH}{f_{M_{\rm H_2}}}
+%\newcommand{\fthree}{f_{M_{\rm H_2}}{\rm (^{13}CO)}}
+%\newcommand{\feight}{f_{M_{\rm H_2}}{\rm (C^{18}O)}}
+%\newcommand{\feightav}{f_{M_{\rm H_2}}{\rm (C^{18}O_{A_{\rm v}>8})}}
+\newcommand{\fDG}{f_{\rm DG}}
+\newcommand{\fthree}{f_{\rm ^{13}CO}}
+\newcommand{\feight}{f_{\rm C^{18}O}}
+\newcommand{\feightav}{f_{\rm C^{18}O_{A_{\rm v}>8}}}
+
+\newcommand{\ffH}{f^{13}}
+%\newcommand{\ffeight}{f^{13}_{M_{\rm H_2}}{\rm (C^{18}O)}}
+%\newcommand{\ffeightav}{f^{13}_{M_{\rm H_2}}{\rm (C^{18}O_{A_{\rm v}>8})}}
+\newcommand{\ffDG}{f^{13}_{\rm DG}}
+\newcommand{\ffeight}{f^{13}_{\rm C^{18}O}}
+\newcommand{\ffeightav}{f^{13}_{\rm C^{18}O_{A_{\rm v}>8}}}
+
+
+\newcommand{\mH}{M_{\rm H_2}}
+\newcommand{\mDG}{M_{\rm H_2}{\rm (DG)}}
+\newcommand{\mtwo}{M_{\rm H_2}{\rm (^{12}CO)}}
+\newcommand{\mthree}{M_{\rm H_2}{\rm (^{13}CO)}}
+\newcommand{\meight}{M_{\rm H_2}{\rm (C^{18}O)}}
+\newcommand{\meightav}{M_{\rm H_2}{\rm (C^{18}O_{A_{\rm v} > 8}})}
+
+
+\begin{document}
+
+\title{{ 
+FOREST Unbiased Galactic Plane Imaging Survey with the Nobeyama 45-m Telescope (FUGIN) V: Dense gas mass fraction of molecular gas in the Galactic plane
+}}
+\author{Kazufumi Torii\altaffilmark{1}, Shinji Fujita\altaffilmark{2}, Atsushi Nishimura\altaffilmark{2}, Kazuki, Tokuda\altaffilmark{3,4}, Mikito Kohno\altaffilmark{2}, Kengo Tachihara\altaffilmark{2}, Shu-ichiro Inutsuka\altaffilmark{2}, Mitsuhiro Matsuo\altaffilmark{1}, Mika Kuriki\altaffilmark{5}, Yuya Tsuda\altaffilmark{7}, Tetsuhiro Minamidani\altaffilmark{1,8}, Tomofumi Umemoto\altaffilmark{1,8}, Nario Kuno\altaffilmark{5,6}, Yusuke Miyamoto\altaffilmark{4}}%
+\altaffiltext{1}{Nobeyama Radio Observatory, 462-2 Nobeyama Minamimaki-mura, Minamisaku-gun, Nagano 384-1305, Japan}
+\altaffiltext{2}{Graduate School of Science, Nagoya University, Chikusa-ku, Nagoya, Aichi 464-8601, Japan}
+\altaffiltext{3}{Department of Physical Science, Graduate School of Science, Osaka Prefecture University, 1-1 Gakuen-cho, Naka-ku, Sakai, Osaka 599-8531, Japan }
+\altaffiltext{4}{Chile Observatory, National Astronomical Observatory of Japan, National Institutes of Natural Science, 2-21-1 Osawa, Mitaka, Tokyo 181-8588, Japan}
+\altaffiltext{5}{Department of Physics, Graduate School of Pure and Applied Sciences, University of Tsukuba, 1-1-1 Ten-nodai, tsukuba, Ibaraki 305-8577, Japan}
+\altaffiltext{6}{Tomonaga Center for the History of the Universe, University of Tsukuba, Tsukuba, Ibaraki 305-8571, Japan}
+\altaffiltext{7}{Meisei University, 2-1-1 Hodokubo, Hino, Tokyo 191-0042, Japan}
+\altaffiltext{8}{Department of Astronomical Science, School of Physical Science, SOKENDAI (The Graduate University for Advanced Studies), 2-21-1, Osawa, Mitaka, Tokyo 181-8588, Japan}
+
+\email{kazufumi.torii@nao.ac.jp}
+
+\KeyWords{ISM: clouds --- ISM: molecules --- radio lines: ISM --- stars: formation}
+
+\maketitle
+
+\begin{abstract}
+Recent observations of the nearby Galactic molecular clouds indicate that the dense gas in molecular clouds have quasi-universal properties on star formation, and observational studies of extra galaxies have shown a galactic-scale correlation between the star formation rate (SFR) and surface density of molecular gas. 
+To reach a comprehensive understanding of both properties, it is important to quantify the fractional mass of the dense gas in molecular clouds $\fDG$. In particular, for the Milky Way (MW), there are no previous studies resolving the $\fDG$ disk over a scale of several kpc.
+In this study, the $\fDG$ was measured over 5\,kpc in the first quadrant of the MW, based on the CO $J$=1--0 data in $l=10^\circ$--$50^\circ$ obtained as part of the FOREST Unbiased Galactic Plane Imaging Survey with the Nobeyama 45-m Telescope (FUGIN) project. 
+The total molecular mass was measured using $^{12}$CO, and the dense gas mass was estimated using C$^{18}$O.
+The fractional masses including $\fDG$ in the region within $\pm 30\%$ of the distances to the tangential points of the Galactic rotation (e.g., the Galactic Bar, Far-3kpc Arm, Norma Arm, Scutum Arm, Sagittarius Arm, and inter-arm regions) were measured.
+As a result, an averaged $\fDG$ of $2.9^{+2.1}_{-0.8}\%$ was obtained for the entirety of the target region.
+This low value suggests that dense gas formation is the primary factor of inefficient star formation in galaxies.
+It was also found that the $\fDG$ shows large variations depending on the structures in the MW disk. 
+The $\fDG$ in the Galactic arms were estimated to be $\sim4$--$5\%$, while those in the bar and inter-arm regions were as small as $\sim0.1$--$0.4\%$.
+These results indicate that the formation/destruction processes of the dense gas and their timescales are different for different regions in the MW, leading to the differences in SFRs.
+\end{abstract}
+
+\section{Introduction}
+Star formation in galaxies are characterized by the Kennicutt-Schmit (KS)-law \citep{sch1959, ken1998, ken2012}, which is a galactic-scale empirical correlation between the area-averaged Star Formation Rate (SFR) ($\Sigma_{\rm SFR} \, [M_\odot\,{\rm yr^{-1}\, kpc^{-2}}]$) and gas surface density ($\Sigma_{\rm H_2}\, [M_\odot\,{\rm pc^{-2}}]$) with a power-law index $N$ of $\sim$1.4 ($\Sigma_{\rm SFR} \propto \Sigma_{\rm H_2}^N$). 
+The KS-law is a relatively loose, non-linear relationship, which is likely due to the regional differences in Star Formation Efficiency (SFE) throughout a galaxy (i.e., bar, arm, inter-arm, and nucleus) (e.g., \cite{mom2010}).
+The KS-law predicts the gas consumption timescale of $H_2$ gas to be $\tau_{\rm con} = \Sigma_{\rm H_2}/\Sigma_{\rm SFR}$ of $\sim$1--2\,Gyr (e.g., \cite{big2011}), which is three orders of magnitude larger than a free-fall timescale of $\sim1$\,Myr at a gas density of 100\,cm$^{-3}$.
+Understanding the background physics of inefficient star formation in galaxies is one of the most pressing issues in contemporary astrophysics.
+
+While the $\Sigma_{\rm H_2}$ used in the KS-law is generally measured using the CO rotational transition emission, several observations used HCN to measure the mass (or luminosity) of dense molecular gas to construct a dense-gas KS-law \citep{gao2004a,gao2004b,use2015,big2016}. 
+Their results indicate a tighter correlation with $\Sigma_{\rm SFR}$ rather than using $\Sigma_{\rm H_2}$.
+
+The recent submillimeter imaging surveys of Galactic molecular clouds with the {\it Herschel} Space Observatory have made remarkable progress in understanding the star formation in dense gas.
+The {\it Herschel} observations demonstrate that the molecular filaments are ubiquitous, taking up a dominant fraction of dense gas in molecular clouds \citep{and2010, mol2010}. 
+These filaments are characterized by the narrow distribution of central widths with a full width at half maximum (FWHM) of $\sim0.1$\,pc \citep{arz2011}.
+
+An important discovery made by the {\it Herschel} observations was that the majority of prestellar cores are embedded within dense, ``supercritical'' filaments for which the mass per unit length exceeds the critical line mass (e.g., \cite{inu1997}), $M_{\rm line, crit} = 2 c_{\rm s}^2/G \sim 16\,M_\odot\,{\rm pc^{-1}}$, where $c_{\rm s}\sim0.2$\,km\,s$^{-1}$ is the isothermal sound speed at temperature $T \sim 10$\,K, and $G$ is the gravitational constant \citep{and2014}.
+Given the filament width of $\sim0.1$\,pc, the $M_{\rm line, crit} \sim 16\,M_\odot\,{\rm yr^{-1}}$ predicts a quasi-universal threshold for core/star formation in molecular clouds at $\Sigma_{\rm H_2} \sim 160\,M_\odot\,{\rm yr^{-1}}$ in terms of the gas surface density, which corresponds to an H$_2$ column density $N_{\rm H_2}$ of $\sim7\times 10^{21}$\,cm$^{-2}$ or a visual extinction $A_{\rm v}$ of $8$\,mag.
+Such a threshold for star formation was also discussed in independent observational studies; \citet{oni1998} proposed star formation of $N_{\rm H_2} \geq 8\times10^{21}$\,cm$^{-2}$ based on the C$^{18}$O observations of the Taurus molecular cloud.
+The {\it Spitzer} infrared observations of Galactic nearby clouds provided a similar threshold of $\Sigma_{\rm H_2} \sim 130\,M_\odot\,{\rm yr^{-1}}$ \citep{hei2010}.
+
+Measurements of SFE in dense gas, or supercritical filaments, were performed on nearby Galactic molecular clouds \citep{wu2005, lad2010, lad2012, shi2017}.
+The studies of \citet{lad2010} and \citet{shi2017} were done on dense gas with $A_{\rm v} > 8$\,mag, presenting results that were consistent with the study on extra galaxies by \citet{gao2004a} (see also \cite{big2016}); the gas consumption timescale of the dense gas can be computed as $\tau_{\rm con}\sim20$\,Myr.
+This implies that the SFE in dense molecular gas in galaxies is quasi-universal on scales from $\sim$1--10\,pc to $>$10\,kpc.
+\citet{lad2010} proposed that $\Sigma_{\rm SFR} \propto f_{\rm DG}\Sigma_{\rm H_2}$, where $f_{\rm DG}$ is the mass fraction of dense gas to molecular gas, is the fundamental relationship governing star formation in galaxies.
+Following these studies, this paper defines ``dense gas'' as gas with $A_{\rm v} > 8$\,mag.
+
+For extra galaxies, \citet{mur2016} revealed the temperature and density distribution of the molecular gas in NGC\,2903 using large velocity gradient analysis, presenting a positive correlation between gas densities and SFE.
+HCN observations of extra galaxies by \citet{use2015} and \citet{big2016} found SFE in dense gas to depend on galactic environment, being lower at high stellar surface densities and high H$_2$-to-H{\sc i} mass ratio.
+
+These studies emphasize the importance of measuring $f_{\rm DG}$ in various galactic environments and understanding its relation to star formation.
+\citet{bat2014} measured the H$_2$ mass fractions of dense gas components in Giant Molecular Clouds (GMCs) on the MW Galactic plane. The masses of the GMCs were calculated using the $^{13}$CO $J$=1--0 data taken by the Five College Radio Astronomical Observatory (FCRAO), while those of the dense gas were calculated from the Bolocam Galactic Plane Survey (BGPS) 1.1\,mm dust continuum images. 
+\citet{bat2014} obtained a low averaged fractional mass of 11$^{+12}_{-06}\,\%$ for the full dust sources.
+%, and the high column density subregions of the dust sources with $\Sigma_{\rm H_2} > 200\,M_\odot\,{\rm pc^{-2}}$ comprise 7$^{+13}_{-5}\,\%$.
+The derived mass fractions are independent of the GMC masses.
+Since the GMC masses were derived in $^{13}$CO, they cannot be directly compared to the KS-law in extra galaxies, in which $\Sigma_{\rm H_2}$ is usually measured using $^{12}$CO.
+Based on the $^{12}$CO and CS observations, \citet{rom2016} obtained a $f_{\rm DG}$ of $14\%$ toward a small 2\,deg$^2$ area of the Galactic plane in $l\sim44\fdg3$--$46\fdg3$.
+To data, the $f_{\rm DG}$ of the Galactic plane has not been derived to date in a wide range of scales.
+
+In this study, the $^{12}$CO, $^{13}$CO, and C$^{18}$O $J$=1--0 data obtained for $l=10^\circ$--$50^\circ$ by the FOREST Unbiased Galactic Plane Imaging Survey with the Nobeyama 45-m Telescope (FUGIN) project \citep{ume2017} were analyzed to measure the H$_2$ mass ($M_{\rm H_2}$) of molecular gas detected independently in the three CO isotopologues.
+$^{12}$CO is a good tracer of the total $M_{\rm H_2}$ mass including the diffuse gas, while $^{13}$CO and C$^{18}$O probe the higher density parts of the molecular gas.
+Our analyses include the Galactic bar, Far-3kpc Arm, Norma Arm, Scutum-Centaurus Arm, and Sagittarisu Arm, as well as the inter-arm regions of these arms.
+The mass fractions of dense molecular gas in these various regions of the Galactic disk were first measured by taking the mass ratios of the $^{13}$CO and C$^{18}$O emitting gas into the the $^{12}$CO emitting gas.
+
+The remainder of this paper is organized as follows.
+Section\,2 describes the CO $J$=1-- dataset used in this study. 
+Section\,3 presents the target region of the current analyses.
+Section\,4 presents the main results of analyzing the CO dataset. 
+Results are discussed in Section\,5, and, finally, a summary is presented in Section\,6.
+
+
+
+\section{Dataset}
+The $^{12}$CO, $^{13}$CO, and C$^{18}$O $J$=1--0 datasets obtained by the FOREST Unbiased Galactic Plane Imaging survey using the Nobeyama 45-m telescope (FUGIN; see \cite{ume2017} for a full description of the observations and data reduction) were analyzed. 
+FUGIN involved a large-scale Galactic plane survey using the FOur-beam REceiver System on the 45-m Telescope (FOREST; \cite{min2016}); the four-beam, dual-polarization, two-sideband receiver installed in the Nobeyama 45-m telescope. 
+This study utilized the FUGIN dataset obtained at $l=10^\circ$--$50^\circ$ in the first quadrant of the Galactic plnae.
+The typical system temperatures were $\sim$250\,K for $^{12}$CO and $\sim$150\,K for $^{13}$CO and C$^{18}$O.
+The backend system was the digital spectrometer ``SAM45'', which provided a bandwidth of 1\,GHz and a resolution of 244.14\,kHz. 
+These figures corresponded to 2,600\,km\,s$^{-1}$ and 0.65\,km\,s$^{-1}$ at 115\,GHz, respectively.  
+The observations were made in the On-the-Fly mode with a unit map size of $1^\circ \times 1^\circ$.
+The output data were formatted into spatial and velocity grid-sizes of 8.5$''$ and 0.65\,km\,s$^{-1}$, respectively. 
+Absolute intensity calibrations were performed by adopting Main beam efficiencies of $0.45\pm0.02$ and $0.43\pm0.02$ at 110 and 115\,GHz, respectively \citep{ume2017}.
+
+To improve the sensitivity, the following post-processes were applied to the output data cube: 
+(1) one-dimensional median filtering to the velocity axis with a kernel of 3\,ch,
+(2) two-dimensional median filtering to the spatial axes with a kernel of $3\times3$\,ch,
+and (3) two-dimensional spatial smoothing with a Gaussian function to achieve a spatial resolution of 40$''$. 
+
+
+\section{Region Selection}
+The vertical distributions of $^{12}$CO in the inner galaxy are measured to be $\sim50$--$100$\,pc at FWHM (e.g., \cite{nak2006}). Thus, it is necessary to cover $\sim200$\,pc in $b$ to accurately measure the total $M_{\rm H_2}$ in $^{12}$CO.
+It is also important to achieve a spatial resolution of less than a few pc to detect the dense gas clumps in molecular clouds (e.g., \cite{ber2007}). Here, reducing the errors on estimating distances is of primary importance, as the above requirements for the $b$ coverage and spatial resolution cannot be guaranteed otherwise.
+
+Considering these conditions required to measure $f_{\rm DG}$ in the Galactic plane, the focus was placed on the tangential points of the Galactic rotation relative to the local standard of rest (LSR), at which CO emissions have radial velocities $v_{\rm LSR}$ corresponding to the terminal radial velocities of the Galactic rotation $v_{\rm term}$, and one unique solution in kinematic distance can be given. 
+The kinematic distance to the tangential points are refereed to as $d_{\rm tan}$, which depends only on $l$, from here on out.
+
+Assuming the IAU standard parameters, a distance of 8.5\,kpc to the Galactic center $R_0$ and the LSR rotational velocity $\Theta_0 = 220$\,km\,s$^{-1}$, the $l$ coverage of the FUGIN observations---$l=10^\circ$--$50^\circ$---correspond to $d_{\rm tan}$ of $\sim8.4$--$5.5$\,kpc.
+At these $d_{\rm tan}$, the $b$ coverage of the FUGIN data---$|b| \leq \pm1^\circ$---correspond to $\sim293$--$192$\,pc, and the spatial resolutions of the post-processed FUGIN data were calculated as $\sim1.6$--$1.1$\,pc. These vertical coverages and spatial resolutions satisfied the required conditions for measuring $\fDG$ by quantifying the $M_{\rm H_2}$ traced by $^{12}$CO, $^{13}$CO, and C$^{18}$O.
+
+In Figure\,\ref{fig:faceon}(a), the thick black line plotted superimposed on an illustration of the face-on view of the MW indicates the tangential points included in the FUGIN observations of the first quadrant.
+The distances from the Galactic center to these tangential points $R_{\rm tan}$ range from $\sim1.5$\,kpc to $\sim6.5$\,kpc.
+The dashed black lines and solid green area indicate the area at distances within $\pm30\%$ of $d_{\rm tan}$, at which the Galactic bar, Far-3\,kpc Arm, Norma Arm, Scutum Arm, and Sagittarius Arm are expected to be included.
+%$l$方向にbinを取り、$f_{\rm DG}$を調べることで、これら領域間の$f_{\rm DG}$の変化を評価することができる。
+
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[width=14cm]{GP_faceon.eps}
+ \end{center}
+ \caption{(a) The target region of this study is plotted on an illustration of the face-on view of the MW (NASA/JPL-Caltech/R. Hurt (SSC/Caltech)). The thick black line indicates the tangential points of the Galactic rotation relative to LSR, whose distances from the Sun ($d_{\rm tan}$) are used to compute the physical parameters of CO emissions, while the two thick dashed black lines shows the lines of $\pm30\%$ of $d_{\rm tan}$. The solid green area indicates the target region of the present analyses. Thin black dashed lines show the coverage of the FUGIN observations in the first quadrant, which are plotted every $10^\circ$ from $l=10^\circ$ to $50^\circ$. Dotted lines show isodistance contours from the Sun. Colored lines denote loci of the Galactic arms constructed by \citet{rei2016}.
+ (b) is the same as (a) but without the background image and with the plots of the sources whose distances are determined by triangulations \citep{hou2014}. The colors of the plots show the radial velocities ($v_{\rm LSR}$) of the sources.
+}\label{fig:faceon}
+\end{figure}
+
+
+Figure\,\ref{fig:lv} shows the $l$-$v$ diagram of the FUGIN $^{12}$CO $J$=1--0 data integrated over $\pm1^\circ$ in $b$.
+The thick black line shows a curve of the $v_{\rm term}$ in each $l$. 
+The two dashed lines define the target velocity ranges of the present analyses; the dashed line plotted below the $v_{\rm term}$ indicates the velocities which correspond to $+30\%$ or $-30\%$ of $t_{\rm tan}$, while the other shows a $+30$\,km\,s$^{-1}$ margin from the terminal $v_{\rm LSR}$, which is set to cover the CO features with $v_{\rm LSR}$ higher than $v_{\rm term}$.
+In Figure\,\ref{fig:faceon}(b) the sources whose distances were determined by triangulations are plotted; this data was compiled by \citet{hou2014}. The colors of the plots show the $v_{\rm LSR}$ of the sources. 
+It can be seen that the $v_{\rm LSR}$ of the sources in Figure\,\ref{fig:faceon}(b) are distributed within the unmasked area of Figure\,\ref{fig:lv}. 
+Note that, due the non-circular rotation of the Galactic Bar, the assumption of flat rotation may not apply in the bar region (e.g., \cite{rag1999, sor2012}); this results in some fraction of the molecular gas distributed in the solid green area in Figure\,\ref{fig:faceon} not haveing $v_{\rm LSR}$ within the unmasked area of Figure\,\ref{fig:lv}. 
+However, it is still probably rare for the $v_{\rm LSR}$ of the molecular gas components outside the bar region to contaminate the unmasked area in Figure\,\ref{fig:lv}.
+%Therefore, we set the unmasked area in Figure\,\ref{fig:lv} as the target velocity range
+%これをふまえ、本研究ではFigure\,\ref{fig:lv}のunmasked領域をtargetとし、この範囲に含まれるCO emissionsからH$_2$の質量を測定する。
+
+
+In Figure\,\ref{fig:lv} the loci of the Galactic arms constructed by \citet{rei2016} are plotted in colored lines.
+Two famous massive star forming regions---W51 and W43---are distributed around the tangential points of the Sagittarius Arm and Scutum Arm, respectively (e.g, \cite{car1998, meh1994, mot2014, sof2018}).
+The 3\,kpc Arm is thought to be distributed at the same galactocentric distance $R$ as the major axis of the Galactic Bar (Figure\,\ref{fig:faceon}(a)).
+Although the location of the tangential point of the 3\,kpc Arm has not been confirmed, \citet{gre2011} proposed that it may be around $l\sim20^\circ$--$22^\circ$ in the first quadrant.
+Given the distributions of these components in $l$, the target region of this study can be roughly classified into four subregions; 
+(Region A) the Galactic bar and Far-3\,kpc arm ($l < 20^\circ$), (Region B) the Norma Arm and the Scutum Arm ($l\sim22^\circ$--$33^\circ$), (Region C) the inter-arm region between the Scutum Arm and the Sagittarius Arm ($l\sim35^\circ$--$45^\circ$), and (Region D) the Sagittarius Arm ($l>47^\circ$).
+Note that these classifications remain ambiguous, as the distributions of the Galactic Bar and arms are not fully understood.
+
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[width=13cm]{FUGIN_12COLV+terminalV.eps}
+ \end{center}
+ \caption{The $l$-$v$ diagram of the FUGIN $^{12}CO$ $J$=1--0 data. Integration range in $b$ is from $-1^\circ$ to $+1^\circ$.The thick black line shows a curve of the terminal velocities. The two dashed lines define the target velocity ranges of the present analyses; the one plotted below the curve of the terminal velocities indicates the velocities which correspond to $+30\%$ or $-30\%$ of $t_{\rm tan}$, while the other shows a $+30$\,km\,s$^{-1}$ margin from the terminal velocities. The masked area in this figure is not used for the $M_{\rm H_2}$ estimates in this study. The colored lines show the loci of the Galactic arms constructed by \citet{rei2016}. The four horizontal arrows show the rough extents of the four regions---Regions A--D---of this study. }\label{fig:lv}
+\end{figure}
+
+
+
+Figures\,\ref{fig:lb12}, \ref{fig:lb13}, and \ref{fig:lb18} show the $^{12}$CO, $^{13}$CO, and C$^{18}$O intensity distributions integrated over the target velocity ranges of Figure\,\ref{fig:lv}, respectively. These distributions will be denoted $W({\rm ^{12}CO}), W({\rm ^{13}CO}), W({\rm C^{18}O})$ here on out. 
+Figure\,\ref{fig:rms} presents the root-mean-square (r.m.s) 1\,ch noise distributions of the $^{12}$CO, $^{13}$CO, and C$^{18}$O data.
+It can be seen from Figures\,\ref{fig:lb12}--\ref{fig:lb18} that the vertical extents of the CO emission are well-covered within the $|b| < 1^\circ$ coverage of the FUGIN observations.
+More detailed $b$ distributions of the $^{12}$CO emission are shown in Figure\,\ref{fig:bdist}, where the $W({\rm ^{12}CO})$ profiles along $b$ are plotted at every $1^\circ$ in $l$.
+This figure indicates that the vertical distributions of the $^{12}$CO emission are sufficiently covered to estimate the total $M_{\rm H_2}$ in the all regions except for $l\sim40\fdg5$--$48\fdg5$, where the $W({\rm ^{12}CO})$ distribution is relatively shifted toward the negative direction in $b$, running off the edge at $b=-1^\circ$. 
+The $^{13}$CO and C$^{18}$ distributions are well-covered even in these regions.
+The total $M_{\rm H_2}$ traced by $^{12}$CO may be underestimated by up to $\sim10$\% in these regions.
+
+%$^{12}$CO, $^{13}$CO, C$^{18}$Oと順に分布が局所的になっていることが分かる。
+%C$^{18}$Oは、Figure\,\ref{fig:lb18}では多くの場所で検出されていないように見えるが、実際にはこの範囲広くで検出されている。この詳細な分布の例は後のSection\,4.1で詳しく見る (Figure\,\ref{fig:mask})。
+
+
+
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[width=12cm]{FGN_12CO.II.eps}
+ \end{center}
+ \caption{Integrated intensity distributions of the FUGIN $^{12}$CO $J$=1--0 data for the velocity ranges plotted in Figure\,\ref{fig:lv} ($W({\rm ^{12}CO})$). The vertical arrows indicate the $\pm$50\,pc heights at $d_{\rm tan} = 5.5, 6, 6.5, 7, 7.5$, and $8$\,kpc. }\label{fig:lb12}
+\end{figure}
+
+
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[width=12cm]{FGN_13CO.II.eps}
+ \end{center}
+ \caption{Same as Figure\,\ref{fig:lb12}, but for $W({\rm ^{13}CO})$.}\label{fig:lb13}
+\end{figure}
+
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[width=12cm]{FGN_C18O.II.eps}
+ \end{center}
+ \caption{Same as Figure\,\ref{fig:lb12}, but for $W({\rm C^{18}O})$.}\label{fig:lb18}
+\end{figure}
+
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[width=14cm]{L10-50.rms.eps}
+ \end{center}
+ \caption{The r.m.s noise distributions of the $^{12}$CO, $^{13}$CO, and C$^{18}$O data. }\label{fig:rms}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[width=10cm]{FUGIN_terminal.Bdist.eps}
+ \end{center}
+ \caption{The $W({\rm ^{12}CO})$ distributions along the Galactic latitude are plotted with a bin-size of $l=1^\circ$. The peak $W({\rm ^{12}CO})$ of each plot is normalized to 1, and the peak value is presented at the top-right of the plot in K\,km\,s$^{-1}$.}\label{fig:bdist}
+\end{figure}
+
+
+
+\section{Methods}
+\subsection{Mass Calculations}
+The H$_2$ column density measured by $^{12}$CO, $N_{\rm H_2}({\rm ^{12}CO})$, was estimated using the X(CO)-factor, which is the conversion factor from CO to H$_2$. 
+This study adopted a uniform value of $2.0\times10^{20}$\,(K\,km\,s$^{-1}$)$^{-1}$\,cm$^{-2}$ for the inner galaxy area, following \citet{bol2013}'s definition of the inner galaxy (1\,kpc\,$<\,R\,<$\,9\,kpc).
+The $^{13}$CO column density $N_{13}$ was estimated by assuming Local Thermodynamic Equilibrium (LTE). 
+The excitation temperature of the $^{13}$CO emission $T_{\rm ex, 13}$ was derived in each line-of-sight using the peak brightness temperature of the optically-thick $^{12}$CO emission,  $T_{\rm peak}(^{12}{\rm CO})$, assuming a common excitation temperature between $^{12}$CO and $^{13}$CO;
+\begin{equation}
+T_{\rm ex, 13}\ = \ \frac{5.53}{\ln\{ 1 + 5.53 / (T_{\rm peak}(^{12}{\rm CO}) + 0.819) \} }.\label{eq1}
+\end{equation}
+Then, the $^{13}$CO optical depth $\tau_{13}$ at each voxel can be computed by the following equation:
+\begin{equation}
+\tau_{13} \ = \ -\ln \left\{ 1 - \frac{T(^{13}{\rm CO})}{5.29 (J_{13}(T_{\rm ex, 13}) - 0.164) } \right\}, \label{eq2}
+\end{equation}
+where $J_{13}(T) \equiv 5.29 / [\exp (5.29/T) - 1]$ and $T(^{13}{\rm CO})$ is the brightness temperature of the $^{13}$CO emission in each voxel.
+ $N_{13}$ was finally computed by integrating $\tau_{13}$ along the given velocity ranges as follows:
+\begin{equation}
+N_{13}\ = \ 2.42 \times 10^{14} \frac{T_{\rm ex, 13} + 0.87}{1- \exp(-5.29/T_{\rm ex, 13})} \int \tau_{13}\, dv. \label{eq3}
+\end{equation}
+
+The C$^{18}$O column density $N_{18}$ was also estimated assuming LTE, where the uniform C$^{18}$O excitation temperature $T_{\rm ex, 18}$ was assumed to be $10$\,K.
+The C$^{18}$O optical depth, $\tau_{18}$, and $N_{18}$ were derived as follows:
+\begin{equation}
+\tau_{18} \ = \ -\ln \left\{ 1 - \frac{T({\rm C^{18}O})}{5.27 (J_{18}(T_{\rm ex, 18}) - 0.166) } \right\}, \label{eq4}
+\end{equation}
+\begin{equation}
+N_{18} \ = \ 2.54 \times 10^{14} \frac{T_{\rm ex, 18} + 0.87}{1- \exp(-5.27/T_{\rm ex, 18})} \int \tau_{18} \, dv, \label{eq5}
+\end{equation}
+where $J_{18}(T) \equiv 5.27 / [\exp (5.27/T) - 1]$ and $T({\rm C^{18}O})$ is the brightness temperature of the C$^{18}$O emission.
+
+The derived $N_{13}$ and $N_{18}$ in Equations \ref{eq3} and \ref{eq5} were then converted into the H$_2$ column densities, $N_{\rm H_2}({\rm ^{13}CO})$ and $N_{\rm H_2}({\rm C^{18}O})$, respectively, by adopting the abundance ratios of the CO isotopologues.
+This study adopted the following relationships constructed by \citet{wil1994}:
+\begin{equation}
+[{\rm ^{12}C}]/[{\rm ^{13}C}] \ = \ (7.5\pm1.9) R + (7.6\pm12.9), \label{eq6}
+\end{equation}
+\begin{equation}
+[{\rm ^{16}O}]/[{\rm ^{18}O}] \ = \ (58.8\pm11.8) R + (37.1\pm82.6). \label{eq7}
+\end{equation}
+The measurements of the abundance ratios are not enough at $R < 4$\,kpc, and these equations return a $[{\rm ^{12}C}]/[{\rm ^{13}C}]$ of $20$ and $[{\rm ^{16}O}]/[{\rm ^{18}O}]$ of $250$, which correspond to the ratios derived in the Galactic Center at $R<150$\,pc \citep{wil1994}, at $R$ of $\sim1.6$\,kpc and $\sim3.6$\,kpc, respectively.
+Thus, the lower-limits for Equations\,\ref{eq6} and \ref{eq7} are tentatively set as 20 and 250, respectively.
+A [H$_2$]/[$^{12}$CO] ratio of $10^4$ is also adopted (e.g., \cite{fre1982, leu1984}).
+$N_{\rm H_2}({\rm ^{13}CO})$ and $N_{\rm H_2}({\rm C^{18}O})$ were finally derived based on the $[{\rm ^{12}C}]/[{\rm ^{13}C}]$ and $[{\rm ^{16}O}]/[{\rm ^{18}O}]$ calculated at the $R_{\rm tan}$ in each $l$.
+
+The obtained $N_{\rm H_2}({\rm ^{12}CO})$, $N_{\rm H_2}({\rm ^{13}CO})$, and $N_{\rm H_2}({\rm C^{18}O})$ were then used to calculate the H$_2$ masses, $\mtwo$, $\mthree$, and $\meight$, respectively;
+\begin{equation}
+M_{\rm H_2} \ = \ 2.8 m_{\rm H} d_{\rm tan}^2 \Delta_{\rm grid}^2, \label{eq7}
+\end{equation}
+where $m_{\rm H}$ is the mass of the hydrogen and $\Delta_{\rm grid}$ is the spatial grid-size of the CO data: 8.5$''$.
+
+\subsection{Identifications of the CO sources}
+This study identified CO sources used to estimate $M_{\rm H_2}$ in the following two steps: (1) identify every local maximum by drawing contours in the data cube at a brightness temperature of $T_{\rm min}$, and (2) remove the identified structures with the voxel numbers less than $N_{\rm min}$ (the remaining structures are counted as CO sources).
+This method is useful for reducing the impact of noise, a uniform $N_{\rm min}$ of 40 was adopted.
+
+Figure\,\ref{fig:mask} shows examples of the identifications of the $^{12}$CO, $^{13}$CO, and C$^{18}$O sources in the $1^\circ \times 2^\circ$ region at $l=32^\circ$--$33^\circ$ .
+Here, CO sources were identified using two $T_{\rm min}$ of $3\sigma_{\rm med}$ and $5\sigma_{\rm med}$, where $\sigma_{\rm med}$ is the median value of the r.m.s. noise levels in this region (Figure\,\ref{fig:rms}).
+As r.m.s. noise levels increase at $b<-0\fdg5$ of this region, many tiny structures were identified at $b<-0\fdg5$ in all the three CO isotopologues at $T_{\rm min} = 3\sigma_{\rm med}$ (gray contours), which are misidentifications of the CO sources.
+On the other hand, when $T_{\rm min} = 5\sigma_{\rm med}$ (red contours), these noise structures were removed, and the CO sources were properly identified.
+Therefore, the CO sources in a given region were identified with a $T_{\rm min}$ of larger than $5\sigma_{\rm med}$.
+This threshold is valid for the region with relatively large noise variations.
+After applying this algorithm, the results of the identified structures were visually confirmed, and the remaining noise structures remain, these structures were removed by hand.
+
+\subsection{Constructing the longitudinal distribution of $\mH$}
+The target $40^\circ \times 2^\circ$ region was divided into forty tiles ($1^\circ \times 2^\circ$), and the CO sources in every tile were idneitifed at a uniform $T_{\rm min}$ of $1$\,K.
+The $5\,\sigma_{\rm med}$ levels of the $^{13}$CO and C$^{18}$O data were lower than 1\,K in every tile, and the $\mthree$ and $\meight$ could be measured directly by applying $T_{\rm min} = 1$\,K.
+However, the 5$\sigma_{\rm med}$ levels of the $^{12}$CO data exceed $1$\,K in all the tiles except for those with relatively low noise levels at $l\sim38^\circ$--$43^\circ$.
+A reasonable way of deriving the $\mtwo$ at $T_{\rm min} = 1$\,K in the data of tiles with relatively high noise levels is to apply an extrapolation technique.
+The $\mtwo$ of the regions with $5\,\sigma_{\rm med} > 1$\,K at $T_{\rm min} = 5, 6, 7, 8, 9, 10$ and $11\times\sigma_{\rm med}$ were derived, and plots of the derived $\mtwo$ were made as functions of $T_{\rm min}$.
+Figure\,\ref{fig:expol} shows examples, where the vertical axis shows $\mtwo$ divided by $max(M_{\rm H_2}{\rm (^{12}CO)})$, which is the maximum $\mtwo$ measured at $T_{\rm min} = 3\,\sigma_{\rm med}$.
+In Figures\,\ref{fig:expol}(b), (c), and (d) the plots are linearly aligned, while a non-linear, curved distribution is seen in Figure\,\ref{fig:expol}(a).
+The plots were extrapolated by making linear-fits using the three data points at $T_{\rm min} = 5, 6,$ and $7\times\sigma_{\rm med}$ to estimate the $\mtwo$ at $T_{\rm min} = 1$\,K.
+The resulting $\mtwo$ was increased by a factor of $\sim1.1$--$1.7$ from the $max(M_{\rm H_2}{\rm (^{12}CO))}$.
+This extrapolation technique can be applied to all the three CO datasets to derive the $mH$ at $T_{\rm min} = 1$\,K.
+In this case, however, the errors on the mass estimates could become significantly large, and therefore $T_{\rm min} = 1\,$K was applied in this study.
+
+
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[width=12cm]{L32.5_CO+masks.eps}
+ \end{center}
+ \caption{Examples of CO source identifications at $l=32^\circ$--$33^\circ$ for (a) $^{12}$CO, (b) $^{13}$CO, and (c) C$^{18}$O data. The gray and red contours show the outlines of the identified structures at $T_{\rm min} = 3\sigma_{\rm med}$ and $5\sigma_{\rm med}$, respectively. The $1\sigma_{\rm med}$ of the $^{12}$CO, $^{13}$CO, and C$^{18}$O data were computed to be $\sim0.38$\,K, $\sim0.16$\,K, and $\sim0.16$\,K, respectively.}\label{fig:mask}
+\end{figure}
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[width=14cm]{MassPlot_12CO.eps}
+ \end{center}
+ \caption{Examples of the extrapolations to derive the $\mtwo$ at $T_{\rm min} = 1$\,K. The blue circules indicates the normalized values of $\mtwo$ measured at $T_{\rm min} = 3, 4, 5, 6, 7, 8, 9, 10,$ and  $11 \times \sigma_{\rm med}$. The normalizations are made by dividing the $\mtwo$ by $max(M_{\rm H_2}{\rm (^{12}CO)})$, which is the maximum $\mtwo$. The arrows indicate the resulting values of the extrapolations at $T_{\rm min} = 1$\,K. }\label{fig:expol}
+\end{figure}
+
+
+\subsection{Uncertainties}
+\citet{ume2017} discussed that the FUGIN data has uncertainties in the observed brightness temperatures: $\pm10$--$20\%$ for $^{12}$CO and $10\%$ for $^{13}$CO and C$^{18}$O \citep{ume2017}.
+The error of the X(CO)-factor was estimated to be a factor of 1.3 by \citet{bol2013}. 
+\citet{har2004} suggested that the value of $N_{\rm H_2}({\rm ^{13}CO})$ and $N_{\rm H_2}({\rm C^{18}O})$ found under the LTE assumption may overestimate the true $N_{\rm H_2}$ by $\sim10$--$30\%$, due to the subthermal excitation of higher rotational transitions of CO.
+In addition, if $T_{\rm ex}$ varies by $\pm50\%$, the $N_{\rm H_2}$ changes by $\sim\pm30\%$.
+It is difficult to estimate the uncertainties of the abundance ratios among the CO isotopologues.
+Equations \ref{eq6} and \ref{eq7} include uncertainties on the ratios $\sim \pm50\%$.
+\citet{mil2005} provided $[{\rm ^{12}C}]/[{\rm ^{13}C}]$ ratios systematically $30\%$ larger than that calculated by equation\,\ref{eq6}.
+%The measurements of $[{\rm ^{13}CO}]/[{\rm C^{18}O}]$ by \citet{are2018} found a factor of 2 smaller ratios than the results in \citet{wil1994}.
+Furthermore, at a given $d_{\rm tan}$ in each $l$ the present analysis also includes an uncertainty on $R$, which is attributed to the $\pm30\%$ error on the distance.
+Thus, a uniform error of a factor of 2 is set for the derived abundance ratios.
+$\mtwo$ also has uncertainties related to the linear-extrapolations described in Section\,4.3, and additional $\pm20\%$ errors on $\mtwo$ are tentatively assumed.
+Considering all of the above factors together, this study set uniform errors of a factor of 1.8 for $\mtwo$ and 2.8 for $\mthree$ and  $\meight$.
+In addition, the derived $M_{\rm H_2}$ is affected by a distance error of $30\%$ as shown in Figure\,\ref{fig:faceon}.
+However, the distance error can be canceled by taking ratios among these three $M_{\rm H_2}$, t.
+
+
+\section{Results}
+Figure\,\ref{fig:n+w} shows the longitudinal distributions of (a) the number of the voxels $N_{\rm vox}$ and (b) the $W({\rm CO})$ of the CO sources identified at $T_{\rm min} = 1$\,K.
+The blue, green, and red bars indicate the derived values of $^{12}$CO, $^{13}$CO, and C$^{18}$O, respectively.
+Here, the $N_{\rm vox}$ and $W({\rm CO})$ of the $^{12}$CO data were derived by making extrapolations to $T_{\rm min} = 1$\,K, following the method described in Section\,4.3.
+The $^{12}$CO and $^{13}$CO sources were detected in the entirety of the target region, while no C$^{18}$O sources were detected in the $l$ range of $14^\circ$--$17^\circ$ at $T_{\rm min} = 1$\,K.
+The two peaks of $W({\rm CO})$ at $l=30^\circ$--$31^\circ$ and $49^\circ$--$50^\circ$ correspond to the regions that include W43 and W51, respectively.
+
+
+
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[width=13cm]{L10-50.Npix+WCO.eps}
+ \end{center}
+ \caption{The longitudinal distributions of (a)$N_{\rm vox}$ and (b)$W{\rm (CO)}$. The blue, green, and red bars show
+the $^{12}$CO, $^{13}$CO, C$^{18}$O distributions, respectively. The horizontal red axis plotted in (a) indicates $R_{\rm tan}$. C$^{18}$O is not detected significantly in $l=14^\circ$--$17^\circ$.}\label{fig:n+w}
+\end{figure}
+
+
+Figure\,\ref{fig:m}(a) shows the longitudinal distribution of $M_{\rm H_2}$ in the same manner as Figure\,\ref{fig:n+w} but with error bars.
+The $\mH$ of the dense gas $\mDG$ was calculated using the subregions of the identified C$^{18}$O sources at which $N_{\rm H_2}{\rm (C^{18}O)} \geq 7\times 10^{21}$\,cm$^{-2}$ (or $A_{\rm v} \geq 8$) and is plotted with gray-bars in Figure\,\ref{fig:m}(b).
+The dense gas that is directly related to star formation was not detected in $l=13^\circ$--$14^\circ$.
+The black circles plotted in Figure\,\ref{fig:m}(b) depict $\mDG$/$\meight$ ratios, which show large variations ranging from $\sim0.1$ to $\sim0.9$.
+It appears that the ratios are roughly correlated to $\meight$ or $\mDG$.
+
+
+Figure\,\ref{fig:m}(c) shows the fractions of $\mthree$ (green), $\meight$ (red), and $\mDG$ (black) to $\mtwo$ in \% ($\fthree$, $\feight$, and $\fDG$, respectively).
+Given uncertainties, $\fthree$ shows no apparent variations in the Galactic arms and inter-arm regions of Regions B, C, and D at $l>24^\circ$, maintaining values of $\sim10$--$40\,\%$, while in Region A, which includes the Galactic Bar and Far-3kpc Arm, $\fthree$ begins decreasing to $\sim4$--$10\%$.
+
+On the other hand, the four regions show high variations in $\feight$ and, especially in the $\fDG$.
+The fractions are relatively high in Regions B and D, ranging from $\sim2\%$ to $\sim8\%$, while the fractions are typically as low as $<1\,\%$ in Regions A and D, and some tiles have very low $\fDG$ of less than $0.1\%$.
+
+Region B show two peaks in $\fDG$ at $l\sim30^\circ$ and $l\sim24^\circ$. The former corresponds to W43, which is one of the most massive star forming regions in the MW, while the latter includes a GMC associated with an active star forming region N35 \citep{tor2018a}.
+These two star forming regions are probably located near the tangential points of Scutum Arm and Norma Arm, respectively, as seen in the $l$-$v$ diagram of Figure\,\ref{fig:lv}.
+In addition, in $l=49^\circ$--$50^\circ$ in Region D in which another active massive star forming region W51 is distributed around the tangential points of Sagittarius Arm, and the $\feight$ and $\fDG$ are rapidly increasing in this region.
+
+The two neighboring regions showed gradual changes in $\feight$ and $\fDG$ around their boundaries (e.g., $l\sim20^\circ$--$23^\circ$ and $l\sim36^\circ$--$40^\circ$).
+It was difficult to tell in this study whether this trend was due to the true continuous changes in $\feight$ and $\fDG$ at the boundaries or the boundaries with discontinuous distributions of $\feight$ and $\fDG$ being projected on the sky, making the $\feight$ and $\fDG$ continuous along $l$.
+
+The total $\mH$ of the three CO isotopologues in $l=10^\circ$--$50^\circ$ and their fractional masses are summarized in Table\,\ref{tab:1}; the derived $\mtwo$, $\mthree$, $\meight$, and $\mDG$ are $\sim10^{8.1}$\,$M_\odot$, $\sim10^{7.4}$\,$M_\odot$, $\sim10^{6.6}$\,$M_\odot$, and $\sim10^{6.5}$\,$M_\odot$, respectively, and the $\fthree$, $\feight$, and $\fDG$ are calculated as $23.7$\,\%, $3.7$\,\%, and $2.9$\,\%, respectively.
+
+The total $\mH$ and fractional masses in the four regions, Regions A--D, are also summarized in Table\,\ref{tab:1}, where the borders of the two neighboring regions at which $\feight$ and $\fDG$ show gradual changes are removed.
+In Regions A, B, C, and D $\fthree$ has the average values of $5.5\%$, $29.9\%$, $17.2\%$, and $40.6\%$, while $\fDG$ has the average value of $0.1\%$, $4.8\%$, $0.4\%$, and $3.9\%$, respectively.
+It should be noted that Region D has only one bin at $l=49^\circ$--$50^\circ$ which results in a relatively large error on the averaged $\feight$ and $\fDG$.
+Additional observations at $l \geq 50^\circ$ are needed to obtain more reliable representative values of the fractional masses in the Sagittarius Arm. 
+In addition, as shown in Figure\,\ref{fig:bdist}, the vertical extents of the $^{12}$CO emission are not fully covered at $l\sim40^\circ$--$49^\circ$ in Region C, which may lead overestimating the obtained fractional masses by up to $\sim10\%$.
+
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[width=13cm]{L10-50.MH2.eps}
+ \end{center}
+ \caption{(a) The longitudinal distribution of $\mH$ is shown in the same manner as Figure\,\ref{fig:n+w} but with error bars. (b) The distributions of $\meight$ and $\mDG$ are plotted with the red-bar and gray-bar, respectively, while the black circles indicate the ratio of $\meight$ to $\mDG$. (c) Distributions of $\fthree$, $\feight$, and $\fDG$ are plotted in green, red, black, respectively.} \label{fig:m}
+\end{figure}
+
+
+Figure\,\ref{fig:f13} shows the ratios of $\meight$ (red) and $\mDG$ (black) to the $\mthree$ ($\ffeight$ and $\ffDG$, respectively).
+While there are large scatters in the Galactic Bar and inter-arm region, Regions B and D which include the Galactic arms have higher values of $\sim10\%$.
+The averaged $\ffeight$ and $\ffDG$ in the entirety of $l=10^\circ$--$50^\circ$ and the four regions are summarized in Table\,\ref{tab:1}; 
+The averaged $\ffeight$ and $\ffDG$ in $l=10^\circ$--$50^\circ$ are estimated as $15.7\%$ and $12.1\%$, respectively, while Regions A, B, C, and D have averaged $\ffeight$ of $6.4\%$, $20.5\%$, $3.9\%$, and $10.4\%$ and $\ffDG$ of $2.2\%$, $16.2\%$, $2.4\%$, and $9.5\%$, respectively.
+
+Here, it is noted that, in this study the CO sources were detected at $T_{\rm min} = 1$\,K, and the derived ratios whose numerators are $\mDG$ gave the upper-limits, as lower $T_{\rm min}$ provided the lower values for $\mtwo$, $\mthree$, and $\meight$, and the $\mDG$ was not changed.
+
+
+
+
+
+\begin{table}
+  \tbl{Total $M_{\rm H_2}$ and fractional masses}{
+ \scriptsize
+  \begin{tabular}{ccccccccccccc}
+  \hline
+  \hline
+     & & \multicolumn{4}{c}{$\log_{10} ( M_{\rm H_2} ) \ [M_\odot]$ } && \multicolumn{3}{c}{$f \ [\%]$} &&  \multicolumn{2}{c}{$f^{13} \ [\%]$} \\
+     \cline{3-6} \cline{8-10} \cline{12-13}
+     Region & $l$ range & ${\rm ^{12}CO}$ & ${\rm ^{13}CO}$  & ${\rm C^{18}O}$ & dense gas && ${\rm ^{13}CO}$ & ${\rm C^{18}O}$ & dense gas &&  ${\rm C^{18}O}$ & dense gas \\
+     (1) & (2) & (3) & (4) & (5) & (6) &  & (7) & (8) & (9) && (10) & (11)\\
+    \hline
+    All & $10^\circ$--$50^\circ$ & $8.05^{+0.17}_{-0.07}$ &  $7.42^{+0.32}_{-0.11}$ & $6.62^{+0.37}_{-0.16}$ &  $6.51^{+0.39}_{-0.16}$ && $23.7^{+13.2}_{-4.9}$ &  $3.7^{+2.6}_{-0.9}$ & $2.9^{+2.1}_{-0.8}$ && $15.7^{+13.3}_{-4.6}$ & $12.1^{+10.8}_{-3.8}$\\
+    A & $10^\circ$--$20^\circ$ & $6.81^{+0.23}_{-0.11}$ &  $5.55^{+0.40}_{-0.16}$ & $4.36^{+0.45}_{-0.20}$ &  $3.89^{+0.55}_{-0.33}$ && $5.5^{+4.3}_{-1.6}$ &  $0.4^{+0.3}_{-0.1}$ & $0.1^{+0.2}_{<-0.1}$ && $6.4^{+7.3}_{-2.5}$ & $2.2^{+3.2}_{-1.1}$\\
+    B & $23^\circ$--$32^\circ$ & $7.75^{+0.26}_{-0.13}$ &  $7.23^{+0.41}_{-0.17}$ & $6.54^{+0.42}_{-0.18}$ &  $6.44^{+0.43}_{-0.19}$ && $29.9^{+25.1}_{-9.6}$ &  $6.1^{+5.2}_{-1.9}$ & $4.8^{+4.3}_{-1.6}$ && $20.5^{+22.6}_{-7.9}$ & $16.2^{+18.4}_{-6.4}$\\
+    C & $35^\circ$--$45^\circ$ & $7.38^{+0.23}_{-0.11}$ &  $6.61^{+0.36}_{-0.14}$ & $5.20^{+0.40}_{-0.16}$ &  $4.99^{+0.41}_{-0.17}$ && $17.2^{+11.9}_{-4.6}$ &  $0.7^{+0.5}_{-0.2}$ & $0.4^{+0.3}_{-0.1}$  && $3.9^{+3.8}_{-1.3}$ & $2.4^{+2.4}_{-0.8}$   \\
+    D & $49^\circ$--$50^\circ$ & $6.41^{+0.50}_{-0.50}$ &  $6.02^{+0.68}_{-0.68}$ & $5.03^{+0.68}_{-0.68}$ &  $4.99^{+0.68}_{-0.68}$ && $40.6^{+83.3}_{-32.4}$ &  $4.2^{+8.6}_{-3.4}$ & $3.9^{+7.9}_{-3.1}$ && $10.4^{+27.3}_{-9.6}$ & $9.5^{+25.0}_{-8.8}$ \\
+    \hline
+  \end{tabular}}\label{tab:1}
+\end{table}
+
+
+
+\begin{figure}
+ \begin{center}
+  \includegraphics[width=13cm]{L10-50.fm1318.eps}
+ \end{center}
+ \caption{The longitudinal distribution of $\ffeight$ (red) and $\ffDG$ (black). }\label{fig:f13}
+\end{figure}
+
+
+
+\section{Discussion}
+The $\mDG$ derived in this study is expected to be nearly consistent with the masses of the supercritical filaments \citep{and2014}, whose SFE has been found to be as quasi-universal throughout the galaxies (e.g., \cite{lad2010,shi2017}).
+The analysis of the FUGIN CO data provides an average $\fDG$ value of $\sim2.9\%$ over $\sim5$\,kpc in the Galactic plane in the first quadrant (Table\,\ref{tab:1}).
+This figure is consistent with the gap between the gas consumption time scale of $\sim1$--$2$\,Gyr (given by the KS-law) and dense gas consumption timescale of $\sim20$\,Myr.
+This suggests that the formation of dense gas in molecular clouds is the primary cause of inefficient star formation in galaxies, and which is consistent with $\Sigma_{\rm SFR} \propto f_{\rm DG}\Sigma_{\rm H_2}$ being the fundamental relationship governing star formation \citep{lad2010}.
+
+On the other hand, the analyses of the FUGIN data revealed that there are huge variations of $\fDG$ depending on the structures of the MW disk.
+In the regions including the Galactic arms (i.e., Regions B and D), $\fDG$ is zas high as $\sim4$--$5\%$, while in the Galactic Bar and inter-arm regions (i.e., Regions A and C) it becomes quite small at $\sim0.1$--$0.4\%$.
+These large gaps may reflect the SFR differences between these regions.
+Indeed, studies of the extra galaxies indicate a systematic offset of $\sim50\%$ in the SFR among the arms, inter-arm, and bar (e.g., \cite{mom2010}). This is roughly consistent with our results.
+It is therefore important to directly quantify the SFRs in the present target regions in the MW based on the infrared/radio observations.
+This is also useful to understand dependency of SFE in dense gas on galactic environment, which was demonstrated in the HCN observations of extra galaxies by \citet{use2015} and \citet{big2016}. 
+The analyses also indicated variations on the $\mDG$/$\meight$ ratios of $\sim0.6$--$0.8$ in the arms and $\sim0.2$--$0.4$ in the inter-arm and bar regions (Figure\,\ref{fig:m}(b)).
+The $\mDG$/$\mthree$ ratio also tended to increase in the arms (Figure\,\ref{fig:f13}).
+
+These results may be attributed to the formation and destruction processes of the dense gas in the molecular clouds.
+Although there are many theoretical studies on formation process of supercritical filaments (e.g., \cite{inu2015,fed2010,hen2008}), the fractional mass of the dense gas to total molecular gas has not yet been quantified.
+The analyses first resolved the fractional masses over 5-kpc in the Galactic plane, which will encourage theoretical developments to understand the detailed process of dense gas formation in molecular clouds in the Galactic plane. 
+
+A reasonable process for dense gas formation is compression by shock-wave.
+\citet{inu2015} proposed a scenario of star formation for scales of $\sim100$\,pc, in which the multiple-compression of gas powered by the expanding motions, driven by the feedback of the massive stars, regulates star formation in galaxies.
+\citet{kob2017a} and \citet{kob2017b} constructed a semi-analytical model of GMC formation including the multiple-compressions driven by a network of expanding shells due to H{\sc ii} regions and supernova remnants, resulted in finding slopes of the GMC mass functions similar as observed in extra spiral galaxies.
+
+The roles of the galactic-scale gas motion has also been discussed previously in the studies of extra galaxies.
+According to the spiral density wave theory \citep{shu2016}, the gas in the arms is affected by the strong compression caused by galactic shocks or cloud-cloud collisions. This mechanism can also be expected in the other model, such as the non-steady spiral arm model \citep{wad2011, bab2013, dob2014}.
+%The spatial offset between GMCs and H{\sc ii} regions along the gas flow is observed in M51 (e.g., \cite{kod2012, tos2002}). This is consistent with the prediction of the spiral density wave theory.
+%On the other hand, in , in which the gas flow streams into the arms both from the upstream- and downstream-sides, dense gas formation by shock compression is still possible.
+It has been suggested that the decrease in gas density observed in the bar regions of extra galaxies can be attributed to the gravitationally unbound conditions of molecular clouds (e.g., \cite{sor2012, mei2013}): these conditions may be caused by the shear motion and/or cloud-cloud collisions (e.g., \cite{fuj2014}). 
+\citet{yaj2018} discussed that the large velocity dispersion at $> 100$\,km\,s$^{-1}$ in the galactic bars may disperse GMCs. 
+The decrease in the $\fthree$, $\feight$, and $\fDG$ in Region A may possibly be interpreted by these mechanisms.
+
+The analyses of the FUGIN data have found no significant differences of the fractional masses between Regions A and C, except for $\fthree$, which showed the average values of $\sim6\%$ and $\sim17\%$ in Regions A and C, respectively (Figure\,\ref{fig:m}(c) and Table\,\ref{tab:1}).
+This may suggest that formation of the relatively dense gas traced in $^{13}$CO is more efficient in the inter-arm regions rather than in the Galactic Bar, although there are no significant differences in $\feight$ and $\fDG$ between these two regions.
+%Regions B and D with the Galactic arms have higher $\fthree$ of $\sim30\%$.
+Observations of the extra galaxies suggested that moderate shear motion in the arms may allow GMCs to stream into the inter-arm regions (e.g, \cite{kod2009, miy2014}), while GMCs hardly survive in the Galactic Bar.
+This may lead to higher $\fthree$ in the inter-arm region compared to the Galactic Bar.
+
+%\citet{bat2014} measured the H$_2$ mass fractions of dense gas components in Giant Molecular Clouds (GMCs) on the MW Galactic plane. The masses of the GMCs were calculated using the $^{13}$CO $J$=1--0 data taken by the Five College Radio Astronomical Observatory (FCRAO), while those of the dense gas were calculated from the Bolocam Galactic Plane Survey (BGPS) 1.1\,mm dust continuum images. 
+%\citet{bat2014} obtained a low averaged fractional mass of 11$^{+12}_{-06}\,\%$ for the full dust sources.
+%, and the high column density subregions of the dust sources with $\Sigma_{\rm H_2} > 200\,M_\odot\,{\rm pc^{-2}}$ comprise 7$^{+13}_{-5}\,\%$.
+
+To resolve the remaining issues raised in this section, it is important to perform additional analyses of the FUGIN CO dataset to identify and quantify the various structures of molecular gas in various spatial scales from 1\,pc to kpc, which will lead to a comprehensive understanding of the dense gas and star formation in the MW.
+
+
+\section{Summary}
+The conclusions of the present study are summarized as follows.
+\begin{enumerate}
+\item The CO $J$=1--0 data, which was obtained as a part of the FUGIN project using the Nobeyama 45-m telescope, was analyzed to construct the longitudinal distributions of the $\mH$ traced by the $^{12}$CO, $^{13}$CO, and C$^{18}$O emissions with a bin-size of $l = 1^\circ$. %The derived masses were then used to estimate the fractional masses of the individual CO sources to the total molecular mass.
+\item $\mH$ was measured in the region within $d_{\rm tan} \pm 30\%$ by choosing the corresponding $v_{\rm LSR}$ ranges in the $l$-$v$ diagram. The target region included the Galactic Bar, Far-3kpc Arm, Norma Arm, Scutum Arm, Sagittarius Arm, and inter-arm regions. 
+\item The $\mtwo$ of these regions were measured assuming the constant $X$(CO)-factor, and $\mthree$ and $\meight$ were estimated assuming LTE.  $\mDG$ was measured using the subregions of the C$^{18}$O sources at which $A_{\rm v} > 8$.
+\item The derived $\mDG$ and $\mtwo$ were then used to calculate $\fDG$, and the derived $\fDG$ showed large variations depending on the structures of the MW disk; the regions including the Galactic arms have high $\fDG$ of $\sim4$--$5\%$, while the $\fDG$ of the Galactic bar and inter-arm regions are small at $\sim0.1$--$0.4\%$. 
+The averaged $\fDG$ over the entirety of the target region ($\sim5$\,kpc) is $\sim2.9\%$. This figure is consistent with the gap between the gas consumption timescale observed in the KS-law ($\sim1$--$2$\,Gyer) and dense gas consumption timescale ($\sim20$\,Myr), indicating that the formation of dense gas is the primary bottleneck of star formation in the MW.
+\item Other mass ratios such as $\ffDG$ and $\mDG$/$\meight$ were also measured; it was demonstrated that every mass ratio tends to increase in the arm regions as opposed to in the inter-arm and bar regions. 
+Only $\fthree$ showed no significant differences between the arms and inter-arms, while still showing small values in the bar region.
+\item The analyses first resolved the $\fDG$ and other mass ratios over $\sim$5\,kpc in the Galactic plane, which provided crucial information on dense gas and star formation in the MW. It is expected that these results will encourage the future theoretical and observational studies.
+\end{enumerate}
+
+
+
+\begin{ack}
+This work was financially supported by Grants-in-Aid for Scientific Research (KAKENHI) of the Japanese society for the Promotion of Science (JSPS; grant numbers 15H05694, 15K17607, 24224005, 26247026, and 23540277). 
+Data analysis of the CO emissions was in part carried out on the open use data analysis computer system at the Astronomy Data Center, ADC, of the National Astronomical Observatory of Japan.
+\end{ack}
+
+%\bibliographystyle{aasjournal_pasj} 
+%\bibliography{reference}
+
+\begin{thebibliography}{}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{{Andr{\'e}} {et~al.}(2014){Andr{\'e}}, {Di Francesco},
+  {Ward-Thompson}, {Inutsuka}, {Pudritz}, \& {Pineda}}]{and2014}
+{Andr{\'e}}, P., {Di Francesco}, J., {Ward-Thompson}, D., {Inutsuka}, S.-I.,
+  {Pudritz}, R.~E., \& {Pineda}, J.~E. 2014, Protostars and Planets VI, 27
+
+\bibitem[{{Andr{\'e}} {et~al.}(2010){Andr{\'e}}, {Men'shchikov}, {Bontemps},
+  {K{\"o}nyves}, {Motte}, {Schneider}, {Didelon}, {Minier}, {Saraceno},
+  {Ward-Thompson}, {di Francesco}, {White}, {Molinari}, {Testi}, {Abergel},
+  {Griffin}, {Henning}, {Royer}, {Mer{\'{\i}}n}, {Vavrek}, {Attard},
+  {Arzoumanian}, {Wilson}, {Ade}, {Aussel}, {Baluteau}, {Benedettini},
+  {Bernard}, {Blommaert}, {Cambr{\'e}sy}, {Cox}, {di Giorgio}, {Hargrave},
+  {Hennemann}, {Huang}, {Kirk}, {Krause}, {Launhardt}, {Leeks}, {Le Pennec},
+  {Li}, {Martin}, {Maury}, {Olofsson}, {Omont}, {Peretto}, {Pezzuto}, {Prusti},
+  {Roussel}, {Russeil}, {Sauvage}, {Sibthorpe}, {Sicilia-Aguilar}, {Spinoglio},
+  {Waelkens}, {Woodcraft}, \& {Zavagno}}]{and2010}
+{Andr{\'e}}, P., {et~al.} 2010, \aap, 518, L102
+
+\bibitem[{{Arzoumanian} {et~al.}(2011){Arzoumanian}, {Andr{\'e}}, {Didelon},
+  {K{\"o}nyves}, {Schneider}, {Men'shchikov}, {Sousbie}, {Zavagno}, {Bontemps},
+  {di Francesco}, {Griffin}, {Hennemann}, {Hill}, {Kirk}, {Martin}, {Minier},
+  {Molinari}, {Motte}, {Peretto}, {Pezzuto}, {Spinoglio}, {Ward-Thompson},
+  {White}, \& {Wilson}}]{arz2011}
+{Arzoumanian}, D., {et~al.} 2011, \aap, 529, L6
+
+\bibitem[{{Baba}, {Saitoh}, and {Wada}(2013){Baba}, {Saitoh}, \&
+  {Wada}}]{bab2013}
+{Baba}, J., {Saitoh}, T.~R., \& {Wada}, K. 2013, \apj, 763, 46
+
+\bibitem[{{Battisti} and {Heyer}(2014){Battisti} \& {Heyer}}]{bat2014}
+{Battisti}, A.~J., \& {Heyer}, M.~H. 2014, \apj, 780, 173
+
+\bibitem[{{Bergin} and {Tafalla}(2007){Bergin} \& {Tafalla}}]{ber2007}
+{Bergin}, E.~A., \& {Tafalla}, M. 2007, \araa, 45, 339
+
+\bibitem[{{Bigiel} {et~al.}(2011){Bigiel}, {Leroy}, {Walter}, {Brinks}, {de
+  Blok}, {Kramer}, {Rix}, {Schruba}, {Schuster}, {Usero}, \&
+  {Wiesemeyer}}]{big2011}
+{Bigiel}, F., {et~al.} 2011, \apjl, 730, L13
+
+\bibitem[{{Bigiel} {et~al.}(2016){Bigiel}, {Leroy}, {Jim{\'e}nez-Donaire},
+  {Pety}, {Usero}, {Cormier}, {Bolatto}, {Garcia-Burillo}, {Colombo},
+  {Gonz{\'a}lez-Garc{\'{\i}}a}, {Hughes}, {Kepley}, {Kramer}, {Sandstrom},
+  {Schinnerer}, {Schruba}, {Schuster}, {Tomicic}, \& {Zschaechner}}]{big2016}
+{Bigiel}, F., {et~al.} 2016, \apjl, 822, L26
+
+\bibitem[{{Bolatto}, {Wolfire}, and {Leroy}(2013){Bolatto}, {Wolfire}, \&
+  {Leroy}}]{bol2013}
+{Bolatto}, A.~D., {Wolfire}, M., \& {Leroy}, A.~K. 2013, \araa, 51, 207
+
+\bibitem[{{Carpenter} and {Sanders}(1998){Carpenter} \& {Sanders}}]{car1998}
+{Carpenter}, J.~M., \& {Sanders}, D.~B. 1998, \aj, 116, 1856
+
+\bibitem[{{Dobbs} and {Baba}(2014){Dobbs} \& {Baba}}]{dob2014}
+{Dobbs}, C., \& {Baba}, J. 2014, \it PASA, 31, e035
+
+\bibitem[{{Federrath} {et~al.}(2010){Federrath}, {Roman-Duval}, {Klessen},
+  {Schmidt}, \& {Mac Low}}]{fed2010}
+{Federrath}, C., {Roman-Duval}, J., {Klessen}, R.~S., {Schmidt}, W., \& {Mac
+  Low}, M.-M. 2010, \aap, 512, A81
+
+\bibitem[{{Frerking}, {Langer}, and {Wilson}(1982){Frerking}, {Langer}, \&
+  {Wilson}}]{fre1982}
+{Frerking}, M.~A., {Langer}, W.~D., \& {Wilson}, R.~W. 1982, \apj, 262, 590
+
+\bibitem[{{Fujimoto}, {Tasker}, and {Habe}(2014){Fujimoto}, {Tasker}, \&
+  {Habe}}]{fuj2014}
+{Fujimoto}, Y., {Tasker}, E.~J., \& {Habe}, A. 2014, \mnras, 445, L65
+
+\bibitem[{{Gao} and {Solomon}(2004{\natexlab{a}}){Gao} \& {Solomon}}]{gao2004a}
+{Gao}, Y., \& {Solomon}, P.~M. 2004{\natexlab{a}}, \apjs, 152, 63
+
+\bibitem[{{Gao} and {Solomon}(2004{\natexlab{b}}){Gao} \& {Solomon}}]{gao2004b}
+{Gao}, Y., \& {Solomon}, P.~M. 2004{\natexlab{b}}, \apj, 606, 271
+
+\bibitem[{{Green} {et~al.}(2011){Green}, {Caswell}, {McClure-Griffiths},
+  {Avison}, {Breen}, {Burton}, {Ellingsen}, {Fuller}, {Gray}, {Pestalozzi},
+  {Thompson}, \& {Voronkov}}]{gre2011}
+{Green}, J.~A., {et~al.} 2011, \apj, 733, 27
+
+\bibitem[{{Harjunp{\"a}{\"a}}, {Lehtinen}, and
+  {Haikala}(2004){Harjunp{\"a}{\"a}}, {Lehtinen}, \& {Haikala}}]{har2004}
+{Harjunp{\"a}{\"a}}, P., {Lehtinen}, K., \& {Haikala}, L.~K. 2004, \aap, 421,
+  1087
+
+\bibitem[{{Heiderman} {et~al.}(2010){Heiderman}, {Evans}, {Allen}, {Huard}, \&
+  {Heyer}}]{hei2010}
+{Heiderman}, A., {Evans}, II, N.~J., {Allen}, L.~E., {Huard}, T., \& {Heyer},
+  M. 2010, \apj, 723, 1019
+
+\bibitem[{{Hennebelle} {et~al.}(2008){Hennebelle}, {Banerjee},
+  {V{\'a}zquez-Semadeni}, {Klessen}, \& {Audit}}]{hen2008}
+{Hennebelle}, P., {Banerjee}, R., {V{\'a}zquez-Semadeni}, E., {Klessen}, R.~S.,
+  \& {Audit}, E. 2008, \aap, 486, L43
+
+\bibitem[{{Hou} and {Han}(2014){Hou} \& {Han}}]{hou2014}
+{Hou}, L.~G., \& {Han}, J.~L. 2014, \aap, 569, A125
+
+\bibitem[{{Inutsuka} {et~al.}(2015){Inutsuka}, {Inoue}, {Iwasaki}, \&
+  {Hosokawa}}]{inu2015}
+{Inutsuka}, S.-i., {Inoue}, T., {Iwasaki}, K., \& {Hosokawa}, T. 2015, \aap,
+  580, A49
+
+\bibitem[{{Inutsuka} and {Miyama}(1997){Inutsuka} \& {Miyama}}]{inu1997}
+{Inutsuka}, S.-i., \& {Miyama}, S.~M. 1997, \apj, 480, 681
+
+\bibitem[{{Kennicutt} and {Evans}(2012){Kennicutt} \& {Evans}}]{ken2012}
+{Kennicutt}, R.~C., \& {Evans}, N.~J. 2012, \araa, 50, 531
+
+\bibitem[{{Kennicutt}(1998){Kennicutt}}]{ken1998}
+{Kennicutt}, Jr., R.~C. 1998, \araa, 36, 189
+
+\bibitem[{{Kobayashi} {et~al.}(2017{\natexlab{a}}){Kobayashi}, {Inutsuka},
+  {Kobayashi}, \& {Hasegawa}}]{kob2017a}
+{Kobayashi}, M.~I.~N., {Inutsuka}, S.-i., {Kobayashi}, H., \& {Hasegawa}, K.
+  2017{\natexlab{a}}, \apj, 836, 175
+
+\bibitem[{{Kobayashi} {et~al.}(2017{\natexlab{b}}){Kobayashi}, {Kobayashi},
+  {Inutsuka}, \& {Fukui}}]{kob2017b}
+{Kobayashi}, M.~I.~N., {Kobayashi}, H., {Inutsuka}, S.-i., \& {Fukui}, Y.
+  2017{\natexlab{b}}, ArXiv e-prints, arXiv:1708.07952
+
+\bibitem[{{Koda} {et~al.}(2009){Koda}, {Scoville}, {Sawada}, {La Vigne},
+  {Vogel}, {Potts}, {Carpenter}, {Corder}, {Wright}, {White}, {Zauderer},
+  {Patience}, {Sargent}, {Bock}, {Hawkins}, {Hodges}, {Kemball}, {Lamb},
+  {Plambeck}, {Pound}, {Scott}, {Teuben}, \& {Woody}}]{kod2009}
+{Koda}, J., {et~al.} 2009, \apjl, 700, L132
+
+\bibitem[{{Lada} {et~al.}(2012){Lada}, {Forbrich}, {Lombardi}, \&
+  {Alves}}]{lad2012}
+{Lada}, C.~J., {Forbrich}, J., {Lombardi}, M., \& {Alves}, J.~F. 2012, \apj,
+  745, 190
+
+\bibitem[{{Lada}, {Lombardi}, and {Alves}(2010){Lada}, {Lombardi}, \&
+  {Alves}}]{lad2010}
+{Lada}, C.~J., {Lombardi}, M., \& {Alves}, J.~F. 2010, \apj, 724, 687
+
+\bibitem[{{Leung}, {Herbst}, and {Huebner}(1984){Leung}, {Herbst}, \&
+  {Huebner}}]{leu1984}
+{Leung}, C.~M., {Herbst}, E., \& {Huebner}, W.~F. 1984, \apjs, 56, 231
+
+\bibitem[{{Mehringer}(1994){Mehringer}}]{meh1994}
+{Mehringer}, D.~M. 1994, \apjs, 91, 713
+
+\bibitem[{{Meidt} {et~al.}(2013){Meidt}, {Schinnerer}, {Garc{\'{\i}}a-Burillo},
+  {Hughes}, {Colombo}, {Pety}, {Dobbs}, {Schuster}, {Kramer}, {Leroy}, {Dumas},
+  \& {Thompson}}]{mei2013}
+{Meidt}, S.~E., {et~al.} 2013, \apj, 779, 45
+
+\bibitem[{{Milam} {et~al.}(2005){Milam}, {Savage}, {Brewster}, {Ziurys}, \&
+  {Wyckoff}}]{mil2005}
+{Milam}, S.~N., {Savage}, C., {Brewster}, M.~A., {Ziurys}, L.~M., \& {Wyckoff},
+  S. 2005, \apj, 634, 1126
+
+\bibitem[{{Minamidani} {et~al.}(2016){Minamidani}, {Nishimura}, {Miyamoto},
+  {Kaneko}, {Iwashita}, {Miyazawa}, {Nishitani}, {Wada}, {Fujii}, {Takahashi},
+  {Iizuka}, {Ogawa}, {Kimura}, {Kozuki}, {Hasegawa}, {Matsuo}, {Fujita},
+  {Ohashi}, {Morokuma-Matsui}, {Maekawa}, {Muraoka}, {Nakajima}, {Umemoto},
+  {Sorai}, {Nakamura}, {Kuno}, \& {Saito}}]{min2016}
+{Minamidani}, T., {et~al.} 2016, in \procspie, Vol. 9914, Millimeter,
+  Submillimeter, and Far-Infrared Detectors and Instrumentation for Astronomy
+  VIII, 99141Z
+
+\bibitem[{{Miyamoto}, {Nakai}, and {Kuno}(2014){Miyamoto}, {Nakai}, \&
+  {Kuno}}]{miy2014}
+{Miyamoto}, Y., {Nakai}, N., \& {Kuno}, N. 2014, \pasj, 66, 36
+
+\bibitem[{{Molinari} {et~al.}(2010){Molinari}, {Swinyard}, {Bally}, {Barlow},
+  {Bernard}, {Martin}, {Moore}, {Noriega-Crespo}, {Plume}, {Testi}, {Zavagno},
+  {Abergel}, {Ali}, {Anderson}, {Andr{\'e}}, {Baluteau}, {Battersby},
+  {Beltr{\'a}n}, {Benedettini}, {Billot}, {Blommaert}, {Bontemps}, {Boulanger},
+  {Brand}, {Brunt}, {Burton}, {Calzoletti}, {Carey}, {Caselli}, {Cesaroni},
+  {Cernicharo}, {Chakrabarti}, {Chrysostomou}, {Cohen}, {Compiegne}, {de
+  Bernardis}, {de Gasperis}, {di Giorgio}, {Elia}, {Faustini}, {Flagey},
+  {Fukui}, {Fuller}, {Ganga}, {Garcia-Lario}, {Glenn}, {Goldsmith}, {Griffin},
+  {Hoare}, {Huang}, {Ikhenaode}, {Joblin}, {Joncas}, {Juvela}, {Kirk},
+  {Lagache}, {Li}, {Lim}, {Lord}, {Marengo}, {Marshall}, {Masi}, {Massi},
+  {Matsuura}, {Minier}, {Miville-Desch{\^e}nes}, {Montier}, {Morgan}, {Motte},
+  {Mottram}, {M{\"u}ller}, {Natoli}, {Neves}, {Olmi}, {Paladini}, {Paradis},
+  {Parsons}, {Peretto}, {Pestalozzi}, {Pezzuto}, {Piacentini}, {Piazzo},
+  {Polychroni}, {Pomar{\`e}s}, {Popescu}, {Reach}, {Ristorcelli}, {Robitaille},
+  {Robitaille}, {Rod{\'o}n}, {Roy}, {Royer}, {Russeil}, {Saraceno}, {Sauvage},
+  {Schilke}, {Schisano}, {Schneider}, {Schuller}, {Schulz}, {Sibthorpe},
+  {Smith}, {Smith}, {Spinoglio}, {Stamatellos}, {Strafella}, {Stringfellow},
+  {Sturm}, {Taylor}, {Thompson}, {Traficante}, {Tuffs}, {Umana}, {Valenziano},
+  {Vavrek}, {Veneziani}, {Viti}, {Waelkens}, {Ward-Thompson}, {White},
+  {Wilcock}, {Wyrowski}, {Yorke}, \& {Zhang}}]{mol2010}
+{Molinari}, S., {et~al.} 2010, \aap, 518, L100
+
+\bibitem[{{Momose} {et~al.}(2010){Momose}, {Okumura}, {Koda}, \&
+  {Sawada}}]{mom2010}
+{Momose}, R., {Okumura}, S.~K., {Koda}, J., \& {Sawada}, T. 2010, \apj, 721,
+  383
+
+\bibitem[{{Motte} {et~al.}(2014){Motte}, {Nguy{\^e}n Luong}, {Schneider},
+  {Heitsch}, {Glover}, {Carlhoff}, {Hill}, {Bontemps}, {Schilke}, {Louvet},
+  {Hennemann}, {Didelon}, \& {Beuther}}]{mot2014}
+{Motte}, F., {et~al.} 2014, \aap, 571, A32
+
+\bibitem[{{Muraoka} {et~al.}(2016){Muraoka}, {Sorai}, {Kuno}, {Nakai},
+  {Nakanishi}, {Takeda}, {Yanagitani}, {Kaneko}, {Miyamoto}, {Kishida},
+  {Hatakeyama}, {Umei}, {Tanaka}, {Tomiyasu}, {Saita}, {Ueno}, {Matsumoto},
+  {Salak}, \& {Morokuma-Matsui}}]{mur2016}
+{Muraoka}, K., {et~al.} 2016, \pasj, 68, 89
+
+\bibitem[{{Nakanishi} and {Sofue}(2006){Nakanishi} \& {Sofue}}]{nak2006}
+{Nakanishi}, H., \& {Sofue}, Y. 2006, \pasj, 58, 847
+
+\bibitem[{{Onishi} {et~al.}(1998){Onishi}, {Mizuno}, {Kawamura}, {Ogawa}, \&
+  {Fukui}}]{oni1998}
+{Onishi}, T., {Mizuno}, A., {Kawamura}, A., {Ogawa}, H., \& {Fukui}, Y. 1998,
+  \apj, 502, 296
+
+\bibitem[{{Regan}, {Sheth}, and {Vogel}(1999){Regan}, {Sheth}, \&
+  {Vogel}}]{rag1999}
+{Regan}, M.~W., {Sheth}, K., \& {Vogel}, S.~N. 1999, \apj, 526, 97
+
+\bibitem[{{Reid} {et~al.}(2016){Reid}, {Dame}, {Menten}, \&
+  {Brunthaler}}]{rei2016}
+{Reid}, M.~J., {Dame}, T.~M., {Menten}, K.~M., \& {Brunthaler}, A. 2016, \apj,
+  823, 77
+
+\bibitem[{{Roman-Duval} {et~al.}(2016){Roman-Duval}, {Heyer}, {Brunt}, {Clark},
+  {Klessen}, \& {Shetty}}]{rom2016}
+{Roman-Duval}, J., {Heyer}, M., {Brunt}, C.~M., {Clark}, P., {Klessen}, R., \&
+  {Shetty}, R. 2016, \apj, 818, 144
+
+\bibitem[{{Schmidt}(1959){Schmidt}}]{sch1959}
+{Schmidt}, M. 1959, \apj, 129, 243
+
+\bibitem[{{Shimajiri} {et~al.}(2017){Shimajiri}, {Andr{\'e}}, {Braine},
+  {K{\"o}nyves}, {Schneider}, {Bontemps}, {Ladjelate}, {Roy}, {Gao}, \&
+  {Chen}}]{shi2017}
+{Shimajiri}, Y., {et~al.} 2017, \aap, 604, A74
+
+\bibitem[{{Shu}(2016){Shu}}]{shu2016}
+{Shu}, F.~H. 2016, \araa, 54, 667
+
+\bibitem[{{Sofue} {et~al.}(2018){Sofue}, {Kohno}, {Torii}, {Umemoto}, {Kuno},
+  {Tachihara}, {Minamidani}, {Fujita}, {Matsuo}, {Nishimura}, {Tsuda}, \&
+  {Seta}}]{sof2018}
+{Sofue}, Y., {et~al.} 2018, ArXiv e-prints, arXiv:1807.06232
+
+\bibitem[{{Sorai} {et~al.}(2012){Sorai}, {Kuno}, {Nishiyama}, {Watanabe},
+  {Matsui}, {Habe}, {Hirota}, {Ishihara}, \& {Nakai}}]{sor2012}
+{Sorai}, K., {et~al.} 2012, \pasj, 64, 51
+
+\bibitem[{{Torii} {et~al.}(2018){Torii}, {Fujita}, {Matsuo}, {Nishimura},
+  {Kohno}, {Kuriki}, {Tsuda}, {Minamidani}, {Umemoto}, {Kuno}, {Hattori},
+  {Yoshiike}, {Ohama}, {Tachihara}, {Shima}, {Habe}, \& {Fukui}}]{tor2018a}
+{Torii}, K., {et~al.} 2018, \pasj, 70, S51
+
+\bibitem[{{Umemoto} {et~al.}(2017){Umemoto}, {Minamidani}, {Kuno}, {Fujita},
+  {Matsuo}, {Nishimura}, {Torii}, {Tosaki}, {Kohno}, {Kuriki}, {Tsuda},
+  {Hirota}, {Ohashi}, {Yamagishi}, {Handa}, {Nakanishi}, {Omodaka}, {Koide},
+  {Matsumoto}, {Onishi}, {Tokuda}, {Seta}, {Kobayashi}, {Tachihara}, {Sano},
+  {Hattori}, {Onodera}, {Oasa}, {Kamegai}, {Tsuboi}, {Sofue}, {Higuchi},
+  {Chibueze}, {Mizuno}, {Honma}, {Muller}, {Inoue}, {Morokuma-Matsui},
+  {Shinnaga}, {Ozawa}, {Takahashi}, {Yoshiike}, {Costes}, \&
+  {Kuwahara}}]{ume2017}
+{Umemoto}, T., {et~al.} 2017, \pasj, 69, 78
+
+\bibitem[{{Usero} {et~al.}(2015){Usero}, {Leroy}, {Walter}, {Schruba},
+  {Garc{\'{\i}}a-Burillo}, {Sandstrom}, {Bigiel}, {Brinks}, {Kramer},
+  {Rosolowsky}, {Schuster}, \& {de Blok}}]{use2015}
+{Usero}, A., {et~al.} 2015, \aj, 150, 115
+
+\bibitem[{{Wada}, {Baba}, and {Saitoh}(2011){Wada}, {Baba}, \&
+  {Saitoh}}]{wad2011}
+{Wada}, K., {Baba}, J., \& {Saitoh}, T.~R. 2011, \apj, 735, 1
+
+\bibitem[{{Wilson} and {Rood}(1994){Wilson} \& {Rood}}]{wil1994}
+{Wilson}, T.~L., \& {Rood}, R. 1994, \araa, 32, 191
+
+\bibitem[{{Wu} {et~al.}(2005){Wu}, {Evans}, {Gao}, {Solomon}, {Shirley}, \&
+  {Vanden Bout}}]{wu2005}
+{Wu}, J., {Evans}, II, N.~J., {Gao}, Y., {Solomon}, P.~M., {Shirley}, Y.~L., \&
+  {Vanden Bout}, P.~A. 2005, \apjl, 635, L173
+
+\bibitem[{{Yajima} {et~al.}(2018){Yajima}, {Sorai}, {Miyamoto}, {Kuno},
+  {Kaneko}, A., B., C., \& D.}]{yaj2018}
+{Yajima}, Y., {et~al.} 2018, submitted.
+
+\end{thebibliography}
+
+%\appendix
+
+%\section{??}
+
+
+\end{document}
+

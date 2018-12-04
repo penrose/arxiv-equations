@@ -1,0 +1,50 @@
+\begin{figure}[t]
+  \centering
+  \resizebox{0.9\linewidth}{!}{
+  \input{MAV.pgf}
+  }
+  \vspace{-1.0em}
+  \caption{Design of our MAV equipped with a Velodyne Puck LITE, fast onboard computer, two synchronized global shutter color cameras, and an RFID reader. The landing feet are retractable to allow for true \SI{360}{\degree} perception.}
+  \label{fig:MAV}
+  \vspace{-3ex}
+\end{figure}
+
+% Fast flight
+Today, fast MAV flight without external sensing is mostly vision-based.
+Recently, Falanga \etal~\cite{falanga2017} presented an MAV flying with \SI{3}{\meter\per\second} through narrow gaps.
+This requires precise relative localization and navigation. We focus on fast navigation in allocentric maps with reliable obstacle avoidance, which currently is not achievable by using cameras alone.
+
+Shen \etal~\cite{Shen_RSS_2013} present an MAV that is capable of autonomous vision-based flight with up to \SI{4}{\meter\per\second} on a straight line, \SI{2}{\meter\per\second} on a figure eight, and \SI{1.5}{\meter\per\second} in an indoor environment. Although the system is relatively fast, the authors report significant drift, induced by solely relying on cameras for state estimation.
+
+Another vision-based, lightweight MAV system has been presented by Burri \etal~\cite{burri2012}.
+Their work focuses on industrial boiler inspection with agile flight in industrial environments.
+
+Florence \etal~\cite{florence2016} use a combination of vision and a 2D laser scanner to avoid obstacles at high velocities. Their system flies in cluttered unknown environments with large state uncertainties.
+For our application, we rely on precise, but still fast, allocentric localization and assume that an allocentric map contains the major, complex obstacles.
+
+Our targeted scenario is particularly adverse for the use of visual perception. On one hand, panels and shelf rows carry highly similar and repetitive visual cues, which preclude any form of place recognition. On the other hand, local geometry is also highly self-similar and symmetric. Hence, we solely rely on high-frequency 3D laser scans for obstacle perception and state estimation. Its large field-of-view and long measurement range allow for resolving local similarities by using large-scale structures for localization.
+
+\begin{figure}[t]
+  \centering
+  \input{system_diagram.pgf}
+  \vspace{-0.5em}
+  \caption{System overview. Inputs are depicted in green and software components in blue. An external warehouse management system (WMS) provides an unordered list of waypoints of to be inspected goods to the mission planning. Control commands are sent to the SDK of the DJI Matrice 600 (red).}
+  \label{fig:system_diagram}
+  \vspace{-3ex}
+\end{figure}
+
+% Inventory
+Ma \etal~\cite{ma2017drone} addressed automatic inventory with a lightweight Parrot drone.
+Their RFly system relays the RFID signal to a reader and is able to triangulate the location of the tag with a reported accuracy of below \SI{20}{\centi\meter}.
+However, in order to self-localize the robot, they rely on an external motion capturing setup, which limits the practical feasibility.
+
+Similar to our system, Ortiz \etal~\cite{ortiz2014} perform inspection in narrow spaces.
+They developed a quadrotor MAV for autonomous vessel inspection.
+A combination of laser localization and visual odometry yields a 2D localization approach decoupled from the height measurements.
+Our system performs SLAM with 6D pose estimation based on a high-performance 3D lidar.
+
+% Previous MAV
+An early version of our inventory MAV~\cite{ROS_book_2017} relied on a combination of two rotating 2D lidars for a low frequency localization and mapping with visual odometry performed with three pairs of wide-angle stereo cameras.
+Although the system proved itself robust, the setup proposed in this paper only relies on a single 3D lidar as primary sensor and, hence, significantly reduces the overall system complexity.
+Furthermore, the increased frequency of \SI{360}{\degree} scans obviates the requirement for additional visual odometry.
+To account for the narrower vertical field of view in the proposed system, our path planning optionally limits the ascension and descension angle.

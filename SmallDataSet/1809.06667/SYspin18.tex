@@ -1,0 +1,1762 @@
+\documentclass[prl,twocolumn,preprintnumbers,amsmath,amssymb]{revtex4-1}
+%\documentclass[prb,12pt,tightenlines,amsmath,amssymb]{revtex4}
+\usepackage{graphicx}
+
+\begin{document}
+\title{  Two indices  Sachdev-Ye-Kitaev model }
+%       Kolmogorov-Arnold-Moser (KAM) theorem in the $ U(1)/Z_2 $ Dicke models }
+%\title{ Quantum analog of Kolmogorov-Arnold-Moser (KAM) theorem in the $ U(1)/Z_2 $ Dicke model }
+%\title{ Level statistics, quantum chaos, Photon Berry phases, Instanter, Schrodinger Cats with oscillating parities and crossover from $ U(1) $ %to $ Z_2 $ limit of superconduction quoits inside a microwave cavity }
+\author{ Jinwu   Ye }
+\affiliation{
+$^{1}$Department of Physics and Astronomy, Mississippi State University, MS, 39762, USA  \\
+$^{2}$  Key Laboratory of Terahertz Optoelectronics, Ministry of Education and  Beijing Advanced innovation Center for Imaging Technology, Department of Physics, Capital Normal University, Beijing 100048, China  }
+\date{\today }
+
+% Near the $ U(1) $ limit, $ \beta $ is small.
+% Near the $ Z_2 $ limit, $ 1-\beta $ is small.
+% The combination of the two methods provides rather complete physical picture from the $ U(1) $  to $ Z_2 $ limits.
+
+\begin{abstract}
+  We study the original Sachdev-Ye (SY) model in its Majorana fermion representation which
+  can be called the two indices  Sachdev-Ye-Kitaev (SYK) model.
+  Its advantage over the original SY model in the $ SU(M) $ complex fermion representation is that
+  it need no local constraints, so a $1/M $ expansion can be more easily performed.
+  Its advantage over the 4 indices SYK  model is that it has only two site indices
+  $ J_{ij} $ instead of four indices $ J_{ijkl} $, so it may fit the bulk string theory better.
+%  After the $ N \rightarrow \infty $ limit was taken, the $ 1/M $ expansion can be easily performed due to the absence of the constraint.
+%  It may also be easily generalized to short-range interaction in any space  dimension than the four indices SYK.
+  By performing a $1/M $ expansion at $ N=\infty $, we show that a quantum spin liquid (QSL) state remains stable at a finite $ M $.
+%  We also compute free energy, zero temperature entropy and specific heat at $ N=\infty, M=\infty$ which are identical to
+%  those in the 4 indices SYK model at $ N=\infty $.
+  The $ 1/M $ corrections are exactly marginal, so the system  remains conformably invariant at any finite $ M $.
+%  They only change the values of the zero temperature entropy, the coefficient of the linear specific heat
+% and the overall constants of all the  2 and 4 point  correlation functions.
+  The 4-point out of time correlation ( OTOC ) shows quantum chaos neither at $ N=\infty $  at any finite $ M $, nor
+  at $ M=\infty $ at any finite $ N $.
+  By looking at the replica off-diagonal channel, we find there is a quantum spin glass (QSG) instability at
+  an exponentially suppressed temperature in $ M $.
+  We work out a criterion for the two large numbers $ N $ and $ M $ to satisfy so that
+  the QSG instability may be avoided.
+% $ T_{QSG} \sim J e^{ -\sqrt{ \pi M/2 } } $.
+  We speculate  that at any finite $ N $, the quantum chaos appears at the order of $ 1/M^{0} $, which is the subleading order in
+  the $ 1/M $ expansion.
+  When  the $ 1/N $ quantum fluctuations at any finite $ M $ are considered, from a general reparametrization symmetry breaking point of view,
+  we argue that   the effective action should still be described by the Schwarzian one, the  OTOC  shows maximal quantum chaos.
+%  The experimental realizations of the two indices SYK are briefly discussed.
+  This work may motivate future works to study the possible new gravity dual of the  2 indices SYK model.
+%  in contrast to the SYK model whose long time behaviour is different than its conformally form
+%  due to the finite size effects at a finite $ N $.
+%  {\bf  We argue that there is no quantum spin glass (QSG), in contrast to the original SY model in its $ SU(M) $ representation,
+%  which is in a quantum spin glass state at any finite $ M $. }
+
+%  and explore its possible connections with the low energy spectrum.
+% ( so the level crossing between the two different parity sectors do not count ), then
+% in Fig.\ref{levelevolution} do not count ),
+% then compare with the analytical results on the low energy level evolution
+% from the normal, $U(1) $ regime to the QT regime to see how the anisotropy changes the energy level statistics and the ENET.
+%xxxxxxxxxxxxxxxxxxxxxxxx
+%  We compare the quantum analogue of the KAM theorem in the hybrid SYK models with the $ U(1)/Z_2 $ Dicke model.
+%  Then we briefly discuss possible quantum analog of KAM theorem in a hybrid SYK model.
+%  We find that the existence of the $ U(1) $ regime when $ 0 < \beta < \beta_{U(1)} \sim 0.35 $ implies the validity of the quantum
+%  analogue of the Kolmogorov-Arnold-Moser (KAM) theorem, therefore the energy level statistics remains Possionian
+%  through the whole normal/U(1)/QT regime.
+%  However, when $ \beta_{U(1)} < \beta \leq 1 $, the $ U(1) $ regime disappears,  the system directly crossovers from the normal to the QT %regime, there is an accompanying onset of quantum chaos where the energy level statistics changes
+%  from Possionian to Wigner-Dyson  in the Grand orthogonal ensemble (GOE).
+% Connections with past works and future  perspectives are also discussed.
+\end{abstract}
+%  We perform exact diagonization study on and compare $ U(1) $ and $ J-U(1) $ Dicke
+%  models. We not only identify the low frequency diffusion mode, but
+%  also the high frequency optical mode. We also determine the  corresponding spectral weights.
+%   We also analyze carefully the experimental conditions to detect
+%   these various quantum phases and their corresponding  excitation spectra.
+
+\maketitle
+
+
+%  In the QT regime, by the non-perturbative instanton method,
+%  we find the emergencies of bound states one by one as the interaction strength increases,
+%  then investigate a new class of quantum tunneling processes through the instantons between the two bound states in the compact photon phase
+%  leading to Schrodinger Cats oscillating with even and odd parities.
+%  It is the Berry phase interference effects in the instanton tunneling event which leads to the oscillations.
+%  In the QT regime, we also perform a strong coupling expansion and find results consistent with
+%  those achieved from the instanton method, especially recover the dramatic Berry phase interference effects from a different approach.
+%  In the $ Z_2 $ limit, all the zeros due to the Berry phase are pushed to infinity, the so the ground state always has even parity without oscillations.
+%  We map out the evolution of energy level structures and also compute the photon correlation functions, squeezing spectrum and number correlation functions.
+%  We find nearly perfect agreements between the strong coupling expansion and the ED not only in the QT regime, but also
+%  in the $ U(1) $ regime not too close to the critical point at $ N=\infty $.
+%  The combination of the three methods lead to rather complete physical pictures in the whole crossover regimes
+%  from the $ U(1) $ Dicke to the $ Z_2 $  Dicke model. Experimental realizations and detections
+%  in cold atoms inside a cavity or superconducting qubits inside a microcavity
+%  are presented. Connections with past works and future  perspectives are also discussed.
+%  Quantum optics is a subject to study the atom-photon interactions \cite{walls,scully,yama}.
+
+{\bf 1. Introduction. }
+    Sachdev-Ye(SY)  \cite{SY} studied the random $ SU(2) $ Heisenberg model  with infinite-range interactions:
+\begin{equation}
+  H_{H}= \frac{1}{ \sqrt{M}} \sum_{ij} J_{ij} \vec{S}_i \cdot \vec{S}_j
+\label{SY}
+\end{equation}
+ where the random bond satisfies the Gaussian distribution $ P[ J_{ij} ] \sim e^{-NJ^2_{ij}/2 J^2 } $.
+
+ In order to achieve some analytical results, SY generalized the $ SU(2) $ to $ SU(M) $ by
+ introducing $ M $ complex fermions $ c_{i \alpha} $:
+ $ S_{i;\mu,\nu} =c^{\dagger}_{i\mu} c_{i\nu} $ subject to the local constraint
+ $ \sum_{\mu} c^{\dagger}_{i\mu} c_{i\mu} = q_0 M  $, then Eq.\ref{SY} becomes:
+\begin{equation}
+  H_{SY}=\frac{1}{ \sqrt{M}} \sum_{ij} J_{ij}  c^{\dagger}_{i\mu} c^{\dagger}_{j \nu} c_{i\nu}  c_{j\mu},~\sum_{\mu} c^{\dagger}_{i\mu} c_{i\mu} = q_0 M
+\label{SYsum}
+\end{equation}
+    In the $ N \rightarrow \infty $ ( number of sites )  limit, followed by a $ M \rightarrow \infty $ limit in Eq.\ref{SYsum},
+    SY found a gapless conformably invariant quantum spin liquid (QSL) ground state.
+    At zero temperature $ T=0 $, the QSL has an extensive GPS entropy \cite{SY3,subir1,subir2}
+    in the limit $ N \rightarrow \infty $ followed by  $ T \rightarrow 0 $  which is equal to the  Bekenstein-Hawking (BH) entropy
+    in Einstein gravity  \cite{subir1,subir2,subir3}.
+%    However, the QSG still emerges as  the true ground state at any finite $ M $ below an
+%    exponentially suppressed temperature\cite{SY3} $ T_{QSG} \sim J e^{-\sqrt{M} } $.
+%    Of course, the QSL still exists above $ T_{QSG} $.
+%    Due to its exponential form, the QSG ground state maybe non-perturbative, so maybe in-accessible
+%    to the $ 1/M $ expansion.
+%    However, the quantum spin glass (QSG)  state still emerges as the true ground state at $ T=0 $
+%    by the $1/M $ expansion \cite{SY1,SY2,SY3}.
+
+     In a series of talks in 2015, Kitaev \cite{Kittalk} simplified Sachdev-Ye model Eq.\ref{SYsum} to an infinite range four-indices Majorana fermion interacting model,
+    each has $ N $ species:
+\begin{equation}
+H_{SYK}=  \sum^{N}_{i,j,k,l=1} J_{ijkl} \chi_{i} \chi_{j} \chi_k \chi_l
+\label{SYK}
+\end{equation}
+    where  $  J_{ijkl}  $ also  satisfies the Gaussian distribution with
+    $ \langle J_{ijkl} \rangle_J=0,  \langle J^2_{ijkl} \rangle_J= 3! J^2/N^3 $. By showing its possible maximal chaotic behaviour  matching the feat of the quantum black holes,
+    Kitaev suggested that the $0+1 $ dimensional SYK  model may have a gravity
+    dual in  asymptotic $ AdS_2 $ space.
+    This speculation sparked great interests from both quantum gravity/string theory
+    \cite{Pol,Mald,Gross,sff1,liu1,liu2,superSYK,randomsusy1,randomsusy2,u1zero,tensor1,tensor2,tensor3}
+    and condensed matter/AMO community \cite{CSYKnum,Rcft,MBLSPT,tran1,tran2,highSYK1,highSYK3,highcSYK,longtime1,longtime2,rev}.
+%    Various potential experimental realizations have also been proposed \cite{cold,wire}.
+    Especially, Maldacena and Stanford did a systematic $ 1/N $ expansion \cite{Mald} on the SYK model.
+    In the large $ N $ limit, it leads to the same gapless QSL ground state as that in the SY model.
+    If dropping the irrelevant time derivative term $ \partial_\tau/J $, the saddle point equation ( and also the action ) has the time
+    re-parametrization invariance $  \tau \rightarrow f( \tau) $, however,  the saddle point solution spontaneously breaks it to $ SL(2,R) $, leading to "zero mode " or Goldstone mode,
+    while the irrelevant time derivative term explicitly breaks the re-parametrization symmetry and
+    lifts the Goldstone mode to a pseudo-Goldstone mode whose quantum fluctuations
+    can be described by  the Schwarzian action in terms of $ f( \tau) $ re-parametrization.
+%    which vanishes only for $ f \in SL(2,R) $, justifying its name "Schwarzian".
+%    In contrast to the SY model, at order $1/N $, the system remains at the QSL at $ T=0 $, there is no QSG instability.
+    From the Schwarzian, at the order $1/N $, they  evaluated the 4 point
+    out of time ordered correlation (OTOC) function at early times   and extracted the Lyapunov exponent
+    $ \lambda_L= 2 \pi/\beta $  at a small finite   temperature $ \beta J \gg 1 $.
+    It is maximally chaotic and saturates the upper bound of some classes of quantum systems \cite{bound1,bound2,bound3}.
+    This feat precisely matches that of quantum black holes in the Einstein gravity
+    which are the fastest quantum information scramblers in the universe,
+    therefore confirmed  the Kitaev's claim that the SYK model maybe
+    dual to black holes in asymptotically $ AdS_2 $, which is, in fact,
+    nearly conformably invariant/nearly $ AdS_2 $ with a scalar dilaton ( $ NCFT_1/NAdS_2 $ ).
+
+  In this paper, we study the original Sachdev-Ye model in its Majorana fermion representation which can be called the two indices  Sachdev-Ye-Kitaev model.
+  Its advantage over the original SY model in the $ SU(M) $ fermion representation Eq.\ref{SYsum} is that
+  it need no local constraints. Its advantage over the 4 indices SYK model Eq.\ref{SYK} is that it has only two site indices $ J_{ij} $ instead of four indices $ J_{ijkl} $, so it may fit the bulk string theory better \cite{Pol}  .
+  After the $ N \rightarrow \infty $ limit was taken, the $ 1/M $ expansion can be easily performed due to the absence of the constraint.
+  It may also be easily generalized to short-range interaction in any space  dimension than the four indices SYK.
+  By performing a $1/M $ expansion, we show that a quantum spin liquid (QSL) state remains stable at a finite $ M $.
+%  We also compute free energy, zero temperature entropy and specific heat at $ N=\infty, M=\infty$ which are identical to
+%  those in the 4 indices SYK model at $ N=\infty $.
+  The $ 1/M $ corrections are exactly marginal,
+  so they only change the values of the zero temperature entropy, the coefficient of the linear specific heat
+  and the overall constants of all the  2 and 4 point  correlation functions.
+  The system  remains conformably invariant at any finite $ M $.
+%  So in the two indices SYK, one may just trade the extra $ 1/M $ expansion with the simplifications of the two indices.
+  The 4-point out of time correlation ( OTOC ) shows quantum chaos neither at $ N=\infty $  at any values of $ M $,
+  nor at $ M=\infty $ at any values of $ N $.
+  Quantum chaos may only show up at a finite $ N $ and a finite $ M $ which can
+  be explored by a $ 1/N $ expansion, followed by a  $ 1/M $ expansion.
+  The two large numbers $ N $ and $ M $ play very different roles, $ N $ needs to be a large number
+  to have a time window for quantum chaotic behaviours, therefore have a gravity dual in $ AdS_2 $,
+  however, $ M $ also needs to be large enough to avoid the QSG phase,
+%  while the latter need not be a large number to have a gravity dual and
+  the $ 1/M $ expansion can only be used as a tool
+  to evaluate the conformably invariant 2- or 4-point functions  or thermodynamic quantities at any finite $ M $.
+  By looking at the replica off-diagonal channel, we find there is a quantum spin glass instability at
+  an exponentially suppressed temperature $ T_{QSG} \sim J e^{ -\sqrt{ \pi M/2 } } $.
+  We show that the QSG instability may be washed away when  $ M < N < e^{\sqrt{\pi/2 (M-1) }} $
+  by the finite size effects at a finite $ N $.
+  We argue that  when  the $ 1/N $ quantum fluctuations at any finite $ M $ are considered
+  and if the QSG can be avoided,
+  the effective action may still be described by the Schwarzian, the OTOC still show maximal quantum chaos.
+  We expect the results achieved here also apply to the SY model which maybe called two indices complex fermion SYK,
+  so it may also have a gravity dual in $ AdS_2 $ space, if QSG can be avoided.
+%  Although the 2 indices SYK is theoretically more difficult to solve than the 4 indices SYK,
+%  it may be more easily experimentally realized than the 4 indices SYK.
+  This work may inspire other works to study the possible new gravity dual of the 2 indices Majorana or Complex SYK model.
+
+
+
+%    To simplify the calculations, they wrote $ f( \tau) = \tau + \epsilon(\tau) $ and
+%    expand the  Schwarzian only to the second order in $ \epsilon(\tau) $, to reach a Gaussian effective action in $ \epsilon(\tau) $,
+%    they are able to evaluate the 4 point OTOC at early times $ t < t_s $ ( See Fig.3c)
+%    and extract the Lyapunov exponent $ \lambda_L= 2 \pi/\beta $, therefore confirm
+%    the Kitaev's claim that the SYK model maybe  dual to black holes in $ AdS_2 $, which is, in fact,
+%    nearly conformably invariant/nearly $ AdS_2 $ with a scalar dilaton ( $ NCFT_1/NAdS_2 $ ).
+
+
+
+
+
+
+
+
+%    In the higher dimensional complex fermion SYK, the time re-parametrization $ f( \tau) $,
+%    being conjugate to the energy fluctuations, lead to the heat conductivities.
+%    The $ \phi $ phase fluctuations, being conjugate to the charge fluctuations, lead to the charge conductivity \cite{highcSYK}.
+
+{\bf 2. Two indices SYK model. }
+    Here we introduce a new class of SY model which can be named as two indices SYK model.
+ Because $  SU(2)/Z_2= SO(3) $, there are two different ways to go to larger groups, one is generalize $ SU(2) $ to $ SU(M) $ as originally
+ done by SY  in Eq.\ref{SYsum}.
+ Here we take a different route, generalize $ O(3) $ to $ O(M) $. One can write a quantum spin
+ in terms of $ M $ Majorana fermions $ \chi_{i \alpha}, \alpha=1,2....M $ at each site $ i $ :
+\begin{equation}
+  S^{\mu}_i = \frac{1}{2} \chi_{i\alpha} ( T^{\mu} )_{\alpha \beta} \chi_{i\beta}
+\label{major1}
+\end{equation}
+ where  $ T^{\mu} $ is the $ M(M-1)/2 $ generators of the $ O(M) $ group \cite{om}.
+ The $ M $ Majorana fermions satisfy the Clifford algebra $ \{\chi_{i \alpha}, \chi_{j \beta} \}= \delta_{ij} \delta_{\alpha \beta} $.
+ For $ SO(3) $,  $ ( T^{\mu} )_{\alpha \beta}=-i \epsilon_{\mu \alpha \beta}  $.
+ The total spin square $  \sum_{\mu}  ( S^{\mu}_i )^2= M(M-1)/8 $.
+ Setting $ M=3 $ leads to the total spin $ s=1/2 $.
+ Its main advantages over the original SY model Eq.\ref{SYsum} is that
+ there are no constraints here.
+
+ Using the Majorana fermion representation for a quantum spin has a long history:
+ several authors including the author used it to solve multi-channel Kondo problems \cite{kondoye12345,stevekondo},
+ Kitaev \cite{kit} and many others \cite{steveQSL} used a different
+ version ( namely used 4 Majorana fermions by imposing an constraint ) to solve the
+ quantum spin liquid (QSL) phase in a honeycomb lattice. Several authors used it to study QSL phases
+ in anisotropic triangular lattices
+ \cite{major1,major2}. This could be the first time to use it to solve a random quantum spin system.
+ However, there are several tricky features  by using the Majorana fermions representation  of quantum spins
+ which were noticed before \cite{major1,major2}:
+ there is a $ Z_2 $ gauge degree of freedom $  \chi_{i\beta} \rightarrow -\chi_{i\beta} $ in Eq.\ref{major1},
+ which played crucial roles in any description of QSL states.
+ The Hilbert space of $ N $ spin $ 1/2 $ quantum spin is $ 2^{N} $,
+ each spin $1/2 $ is represented by 3 Majorana fermions in the $ O(3) $ case,
+ each Majorana fermion has quantum dimension $ \sqrt{2} $, so the Hilbert space of $3N $ of them
+ is enlarged to $ 2^{N+[N/2]} $ where
+ $ [N/2] $ takes the integer part of $ N/2 $. The extra $ 2^{[N/2]} $ dimension is due to the  $ Z_2 $ gauge degree of freedoms.
+ We suspect that the physical consequences of this extra $ Z_2 $ degree of freedoms may increase the quantum fluctuations over the
+ original quantum spins, therefore may favor quantum spin liquids over ordered states compared to the original quantum spin models.
+
+  Substituting Eq.\ref{major1} to Eq.\ref{SY} leads to the two indices SYK model  written as SYK/2:
+\begin{equation}
+  H_{SYK/2} = \frac{1}{\sqrt{2M}} \sum_{ij} J_{ij} ( \chi_{i\alpha} \chi_{j\alpha} ) ( \chi_{i\beta} \chi_{j\beta} )
+\label{SYmajor}
+\end{equation}
+ which, just like the SYK model Eq.\ref{SYK}, also contains 4 Majorana fermions, but with only  2 site indices $ ij $
+ and additional $ O(M) $ index $ \alpha $. As argued below, may have several advantages over the original
+ fermionic SY models in the $ SU(M) $ representation and the four indices SYK models.
+
+%  By extending $ O(3) $ to  $ O(M) $, one can focus on the infinite range interactions at a
+%  fixed $ N= \infty $ for $ O(M) $ group and perform $ 1/M $ expansion.
+
+%  Warm-up excise for graduate student, for nearest neighbor Anti-ferromagnetic interaction in a Kagome lattice,
+%  one may perform a $ 1/M $ expansion to calculate the exciattion spectrum. Topological order
+
+%  Dirac fermion spin liquids in a Kagome lattice, here it is useful to use $ 1/N $ expansion to look at the nature of
+%  this spin liquid, $ Z_2 $ spin liquids with a small gap, or a gapless Dirac fermion spin liquid ?
+%  This approach is especially nice for spin liquid ground state, may not be good for magnetically ordered ground state
+%  which has a well defined semi-classical limit, so HP bosons may be good, two representations are complimentary to each other.
+
+ To solve the original $ SU(M) $ fermions SY model Eq.\ref{SYsum}, one need to take
+ $ N \rightarrow \infty $ first, then followed by $ M \rightarrow \infty $.
+ One must also introduce a Lagrangian multiplier to enforce the local constraint in Eq.\ref{SYsum} which becomes
+ a global constraint at $ M=\infty $.
+ Fixing at $ N= \infty $, the $ M \rightarrow \infty $ leads to the gapless QSL.
+ As said in the introduction,  all these main difficulties of the original SY model were ingeniously circumvented by Kitaev by replacing the $ SU(M) $ fermions with $ N $ Majorana fermions, the two indices $ J_{ij} $ by 4 indices $ J_{ijkl} $,
+ double large $ N $, large $ M $ limit by just one large $ N $ limit.
+ This is a significant improvement over the original SY model both analytically and numerically.
+ Here, we still keep the 2 indices $ J_{ij} $, replacing the $ SU(2) $ fermions by 3 Majorana fermions
+ to keep the spin algebra at $ SU(2)/Z_2=SO(3) $, then extend the $ SO(3) $ to $ SO(M) $,
+ still use the $ 1/N $ expansion, followed by a $ 1/M $ expansion.
+
+ One of the biggest advantages of this $ O(M) $ group over the  $ SU(M) $ group is  the absence of
+ a Lagrangian multiplier to enforce the local constraint in Eq.\ref{SYsum}.
+ This make the following $ 1/M $ expansion much easier to perform than that of  $ SU(M) $.
+% Due to the absence of such a constraint,  the true ground state of the Majorana SY model is a QSL.
+% This is in sharp contrast to the original SY model where
+% keeping $ N=\infty $, the $ 1/M $ effects are hard to capture.
+ The advantage over the 4 indices SYK model \cite{Kittalk}  is that here we still stick to the two indices $ J_{ij} $.
+ As argued in \cite{Pol},  two index coupling $ J_{ij} $ may fit better with a bulk string theory.
+
+{\bf 3. The mean field solution at $ N = \infty $ followed by the  $ M =\infty $. }
+ By using replica $ a, b =1,2,... n $ where $ n $ is the number of replicas,
+ doing quenched average over the  Gaussian distribution $ P[J_{ij}] $ and introducing
+ the Hubbard-Stratonovich (HS) field
+ $ Q^{ab}_{\alpha \beta, \gamma \delta } ( \tau, \tau^{\prime} ) = Q^{ba}_{\gamma \delta, \alpha \beta} (\tau^{\prime},  \tau ) $,
+ different sites are decoupled:
+ \begin{eqnarray}
+   \bar{ Z^n } = \int {\cal D} Q exp[ - N {\cal F}(Q) ] ~~~~~~~~~~~~   \nonumber   \\
+ {\cal F}(Q)=  \frac{1}{J^2 M } \int d \tau  d \tau^{\prime} [ Q^{ab}_{\alpha \beta, \gamma \delta } ( \tau, \tau^{\prime} )]^2
+ - \log Z_0
+ \label{zn}
+\end{eqnarray}
+  where $ Z_0 $ is the single site partition function:
+\begin{eqnarray}
+    Z_0 & = & \int {\cal D} \chi exp[- \frac{1}{2} \int d \tau \chi^a_{\alpha} \partial_\tau \chi^a_{\alpha}
+      +  \frac{1}{M} \int d \tau  d \tau^{\prime} Q^{ab}_{\alpha \beta, \gamma \delta } ( \tau, \tau^{\prime} )    \nonumber  \\
+       & \cdotp & \chi^a_{\alpha} ( \tau) \chi^a_{\beta} ( \tau) \chi^b_{\gamma} ( \tau^{\prime} ) \chi^b_{\delta} ( \tau^{\prime}) ]
+\label{z0}
+\end{eqnarray}
+
+    In the $ N \rightarrow \infty $ limit,  we get the following saddle-point equation for the $ Q $ field:
+\begin{equation}
+    Q^{ab}_{\alpha \beta, \gamma \delta } ( \tau, \tau^{\prime} )=
+    \frac{J^2}{2} \langle \chi^a_{\alpha} ( \tau) \chi^a_{\beta} ( \tau) \chi^b_{\gamma} ( \tau^{\prime} ) \chi^b_{\delta} ( \tau^{\prime}) \rangle
+\label{saddle1}
+\end{equation}
+   We assume that in both quantum spin liquid and quantum spin glass phase
+   $  Q^{ab}_{\alpha \beta, \gamma \delta } ( \tau, \tau^{\prime} )
+   = Q^{ab} ( \tau, \tau^{\prime} ) [ \delta_{\alpha  \delta } \delta_{\beta \gamma} - \delta_{\alpha \gamma  } \delta_{\beta \delta} ] $
+   which is obviously anti-symmetric in $ (\alpha \beta) $ and $ (\gamma \delta ) $.
+
+   In a  quantum spin-glass, $  Q^{aa}( \tau- \tau^{\prime} \rightarrow \infty )= q_{EA} \neq 0 $ which is the Edward-Anderson (EA) order parameter \cite{SY,rotor1,rotor2}. For its replica off-diagonal  $ a \neq b $ component $  Q^{a \neq b}( \tau- \tau^{\prime}  )= q \neq 0 $
+   which is independent of  $ \tau- \tau^{\prime} $.  If the replica symmetry is not broken in the QSG phase, then $ q_{EA}= q $.
+
+%   Because $ Q^{ab} ( \tau- \tau^{\prime} ) $ is proportional to the spin-spin correlation function.
+%   The QSG ED order parameter is $ q_{EA}= g^2_{ab} $.
+
+  Introducing a second HS field $ P_{ab}( \tau, \tau^{\prime} )= -P_{ba}( \tau^{\prime}, \tau ) $, one can transform
+  $ Z_0 $ into the following form:
+\begin{eqnarray}
+   Z_0 & = & \int {\cal D} P exp[ - M {\cal F}_Q[ P ] ]      \nonumber   \\
+   {\cal F}_Q[ P ] & = & 2 \int d \tau  d \tau^{\prime}  Q^{ab}( \tau, \tau^{\prime})
+   P^2_{ab}( \tau, \tau^{\prime} ) -\log Z_{00}
+\label{z00P}
+\end{eqnarray}
+  where $ Z_{00} $ is the single-site and single-component partition function:
+\begin{eqnarray}
+    Z_{00} & = &  \int {\cal D} \chi exp[- \frac{1}{2} \int d \tau \chi^a_{\alpha} \partial_\tau \chi^a_{\alpha}
+      + 4 \int d \tau  d \tau^{\prime} Q^{ab} ( \tau, \tau^{\prime} )    \nonumber  \\
+      & \times & P_{ab}( \tau, \tau^{\prime} )
+      \chi^a_{\alpha} ( \tau) \chi^b_{\alpha} ( \tau^{\prime}) ]
+\label{z00}
+\end{eqnarray}
+
+
+
+    In the $ M \rightarrow \infty $ limit, we reach the saddle-point equation for the two-point function:
+\begin{equation}
+ P_{0ab}( \tau, \tau^{\prime} ) = G_{0ab}( \tau- \tau^{\prime} )= \frac{1}{M}
+ \langle \chi^a_{\alpha} ( \tau) \chi^b_{\alpha} ( \tau^{\prime}) \rangle
+\label{saddle2}
+\end{equation}
+
+  In the $ M \rightarrow \infty $ limit,  Eq.\ref{saddle1} becomes:
+\begin{equation}
+Q^{ab}_0 ( \tau- \tau^{\prime} )= \frac{J^2}{2} G^2_{0ab}( \tau- \tau^{\prime} )
+\label{saddle12}
+\end{equation}
+
+  From Eq.\ref{z00}, one can identify the system's self-energy:
+\begin{equation}
+ \Sigma_{0ab} ( \tau- \tau^{\prime} )= 4 J^2 G^3_{ab}( \tau- \tau^{\prime} )
+\label{self}
+\end{equation}
+   and reach the following self-consistent equation:
+\begin{equation}
+  G_{0ab} ( i \omega_n )=( -i \omega_n - \Sigma_{0ab}( i \omega_n ) )^{-1}
+\label{selfeq}
+\end{equation}
+ where the matrix inversion is taken in the replica space.
+
+% In a  quantum spin-glass, $  G_{0ab}( \tau- \tau^{\prime} )= g_{ab} $ for $ a \neq b $ and
+% independent of  $ \tau- \tau^{\prime} $. Because $ Q^{ab} ( \tau- \tau^{\prime} ) $ is proportional to the spin-spin correlation function.
+% The QSG ED order parameter is $ q_{EA}= g^2_{ab} $.
+
+ Obviously, due to the fermions can not condense, so $ G_{0ab}( \tau- \tau^{\prime} ) =0 $ for $ a \neq b $.
+ So the fermion Green function only has the replica diagonal saddle point solution, there is no QSG at $ M= \infty $.
+ So in the following, we focus on the quantum spin-liquid phase.
+ The possible instability to the QSG order will be discussed in the conclusion section.
+ Then the self-consistent equations \ref{self},\ref{selfeq} for a single replica
+ take the identical form as the SY model in the $ SU(M) $ representation \cite{SY,SY3} and the SYK model
+ in the $ N=\infty $ limit  \cite{Kittalk,Pol,Mald,Gross}.
+ So if dropping the irrelevant term $ \partial_{\tau} $ in Eq.\ref{selfeq},
+ the saddle point equations \ref{self},\ref{selfeq} have parametrization invariance \cite{spin} under $ \tau \rightarrow f (\tau) $:
+\begin{eqnarray}
+   G( \tau_1, \tau_2 ) & \rightarrow &  [ f^{\prime}( \tau_1) f^{\prime}( \tau_2) ]^{\Delta} G( f(\tau_1), f(\tau_2) )
+        \nonumber   \\
+   \Sigma( \tau_1, \tau_2 ) & \rightarrow &  [ f^{\prime}( \tau_1) f^{\prime}( \tau_2) ]^{\Delta (q-1)}
+   \Sigma( f(\tau_1), f(\tau_2) )
+\label{ftau}
+\end{eqnarray}
+  where $  \Delta =1/q $ with $ q=4 $.
+
+  The conformably invariant solution at a long time  was found to be ( after replacing $ J^2 $ in \cite{Kittalk,Pol,Mald,Gross}  by $ 4 J^2 $ ):
+\begin{equation}
+  G_{0}( \tau )= \frac{ \Lambda }{ |\tau|^{1/2} } sgn( \tau ),~~~\Lambda
+  = (\frac{1}{ 16 \pi J^2 } )^{1/4}
+\label{break}
+\end{equation}
+  which breaks the parametrization symmetry in Eq.\ref{ftau} down to the $ SL(2,R)$.
+
+
+{\bf 4.  $ 1/M $ expansion at $ N=\infty $. }
+  Fixing at $ N=\infty $, the saddle point Eq.\ref{saddle1} still holds.
+  However, the saddle point Eq.\ref{saddle2} suffers quantum fluctuations. In performing the $ 1/M $ expansion
+  at a fixed  $ Q^{ab} ( \tau, \tau^{\prime} ) $, it is convenient to use the self-energy
+  $ \Sigma^{ab}= 8 Q^{ab} ( \tau, \tau^{\prime} ) P_{ab}( \tau, \tau^{\prime} ) $ to replace
+  $ P_{ab}( \tau, \tau^{\prime} ) $, then Eq.\ref{z00P} becomes \cite{jacob}:
+\begin{equation}
+ {\cal F}_Q[ \Sigma ]= 2 \int d \tau  d \tau^{\prime}  \frac{ \Sigma^{2}_{ab}( \tau, \tau^{\prime})} {32
+   Q_{ab}( \tau, \tau^{\prime} ) } -\log Pf ( \partial_{\tau} - \Sigma_{ab} )
+\label{FQ}
+\end{equation}
+  where $  Q_{ab}( \tau, \tau^{\prime} ) $ should be  taken as a fixed external potential.
+  Obviously taking the saddle point $ \frac{ \partial {\cal F}_Q[ \Sigma ] } { \partial \Sigma }=0 $
+  recovers Eq.\ref{self}, \ref{selfeq}. At a finite $ M $, one can write:
+\begin{equation}
+ \Sigma_{ab} (  \tau, \tau^{\prime} )= \Sigma_0 (  \tau- \tau^{\prime} ) \delta_{ab} +
+ \delta \Sigma_{ab}(  \tau, \tau^{\prime} )
+\label{deltaSigma}
+\end{equation}
+
+\begin{figure}[tbp]
+\includegraphics[width=8cm]{sykpol.eps}
+\caption{(Color online) The quantum fluctuations of the self-energies (a) and (b) differs by a minus sign.
+ The red bi-local double line stands for the $ \delta \Sigma $, the black solid line is the propagator of the Majorana fermions with the $ O(M) $
+ spin index $ \alpha $ ( no sum over $ \alpha $ ). (a)+(b) leads to the second term in Eq.\ref{detlaS}.  }
+\label{SYKpol}
+\end{figure}
+
+  In principle, when performing the $ 1/M $ expansion, one need to keep the saddle point Eq.\ref{saddle1}
+  and solve it self-consistently order by order \cite{rotor1} in $ 1/M $.
+%  Making analogy to quantum rotors in $1/M $ expansion. short-ranged case ( or $ 1/N $ expansion ).
+  Fortunately,  to evaluate N-point correlation functions at the order of $ 1/M $,
+  one can simply ignore the self-consistency Eq.\ref{saddle1} and set
+  $ Q^{ab} ( \tau, \tau^{\prime} )= Q^{ab}_0 ( \tau- \tau^{\prime} ) $
+  ( However, as to be shown later, this is not true in  evaluating $ 1/M $ corrections to the free energy ).
+
+   In the following, we will ignore the replica off-diagonal $ a \neq b $ fluctuations, so only focus on
+   the replica diagonal ones $ \delta \Sigma_{aa}(  \tau, \tau^{\prime} ) $ ( so we will drop the replica index $ a $ ).
+   Substituting Eq.\ref{deltaSigma} into Eq.\ref{FQ}, one can see
+   that the linear term vanishes, the quadratic term becomes:
+\begin{eqnarray}
+  F_{Q_0}[  \delta \Sigma ] & = & \int d\tau_1 d\tau_2  \frac{  ( \delta \Sigma( \tau_1, \tau_2 ) )^2 }{ 16 J^2 G^2_0( \tau_1 - \tau_2 ) }
+    +  \frac{1}{4} \int d\tau_1 d\tau_2  d\tau_3 d\tau_4    \nonumber   \\
+     & \times & \delta \Sigma( \tau_1, \tau_2 ) \delta \Sigma( \tau_3, \tau_4 )
+     G_{0}( \tau_1 - \tau_3 ) G_{0}( \tau_2 - \tau_4 )
+\label{detlaS}
+%  [ G_{0}( \tau_1 - \tau_3 ) G_{0}( \tau_4 - \tau_2 ) - G_{0}( \tau_1 - \tau_4 ) G_{0}( \tau_3 - \tau_2 ) ]
+\end{eqnarray}
+%   where the conformably invariant long-time form is $  G_{0}( \tau )= \frac{ \Lambda }{ |\tau|^{1/2} } sgn ( \tau ),
+%   \Lambda= (\frac{1}{ 16 \pi J^2 } )^{1/4} $.
+
+   It is instructive to  see that the first term ( or the first term in Eq.\ref{FQ} ) coming from
+   the combination of two HS fields $ Q $ and $ P $  is diagonal in  $ ( \tau_1, \tau_2 ) $ space,
+   the Green function $ G_0( \tau_1 - \tau_2 ) $ appears in the denominator,  in the long time limit
+   $ 1/G^2_0( \tau_1 - \tau_2 ) \sim  | \tau_1-\tau_2 | $ which diverges linearly \cite{naive}.
+   However, the second term ( or the second term in Eq.\ref{FQ} ) coming from the integrations of
+   the Majorana fermion bubbles ( Fig.1 )
+   is off-diagonal in  $ ( \tau_1, \tau_2 ) $ and  $ ( \tau_3, \tau_4 ) $ space
+   ( but they become  diagonal in the imaginary frequency space ),
+   the Green functions $ G_0( \tau_1 - \tau_3 ) G_{0}( \tau_2 - \tau_4 )  $ appear in the numerator,  in the long time limit,
+   the product $  |\tau_1 - \tau_3 |^{-1/2}  | \tau_4 - \tau_2 |^{-1/2} sgn ( \tau_{13} ) sgn ( \tau_{24} ) $
+   decay to zero in the long time limit.
+   However, due to the completely different dependencies of the two terms on the Green function,
+   the first term dominates over the second, so  $ F_{Q_0}[  \delta \Sigma ] $ remains positive definite.
+   It shows the stability of the QSL phase at least to the order of $ 1/M $.
+   We expect it to be stable to all orders of $ 1/M $.
+   It is also easy to see the $ 1/J $ in Eq.\ref{break} factors out, points to the conformably invariant
+   form of $ F_{Q_0}[  \delta \Sigma ] $ in the long time limit.
+   In fact, the first term is invariant under the following scale transformation:
+   $ \tau_1 \rightarrow \lambda \tau_1, \tau_2 \rightarrow \lambda \tau_2 $,
+   one knew $ 1/G^2_0( \tau_1 - \tau_2 ) \sim  | \tau_1-\tau_2 |  \rightarrow \lambda | \tau_1-\tau_2 | $,
+   then if one assumes $ \delta \Sigma( \lambda\tau_1, \lambda\tau_2 ) \rightarrow \lambda^{-3/2} \delta\Sigma( \tau_1, \tau_2 ) $, then
+   it indicates  $ \delta\Sigma( \tau_1, \tau_2 ) \sim  1/ | \tau_1-\tau_2 |^{3/2} $ which takes the same scaling form
+   as the saddle point $ \Sigma_0( \tau_1, \tau_2 ) \sim  1/ | \tau_1-\tau_2 |^{3/2} $.
+   Similarly, one can check the second term is invariant under the same scale transformation:
+   $ \tau_i \rightarrow \lambda \tau_i, i=1,2,3,4 $, so Eq.\ref{detlaS} indicates $ \delta\Sigma( \tau_1, \tau_2 ) \sim  1/ | \tau_1-\tau_2 |^{3/2} $ which will be confirmed by a direct Feymann diagram calculation in Fig.2a and Eq.\ref{S1M}.
+   In fact, one can check that the next order ( the sixth order ) term $ \int d\tau_1 d\tau_2  d\tau_3 d\tau_4  d\tau_5 d\tau_6
+     \delta \Sigma( \tau_1, \tau_2 ) \delta \Sigma( \tau_3, \tau_4 ) \delta \Sigma( \tau_5, \tau_6 )
+     G_{0}( \tau_2 - \tau_3 ) G_{0}( \tau_4 - \tau_5 ) G_{0}( \tau_6 - \tau_1 ) $ is also invariant under the  same scale transformation.
+
+%   In a sharp contrast, in the $ SU(M) $ bosonic or fermionic SY model,
+%   due to the extra $ 1/M $ quantum fluctuations of the Lagrangian multiplier which is needed
+%   to fix the local boson or fermion constraint Eq.\ref{SYsum}.
+%    the QSL may not be stable against the $ 1/M $  along the direction of the Lagrangian multiplier.
+
+%  {\bf Note added 1: }
+
+   In fact, one may make Eq.\ref{detlaS} physically more transparent by defining
+   $\delta \Sigma( \tau_1, \tau_2 ) = 4 J G_0( \tau_1 - \tau_2 ) \delta \sigma( \tau_1, \tau_2 ) $, then Eq.\ref{detlaS} can be re-written as:
+\begin{eqnarray}
+  F_{Q_0}[  \delta \sigma ] & = &  \int d\tau_1 d\tau_2  ( \delta \sigma( \tau_1, \tau_2 ) )^2
+    +   \int d\tau_1 d\tau_2  d\tau_3 d\tau_4    \nonumber   \\
+     & \times & \delta \sigma( \tau_1, \tau_2 ) \delta \sigma( \tau_3, \tau_4 )
+     K_{1/M} ( \tau_1, \tau_2; \tau_3, \tau_4 )
+\label{detlas2}
+%  [ G_{0}( \tau_1 - \tau_3 ) G_{0}( \tau_4 - \tau_2 ) - G_{0}( \tau_1 - \tau_4 ) G_{0}( \tau_3 - \tau_2 ) ]
+\end{eqnarray}
+ where $ K_{1/M} ( \tau_1, \tau_2; \tau_3, \tau_4 )  = 4 J^2 G_{0}( \tau_1 - \tau_2 ) G_{0}( \tau_1 - \tau_3 )
+   G_{0}( \tau_2 - \tau_4 ) G_0( \tau_3 - \tau_4 ) $
+   is identical to the kernel of the ladder diagram of the 4-point function in the SYK model \cite{Mald,kernel,absolute}.
+   The eigenvalues and eigen-functions of the Kernel have been worked out in \cite{Mald} using the conformal invariance.
+   By taking into account the replacement $ J^2 \rightarrow 4 J^2 $ in Eq.\ref{break}, one can see
+   that kernel has a positive eigenvalue $ k_c(h)=\frac{\tanh \frac{\pi}{2} s }{ 2 s}  $ for the continuous conformal weight $ h=1/2+is $,
+   negative eigenvalue $ k_c(h)=-\frac{1}{4n-1} $
+   for the discrete conformal weight $ h=2n, n=1,2,3,\cdots  $.
+   In both cases, Eq.\ref{detlas2} is positive definite.
+
+
+
+  We also solve Eq.\ref{self},\ref{selfeq} numerically just like in \cite{SY} which recover the conformally invariant
+  solution only in the long time limit,
+  then plug them into Eq.\ref{detlaS} to show it remains positive definite when using the complete solutions.
+
+%  Eq.\ref{kernel}   plays the role of Schwarzian of SYK upto the quadratic order of $ f(\tau)= \tau + \epsilon(\tau) $,
+%  Eq.\ref{kernel} can be used to evaluate various thermodynamic quantities such as the free energy, zero temperature entropy and specific heat.
+
+\begin{figure}[tbp]
+\includegraphics[width=8cm]{sykself.eps}
+\caption{(Color online) The $ 1/M $ correction to (a) the self energy and (b) the four point function $ Q^{ab} ( \tau- \tau^{\prime} ) $.
+The red bi-local double line stands for the propagator of $ \delta \Sigma $, the black solid line is the propagator of the Majorana fermion with the $ O(M) $
+spin index $ \alpha $ or $ \beta $. }
+\label{SYKself}
+\end{figure}
+
+
+{\bf 5. $1/M $ corrections to two and four point correlation functions.  }
+  Because of the conformably invariant form of Eq.\ref{detlaS}, we expect
+  the propagator $  D ( \tau_1, \tau_2;  \tau_3, \tau_4 )  =  \langle \Sigma( \tau_1, \tau_2 ) \delta \Sigma( \tau_3, \tau_4 ) \rangle $
+  takes also conformably invariant form \cite{naive}
+  $ D ( \tau_1, \tau_2;  \tau_3, \tau_4 ) \sim 1/ | (\tau_1-\tau_3) ( \tau_2 - \tau_4 ) ( \tau_3-\tau_4 ) | $.
+  Its contribution to self-energy at the order of $ 1/M $ was shown in Fig.2a:
+\begin{eqnarray}
+   \Sigma_{1/M}( \tau_1-\tau_4 ) & = & \int d \tau_2 d \tau_3  D ( \tau_1, \tau_2;  \tau_3, \tau_4 ) G_0( \tau_2 - \tau_3 )
+                           \nonumber  \\
+    & \sim &  1/ | \tau_1-\tau_4 |^{3/2}
+\label{S1M}
+\end{eqnarray}
+  which takes the same scaling form as the saddle point $ \Sigma_{0}( \tau_1-\tau_4 ) $ at $ M= \infty $ in Eq.\ref{selfeq}.
+  This indicates that the conformal invariance is kept at least to order of $1/M $.
+  For example, it may change the coefficient $ \Lambda $ in Eq.\ref{break}, but not the function form such as
+  the decay exponent $ 2 \Delta=1/2 $.
+  We expect the conformal invariance is kept to all orders in $1/M $.
+   In a sharp contrast, in the $ O(M) $ quantum rotor model, the $ 1/M $ corrections
+   $  \Sigma( i \omega_n) \sim | \omega_n |^5 $ is more  subleading to the $ M= \infty $ result
+   $ q^{aa}( i \omega_n) \sim | \omega_n | $.
+
+  Its contribution to the $ Q^{ab} ( \tau- \tau^{\prime} ) $ function in Eq.\ref{saddle12}
+  ( which is equal to the spin-spin correlation function )  at the order of $ 1/M $ was shown in Fig.2b:
+\begin{eqnarray}
+   Q_{1/M}( \tau-\tau^{\prime} )
+    =  \int d \tau_1 d \tau_2 d \tau_3 d \tau_4 D ( \tau_1, \tau_2;  \tau_3, \tau_4 )     \nonumber  \\
+    \times G_0( \tau - \tau_1 )G_0( \tau - \tau_3 ) G_0( \tau_2 - \tau^{\prime} ) G_0( \tau_4 - \tau^{\prime} )    \nonumber  \\
+     \sim  1/ | \tau-\tau^{\prime} | ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\label{Q1M}
+\end{eqnarray}
+   which takes the same scaling form as that at $ M= \infty $ in Eq.\ref{saddle12}.
+   It confirms the conformal invariance at least to order of $1/M $.
+
+  In contrast to the SYK model which shows quantum chaos at the order $1/N $, here we fix at the $ N =\infty $ limit
+  and perform a $ 1/M $ expansion, so in evaluating the OTOC Eq.\ref{otoc}, we need to take the same site index $ i=j $, but different
+  $ O(M) $ component $ \alpha \neq \beta $ ( no sum over $ \alpha, \beta $ ):
+\begin{equation}
+  \langle \chi_{i \alpha} ( \tau_1) \chi_{i \alpha} ( \tau_2 ) \chi_{j \beta} ( \tau_3 ) \chi_{j \beta} ( \tau_4)  \rangle
+\label{otoc}
+\end{equation}
+  which is essentially the extension of the $ Q^{ab} ( \tau, \tau^{\prime} ) $ function to 4 different times.
+
+  When it is analytically continued to  $ \tau_1= 4 \beta/3, \tau_2=\beta/4, \tau_3= \beta/2 +it, \tau_4=it $ to compute
+  the OTOC in real time  $ F_{\alpha \beta}(t)=  \langle Tr[ y \chi_{j \beta}(t) y \chi_{i \alpha} (0) y \chi_{j \beta}(t) y \chi_{i \alpha} (0)] \rangle $  with $ y^4=e^{-\beta H}/Z $. One may extract the Lyapunov exponent $ \lambda_L $.
+  Unfortunately, just like $ Q^{ab} ( \tau- \tau^{\prime} ) $ in Eq.\ref{Q1M},
+  it is still conformably invariant in the long time limit. Just like SYK, it may not show any quantum chaos at $ N =\infty $ and
+  any $ M $. In order to study possible quantum chaos and evaluate the Lyapunov exponent $ \lambda_L $, one may need to study the $ 1/ N $ effects, then followed by
+  the  $ 1/M $  expansion which be discussed below.
+
+{\bf 6. $1/M $ corrections to the Free energy, zero temperature entropy and specific heat.  }
+  From Eq.\ref{zn},\ref{z00P},\ref{z00}, we can evaluate the free energy per site and per spin component
+  $ \beta f= \frac{F}{NM} $ at both $ N= \infty $ and  $ M=\infty $
+  can be solely expressed in terms of the Green function:
+\begin{equation}
+  f_0= \frac{3J^2}{2} \int^{\beta}_{0} d \tau G^{4}( \tau ) -\frac{1}{2\beta} \sum_{i \omega_n} \log [- \beta G( i \omega_n) ]
+\label{free00}
+\end{equation}
+  which can be used to evaluate the zero temperature entropy and specific heat,
+%     The Lagrangian multiplier in the $ SU(M) $ SY model or a chemical potential term for complex SYK model is used to
+%     evaluate the zero temperature entropy, here in the $ O(M) $ case,  due their absences, it was not known how to evaluate the zero temperature %     entropy
+
+ If plugging the conformally invariant solution Eq.\ref{break} into Eq.\ref{free00},
+ one can see the first term just vanishes after regularizing the ultra-violet divergent integral properly,
+ the second term leads to the zero temperature entropy $ s_0= -\partial f/\partial T $
+ which was evaluated in the SY and the SYK model \cite{SY3,Kittalk,Mald}:
+\begin{eqnarray}
+  s_0 &= & \frac{1}{2} \log 2 - \pi \int^{\Delta}_0 (1/2-x) \tan \pi x   \nonumber   \\
+    & = & \log2/8+ G/2 \pi =0.232424..
+\label{s0}
+\end{eqnarray}
+  where $ G =0.916.. $ is the Catalan's constant.
+
+  In order to evaluate the coefficient of the linear specific heat $ \gamma= C_v/T $ at low temperature, one need to consider the
+  $ 1/\beta J $ correction to the conformally invariant solution Eq.\ref{break}. Then the first term in Eq.\ref{free00} does not vanish anymore,
+  so it will also contribute under such a correction.
+
+  In principle, using Eqs.\ref{detlaS}, one can evaluate the $ 1/M $ corrections to the free energy Eq.\ref{free00}.
+  However, as alerted earlier, in contrast to evaluate the $ 1/M $ correction to the $ N $ point correlation functions,
+  to get all the possible $1/M $ corrections to the free energy, one need also include the $ 1/M $ correction to
+  $ Q(\tau,\tau^{\prime} ) $ in Eq.\ref{Q1M}. Because all these $1/M $ corrections are exactly marginal, so they
+  will change the zero temperature entropy $ s_0 $ at $ M=\infty $ to become $ M $ dependent.
+  It will not change the linear specific heat behaviour, but will make $ \gamma= C_v/T $ also $ M $ dependent.
+
+
+{\bf 7. Instability to the QSG phase at $ N=\infty $ and a finite $ M $: }
+ So far, we only focused  on the QSL phase, also ignored the replica off-diagonal fluctuations
+in the QSL phase. It would be interesting to study if there is an instability to QSG order.
+For $SU(M) $ SY model, it was argued in \cite{SY3} that the QSG still emerges as  the true ground state at any finite $ M $ below an
+    exponentially suppressed temperature\cite{SY3} $ T_{QSG} \sim J e^{-\sqrt{M} } $.
+    This is a non-perturbative effects which maybe inaccessible  to any orders in the $1/M $ expansion.
+%    It would be important to rule out this  non-perturbative effects for the $ O(M) $ SYK model.}
+
+
+ To look at the QSG instability, as said below Eq.\ref{saddle1},  in the QSG phase, the replica off-diagonal  $ a \neq b $ component $  Q^{ab}( \tau- \tau^{\prime}  )= q \neq 0 $ which is independent of  $ \tau- \tau^{\prime} $.  If the replica symmetry is not broken, then $ q_{EA}= q $.
+ So we split Eq.\ref{zn}  into the replica off-diagonal part and diagonal part:
+ \begin{eqnarray}
+%   \bar{ Z^n } = \int {\cal D} Q exp[ - N {\cal F}(Q) ] ~~~~~~~~~~~~   \nonumber   \\
+ {\cal F}(Q) & = &  \frac{2(M-1)}{J^2 } \int d \tau  d \tau^{\prime} [ Q^{a \neq b} ( \tau, \tau^{\prime} )]^2 + \cdots  \nonumber   \\
+ & - &  \log Z_0
+ \label{znqsg}
+\end{eqnarray}
+  where the $ \cdots $ means the replica diagonal part. Then the $ Z_0 $ in  Eq.\ref{z0}  need to be replaced by:
+\begin{eqnarray}
+    Z_{0} & = &  \int {\cal D} \chi exp[ \frac{2}{M} \int d \tau  d \tau^{\prime} Q^{a \neq b} ( \tau, \tau^{\prime} )
+       ( \chi^a_{\alpha} ( \tau) \chi^b_{\alpha} ( \tau^{\prime}) )^2    \nonumber  \\
+       & + & \cdots ]
+\label{z0qsg}
+\end{eqnarray}
+  After performing the cumulant expansion in Eq.\ref{z0qsg},  we can collect all the replica off-diagonal part into:
+\begin{eqnarray}
+    {\cal F}(Q^{a \neq b})  & = & \frac{2(M-1)}{J^2 } \int d \tau  d \tau^{\prime} [ Q^{a \neq b} ( \tau, \tau^{\prime} )]^2
+                      \nonumber    \\
+      & - & \frac{1}{2} [ \langle X^2 \rangle_{Z_{00}} - \langle X \rangle^2_{Z_{00}}]
+\end{eqnarray}
+  where $ X= \frac{2}{M} \int d \tau  d \tau^{\prime} Q^{a \neq b} ( \tau, \tau^{\prime} )
+       ( \chi^a_{\alpha} ( \tau) \chi^b_{\alpha} ( \tau^{\prime}) )^2 $ is taking the average over the replica diagonal part
+       of the single site/single component partition function $ Z_{00} $ in Eq.\ref{z00}.
+       Finally, we reach:
+\begin{widetext}
+\begin{equation}
+    {\cal F}(Q^{a \neq b})  =  \frac{2(M-1)}{J^2 } \int d \tau  d \tau^{\prime} [ Q^{a \neq b} ( \tau, \tau^{\prime} )]^2
+      -4  \int d\tau_1 d\tau_2  d\tau_3 d\tau_4  Q^{a \neq b}( \tau_1, \tau_2 ) Q^{a \neq b}( \tau_3, \tau_4 )
+     G^2_{0}( \tau_1 - \tau_3 ) G^2_{0}( \tau_2 - \tau_4 )
+\label{qab}
+\end{equation}
+\end{widetext}
+  whose structure  may be contrasted to Eq.\ref{detlaS}.
+
+  Substituting the conformably invariant solution Eq.\ref{break} into Eq.\ref{qab} and regularizing the integral properly
+  by introducing the natural dimensionless  short-time ( or high-energy ) cut-off $ \epsilon = 1/\beta J \ll 1 $, one reach
+\begin{equation}
+    {\cal F}(Q^{a \neq b})  = \frac{ 2 q^2 \beta^2 }{J^2} [ ( M-1 )- \frac{2}{\pi} \log^2(\beta J ) ]
+\label{logbetaJ}
+\end{equation}
+  which leads to the QSG instability temperature
+\begin{equation}
+  T_{QSG}= J e^{- \sqrt{ \pi M/2 } }
+\label{exp}
+\end{equation}
+ which shows this QSG instability is non-perturbative and in-accessible to any orders in the $ 1/M $ expansion.
+
+ As shown above, the $ 1/M $ expansion preserves the conformally invariant form Eq.\ref{break}, so it will not change
+ the exponential form Eq.\ref{exp} except it may modify the coefficient $ \pi/2 $ in Eq.\ref{exp}.
+ Of course, due to the fermions can not condense,
+ So the fermion Green function only has the replica diagonal saddle point solution, there is no QSG at $ M= \infty $.
+ In fact, the QSG instability is non-perturbative, in-accessible to $ 1/M $ expansion to any orders.
+
+
+{\bf 8. $ 1/N $ expansion at $ M=\infty $,  the Schwarzian action at both finite $ N $ and $ M $. }
+
+In this work, we showed that at a fixed $ N=\infty $, the $ 1/M $ correction still keeps the long time conformal
+or reparametrization invariance under $ \tau \rightarrow f(\tau) $ in Eq.\ref{ftau}.
+So the result still applies to  $ O(3) $ case. However, it is not known if it applies to
+the $ O(3) $ Heisenberg model due to the extra Majorana fermions and the associated $ Z_2 $ gauge field.
+Then what would be the crucial quantum fluctuations effects from the $1/N $ effects ?
+%As argued in \cite{Pol},  two index coupling $ J_{ij} $ may fit better than the four indices with a bulk string theory.
+Hereㄛ we will derive the effective action at a finite $ N $, but with $ M=\infty $.
+We find that it did not show any quantum chaos in this limit. We did not expect it to be. Because we
+only expect quantum chaos show up at $1/N $ at any finite $ M $, which maybe explored in the $ 1/N $ expansion
+followed by a $ 1/M $ expansion.
+
+We expect the quantum chaos happen only in the spin singlet channel, so we ignore the quantum fluctuations
+in spin symmetric and anti-symmetric channels \cite{spin}.
+We also ignore the quantum fluctuations in the replica-off diagonal channel.
+So we still assume that in both quantum spin liquid and quantum spin glass phase
+ $  Q^{ab}_{\alpha \beta, \gamma \delta } ( \tau, \tau^{\prime} )
+   = Q^{ab} ( \tau, \tau^{\prime} ) [ \delta_{\alpha  \delta } \delta_{\beta \gamma} - \delta_{\alpha \gamma  } \delta_{\beta \delta} ] $
+   which is obviously anti-symmetric in $ (\alpha \beta) $ and $ (\gamma \delta ) $.
+   Then Eq.\ref{zn} is simplified to:
+\begin{eqnarray}
+   \bar{ Z^n } = \int {\cal D} Q exp[ - {\cal F}(Q) ] ~~~~~~~~~~~~   \nonumber   \\
+ \frac{ {\cal F}(Q)}{N} = \frac{2 (M-1) }{J^2 } \int d \tau  d \tau^{\prime} [ Q^{ab} ( \tau, \tau^{\prime} )]^2
+ - \log Z_0
+\label{znN}
+\end{eqnarray}
+ where the single site partition function $ Z_0 $ is:
+\begin{eqnarray}
+   Z_0 & = & \int {\cal D} P exp[ - M ( 2 \int d \tau  d \tau^{\prime}  Q^{ab}( \tau, \tau^{\prime})
+   P^2_{ab}( \tau, \tau^{\prime} )      \nonumber    \\
+       &- & \log Z_{00}   )  ]
+\label{z00PN}
+\end{eqnarray}
+  where $ Z_{00} $ is the single-site and single-component partition function:
+\begin{eqnarray}
+    Z_{00} & = &  \int {\cal D} \chi exp[- \frac{1}{2} \int d \tau \chi^a_{\alpha} \partial_\tau \chi^a_{\alpha}
+      + 4 \int d \tau  d \tau^{\prime} Q^{ab} ( \tau, \tau^{\prime} )    \nonumber  \\
+      & \times & P_{ab}( \tau, \tau^{\prime} )
+      \chi^a_{\alpha} ( \tau) \chi^b_{\alpha} ( \tau^{\prime}) ]     \nonumber   \\
+      &=& Pf[ \partial_{\tau} \delta( \tau-\tau^{\prime} ) \delta^{ab}-\Sigma_{ab}( \tau, \tau^{\prime} ) ]
+\label{z00N}
+\end{eqnarray}
+ where $ \Sigma_{ab}( \tau, \tau^{\prime} )= 8 Q^{ab} ( \tau, \tau^{\prime} ) P_{ab}( \tau, \tau^{\prime} ) $ is the self-energy.
+
+    In the $ M \rightarrow \infty $ limit, $ P^{ab}( \tau, \tau^{\prime} ) $ takes the saddle-point value:
+\begin{equation}
+ P_{0ab}( \tau, \tau^{\prime} ) = G_{0ab}( \tau- \tau^{\prime} )= \frac{1}{M}
+ \langle \chi^a_{\alpha} ( \tau) \chi^b_{\alpha} ( \tau^{\prime}) \rangle
+\label{saddle2MN}
+\end{equation}
+   Then  Eq.\ref{z00PN} is simplified to
+\begin{eqnarray}
+  -\log Z_0 & = &  M [ 2 \int d \tau  d \tau^{\prime}  Q^{ab}( \tau, \tau^{\prime})
+   P^2_{ab}( \tau, \tau^{\prime} )        \nonumber   \\
+            & - & \log Z_{00}   ]
+\label{z00PNs}
+\end{eqnarray}
+   and Eq.\ref{znN} is simplified to
+\begin{eqnarray}
+ \frac{ {\cal F}(Q)}{N M} & = &  \frac{2 }{J^2 } \int d \tau  d \tau^{\prime} [ Q^{ab} ( \tau, \tau^{\prime} )]^2
+                            \nonumber   \\
+    & + &  2 \int d \tau  d \tau^{\prime}  Q^{ab}( \tau, \tau^{\prime})
+   P^2_{ab}( \tau, \tau^{\prime} )    \nonumber   \\
+     & - &  \log Z_{00}
+\label{1N}
+\end{eqnarray}
+
+%  All the above manipulations are independent of if we are taking $ N \rightarrow \infty $ limit or not.
+  In Eq.\ref{1N}, the $ N $ and $ M $ appears in the combination $ N M $, so $ M \rightarrow \infty $
+  also implies $ N M  \rightarrow \infty $ limit. As alerted earlier above Eq.\ref{znN},
+  this is due to the fact that we have dropped the $ O(M) $ quantum spin fluctuations \cite{spin}.
+%  So this limit maybe pathological, so could lead to un-physical results.
+  The physical limit should be $ N \rightarrow \infty $ first, then followed by $ M  \rightarrow \infty $
+  to keep $ N \gg M $ instead of the other way around, so the order of limit may not commute.
+  So we expect the quantum chaos may only happen in this physical limit instead of
+  in the un-physical one. Both $ N $ and $ M $ need to be finite and  $ N \gg M $ to detect the possible quantum chaos.
+
+  To be instructive, one may still take the saddle point of Eq.\ref{1N}
+  $ \frac{\partial {\cal F}(Q)}{\partial Q }=0 $ which recovers Eq.\ref{saddle12}. Now we may
+  substitute \cite{spin}
+\begin{equation}
+   Q^{ab}(\tau, \tau^{\prime} )= Q^{ab}_0(\tau- \tau^{\prime} ) + \delta  Q^{ab}(\tau, \tau^{\prime} )
+\label{deltaQ}
+\end{equation}
+   into Eq.\ref{1N} and expand it to the quadratic order in $ \delta  Q^{ab}(\tau, \tau^{\prime} ) $.
+   The zero-th order just leads to Eq.\ref{free00}. The first order vanishes due to the saddle point Eq.\ref{saddle12}.
+   The quadratic order becomes:
+\begin{eqnarray}
+  \frac{ {\cal F}(Q)}{N M} & = &  \frac{2}{ J^2 } [ \int d\tau_1 d\tau_2  ( \delta Q( \tau_1, \tau_2 ) )^2
+    +   \int d\tau_1 d\tau_2  d\tau_3 d\tau_4    \nonumber   \\
+     & \times & \delta Q ( \tau_1, \tau_2 ) \delta Q ( \tau_3, \tau_4 )
+     K_{1/N} ( \tau_1, \tau_2; \tau_3, \tau_4 ) ]
+\label{zeroNM}
+%  [ G_{0}( \tau_1 - \tau_3 ) G_{0}( \tau_4 - \tau_2 ) - G_{0}( \tau_1 - \tau_4 ) G_{0}( \tau_3 - \tau_2 ) ]
+\end{eqnarray}
+ where $ K_{1/N} ( \tau_1, \tau_2; \tau_3, \tau_4 )  = 8 J^2 G_{0}( \tau_1 - \tau_2 ) G_{0}( \tau_1 - \tau_3 )
+   G_{0}( \tau_2 - \tau_4 ) G_0( \tau_3 - \tau_4 ) $. It is twice of the kernel in the $ 1/M $ expansion in Eq.\ref{detlas2}.
+   By using the results achieved in the $ 1/M $ expansion below Eq.\ref{detlas2}, one can see Eq.\ref{zeroNM} is positive definite instead of having a zero mode \cite{three}. Just like the $ 1/M $ expansion at $ N=\infty $ presented in the previous sections, it only leads to conformably invariant  OTOC Eq.\ref{otoc} instead of an exponential growth \cite{spin}, so $ \lambda_L =0 $ at the leading order of the
+   $ 1/M $ expansion.
+   As argued above, it is not expected to appear at $ M=\infty $ anyway.
+
+
+
+%\begin{eqnarray}
+% \frac{ {\cal F}(Q)}{N M}  =   \frac{2 }{J^2 }  \int d \tau  d \tau^{\prime} [  \delta Q ( \tau, \tau^{\prime} )]^2  ~~~~~~~~~~~~~~
+%                            \nonumber   \\
+%     + 16 \int d\tau_1 d\tau_2  d\tau_3 d\tau_4
+%    \delta Q( \tau_1, \tau_2 ) \delta Q( \tau_3, \tau_4 )  K ( \tau_1, \tau_2; \tau_3, \tau_4 )
+%\label{zeroNM}
+%  [ G_{0}( \tau_1 - \tau_3 ) G_{0}( \tau_4 - \tau_2 ) - G_{0}( \tau_1 - \tau_4 ) G_{0}( \tau_3 - \tau_2 ) ]
+%\end{eqnarray}
+%   where $ K ( \tau_1, \tau_2; \tau_3, \tau_4 )  = G_{0}( \tau_1 - \tau_2 )
+%   G_{0}( \tau_1 - \tau_3 ) G_{0}( \tau_2 - \tau_4 ) G_0( \tau_3 - \tau_4 ) $
+%   is identical to the kernel of the ladder diagram of the 4-point function in the SYK model \cite{Mald,kernel}.
+%   The eigenvalues and eigen-functions of the Kernel had been worked out in \cite{Mald}.
+%   By taking into account the replacement $ J^2 \rightarrow 4 J^2 $ in Eq.\ref{break}, one can see there is no zero mode
+%   in Eq.\ref{zeroNM} which, as argued above,  is not expected to appear at $ M=\infty $ anyway.
+
+%   is identical to the kernel of the ladder diagram of the 4-point function in the SYK model \cite{Mald,kernel}.
+%   The eigenvalues and eigen-functions of the Kernel have been worked out in \cite{Mald} using the conformal invariance.
+%   By taking into account the replacement $ J^2 \rightarrow 4 J^2 $ in Eq.\ref{break}, one can see
+%   that kernel has a positive eigenvalue $ k_c(h)=\frac{\tanh \frac{\pi}{2} s }{ 2 s}  $ for the continuous conformal weight $ h=1/2+is $,
+%   negative eigenvalue $ k_c(h)=-\frac{1}{4n-1} $
+%   for the discrete conformal weight $ h=2n, n=1,2,3,\cdots  $.
+%   In any case, Eq.\ref{detlas2} is positive definite.
+
+
+   Eq.\ref{zeroNM} can be contrasted to the quadratic order of the effective action $ S[ g, \sigma] $
+   in the $ q=4 $ SYK Eq.4.3 in \cite{Mald}
+   after integrating out $ g $:
+\begin{eqnarray}
+ \frac{ S[ \sigma ]_{SYK} }{N}  =   \frac{1 }{ 12 J^2 } \int d \tau  d \tau^{\prime} [  \sigma  ( \tau, \tau^{\prime} )]^2  ~~~~~~~~~~~~~~
+                            \nonumber   \\
+     +  \frac{1}{4} \int d\tau_1 d\tau_2  d\tau_3 d\tau_4
+    \sigma ( \tau_1, \tau_2 ) \sigma ( \tau_3, \tau_4 )  K ( \tau_1, \tau_2; \tau_3, \tau_4 )
+\label{zeroSYK}
+%  [ G_{0}( \tau_1 - \tau_3 ) G_{0}( \tau_4 - \tau_2 ) - G_{0}( \tau_1 - \tau_4 ) G_{0}( \tau_3 - \tau_2 ) ]
+\end{eqnarray}
+   which contains a zero mode \cite{kernel} and otherwise positive definite.
+   The lift of this zero mode by the irrelevant operator $ \partial_\tau $
+   in Eq.\ref{selfeq} leads to the Schwarzian action in Eq.\ref{sch}.
+   Note that here $ \delta \Sigma =3 J^2 G^2 \delta G \sim  G \sigma $,
+   so $ \sigma \sim \delta G^2 $ which matches the $ \delta Q \sim \delta G^2 $ in Eq.\ref{zeroNM}.
+
+    We expect that a zero mode and associated quantum chaos will show up
+    in the physical limit $ N \rightarrow \infty $, then followed by a $ 1/M $ expansion.
+    As shown in the previous sections, the $ 1/M $ expansion in Eq.\ref{deltaSigma}
+       still keeps the  reparametrization invariance at any $ M $, so has very little effects except changing some
+       coefficients ( such as the coefficient $ \Lambda $ in Eq.\ref{break} )
+       in the conformally invariant solutions for 2- and 4- point correlation functions.
+       Of course, the $ 1/M $ corrections will also change the kernel  $ K ( \tau_1, \tau_2; \tau_3, \tau_4 ) $,
+       therefore its eigenvalues.
+% We expect $1/M $ corrections to Eq.\ref{zeroNM} will result in a zero mode.
+       Then the crucial expansion is $ 1/N $ which resembles the single $ 1/N $ expansion in the 4 indices SYK.
+       When performing the $ 1/N $ expansion, one must expand around the true saddle point at $ N =\infty $
+       valid at a finite $ M $ ( not Eq.\ref{deltaQ}  which holds only at $ N=\infty $ and $ M=\infty $ ), then using all the  2- and 4- point correlation functions, also the kernel
+       $ K ( \tau_1, \tau_2; \tau_3, \tau_4 ) $ valid at this finite value of $ M $.
+       They take the same functional forms as those in the 4 indices SYK, but the coefficients explicitly depend $ M $
+       which, in principle, can be evaluated by the $ 1/M $ expansion outlined in the previous sections.
+%       It is difficult to perform such an explicit $ 1/N $ expansion at a finite $ M $.
+
+%       However, the main point is that
+%       Then we do expect  a zero ( Goldstone ) mode will appear
+%in Eq.\ref{zeroNM}.
+%       Just similar to the 4 indices SYK,
+%       the lift of this zero mode by the irrelevant operator $ \partial_\tau $
+%       in Eq.\ref{selfeq} should lead to the Schwarzian action Eq.\ref{sch}.
+%       How these will precisely happen will be explored by the $1/N $ expansion  in Eq.\ref{deltaQ},
+%       followed by the $ 1/M $ expansion in Eq.\ref{deltaSigma} in a separate publication.
+
+    At any $ N $ and $ M $,
+    from Eq.\ref{zn},\ref{z00P},\ref{z00}, if dropping the kinetic  $ \partial_\tau $ term of the Majorana fermion
+    in Eq.\ref{z00}, one can see that the action is invariant under the reparamatrization
+    transformation $ \tau \rightarrow f(\sigma) $, the fermion field transforms as
+     $ \chi^a_{\alpha} ( \tau ) \rightarrow [ f^{\prime}(\sigma)]^{-1/4} \chi^a_{\alpha} ( \sigma) $ and
+    the HS fields transform as \cite{spin}:
+ \begin{eqnarray}
+     G(\tau_1,\tau_2) & = &[ f^{\prime}(\sigma_1) f^{\prime}(\sigma_2)  ]^{-1/4} G( \sigma_1,\sigma_2 ),   \nonumber   \\
+    \Sigma(\tau_1,\tau_2) &= &[ f^{\prime}(\sigma_1) f^{\prime}(\sigma_2)  ]^{-3/4} \Sigma( \sigma_1,\sigma_2 ), \nonumber   \\
+    Q(\tau_1,\tau_2) &= &  [ f^{\prime}(\sigma_1) f^{\prime}(\sigma_2)  ]^{-1/2} Q( \sigma_1,\sigma_2 )
+\label{repara}
+ \end{eqnarray}
+
+    Because  the $ 1/M $ expansion still keeps the  reparametrization invariance\cite{symmetry} at any $ M $,
+    the saddle point solution at any finite $ M $ spontaneously breaks the reparamatrization invariance
+    to $ SL(2,R) $, leading to "zero mode " or Goldstone mode,
+    while the irrelevant time derivative term explicitly breaks the re-parametrization symmetry and
+    lifts the Goldstone mode to a pseudo-Goldstone mode whose quantum fluctuations
+    can be described by  the Schwarzian in terms of $ f( \tau) $ re-parametrization.
+%    It vanishes only for $ f \in SL(2,R) $, justifying its name "Schwarzian".
+%        just from the symmetry breaking point of view similar to the 4 indices SYK,
+%        one expects that the effective action at the order of $ 1/N $ and at any finite $ M $
+%       should be  the Schwarzian in terms of $ f( \tau) $ re-parametrization:
+\begin{equation}
+ S[f]_{SYK/2}= - N \frac{\alpha_S(M)}{J} \int^{\beta}_0 d \tau \{ \tan \frac{ \pi f( \tau) }{\beta} , \tau \}
+\label{sch}
+\end{equation}
+ where the Schwarzian is $ \{ f, \tau \} = \frac{ f^{\prime\prime\prime} }{ f^{\prime} }
+       - \frac{3}{2} ( \frac{ f^{\prime\prime} }{ f^{\prime} } )^2  $.
+        The coefficient is proportional to $ N $ and
+        $ \alpha_S(M)= \alpha_S+ 1/M + \cdots $  which indicates that the
+        quantum chaos shows up only at the order of 1 which is the sub-leading order in the $ 1/M $ expansion ( See the appendix ) \cite{subleading}.
+        Namely, $ \lim_{M \rightarrow \infty} \alpha_S(M)= \alpha_S $ and  $ \lim_{M \rightarrow \infty} S[f]_{SYK/2}/M \sim N/M $.
+        Note that $ f( \tau)=  \tau $ in Eq.\ref{sch} leads to a linear specific heat $ \gamma= C_v/T $ at low temperatures,
+        which is the $ 1/M $ correction to that at $ M \rightarrow \infty $ presented below Eq.\ref{s0}.
+        That is different from the SYK model where the Schwarzian action gives the same result \cite{Mald} as that from the free energy at $ N=\infty $.
+        The difference is due to that only one $1/N $ expansion in the SYK,
+        while here there is the $ 1/N $ expansion, followed by a $ 1/M $ expansion  \cite{subleading}.
+        As stressed earlier, the two numbers $ N $ and $ M $ play different roles.
+        Similarly, in the $ O(M) $ quantum rotor glass model, at a finite $ N $,  the quantum chaos
+        does not happen in the leading order in the $ 1/M $ expansion, only appears  at the order of 1 which is in the sub-leading order
+        in the $ 1/M $ corrections \cite{preliminary}.
+
+
+%        One need the $1/N $ expansion, followed by the $ 1/M $ expansion to achieve Eq.\ref{sch}.
+
+The OTOC in Eq.\ref{otoc} is dictated by the Schwarzian and should show
+similar behaviours as those of the OTOC in the 4 indies SYK:
+there should be at least two time scales: $ t_d \sim \beta $ is the dissipation ( may also called relaxation time )
+which is the characteristic time of Time ordered correlation function $ t_s \sim \beta \log N \gg t_d $ is the scrambling time
+which is the characteristic time of OTOC. Both time may also depend on $ M $ which could also be a large number.
+In the large $ N $ limit at any finite $ M $,
+when $ t_d < t < t_s $, $ F(t)/F(0) =1 - \# e^{\lambda_L t }/N  $ where
+$ \lambda_L $ is the Lyapunov exponent. At low temperatures $ 1 \ll \beta J \ll N $, $ \lambda_L = 2 \pi/\beta $ saturating the chaos upper bound.
+At high temperatures $ \beta J \ll 1$, $ \lambda_L = J $.
+When $ t \gg t_s $, it decays as a power law  $ F(t)/F(0) \sim t^{-6} $
+as dictated by the 2d Liouville conformal field theory which reduces to the 1d Schwarzian when taking
+the central charge $ c \rightarrow \infty $ limit
+\cite{longtime1,longtime2,liu1,liu2}.
+If so, the two indices SYK still show maximal chaos which may indeed fit the bulk string theory better than the four indices SYK.
+Of course, at the order $1/N $, one may also need to consider
+the $ O(M) $ spin fluctuations away from the saddle point Eq.\ref{saddle1}. We expect only spin singlet channel
+shows the maximal chaotic behaviours, while the symmetric or ant-symmetric spin channel do not.
+
+{\bf 9.  The QSG instability at a finite $ N $ }
+
+When  $ \beta J  \gg N \gg 1 $, we expect the $ \log \beta J $ term in Eq.\ref{exp}
+should be cutoff \cite{FS} by the finite size $ \log N $ , then the QSG instability in Eq.\ref{exp} happens
+only when $ N > e^{\sqrt{\pi/2 (M-1) }} $. In the large $ N $ limit, followed by the large $ M $ limit,
+if $ M < N < e^{\sqrt{\pi/2 (M-1) } } $, then the QSG can be safely avoided, the system remains in QSL
+at $ T=0 $ and shows maximal chaos.
+If $ M $ is sufficiently large, then there is a big such window.
+%is just an arti-fact at $ N=\infty $ and will be washed away at any finite $ N $.
+%In fact, we reach Eq.\ref{exp} by assuming the replica symmetry is not broken in the QSG phase, so $ q_{EA}=q $.
+%But we expect that even any replica symmetry breaking QSG phase will not survive at a finite $ N $ anyway.
+
+% As we showed in this p, there is an intrinsic QSG instability at $ N=\infty $ at any finite $ M $ below
+% the exponentially suppressed temperature in Eq.\ref{exp}.
+% However, this instability maybe avoided by choosing suitable values of large $ M < N < e^{\sqrt{\pi/2 (M-1) } } $.
+ In fact, there could be also an intrinsic QSG instability in the SYK model.
+ Indeed, recently, the SYK model was also argued to be  eventually a QSG phase at sufficiently low
+ temperature $ T_{QSG} \sim J e^{-\sqrt{N} } $ ( note that here $ N $ is the number of sites in SYK, different than the $ M $ which is
+ the $ SU(M) $ group in the SY )\cite{SYKsg1}, but later it was disputed in \cite{SYKsg2} by the following reason:
+ in the conformally invariant limit $ N \gg \beta J \gg 1 $, there is indeed such an intrinsic QSG instability.
+ However, in the strongly coupling limit $ \beta J \gg N \gg 1 $, the $ \log \beta J $ term should be cutoff by the $ \log N $, so
+ the QSG instability disappears.
+ Intuitively, in the strongly coupling limit $ \beta J \gg N \gg 1 $,
+ the finite size effects are evident, the conformal invariance breaks down beyond the finite size of the system,
+ one may not use the conformally invariant solution Eq.\ref{break} anymore.
+ Any possible divergence must be cut-off by the finite size of the system.
+ Similarly, the two and four point functions take
+ different behaviours than the conformally invariant solution at a longer time beyond the finite size of the system \cite{longtime1,longtime2}.
+ The biggest advantage of the 4 indices SYK is that there is only one large $ N $, so  the QSG instability automatically disappears.
+ However, in the 2 indices SYK, there are two large numbers $ N $ and $ M $, which need to satisfy
+ $ M < N < e^{\sqrt{\pi/2 (M-1) } } $ to avoid the QSG instability, then the QSL in this regime shows maximal chaos.
+
+   Now we discuss the possible experimental realizations of the two indices SYK model.
+   For the Majorana fermions,  the results achieved should still apply to the $ O(3) $ case.
+   However, it is not known if it applies to
+   the $ O(3) $ Heisenberg model due to the extra Majorana fermions and the associated $ Z_2 $ gauge field.
+   Putting $ M=3 $ into $ M< N < e^{\sqrt{\pi/2 (M-1) } } $ leads to $ 3 < N < 5.88 $, which may be too small
+   to show any quantum chaotic behaviours. While when $ N >5.88 $,  the system may fall into the QSG state instead of a QSL.
+   For the complex fermions, the results achieved should still apply to the $ SU(2) $ case which is nothing but the
+   random Heisengberg model Eq.\ref{SY}. Although it may be experimentally much more easily realized
+   than its 4 indies counterpart \cite{coldwire}, it may fall into QSG instead of a QSL showing
+   the maximal quantum chaos when $ N $ is sufficiently large such as $ N \sim 12-20 $.
+   The energy level statistics, in both $ O(3) $ case and $ SU(2) $ case, in both bulk and especially the edge spectrum,
+   will be studied in a separate publication \cite{yu} to see if they fall into QSG or show  $ N $ mod(8) ( or $ N_c  $ mod(4) ) Random Matrix
+   pattern as the 4 indices  SYK did \cite{CSYKnum,MBLSPT,sff1}.
+
+{\bf 10. Discussions and Conclusions. }
+
+%   However, the serious possibility of a QSG ground state need to be investigated also.
+
+   As we showed here that the QSG may be always the ground state at $ T=0 $ ( namely below an exponentially suppressed temperature
+   in the large $ M $ limit )  at $ N= \infty $. However, at a finite $ N $, when $ M < N < e^{\sqrt{\pi/2 (M-1) } } $,
+   the finite size effect is dominating, so the QSG instability disappears.
+   To some extent, this phenomenon maybe similar to the $ 1/N $ expansion in the $ U(1) $ Dicke model \cite{u1largen,gold,comment}
+   which is also a $ 0+1 $ dimensional model.
+   At sufficient large atom-photon coupling, at $ N=\infty $ limit, the normal phase
+   will turn into the $ U(1) $ superradiant phase which breaks the global $ U(1) $ symmetry and leads to a zero ( Goldstone ) mode.
+   However, at any finite $ N $, the super-radiant phase was washed away by the
+   quantum phase diffusion process subject to a Berry phase in the imaginary time.
+   The zero model was also lifted to a pseudo-Goldstone model with a finite energy scaling as $1/N $
+   and a periodic dependence on the Berry phase.
+   In fact, it maybe more similar to the $ 1/N $ expansion in the $ Z_2 $ Dicke model \cite{gold,comment,strongED}
+   which is also a $ 0+1 $ dimensional model.
+   The $ Z_2 $ superradiant phase breaks the global $ Z_2 $ symmetry and exists only
+   at $ N=\infty $ limit. However, at any finite $ N $, the $ Z_2 $ super-radiant phase was washed away by the
+   quantum tunneling process subject to a Berry phase between the two degenerate minima dictated by the $ Z_2 $ symmetry.
+   Here at the thermodynamic limit $ N \rightarrow \infty $ limit, the system is frozen into the symmetry breaking
+   QSG state when  $  T < T_{QSG} $ where it was trapped to one of infinite number of local minima landscape due to the quenched disorders,
+   therefore breaks the ergodicity. The energy barriers between and two local minimum diverges  only at $ N=\infty $, but becomes finite at
+   a finite $ N $.  So at any finite $ N $,  there are many instanton tunneling process among
+   the infinite number of local minima  to recover the broken ergodicity, so the QSG state can be washed away by these instanton tunneling processes. If QSG can not be avoided, then it
+   maybe interesting to study a possible replica symmetry breaking QSG at a finite $ N $.
+
+ Another advantage over the 4 indices SYK is that it is easier to get to short-ranged models
+( namely adding space dimensions )  just like ( but more complicated than ) the quantum rotor models in \cite{rotor1,rotor2,keldme}.
+Now we confine $ J_{ij} $ to just nearest neighbour interaction in a $ d $ dimension cubic lattice.
+Following the method in \cite{rotor2,keldme},
+we can get a short-ranged model to include quantum fluctuations in $ d $ space dimensions \cite{preliminary}.
+We will not only evaluate the Lyapunov exponent $ \lambda_L $, but also the butterfly velocity $ v_B $.
+%From the insights and results we achieved from the short-ranged quantum rotor model \cite{preliminary}, this maybe easier than evaluating
+%the OTOC by the direct $1/N $  expansion, followed by a $1/M $ expansion in the two indices SYK/2.
+
+
+   In the original $ SU(M) $  fermionic SY model \cite{SY,SY3},
+   due to the extra $ 1/M $ quantum fluctuations of the Lagrangian multiplier which is needed
+   to fix the local boson or fermion constraint Eq.\ref{SYsum}, it is much more difficult to perform
+   a direct $ 1/M $ expansion. However, by applying a local renormalization group analysis
+   used in previous quantum impurity problems,
+   the authors argued \cite{SY3,subir2} that the $ 1/M $ quantum fluctuations will not change the conformably
+   invariant form of two and four point functions.
+   They also argued in \cite{SY3} by looking at the QSG susceptibility that the QSG always emerges as
+   the true ground state at any finite $ M $ below an
+    exponentially suppressed temperature $ T_{QSG} \sim J e^{-\sqrt{M} } $.
+%   the QSL may not be stable against the $ 1/M $  along the direction of the Lagrangian multiplier.
+   Here, in the context of the 2 indices Majorana SYK, we explicitly showed similar results by a direct $ 1/M $ expansion.
+   Just like the 2 indices Majorana SYK studied here corresponds to the 4 indices Majorana SYK,
+   the original SY model in its $ SU(M) $ representation \cite{SY}  can be called 2 indices complex fermion SYK,
+   so it corresponds to the 4-indices complex fermion SYK \cite{CSYKnum} which has a global $ U(1) $ symmetry where
+   a chemical potential term can be added to fix the total number of fermions \cite{tensorglobal}.
+   We expect all the results achieved here should also apply to the 2 indices complex fermion SYK.
+   Again, if QSG can be avoided, it may indeed fit the bulk string theory better than the four indices complex SYK.
+   It would be interesting to look at its gravity dual also.  Ifthe  QSG can not be avoided, then it
+   remains interesting to study how the replica symmetry breaking QSG explored at $ N=\infty $ in \cite{SY3}
+   changes at a finite $ N $.
+
+{\bf Acknowledgements }
+
+ I thank Wenbo Fu for many helpful discussions and also his patient explanation of Ref.\cite{superSYK}.
+ I also thank Song He for some general discussions and the careful reading of the manuscript.
+ I am grateful for Yan Chen to invite me to deliver a lecture at the summer school 2018 at Fudan university.
+ During this time at Fudan, I had fruitful discussions with
+ S. Sachdev on several crucial questions addressed in this manuscript. I am also indebted to Sachdev for his careful reading of the
+ manuscript and helpful comments. This research is supported by AFOSR FA9550-16-1-0412.
+
+{\bf Appendix }
+
+  In this appendix, we outline $ 1/N $ expansion followed by $1/M $ expansion.
+  Putting $ N =\infty $ limit, we recover the $ 1/M $ expansion in Eq.\ref{detlaS}.
+  Putting $ M =\infty $ limit, we recover the $ 1/N $ expansion in Eq.\ref{zeroNM}.
+  However, at a finite $ N $ and a finite $ M $, we are not able to reach an analytical result, but
+  we expect the sub-leading order in $ 1/M $, namely, at the order of $1/M^0 \sim 1 $, it should contain a zero mode
+  which will be lifted by the irrelevant operator $ \partial_\tau/J $ to the Schwarzian Eq.\ref{sch}.
+
+   At any finite $ N $, at a given $ Q^{ab} $ \cite{spin}, in the $ M \rightarrow \infty $ limit, $ P^{ab}( \tau, \tau^{\prime} ) $ takes the saddle-point value:
+\begin{equation}
+ P^0_{ab}( i \omega_n ) = \frac{1}{M}
+ \langle \chi^a_{\alpha} ( \tau) \chi^b_{\alpha} ( \tau^{\prime}) \rangle_{Z^0_{00}}=( -i\omega_n  -\Sigma^0_{ab}( i \omega_n ) )^{-1}
+\label{saddle2MNS}
+\end{equation}
+ where $ \Sigma^0_{ab}( \tau, \tau^{\prime} )= 8 Q^{ab} ( \tau, \tau^{\prime} ) P^0_{ab}( \tau, \tau^{\prime} ) $ is the self-energy
+ at a given $ Q $.
+ The single site/single component partition function $ Z^0_{00} $ is given in Eq.\ref{z00NS}.
+ It  reduces to Eq.\ref{selfeq} only after putting $ N= \infty $.
+
+ Note that Eq.\ref{saddle2MNS} indicates $ P^0_{ab}( \tau, \tau^{\prime} ) $ depends on $ Q^{ab} ( \tau, \tau^{\prime} ) $.
+ If dropping the irrelevant $ \partial_{\tau} $ term in Eq.\ref{saddle2MNS}, in the conformal limit, one can write the dependence as:
+\begin{equation}
+   \int d \tau^{\prime}  P^0_{ab}(\tau- \tau^{\prime} ) 8 Q^{ab} ( \tau^{\prime}, \tau^{\prime \prime} ) P^0_{ab}( \tau^{\prime}, \tau^{\prime \prime} ) = -\delta(\tau- \tau^{\prime \prime } )
+\label{deltaQS}
+\end{equation}
+
+
+
+   At the finite $ N $ and a finite $ M $, one can perform a $ 1/M $ expansion at a given $ Q^{ab} $ by writing:
+\begin{equation}
+   P^{ab}(\tau, \tau^{\prime} )= P^{ab}_0(\tau- \tau^{\prime} ) + \delta  P^{ab}(\tau, \tau^{\prime} )
+\label{deltaP}
+\end{equation}
+   and expanding $ F(Q) $ in Eq.\ref{znN} to the quadratic  order in  $ \delta  P^{ab}(\tau, \tau^{\prime} ) $.
+   Then  Eq.\ref{znN},\ref{z00PN},\ref{z00N}become:
+\begin{eqnarray}
+   \bar{ Z^n } & = & \int {\cal D} Q exp[ - {\cal F}(Q) ] ~~~~~~~~~~~~   \nonumber   \\
+ \frac{ {\cal F}(Q)}{N} & = & \frac{2 (M-1) }{J^2 } \int d \tau  d \tau^{\prime} [ Q^{ab} ( \tau, \tau^{\prime} )]^2
+ - \log Z_0            \nonumber   \\
+ & - & \frac{1}{2} \int d \tau  d \tau^{\prime} \log Q^{ab} ( \tau, \tau^{\prime} )
+\label{znNS}
+\end{eqnarray}
+ where the last term comes from the second HS transformation leading to  Eq.\ref{z00P}.
+ This term was dropped in the previous literatures \cite{SY,SY3}, because they are not important
+ in the $ N \rightarrow \infty $ limit, followed by the $ M \rightarrow \infty $ limit.
+ However, as shown here, it may become important at a finite $ N $ and a finite $M $.
+
+      The single site partition function $ Z_0 $ is:
+\begin{eqnarray}
+   Z_0 & = &  exp[ - M ( 2 \int d \tau  d \tau^{\prime}  Q^{ab} ( P^0_{ab} )^2-\log Z^0_{00} )]   \nonumber   \\
+   & \times & \int {\cal D} \delta P exp[-M ( 2 \int d\tau_1 d\tau_2 Q^{ab}( \tau_1, \tau_2 ) ( \delta P_{ab}( \tau_1, \tau_2 ) )^2
+    \nonumber   \\
+   & + &  16  \int d\tau_1 d\tau_2  d\tau_3 d\tau_4
+     Q^{ab} ( \tau_1, \tau_2 )  Q^{ab}( \tau_3, \tau_4 )    \nonumber   \\
+    & \times &   P^0_{ab}( \tau_1- \tau_3 )  P^0_{ab}( \tau_2- \tau_4 )
+      \delta P_{ab}( \tau_1, \tau_2 )\delta P_{ab}( \tau_3, \tau_4 ) ) ]
+\label{z00PNS}
+\end{eqnarray}
+  where $ Z^0_{00} $ is the single-site and single-component partition function:
+\begin{eqnarray}
+    Z^0_{00} & = &  \int {\cal D} \chi exp[- \frac{1}{2} \int d \tau \chi^a_{\alpha} \partial_\tau \chi^a_{\alpha}
+      + 4 \int d \tau  d \tau^{\prime} Q^{ab} ( \tau, \tau^{\prime} )    \nonumber  \\
+      & \times & P^0_{ab}( \tau, \tau^{\prime} )
+      \chi^a_{\alpha} ( \tau) \chi^b_{\alpha} ( \tau^{\prime}) ]     \nonumber   \\
+      &=& Pf[ \partial_{\tau} \delta( \tau-\tau^{\prime} ) \delta^{ab}-\Sigma^0_{ab}( \tau, \tau^{\prime} ) ]
+\label{z00NS}
+\end{eqnarray}
+ where $ \Sigma^0_{ab}( \tau, \tau^{\prime} )= 8 Q^{ab} ( \tau, \tau^{\prime} ) P^0_{ab}( \tau, \tau^{\prime} ) $ is the self-energy.
+ listed below Eq.\ref{saddle2MNS}.
+
+ In the $ M=\infty $ limit, setting  $ \delta P_{ab}=0 $ in Eq.\ref{z00PNS}, only the first line survives,
+ then  Eq.\ref{znNS}  recovers the $ 1/N $ expansion at $  M= \infty $ in Eq.\ref{zeroNM}.
+
+ In the $ N=\infty $ limit, using Eq.\ref{saddle12} and denoting $ \delta \sigma( \tau_1, \tau_2 )= J G_{0}( \tau_1, \tau_2 )  \delta P_{ab}( \tau_1, \tau_2 ) $ㄛ
+ then Eq.\ref{z00PNS} recovers the $ 1/M $ expansion at $ N=\infty $ in Eq.\ref{detlas2}.
+
+ Now at both finite $ N $ and finite $ M $, one must consider the $1/M $ quantum fluctuations $ \delta P_{ab} $.
+ So integrating out $ \delta P_{ab} $ in Eq.\ref{z00PNS} leads to an effective potential for $ Q^{ab} $.
+ Note that  $ P^0_{ab} $ also depends on $ Q^{ab} $ through Eq.\ref{saddle2MNS} or in the conformal limit
+ through Eq.\ref{deltaQS}. If dropping the third and fourth line in Eq.\ref{z00PNS}, integrating $ \delta P_{ab} $ over  the second line
+ leads to $ \frac{1}{2} \int d \tau  d \tau^{\prime} \log Q^{ab} ( \tau, \tau^{\prime} ) $ which just cancels
+ the last term in Eq.\ref{znNS} due to the second HS transformation.
+ This fact may hint that if taking into account the second, third and fourth lines, integrating $ \delta P_{ab} $ may
+ lead to a zero mode at the order of 1 which is  at the subleading order in the $ 1/M $ expansion \cite{subleading}.
+ Due to the dependence of  $ P^0_{ab} $  on $ Q^{ab} $ through Eq.\ref{saddle2MNS},
+ It remains an open question to show it explicitly through a $ 1/N $ expansion at a finite $ M $.
+
+
+%We will also compute all the possible thermodynamic quantities.
+
+
+% JY thank Wenbo Fu for his patient explanation of Ref.\cite{superSYK},
+% JY also thank Song He for some general discussions  and acknowledge AFOSR FA9550-16-1-0412 for supports.
+
+
+
+
+%Y.Y and JY are supported by NSF-DMR-1161497.
+%W.M. Liu is supported by NSFC under Grants No. 10934010 and No. 60978019, the NKBRSFC under Grants No. 2012CB821300.
+%WL was supported by the NKBRSFC under grants Nos. 2011CB921502, 2012CB821305, NSFC under grants Nos. 61227902, 61378017, 11311120053.
+
+
+
+%   The intimate relation between the Berry phase and level crossings at a finite $ N $.
+
+%   The $ 1/J $ expansion can describe both the $ U(1) $ regime and the QT regime with small $ \beta $, but the strong coupling regime can describe
+%   the QT with big $ \beta $ well, so the two approaches are complementary to each other, their combination with ED can provide rather complete picture
+%   of the novel quantum phenomena in the two regimes.
+
+%   So far, any ED needs to introduce a upper cutoff ( see Fig.\ref{zeros09} ) to truncate the Hilbert space \cite{ed}.
+%   If extending the solution to the Rabi model \cite{rabisol} at $ N=1, \beta=1 $ to any $ N $ and $ 0 < \beta < 1 $ is possible,
+%   then the formally exact formal solutions  maybe used to get rid of the cutoff in the ED.
+%   How to make use of these formally exact $ G $  functions  to recover the novel phenomena in the
+%   $ U(1) $ and QT regimes achieved in this paper remain an outstanding problem.
+%   It is also important to study how the energy level statistics changes with $ \beta $ within a given parity in Fig.\ref{levelevolution}.
+%   Most importantly, the pumping-decay effects on Fig.\ref{crossover}  will be presented in future publications.
+
+%  In the $ J=N/2 $ representation,  in the $ N $ representation will be carried out in \cite, as argued in \cite{gold},
+%   the experimental measurable physical quantites in \cite are identical in both representations.
+
+
+
+\begin{thebibliography}{99}
+
+
+\bibitem{SY} S. Sachdev and J. Ye, Gapless spin liuid ground state in a random quantum Heisenberg magnet,"
+Phys. Rev. Lett. 70, 3339 (1993), cond-mat/9212030.
+
+\bibitem{SY3} A. Georges, O. Parcollet, and S. Sachdev, Quantum fuctuations of a nearly critical Heisenberg
+spin glass," Phys. Rev. B 63, 134406 (2001), cond-mat/0009388.
+
+%%%% Subir's early work
+
+\bibitem{subir1} S. Sachdev, Holographic metals and the fractionalized Fermi liquid," Phys. Rev. Lett. 105, 151602
+(2010), arXiv:1006.3794 [hep-th].
+
+\bibitem{subir2} S. Sachdev, Strange metals and the AdS/CFT correspondence," J. Stat. Mech. 1011, P11022 (2010),
+arXiv:1010.0682 [cond-mat.str-el].
+
+
+\bibitem{subir3} S. Sachdev, Bekenstein-Hawking Entropy and Strange Metals, Phys. Rev. X 5, 041025 (2015),
+arXiv:1506.05111 [hep-th].
+
+\bibitem{Kittalk} A. Y. Kitaev, Talks at KITP, University of California, Santa Barbara," Entanglement in Strongly-
+Correlated Quantum Matter (2015).
+
+
+
+
+%%%% 1/N expasnion of SYK
+
+%%%% 1/N expasnion of SYK
+
+
+%%%%% high energy
+
+\bibitem{Pol} J. Polchinski and V. Rosenhaus, The Spectrum in the Sachdev-Ye-Kitaev Model," JHEP 04, 001
+(2016), arXiv:1601.06768 [hep-th].
+
+\bibitem{Mald} J. Maldacena and D. Stanford, Remarks on the Sachdev-Ye-Kitaev model," Phys. Rev. D 94, 106002
+(2016), arXiv:1604.07818 [hep-th].
+
+
+\bibitem{Gross} D. J. Gross and V. Rosenhaus, A Generalization of Sachdev-Ye-Kitaev," (2016), arXiv:1610.01569
+[hep-th].
+
+%%%%%%% spectral form factors
+
+\bibitem{sff1} J. S. Cotler, G. Gur-Ari, M. Hanada, J. Polchinski, P. Saad, S. H. Shenker, D. Stanford, A. Streicher,
+and M. Tezuka, Black Holes and Random Matrices," (2016), arXiv:1611.04650 [hep-th].
+
+
+\bibitem{liu1}     Thomas G. Mertens, Gustavo J. Turiaci, Herman L. Verlinde, Solving the Schwarzian via the Conformal Bootstrap,
+ arXiv:1705.08408.
+
+\bibitem{liu2}  Douglas Stanford, Edward Witten, Fermionic Localization of the Schwarzian Theory,  arXiv:1703.04612.
+
+%%%%% Supersymmetric SYK
+
+\bibitem{superSYK} W. Fu, D. Gaiotto, J. Maldacena, and S. Sachdev, Supersymmetric SYK models," (2016),
+arXiv:1610.08917 [hep-th].
+
+
+\bibitem{randomsusy1}  Tianlin Li, Junyu Liu, Yuan Xin, Yehao Zhou, Supersymmetric SYK model and random matrix theory, JHEP 1706 (2017) 111.
+
+\bibitem{randomsusy2}  Takuya Kanazawa, Tilo Wettig, Complete random matrix classification of SYK models with N=0, 1 and 2 supersymmetry,arXiv:1706.03044
+
+\bibitem{u1zero} Ksenia Bulycheva, A note on the SYK model with complex fermions, 	arXiv:1706.07411 [hep-th].
+
+%%%%%% clean tensor
+
+\bibitem{tensor1}   Razvan Gurau, The complete 1/N expansion of a SYK--like tensor model,  arXiv:1611.04032
+
+\bibitem{tensor2}  Edward Witten, An SYK-Like Model Without Disorder, 	arXiv:1610.09758 [hep-th]
+
+\bibitem{tensor3}  Igor R. Klebanov, Grigory Tarnopolsky, Uncolored Random Tensors, Melon Diagrams, and the SYK Models,
+  Phys. Rev. D 95, 046004 (2017), arXiv:1611.08915 [hep-th].
+
+
+
+ %%%%%%%%%%% Tensor network and Ads/CFT
+
+%\bibitem{net1} Pawel Caputa, Nilay Kundu, Masamichi Miyaji, Tadashi Takayanagi, and Kento Watanabe,
+%Anti每de Sitter Space from Optimization of Path Integrals in Conformal Field Theories, Phys. Rev. Lett. 119, 071602 每 Published 18 August 2017.
+
+%\bibitem{net2} Pawel Caputa, Nilay Kundu, Masamichi Miyaji, Tadashi Takayanagi, Kento Watanabe,
+%Liouville Action as Path-Integral Complexity: From Continuous Tensor Networks to AdS/CFT, 	arXiv:1706.07056.
+
+
+%\bibitem{net3} Bartlomiej Czech, Einstein's Equations from Varying Complexity, arXiv:1706.00965
+
+
+%%%% CMT
+
+\bibitem{CSYKnum} W. Fu and S. Sachdev, Numerical study of fermion and boson models with infinite-range random
+interactions," Phys. Rev. B 94, 035135 (2016), arXiv:1603.05246 [cond-mat.str-el].
+
+
+\bibitem{Rcft}  Yingfei Gu, Xiao-Liang Qi, Fractional Statistics and the Butterfly Effect, 	J. High Energ. Phys. (2016) 2016: 129, 	
+  arXiv:1602.06543 [hep-th]
+
+%%%%%%%%%%%%
+
+\bibitem{MBLSPT} Y.-Z. You, A. W. W. Ludwig, and C. Xu, Sachdev-Ye-Kitaev Model and Thermalization on the
+Boundary of Many-Body Localized Fermionic Symmetry Protected Topological States," ArXiv eprints
+(2016), arXiv:1602.06964 [cond-mat.str-el]. Phys. Rev. B 95, 115150 (2017)
+
+%%%%%% transition
+
+\bibitem{tran1}  Sumilan Banerjee, Ehud Altman, Solvable model for a dynamical quantum phase transition from fast to slow scrambling,
+  arXiv:1610.04619 [cond-mat.str-el]
+
+\bibitem{tran2}  Zhen Bi, Chao-Ming Jian, Yi-Zhuang You, Kelly Ann Pawlak, Cenke Xu,
+  Instability of the non-Fermi liquid state of the Sachdev-Ye-Kitaev Model, 	arXiv:1701.07081 [cond-mat.str-el]
+
+
+
+%%%%%% Higher dimensional SYK
+
+\bibitem{highSYK1} Y. Gu, X.-L. Qi, and D. Stanford, Local criticality, diffusion and chaos in generalized Sachdev-Ye-
+Kitaev models," (2016), arXiv:1609.07832 [hep-th].
+
+
+%\bibitem{highSYK2} M. Berkooz, P. Narayan, M. Rozali, and J. Simn, Higher Dimensional Generalizations of the SYK
+%Model," (2016), arXiv:1610.02422 [hep-th].
+
+\bibitem{highSYK3} Yingfei Gu, Andrew Lucas, Xiao-Liang Qi, Energy diffusion and the butterfly effect in inhomogeneous Sachdev-Ye-Kitaev chains,  arXiv:1702.08462
+
+
+\bibitem{highcSYK} Richard A. Davison, Wenbo Fu, Antoine Georges, Yingfei Gu, Kristan Jensen, Subir Sachdev,
+Thermoelectric transport in disordered metals without quasiparticles: the SYK models and holography,  arXiv:1612.00849.
+
+
+%%%%%%%%%%% Liouville CFT
+
+\bibitem{longtime1} D. Bagrets, A. Altland, and A. Kamenev, Sachdev-Ye-Kitaev model as Liouville quantum mechanics,"
+Nucl. Phys. B 911, 191 (2016), arXiv:1607.00694 [cond-mat.str-el].
+It was shown in this work and \cite{liu1} that
+the Lyapunov exponent $ \lambda_L=0 $ at even lower temperature $ k_B T < J/N $ for $ q=4 $ SYK.
+
+
+\bibitem{longtime2}    Dmitry Bagrets, Alexander Altland, Alex Kamenev, Power-law out of time order correlation functions in the SYK model, Nucl. Phys. B 921, 727-752 (2017).
+
+\bibitem{rev} For a concise review and more complete references list, see Vladimir Rosenhaus, An introduction to the SYK model,
+arXiv:1807.03334v1 [hep-th] 9 Jul 2018.
+
+
+%%% bounds
+\bibitem{bound1} S. H. Shenker and D. Stanford, Black holes and the buttery effect," JHEP 03, 067 (2014), arXiv:1306.0622 [hep-th].
+
+\bibitem{bound2}J. Maldacena, S. H. Shenker, and D. Stanford, A bound on chaos," ArXiv e-prints (2015),
+arXiv:1503.01409 [hep-th].
+
+\bibitem{bound3} J. Maldacena, D. Stanford, and Z. Yang, Conformal symmetry and its breaking in two dimensional
+Nearly Anti-de-Sitter space," (2016), arXiv:1606.01857 [hep-th].
+
+\bibitem{om} Equivalently, one can choose the $ M(M-1)/2 $ generators of the $ O(M) $ group as
+ $ L_{\alpha \beta}= -i \chi_{\alpha} \chi_{\beta}, \alpha < \beta $, it is easy to see that
+ the total spin is $  \sum_{\alpha < \beta } L^2_{\alpha \beta}= M(M-1 )/8 $.   Setting $ M=3 $ also leads to
+ spin $ s=1/2 $.
+
+ \bibitem{stevekondo} V. J. Emery and S. Kivelson, Mapping of the two-channel Kondo problem to a resonant-level model, Phys. Rev. B 46, 10812 (1992). In fact, the non-zero impurity entropy at $ T=0 $ appears first in the two-channel Kondo model: $ s_0=\log \sqrt{2} $ is
+     due to a decoupled Majorana fermion at the impurity side. It also leads to a non-Fermi liquid  ( or bad metal )
+     behaviours ( or absence of quasi-particles ).
+
+\bibitem{kondoye12345} Jinwu Ye, On Emery-Kivelson line and universality of Wilson ratio of
+  spin anisotropic Kondo model, Phys. Rev. Lett. 77, 3224 (1996);
+   Abelian Bosonization approach to quantum impurity problems,  Phys. Rev. Lett. 79, 1385 (1997);
+
+
+
+\bibitem{kit} A. Kitaev, Anyons in an exactly solved model and beyond. \textit{Ann. Phys.} \textbf{321}, 2 (2006).
+
+
+\bibitem{steveQSL} Hong Yao and Steven A. Kivelson, Exact Chiral Spin Liquid with Non-Abelian Anyons, Phys. Rev. Lett. 99, 247203 每 Published 12 December 2007;  G. Baskaran, Saptarshi Mandal, and R. Shankar, Exact Results for Spin Dynamics and Fractionalization in the Kitaev Model,
+    Phys. Rev. Lett. 98, 247201 每 Published 11 June 2007.
+
+\bibitem{major1}    B. Sriram Shastry and Diptiman Sen, Majorana fermion representation for an antiferromagnetic spin- chain, Phys. Rev. B 55, 2988 每 Published 1 February 1997
+
+\bibitem{major2}   Rudro R. Biswas, Liang Fu, Chris R. Laumann, and Subir Sachdev, SU(2)-invariant spin liquids on the triangular lattice with spinful Majorana excitations, Phys. Rev. B 83, 245131 每 Published 28 June 2011
+
+
+
+
+%%%%%%%%% EXP realization of SYK
+
+
+\bibitem{jacob} The Jacobian coming out of this transformation $ d \Sigma^{ab}/d P_{ab} = 8 Q^{ab}( \tau, \tau^{\prime} ) $
+  will not affect the $ 1/M $ expansion. But as shown in the appendix,  any Jacobian could be important when considering
+  both $ 1/N $ and $1/M $ expansion.
+
+\bibitem{absolute} One can put the absolute value in $ G_{0}( \tau_1-\tau_2 ) $ and $ G_{0}( \tau_3-\tau_4 ) $
+without affecting the results.
+
+
+\bibitem{rotor1} J. Ye, S. Sachdev and N. Read, A solvable spin glass of quantum rotors,
+    Phys. Rev. Lett. 70, 4011 (1993). In fact, it is  also a $1/M $ expansion with the $ O(M) $ group,
+    but in its vector representation, here it is in its spinor represeention.
+
+\bibitem{naive} Naively, if one just take the first term, then
+the propagator $  D ( \tau_1, \tau_2;  \tau_3, \tau_4 )  =  \langle \Sigma( \tau_1, \tau_2 ) \delta \Sigma( \tau_3, \tau_4 ) \rangle $
+ is simplified to be
+  $ D ( \tau_1, \tau_2;  \tau_3, \tau_4 ) \sim \delta(\tau_1-\tau_3) \delta(\tau_2-\tau_4) / | (\tau_1-\tau_2) | $.
+  The double line propagator collapses to a usual single line propagator.
+  Then one can reach Eq.\ref{S1M},\ref{Q1M} immediately. Only the coeffiecient changes when one use the
+  complete double line propagator form in Fig.1 and 2.
+
+\bibitem{rotor2}   N. Read, S. Sachdev and J. Ye, Landau theory of quantum spin glasses of rotors and Ising spins,
+ Phys.Rev.B, 52,  384 (1995).
+
+
+\bibitem{keldme} M. P. Kennett, C. Chamon and Jinwu Ye, Aging dynamics of quantum spin-glass of rotors, Phys. Rev. B 64, 224408 (2001).
+
+\bibitem{spin}  In principle, one need also to consider the quantum fluctuations in the spin anti-symmetric and symmetric channel
+at any finite $ N $.
+   In addition to the emergent local re-parametrization symmetry Eq.\ref{ftau},\ref{repara},
+   there is also a emergent local $ O(M) $ symmetry, it is spontaneously broken down to the original global $ O(M) $ symemtry
+   by the saddle point solution and  explicitly broken by the irrelevant $ \partial_\tau $ term. The resulting
+   effective chiral field action \cite{polyakov} $ {\cal L}= Tr[ (g^{-1} \partial_{\tau} g )^2] $ where $ g \in O(M) $
+   describes the quantum spin fluctuations \cite{highSYK1,liu2,tensorglobal}.
+   So  the total effective low energy action contains  "Schwarzian" for the re-parametrization $ f( \tau ) $ in Eq.\ref{sch} plus
+   the chiral field action. There could also be zero modes in the spin sector, but they will not lead to an exponential growth
+   ( or quantum chaos ). If setting $ g= e^{i \phi} $ in the $ U(1) $ case,
+   it leads to the quantum phase fluctuation  $ {\cal L}= ( \partial_{\tau} \phi  )^2 $ derived in \cite{subir3,highcSYK}.
+   However, the $ U(1) $ sector does not lead to quantum chaos \cite{u1zero}.
+
+\bibitem{polyakov} A. M. Polykov,  Gauge Fields and Strings, CRC Press, Sep 14, 1987 - Mathematics - 312 pages.
+
+% other people's theoretical works
+
+
+% Z_2 Dicke model
+
+
+\bibitem{u1largen}  Jinwu Ye  and  CunLin Zhang, Super-radiance, Photon condensation  and its phase diffusion,
+        Phys. Rev. A 84, 023840 (2011).
+
+
+\bibitem{gold} Yu Yi-Xiang, Jinwu Ye and W.M. Liu, Scientific Reports 3, 3476 (2013).
+
+\bibitem{comment}  Yu Yi-Xiang, Jinwu Ye, W.M. Liu and CunLin Zhang, arXiv:1506.06382.
+
+\bibitem{strongED} Yu Yi-Xiang, Jinwu Ye and CunLin Zhang, Parity oscillations and photon correlation functions in the $ Z_2/U(1) $ Dicke model at a finite number of atoms or qubits, Physical Review A 94.2 (2016), 023830.
+
+
+
+
+\bibitem{symmetry}
+% At any $ M $, if dropping the irrelevant time derivative term $ \partial_\tau/J $ in Eq.\ref{selfeq}, the saddle point equation has the time
+%    re-parametrization invariance $  \tau \rightarrow f( \tau) $.
+    If the re-parametrization invariance at $ M =\infty $  were broken by the $ 1/M $ expansion, then as shown in \cite{Mald},
+    there could be still quantum chaos, but not maximal anymore with $ \lambda_L < 2 \pi/\beta $.
+
+
+\bibitem{SYKsg1} Alexei Kitaev, S. Josephine Suh, The soft mode in the Sachdev-Ye-Kitaev model and its gravity dual,
+         arXiv:1711.08467
+
+
+\bibitem{SYKsg2} Guy Gur-Ari, Raghu Mahajan, Abolhassan Vaezi, Does the SYK model have a spin glass phase?  arXiv:1806.10145
+
+
+\bibitem{kernel}  In \cite{Mald}, the kernel $ \tilde{K}( \tau_1, \tau_2; \tau_3, \tau_4 ) = -J^2 (q-1) K ( \tau_1, \tau_2; \tau_3, \tau_4 ) $
+ has an eigenvalue $ 1 $. For $ q=4 $, it leads to the zero mode in Eq.\ref{zeroSYK}.
+
+\bibitem{preliminary} Jinwu Ye, {\sl et.al}, in preparation.
+
+\bibitem{FS} In fact, one may view  $ \beta J $ as the finite size of the system along the imaginary time direction, while
+$ N $ as the finite size of the system along the space direction. Then when $ \beta J < N  $ or $ \beta J > N  $,
+$ \beta J $ or $ N $ can be used as the cutoff respectively. In principle, only the shortest length ( or the highest energy ) scale
+can be used as a cutoff.
+
+\bibitem{coldwire} I. Danshita, M. Hanada, and M. Tezuka, Creating and probing the Sachdev-Ye-Kitaev model
+with ultracold gases: Towards experimental studies of quantum gravity," ArXiv e-prints (2016),
+arXiv:1606.02454 [cond-mat.quant-gas];
+Aaron Chew, Andrew Essin, Jason Alicea, Approximating the Sachdev-Ye-Kitaev model with Majorana wires,
+Phys. Rev. B 96 121119 (2017); L. Garc赤a-芍lvarez, I.L. Egusquiza, L. Lamata, A. del Campo, J. Sonner, and E. Solano,
+Digital Quantum Simulation of Minimal AdS/CFT, Phys. Rev. Lett. 119, 040501 每 Published 25 July 2017.
+
+\bibitem{three} If it had been three times, it would have a zero mode at $ h=2, n=1 $.
+
+
+\bibitem{yu} Yi-Xiang Yu, Jinwu Ye and Wuming Liu, {\sl et.al},  in preparation.
+
+%\bibitem{strack} P. Strack and Subir Sachdev, Phys. Rev. Lett. 107 277202 (2011)
+
+%\bibitem{largen} J. Ye and S. Sachdev,  Phys. Rev. B 44, 10173 (1991);
+%J. Ye, S. Sachdev and N. Read, Phys. Rev. Lett. 70, 4011 (1993);
+%A. Chubukov, S. Sachdev and J. Ye ; Phys. Rev. B 49, 11919 (1994);
+%Jinwu Ye and S. Sachdev; Phys. Rev. Lett. 80, 5409 (1998); Jinwu Ye, Phys. Rev. B60, 8290 (1999)
+
+%For its possible recent experimnental realization, see \cite{orbitalt,orbital}.
+
+%\bibitem{hlr} B. I. Halperin, P. A. Lee and N. Read, Phys. Rev. B47, 7312 (1993).
+
+%\bibitem{refereea}  Ciuti, C., G. Bastard, and I. Carusotto, Phys. Rev. B 72, 115303
+% (2005); Bourassa, J. {\sl et.al}, 2009, Phys. Rev. A 80, 032109 (2009);
+% P. Nataf, C. Ciuti, Phys. Rev. Lett. 104, 023601 (2010).
+
+%%% SYK﹛model
+
+
+
+%[63] D. Stanford, \The Sachdev-Ye-Kitaev model and AdS2," Talk at Strings 2016, Beijing .
+
+%%%%%% clean tensor
+
+
+\bibitem{subleading} Here we expect that quantum chaos only appears at the order of 1
+ which is the subleading order  of the $ 1/M $ expansion. Similarly,
+    the universal topological entanglement entropy only happens in the subleading order, see M. Levin and X. G. Wen, Phys. Rev. Lett. \textbf{96}, 110405, (2006); A. Kitaev and J. Preskill, Phys. Rev. Lett. \textbf{96}, 110404 (2006).
+    In some topological phase transition without symmetry breaking, the universal scaling only happens in the subleading order, see
+    Fadi Sun and Jinwu Ye, Type I and Type II fermions, Topological depletions and sub-leading scalings across
+    topological phase transitions, Phys. Rev. B 96, 035113 (2017).
+    As said in the text, in the $ O(M) $ quantum rotor glass model, at a finite $ N $,  the quantum chaos
+    does not happen in the leading order in the $ 1/M $ expansion either, only appears  at the order of 1 which is in the sub-leading order
+    in the $ 1/M $ corrections \cite{preliminary}.
+
+\bibitem{tensorglobal} One can also extend the 4 indices Majorana fermion SYK and Complex fermion SYK to ones with global $ O(M) $
+and $ SU(M) $ symmetry respectively, see
+Junggi Yoon, SYK Models and SYK-like Tensor Models with Global Symmetry,  arXiv:1707.01740
+
+
+\end{thebibliography}
+
+
+\end{document}
+
+{\bf Appendix: Quantum chaos and quantum information scramblings  in quantum rotor glass   }
+
+  In this appendix, we first study the Out of time correlation function of $ O(M) $ quantum rotor glass in $1/N $ and $ 1/M $ expansion.
+  We speculate that one need both $1/N $ and $ 1/M $ expansion to get any Lyapunov exponent to characterize the quantum chaos
+  in the quantum rotor glass.
+  Then we study the OTOC in short-ranged quantum rotor glass from the quantum Ginsburg-Landau action.
+  We evaluate the OTOC in the QC regime and also the finite temperature phase transition from the classical spin glass to
+  the paramagnet transition. We extract both the Layapunov exponent and the butterfly velocity.
+
+
+  {\bf 1.  $ 1/M $ expansion at $ N=\infty $ or $ 1/N $ expansion followed by a $1/M $ expansion in an infinite range model  }
+
+   We will evaluate the OTOC in Eq.\ref{otcn} in the singlet form:
+\begin{equation}
+   F^n_{\mu \nu}(t)=  \langle Tr [y n_{j\nu}(t) y n_{i\mu} (0)y n_{j\nu}(t)y n_{i\mu} (0)] \rangle_{J}
+\label{otcn}
+\end{equation}
+%  where we can extract the Lyapunov exponent $ \lambda_L $.
+
+   Note that this is a $ 1/M $ expansion, but keeping $ N=\infty $.
+   So it is quite different than the $ 1/N $ expansion in the four indices SYK which has only
+   one large $ N $ expansion. It is similar to but simpler than the two indices
+   $ SO(M) $ SY model Eq.\ref{SYmajor}.
+   At $ N=\infty $ and $ M=\infty $, at the QSL to the quantum paramagnet transition $ g=g_c $, $ q(\tau)\sim 1/\tau^2 $.
+   In the Fourier transformation, it becomes $ q(i \omega_n) \sim |\omega_n| $.
+   Unfortunately, in contrast to SYK model, the saddle point at the QCP ( or the action at the QCP )
+   only has the scale invariance $ \tau \rightarrow \lambda \tau $
+   instead of the reparametrization $ \tau \rightarrow  f(\tau) $ conformal invariance
+   at the QCP. So one can not use the conformal mapping  $ f(\tau)= \tan \pi \tau/\beta $ to get the finite temperature behaviours.
+   The finite temperature scaling functions were derived by explicit calculation in \cite{rotor1}.
+   The $1/M $ corrections to the two point functions $ \Sigma( i \omega_n) \sim |\omega_n|^5 $ is much subleading to the $ M=\infty $
+   result $ q^{aa}(i \omega_n) \sim |\omega_n| $. Similarly, it is easy to see the $1/M $ corrections to the four point functions
+   is also much subleading to the $ M=\infty $ result.
+   So it may not show any quantum chaos at $ N=\infty $ and at any finite $ M $.
+   So one must perform $1/N $ expansion. We expect one need both $1/N $ and $ 1/M $ expansion to get any quantum chaos
+   in quantum rotor glass.
+
+   Indeed, the experiences we learned from the short-ranged case to be discussed in the following section
+   are consistent with our above speculation that one need both $ 1/N $ and $1/M $ expansion to get any physical answers on the OTOC.
+   Of course, as said above, even at the $ N= \infty $  QCP, it only has scale invariance $ \tau \rightarrow \lambda \tau $
+   instead of the reparametrization $ \tau \rightarrow  f(\tau) $ conformal invariance, so we did not expect the
+   QCP at a finite $ N $ and finite $ M $ can be described by the  Schwarzian.
+   So the subtle issues related to the long time limit in a finite size system
+   addressed in \cite{longtime1,longtime2} for the single $1/N $ expansion of the SYK will also arise here.
+%   This could be a difficult task even for the quantum rotor glass model here, let alone the
+%   the two indices SYK model Eq.\ref{SYmajor}.
+
+
+%   We will extract the Lyapunov exponents $ \lambda_L $ in the paramagnet, quantum critical and spin glass phase.
+
+
+{\bf 2. Short-range quantum $ O(M) $ rotor and Ising spin glass }
+
+    As shown above, it would be difficult to  perform a $ 1/N $ expansion, then followed by the $1/M $ expasnion.
+    So we turn into the quantum Ginzburg -Landau action for the short ranged quantum rotor glass.
+    It turns out that the connected four point function has already been properly defined in Eq.1.24 in \cite{rotor2} as
+\begin{widetext}
+\begin{eqnarray}
+ G^{c}_{\mu \nu, \rho \sigma}( i-j, \tau_1-\tau_4, \tau_2-\tau_4, \tau_3-\tau_4)  = [ \langle S_{i \mu}( \tau_1)  S_{i \nu}( \tau_2)  S_{j \rho}( \tau_3)  S_{j \sigma}( \tau_4)  \rangle ]       ~~~~~~~~~~~~~~            \nonumber   \\
+  -  \frac{1}{M^2} \delta_{\mu \nu} \delta_{\rho \sigma}
+ [ \langle S_{i \alpha}( \tau_1)  S_{i \alpha}( \tau_2)\rangle   \langle S_{j \beta}( \tau_3)  S_{j \beta}( \tau_4)  \rangle ]
+  -  \frac{1}{M^2} \delta_{\mu \rho} \delta_{\nu \sigma}
+ [ \langle S_{i \alpha}( \tau_1)  S_{j \alpha}( \tau_3)\rangle   \langle S_{i \beta}( \tau_2)  S_{j \beta}( \tau_4)  \rangle ]  \nonumber   \\
+  -  \frac{1}{M^2} \delta_{\mu \sigma} \delta_{\nu \rho }
+ [ \langle S_{i \alpha}( \tau_1)  S_{j \alpha}( \tau_4)\rangle   \langle S_{i \beta}( \tau_2)  S_{j \beta}( \tau_3)  \rangle ] ~~~~~~~~~~~~~~~~~~~~~~~~~~
+\end{eqnarray}
+\end{widetext}
+  which was evaluated in Eq.2.19 in \cite{rotor2} in the momentum space $ \vec{k} $ and
+  the imaginary frequencies $ \omega_1, \omega_2, \omega_3, \omega_4 $ subject to the energy conservation
+  $ \omega_1 + \omega_2 + \omega_3 + \omega_4 =0 $.
+
+   In fact, it is also directly related to the non-linear spin susceptibility ( Eq.1.29 in \cite{rotor2} ) which can be
+   contrasted to the QSG susceptibility ( Eq.1.28 in \cite{rotor2} ):
+\begin{eqnarray}
+    \chi_{nl} & = & \int d^dx d\tau_1 d\tau_2 d\tau_3 G^{c}_{1111} ( x, \tau_1, \tau_2, \tau_3 ),   \nonumber  \\
+    \chi_{sg} & =  & \int d^dx d\tau_1 d\tau_2 G( x, \tau_1, \tau_2 )
+\end{eqnarray}
+
+
+    At that time\cite{rotor2}, it was not known the OTOC is an important quantity to
+    characterize the quantum information scramblings and butterfly effects.
+    Setting  $ \mu=\nu, \rho=\sigma $ in Eq.2.19 \cite{rotor2} leads to
+\begin{eqnarray}
+  G^{c}_{\mu\mu,\rho \rho}(k, \omega_1,\omega_2,\omega_3) & = &  -\frac{1}{Mt}G(k, \omega_1,\omega_2) G(k, \omega_3,\omega_4)   \nonumber   \\
+   & \times & \frac{ U }{1+U L( \omega_1+\omega_2, k, \tilde{r} ) }
+\label{Gc}
+\end{eqnarray}
+  where $ U=u+Mv $ and
+\begin{equation}
+ G(k, \omega_1,\omega_2)  =  \frac{Mt}{ k^2+ \sqrt{ \omega^2_1 + \tilde{r}} +  \sqrt{ \omega^2_2 + \tilde{r}} }
+\label{G}
+\end{equation}
+  is the replica off-diagonal QSG order parameter propagator and $  L ( \omega, k , \tilde{r} ) $ is evaluated in Eq.2.20 in \cite{rotor2} as
+\begin{equation}
+  L ( \omega, k , \tilde{r} )= \frac{1}{2 \pi} \ln ( \frac{ \Lambda_{\omega} }{  max( k^2, |\omega|, \sqrt{\tilde{r}}, T ) } )
+\label{L}
+\end{equation}
+   where  $ \Lambda_{\omega} \gg T $ is the energy cutoff.
+
+    Now we can evaluate the OTOC in real space and time by transforming Eq.\ref{Gc}
+    to real space and imaginary time $ \tau_1, \tau_2,\tau_3,\tau_4 $, then performing  the analytic continuation
+\begin{equation}
+     \tau_1= \frac{3 \beta }{4}, ~~ \tau_2 = \frac{ \beta }{4}, ~~ \tau_3=\frac{ \beta }{2}+it, ~~ \tau_4= it
+\label{otccont}
+\end{equation}
+    to reach the singlet OTOC $ F^{c}_{\mu \mu,\rho \rho}( x, t) $ in real time.
+    Symmetric or anti-symmetric OTOC can also be similarly studied.
+
+{\bf  Note that Eq.\ref{Gc} shows that the OTOC is completely due to
+      $ u $ and $ v $ which are two leading irrelevant operators.
+      This is similar to the sole leading irrelevant operator $ \partial_{\tau}/J $ in the SYK model
+      where it takes the system away from the conformal limit and controls the system's UV behaviour.
+      Here, there is another irrelevant term : the cubic term $ \kappa $, do we need to consider the $ \kappa $ term here
+      in evaluating the OTOC ?  }
+
+(a)   Setting $ \tilde{r}/T^2= \frac{ 2 \pi^{2} }{ 3 \log \Lambda_{\omega}/T} $
+      in the QC regime ( Eq.2.14 in Ref.\cite{rotor2} ). The temperature $ T $ is the only scale with a logarithmic violation of scaling , so we expect
+\begin{equation}
+    F^{c}_{\mu \mu,\rho \rho}( x, t)  = f_0 -f_1 e^{ \lambda_L(t- |x |/v_B) }
+\label{lcone}
+\end{equation}
+    where $ \lambda_L \sim 1/\beta $ is the Lyapunov exponent, $ v_B $ is the butterfly velocity.
+    The ballistic growth of the commutators in the spatial directions defines the butterfly light-cone $ |x|=v_B t $.
+    Because Eq.\ref{Gc} is a low energy effective theory, so one can only use it to extract the the Lyapunov exponent
+    at $ T \ll \Lambda_{\omega} $.  In contrast, the SYK model is a microscopic theory which can be used to extract
+    $ \lambda_L $ at both low and high Temperature.
+%    in the QC regime.
+
+
+   In fact, it would also interesting to evaluate the Time ordered 4 point correlation function, then
+   one only need to exchange the ( imaginary time ) order of $ \tau_2 $ and $ \tau_3 $ in Eq.\ref{otccont}
+\begin{equation}
+     \tau_1= \frac{3 \beta }{4}, ~~ \tau_2=\frac{ \beta }{2}, ~~\tau_3 = \frac{ \beta }{4} +it, ~~ \tau_4= it
+\label{tocont}
+\end{equation}
+    to achieve the Time ordered 4 point correlation function  $ G^{c}_{\mu \mu,\rho \rho}( x, t)  $.
+
+    It is instructive to contrast different behaviours between  $ G^{c}_{\mu \mu,\rho \rho}( x, t)  $ and
+    $ F^{c}_{\mu \mu,\rho \rho}( x, t) $ and   the time evolution of the commutator is given by:
+\begin{equation}
+    C(x, t)= 2 [ G^{c}_{\mu \mu,\rho \rho}( x, t)- Re F^{c}_{\mu \mu,\rho \rho}( x, t) ]
+\end{equation}
+
+   From Eq.\ref{lcone}, one set $ x=0 $ first to extract $ \lambda_L $,
+   then set $ t=0 $ second to extract $ \lambda_L/v_B $.
+   One may also try $ d=2 $ or $ d=1 $ for simplicity.
+
+ (b)  Setting $ \tilde{r} > 0 $ in the paramagnetic phase ( Regime I and III, especially near the classical
+       phase transition $ r=r_c(T) $ ). As stressed in the Dicke model in Sec.I-A-4, it is always
+  subtle to study the OTOC in a gapped system. The insights gained by studying the OTOC in the gapped QT regime in the Dicke model
+  will be quite useful also.
+
+      It maybe interesting to look at near the classical
+       phase transition $ r=r_c(T) $ where $ \tilde{r} = 0 $ and Eq.\ref{G} simplifies to
+\begin{equation}
+ G(k, \omega_1,\omega_2)  =  \frac{Mt}{ k^2+ |\omega_1| + | \omega_2 | }
+\end{equation}
+ and Eq.\ref{L} simplifies to:
+ \begin{equation}
+  L ( \omega, k , \tilde{r} )= \frac{1}{2 \pi} \ln ( \frac{ \Lambda_{\omega} }{  max( k^2, |\omega|, T ) } )
+\label{L0}
+\end{equation}
+   which may split the integral in momentun and frequency space into two regimes:
+   $ max(k^2, |\omega| ) < T $ and $  T < max(k^2, |\omega| ) < \Lambda_{\omega} $.
+%Supplementary material for " Photon Berry phases, Instantons and Schrodinger Cats with oscillating parities in cavity QED "
+
+
+
+
+\bibitem{aue} A. Auerbach,
+\textit{Interacting electrons and quantum magnetism},
+(Springer Science \& Business Media, 1994).
+
+\bibitem{subirbook}
+S. Sachdev,
+\textit{Quantum Phase transitions},
+(2nd edition, Cambridge University Press, 2011).
+
+
+\bibitem{SY1} O. Parcollet and A. Georges, Non-Fermi-liquid regime of a doped Mott insulator," Phys. Rev. B
+59, 5341 (1999), cond-mat/9806119.
+
+\bibitem{SY2} A. Georges, O. Parcollet, and S. Sachdev, Mean Field Theory of a Quantum Heisenberg Spin
+Glass," Phys. Rev. Lett. 85, 840 (2000), cond-mat/9909239.
+
+\bibitem{SY3} A. Georges, O. Parcollet, and S. Sachdev, Quantum fuctuations of a nearly critical Heisenberg
+spin glass," Phys. Rev. B 63, 134406 (2001), cond-mat/0009388.
+
+%%%% Subir's early work
+
+\bibitem{subir1} S. Sachdev, Holographic metals and the fractionalized Fermi liquid," Phys. Rev. Lett. 105, 151602
+(2010), arXiv:1006.3794 [hep-th].
+
+\bibitem{subir2} S. Sachdev, Strange metals and the AdS/CFT correspondence," J. Stat. Mech. 1011, P11022 (2010),
+arXiv:1010.0682 [cond-mat.str-el].
+
+
+
+%%%% 1/N expasnion of SYK
+
+
+
+\bibitem{Jev1} A. Jevicki, K. Suzuki, and J. Yoon, Bi-Local Holography in the SYK Model," JHEP 07, 007 (2016),
+arXiv:1603.06246 [hep-th].
+
+\bibitem{Jev2} A. Jevicki and K. Suzuki, Bi-Local Holography in the SYK Model: Perturbations," (2016),
+arXiv:1608.07567 [hep-th].
+
+
+%%%% ADS2
+
+\bibitem{Ads2Pol} A. Almheiri and J. Polchinski, Models of AdS2 backreaction and holography," JHEP 11, 014 (2015),
+arXiv:1402.6334 [hep-th].
+
+
+
+
+
+%%%%%% chaos
+
+
+
+
+\bibitem{chaos} P. Hosur, X.-L. Qi, D. A. Roberts, and B. Yoshida, Chaos in quantum channels," JHEP 02, 004
+(2016), arXiv:1511.04021 [hep-th].
+
+
+%%%%%% transition
+
+\bibitem{transition1}  Sumilan Banerjee, Ehud Altman, Solvable model for a dynamical quantum phase transition from fast to slow scrambling,
+  arXiv:1610.04619 [cond-mat.str-el]
+
+\bibitem{transition2}  Zhen Bi, Chao-Ming Jian, Yi-Zhuang You, Kelly Ann Pawlak, Cenke Xu,
+  Instability of the non-Fermi liquid state of the Sachdev-Ye-Kitaev Model, 	arXiv:1701.07081 [cond-mat.str-el]
+
+%%%%%% OTC in CFT
+
+
+\bibitem{spectra} A. M. Garcspa-Garcspa and J. J. M. Verbaarschot, Spectral and thermodynamic properties of the
+Sachdev-Ye-Kitaev model," (2016), 	Phys. Rev. D 94, 126010 (2016), arXiv:1610.03816 [hep-th].
+
+
+
+%%%%%% Extentsion of SYK
+
+\bibitem{highSYK1} Y. Gu, X.-L. Qi, and D. Stanford, Local criticality, diffusion and chaos in generalized Sachdev-Ye-
+Kitaev models," (2016), arXiv:1609.07832 [hep-th].
+
+
+\bibitem{highSYK2} M. Berkooz, P. Narayan, M. Rozali, and J. Simn, Higher Dimensional Generalizations of the SYK
+Model," (2016), arXiv:1610.02422 [hep-th].
+
+\bibitem{highcomplexSYK} Richard A. Davison, Wenbo Fu, Antoine Georges, Yingfei Gu, Kristan Jensen, Subir Sachdev,
+Thermoelectric transport in disordered metals without quasiparticles: the SYK models and holography,  arXiv:1612.00849.
+
+\bibitem{highSYK3} Yingfei Gu, Andrew Lucas, Xiao-Liang Qi, Energy diffusion and the butterfly effect in inhomogeneous Sachdev-Ye-Kitaev chains,  arXiv:1702.08462
+
+
+ It is instructive to re-write Eq.\ref{detlaS} as:
+\begin{eqnarray}
+  F_{Q_0}[  \delta \Sigma ] & = & \int d\tau_1 d\tau_2  d\tau_3 d\tau_4
+   \frac{ \delta \Sigma( \tau_1, \tau_2 ) \delta \Sigma( \tau_3, \tau_4 ) } { 16 J^2 G^2_0( \tau_3 - \tau_4 ) }
+        \nonumber   \\
+ & \times & [ \delta(\tau_1-\tau_3) \delta(\tau_2-\tau_4 )- K ( \tau_1, \tau_2; \tau_3, \tau_4 ) ]
+\label{kernel}
+%  [ G_{0}( \tau_1 - \tau_3 ) G_{0}( \tau_4 - \tau_2 ) - G_{0}( \tau_1 - \tau_4 ) G_{0}( \tau_3 - \tau_2 ) ]
+\end{eqnarray}
+   where $ K ( \tau_1, \tau_2; \tau_3, \tau_4 )  = -4 J^2 G_{0}( \tau_1 - \tau_3 ) G_{0}( \tau_2 - \tau_4 ) G^2_0( \tau_3 - \tau_4 ) $
+   is identical to the kernel of the ladder diagram of the 4-point function in the SYK model \cite{Mald}.
+
+ In the following, we will perform the $ N=\infty $ limit first, then $ 1/N $ expansion.
+
+
+  In the $ M \rightarrow \infty $ limit,  Eq.\ref{saddle1} becomes:
+\begin{equation}
+Q^{ab}_0 ( \tau- \tau^{\prime} )= \frac{J^2}{2} G^2_{0ab}( \tau- \tau^{\prime} )
+\label{saddle12}
+\end{equation}
+
+  From Eq.\ref{z00}, one can identify the systems's self-energy:
+\begin{equation}
+ \Sigma_{0ab} ( \tau- \tau^{\prime} )= 4 J^2 G^3_{ab}( \tau- \tau^{\prime} )
+\label{self}
+\end{equation}
+   and reach the following self-consistent equation:
+\begin{equation}
+  G_{0ab} ( i \omega_n )=( -i \omega_n - \Sigma_{0ab}( i \omega_n ) )^{-1}
+\label{selfeq}
+\end{equation}
+ where the matrix inversion is taken in the replica space.
+

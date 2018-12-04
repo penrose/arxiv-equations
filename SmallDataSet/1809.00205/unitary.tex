@@ -1,0 +1,716 @@
+% 8.22.18 cyy's o1017cyy..tex
+% 8.09.18 n1017cyyunitary.tex based on Rup'v6 and Cheng's m1017...
+% 8.05.18 MR's shortened version, TK's revisions marked ???..???
+% 7.23.18 shortened version l1017cyyunitary.tex
+% 7.03.18 slightly modified marked by ???...????
+% 6.23.18 i1017cyyunitary.tex   Fermi Liquid part revised
+% 6.21.18 version h1017cyyunitary.tex
+% 6.16.18 g1017cyyunitary.tex
+% 6.14.18 f1017cyyunitary.tex new version
+% 5.24.18 e1017..version
+% 11.20.17 c1017cyyunitary.tex
+\documentclass[twocolumn,preprintnumbers,superscriptaddress]{revtex4}
+%\documentclass[twocolumn,showpacs,preprintnumbers,showkeys,superscriptaddress]{revtex4}
+%\documentclass[onecolumn,showpacs,preprintnumbers,showkeys,superscriptaddress]{revtex4}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{setspace}
+\usepackage{color}
+
+\newfont{\largemi}{cmmi10}
+\baselineskip=4mm
+\newcommand{\SD}{$S\!-\!D~$}
+\newcommand{\sd}{$s\!-\!d~$}
+\newcommand{\larges}{{\hbox{\largemi s}}}
+\newcommand{\larger}{{\hbox{\largemi r}}}
+\newfont{\smallmi}{cmmi6}
+\newcommand{\smallN}{{\hbox{\smallmi N}}}
+\newcommand{\CG}{C^{L_{\smallN}~M_{\smallN}}_{J_{\smallN}^{}M_{\smallN}^{'},~t\sigma}}
+\def\baselinestretch{1.1}
+\draft
+
+
+\topmargin=-50mm
+
+\def\eqref#1{Eq.~(\ref{eq:#1})}
+\def\eqlab#1{\label{eq:#1}}
+\def\figref#1{Fig.~(\ref{fig:#1})}
+\def\figlab#1{\label{fig:#1}}
+\def\tabref#1{Table \ref{tab:#1}}
+\def\tablab#1{\label{tab:#1}}
+\def\secref#1{Section~\ref{sec:#1}}
+\def\seclab#1{\label{sec:#1}}
+\newcommand{\vslash}[1]{#1\hspace{-0.5em}/}
+
+\voffset 3.5cm
+
+
+\begin{document}
+
+\title{Unitary limit and linear scaling of neutrons in\\
+ harmonic trap with tuned CD-Bonn and square-well interactions}
+
+\author{Yi-Yuan Cheng \footnote{yycheng@phy.ecnu.edu.cn}}
+\affiliation{Department of Physics, East China Normal University, Shanghai 200241, China}
+
+\author{T. T. S. Kuo \footnote{kuo@tonic.physics.sunysb.edu}}
+\affiliation{Department of Physics and Astronomy, Stony Brook University, New York 11794-3800, USA}
+
+\author{R. Machleidt \footnote{machleid@uidaho.edu}}
+\affiliation{Department of Physics, University of Idaho, Moscow, ID 83844, USA}
+
+\author{Y. M. Zhao \footnote{ymzhao@sjtu.edu.cn}}
+\affiliation{School of Physics and Astronomy, Shanghai Jiao Tong University, Shanghai 200240, China}
+
+\date{\today}
+
+
+\begin{abstract}
+We study finite numbers of neutrons in a harmonic trap at the unitary limit.
+Two very different types of neutron-neutron interactions
+are applied, namely, the
+meson-theoretic CD-Bonn potential and hard-core square-well interactions, all
+tuned to posses infinite scattering length.
+The potentials are renormalized
+to equivalent, scattering-length preserving low-momentum potentials,
+$V_{{\rm low}-k}$,
+with which the particle-particle hole-hole
+ring diagrams are summed to all orders
+to yield the ground-state energy $E_0$ of the finite neutron systems.
+We find the ratio
+$E_0/E_0^{\rm free}$ (where $E_0^{\rm free}$ denotes
+the ground-state energy of the corresponding non-interacting system)
+to be remarkably independent from variations of the
+harmonic trap parameter, the number of neutrons,
+the decimation momentum $\Lambda$ of $V_{{\rm low}-k}$,
+and the choice of the unitarity potential.
+Our results support a special virial linear scaling relation.
+Certain properties of Landau's quasi-particles
+for trapped  neutrons at the unitary limit are also discussed.
+\end{abstract}
+
+%\pacs{}
+
+\vspace{0.2in}
+
+\maketitle
+
+
+{\bf Introduction.}
+The scenario of ``unitary limit'' was originally formulated by Bertsch in 1999,
+asking what will be the ground-state properties of a spin-1/2 fermion system
+with an interaction of zero range and infinite scattering length \cite{Bertsch}.
+With impressive advances of cold-atom experimental techniques,
+such unitary Fermi systems became experimentally accessible at the atomic level,
+and have attracted intensive attention.
+This limit is also of great interest to nuclear physics,
+because the $^1S_0$ channels
+of the realistic nucleon-nucleon potentials all have
+fairly large scattering lengths,
+such as -18.97 fm in the meson-theoretic CD-Bonn potential \cite{CDBonn},
+and have much smaller interaction ranges.
+
+
+For a Fermi gas at the unitary limit, the ground-state energy $E_0$
+is expected to be proportional to the energy of corresponding free gas $E_0^{\rm free}$,
+i.e., $E_0=\xi E_0^{\rm free}$ with $\xi$ an universal constant shared by all unitary Fermi gases.
+This can be intuitively understood as the Fermi momentum is the only relevant length scale in the system.
+There have been huge efforts devoted to describing universal behaviors of unitary Fermi gases
+in regard to the ground-state properties, as well as collective excitations, thermodynamic properties,
+and non-equilibrium aspects, see e.g.,
+Refs.~\cite{Jr1999,Heiselberg2001,Carlson2003,Perali2004,Bulgac2005,Nishida2006,Haussmann2007,Schaefer2007,Siu2008,Dong2010,Schaefer2010,exp1,exp2,exp3,exp4,exp5,exp6,exp7,exp8,exp9}.
+Our previous results of unitary neutron matter \cite{Siu2008,Dong2010}
+by summing the low-momentum particle-particle hole-hole
+ring diagrams to all orders,
+with very different unitarity potentials, give $\xi$
+values all closely equal to 0.44,
+which is also consistent with the quantum
+Monte Carlo calculation in Ref.~\cite{Carlson2003}.
+Very recently, extensive studies on few-nucleon systems
+\cite{Konig2017,Kievsky2018} and neutron stars \cite{Kievsky2018}
+from perspective of the unitary limit
+have been carried out.
+
+A unitary system of finite-number fermions confined in a small trap is more challenging.
+Here we mention theoretical works of Refs.~\cite{Werner2006,virial,Chang2007,Blume2007}.
+In Ref.~\cite{Chang2007}, the unitary systems with small particle numbers in a harmonic trap were studied
+using Green's function Monte Carlo method, where the trapped small systems exhibit evident differences from extensive homogeneous gases.
+Of great interest and importance is then the fundamental question whether or not
+the trapped finite-number systems at the unitary limit are universally related to corresponding non-interacting systems.
+In this work we find the ratio $E_0/E_0^{\rm free}$ for the trapped finite-number system at the unitary limit
+is remarkably invariant with respect to the harmonic trap parameter,
+the number of fermions, the decimation momentum $\Lambda$ of the low-momentum interaction
+$V_{{\rm low}-k}$ \cite{vlowk1,vlowk2,vlowk3,vlowk4,vlowk5,vlowk6,vlowk7},
+and the choice of the unitarity potentials.
+In particular, our results support a linear scaling relation for unitary systems in a harmonic trap,
+which is a consequence of the virial theorem of Ref.~\cite{virial}.
+Certain regularities of trapped unitary neutrons in terms of Landau's quasi-particles \cite{MBT}
+are also discerned and discussed.
+
+\vskip 0.5cm
+{\bf Formalism.}
+We consider a system of neutrons trapped
+in a harmonic trap with Hamiltonian $H=T+U_{\rm osc}+V$ where
+$T$ represents the kinetic energy, $U_{\rm osc}$ the oscillator potential
+$\sum_i \frac{1}{2}m\omega ^2 r_i^2$, and $V$ a unitary neutron-neutron
+interaction which will be described later.
+We shall consider both closed- and open-shell systems.
+Let us consider the former first.
+The ground-state (g.s.)
+energy $E_0$ of this system
+will be calculated
+using a linked-diagram expansion \cite{Goldstone,Kuo1971,Kuo1990} of the form
+\begin{eqnarray}
+E_0  &=& E_0^{\rm free} + \Delta E_0~, \nonumber \\
+ \Delta E_0 &=&
+     \frac{ \langle\Phi_0|V U(0,t')|\Phi_0\rangle}
+         { \langle\Phi_0| U(0,t')|\Phi_0\rangle}|_{t'\rightarrow -\infty}~,
+     \\
+%   &=&  D^{(1)} +\cdots +  D^{(n)} +\cdots \nonumber \\
+ E_0^{\rm free}&=& \langle\Phi_0|U_{\rm osc}|\Phi_0\rangle
++\langle\Phi_0|T|\Phi_0\rangle \equiv U_0 + T_0~,  \nonumber
+\end{eqnarray}
+where $ U(t,t')$ is the time evolution operator. $E_0^{\rm free}$ is
+the non-interacting g.s.~energy, and $\Delta E_0$ is given by the sum of
+all the linked diagrams generated by the interaction $V$ (see Ref.~\cite{Siu2008} for details).
+$\Phi _0$ is a closed-core wave function. For example, it is a shell-model
+state with the shells $(0s,0p,0d1s,0f1p)$
+all filled when a system of 40 neutrons is considered.
+Denoting the oscillator single particle (s.p.) energy as
+$\epsilon ^{(0)}_a=(2n_a + l_a +3/2)\hbar \omega$ and the top filled
+s.p.~orbit of $\Phi_0$ as $k_F$,  we have
+\begin{equation}
+ T_0=U_0= \sum\limits_{a\leq k_F} \frac{1}{2} \epsilon^{(0)}_a~.
+\end{equation}
+
+We define the trap ratio $R_t$ for neutrons in a harmonic trap as
+\begin{equation}
+R_t = \frac{E_0}{E_0^{\rm free}}=\frac{U_0+T_0+\Delta E_0}{U_0+T_0}~. \label{Rt}
+\end{equation}
+We consider also a different ratio, an intrinsic ratio $R_i$
+defined as
+\begin{equation}
+R_i =\frac{T_0-K_{\rm cm}+\Delta E_0}{T_0-K_{\rm cm}}~, \label{Ri}
+\end{equation}
+where $K_{\rm cm}$ is the kinetic energy of the center-of-mass (cm)
+motion of the nucleons confined in $\Phi _0$.
+We have  $K_{\rm cm}= \frac{3}{4}\hbar\omega$, since $\Phi_0$
+is a shell-model closed-core state.
+This ratio is based on the intrinsic kinetic energy of the neutrons,
+excluding that from their cm motion, and the interaction energy  generated
+by the inter-neutron interaction $V$.
+In fact the ratios $R_t$ and $R_i$ are simply related by $2R_t= (1+R_i)$, if we neglect
+$K_{\rm cm}$ which is generally small compared with $T_0$ when the number
+of neutrons is large such as 20 or larger.
+We shall study these ratios at the unitary limit, namely
+as $a_s\rightarrow \infty$ where $a_s$ is the scattering length of $V$.
+
+
+Let us now briefly describe how we prepare
+the unitary interactions used in this work.
+We start from the high-precision meson-exchange CD-Bonn potential
+\cite{CDBonn}, with its $^1S_0$ scattering length $a_s$
+tuned by adjusting its  meson-exchange parameters.
+Note that $a_s$ of the original
+CD-Bonn potential for realistic nuclear systems is already
+fairly large, i.e., -18.97 fm.
+By slightly tuning the mass of the $\sigma$ meson, we have obtained
+a family of CD-Bonn neutron-neutron potentials with various $a_s$ values,
+including those approaching $\pm\infty$~\cite{Siu2008}.
+For example, we shall employ  a CD-Bonn  potential with $a_s$=-12070 fm,
+which is obviously enormous compared to any length
+scales in the nuclear system.
+
+We shall also employ a family of hard-core square-well (HCSW)
+interactions in our work. They are of the form
+\begin{equation}
+V(r)=V_c~(r\le r_c),~~V_b~(r_c < r \le r_b),~~0~(r > r_b),
+\end{equation}
+where $V_c,r_c,V_b$ and $r_b$ are parameters.
+Since the scattering lengths of these interactions can be given analytically \cite{Dong2010},
+exact unitary HCSW interactions are readily obtained.
+The four potentials employed in this work
+(denoted as HCSW-1, -2, -3, -4) all have their $V_c$=3000 MeV,
+and their other parameters  $r_c$=(0.30, 0.15, 0.30, 0.50) fm,
+$V_b$=(-50, -20, -30, -50) MeV  and $r_b$=(1.61, 2.31, 2.03, 1.81) fm
+respectively for the potentials HCSW(-1, -2, -3, -4).
+At the unitary limit, the ratios $R_t$ and $R_i$ of Eqs.~(\ref{Rt}, \ref{Ri})
+given by different
+unitary interactions should each be invariant. We shall check
+if this requirement is satisfied by our calculated ratios
+using the above CD-Bonn and HCSW interactions.
+
+In our calculations of these ratios, a first step is to obtain
+a low-momentum interaction $V_{{\rm low}-k}$
+from the above unitary interactions.
+A renormalization procedure where the high-momentum
+components of such potentials are integrated out is enacted
+applying well-established procedures~\cite{Siu2008,vlowk1,vlowk2,vlowk3,vlowk4,vlowk5,vlowk6,vlowk7}.
+Note that $V_{{\rm low}-k}$ preserves the scattering length.
+In the present work, for most cases, we use the decimation momentum $\Lambda$=2.0 fm$^{-1}$
+as used in a number of nuclear structure studies \cite{vlowk3}.
+We will also check whether or not the ratios are invariant with respect to the choice of $\Lambda$.
+
+
+Next we shall calculate
+the energy shift $\Delta E_0$ using a ring-diagram method
+\cite{Siu2008,pphh1,pphh2}, where the particle-particle hole-hole
+($pphh$) ring diagrams are summed to all orders.
+The low-order $pphh$ ring diagrams of $\Delta E_0$ can be readily
+calculated  as seen below.
+We define the $n$-th order g.s.~energy shift as
+\begin{equation}
+\Delta E_0^{(n)}= D^{(1)}+D^{(2)}+ \cdots  +D^{(n)},
+\end{equation}
+where $D^{(n)}$ denotes the $n$-th order $pphh$ ring diagram.
+The first-order diagram is
+\begin{equation}
+D^{(1)} =  \frac{1}{2}\sum\limits_{ab} \langle ab|V_{{\rm low}-k}|ab
+\rangle n_a n_b~,   \label{D1}
+\end{equation}
+where
+$n_a$ is the occupation number of the state $a$,
+given by $n_a=1$ if $a \leq k_F$ and $=0$ if otherwise.
+
+Similarly the second-order diagram is
+\begin{equation} D^{(2)}=
+ \sum\limits_{abcd}
+\frac{\langle ab|V_{{\rm low}-k}|cd \rangle^2 n_a n_b (1-n_c)(1-n_d)}
+{4\times [\bar\epsilon_a + \bar \epsilon_b -\bar \epsilon_c -\bar \epsilon_d]}~,
+  \label{D2}
+\end{equation}
+where $\bar\epsilon$ is a shell-model Hartree-Fock (smHF) s.p.~energy.
+We dress the single-particle and single-hole lines
+with self-energy, or HF insertions.
+We shall include such insertions to all orders.
+Sample diagrams illustrating the general structure
+of the $pphh$ ring diagrams and their self-energy
+insertions have been given
+in e.g. Refs.~\cite{Siu2008,pphh1}.
+The net effect of  such all-order insertions
+is the replacement of the oscillator
+s.p.~energy $\epsilon^{(0)}$ of the undressed ring diagrams
+by a smHF s.p.~energy $\bar \epsilon$  given by
+\begin{eqnarray}
+\bar \epsilon_a= \epsilon ^{(0)}_a + \sum\limits_{b} \langle ab|V_{{\rm low}-k}|ab \rangle n_b~.
+\end{eqnarray}
+Unless specified otherwise, we shall use $\bar \epsilon$
+in all the calculations reported in this work.
+
+The oscillator s.p.~wave functions ($a$, $b$ ...), which are dependent
+on the oscillator parameter $\hbar \omega$, are used for
+calculating the shell-model matrix elements
+of $V_{{\rm low}-k}$.  Also the oscillator s.p.~energies $\epsilon^{(0)}$ are dependent on $\hbar \omega$.
+Thus $\Delta E_0$ in general has a complicated dependence on $\hbar \omega$.
+As will be discussed in Section III, we have found,
+rather unexpectedly, that our calculated ratios $R_t$ and $R_i$ at the unitary limit
+are practically independent of $\hbar \omega$.
+
+The energy shift calculated by summing the $pphh$ ring diagrams to all orders, denoted as $\Delta E_0^{\rm pp}$,
+corresponds to $\Delta E_0^{(n)}$ of Eq.~(6) with $n \rightarrow \infty$.
+An initial step is to solve the following RPA equation
+\cite{Siu2008,pphh1}
+\begin{eqnarray}
+&&\sum\limits_{cd\in P} [ (\bar \epsilon_a+\bar \epsilon _b ) \delta_{ab,cd} + \lambda (1-n_a-n_b)  \nonumber\\
+&& ~ \langle ab|V_{{\rm low}-k}|cd \rangle ] \times Y_m(cd,\lambda) =
+\omega_m Y_m(ab,\lambda)~.  \label{RPAeq}
+\end{eqnarray}
+where $\lambda$ is a strength parameter. As described later,
+we shall integrate $\lambda$ from 0 to 1.
+The indices $(a,b)$ can be either both particles $(p,p')$ or
+both holes $(h,h')$ and so are $(c,d)$. The subscript $P$
+refers to the ranges for particles and holes used in the
+calculation. As an  example, for  the 40 neutron case
+we have $(h,h')$ in the core composed of the
+$(0s,0p,0d1s,0f1p)$ shells
+and $(p,p')$ in the two major shells above the core.
+The above equation has 2 sets of eigen values:
+$\omega ^+_n$ corresponding to $(E_n(A+2)-E_0(A))$
+and $\omega ^-_m$ corresponding to  $(E_0(A)-E_m(A-2))$
+where $A$ is the core mass number \cite{Kuo1994}.
+The eigenfunction for $\omega^+_n$ is
+$Y_n(ij)=\langle\Psi_n^{A+2}|a^{\dagger}_ia^{\dagger}_j |\Psi _0^A\rangle$.
+Similarly the  one for $\omega ^-_m$ is
+$Y_m(ij)=\langle\Psi_m^{A-2}|a_ja_i |\Psi _0^A\rangle$.
+Usually $Y_n$ and $Y_m$ are dominated respectively
+by their $(p,p')$ and $(h,h')$ components. The energy shift given
+by the all-order $pphh$ ring diagrams is given by \cite{pphh1}
+\begin{eqnarray}
+&&\Delta E_0^{\rm pp} = \int_0^1 d\lambda
+ \sum\limits_m \sum\limits_{abcd\in P} Y_m(ab,\lambda) \nonumber \\
+&& \times Y^*_m(cd,\lambda) \langle ab|V_{{\rm low}-k}|cd \rangle~. \label{eigen-vec}
+\end{eqnarray}
+This $\Delta E_0^{\rm pp}$ has contributions from
+$\langle \Psi_m^{A-2}|a_pa_{p'} |\Psi _0^A\rangle$ where $(p,p')$ are both
+particles. To have such contributions, $\Psi_0$ must have
+particle-hole excitations. The above method will be
+referred to as the eigen-vector method for calculating
+$\Delta E_0^{pp}$.
+
+This g.s.~energy shift can also be calculated using a different
+method \cite{pphh2} which gives
+\begin{eqnarray}
+\Delta E_0^{\rm pp}= -  \sum_m \omega_m^-
+ + \sum_{ab} \left( \bar \epsilon _a n_a + \bar \epsilon _b n_b \right)~, \label{eigen-val}
+\end{eqnarray}
+where $\omega_m^-$ is obtained by solving Eq.~(\ref{RPAeq}) with $\lambda=1$.
+This method will be referred to as the eigen-value method, and  is simpler
+than the previous eigen-vector method. We shall carry out our calculations
+using both methods to cross check our numerical results.
+
+
+
+
+\begin{table*}
+\centering
+\caption{\label{table1} The trap ratio $R_t$ and the
+intrinsic ratio $R_i$ given by summing up $pphh$ ring diagrams
+to all orders, denoted as $R^{({\rm all})}$, as well as those
+by the 1st- and 2nd-order approximations, denoted respectively
+by $R^{(1)}$ and $R^{(2)}$. Two closed-shell systems with $A$=40 and 70
+are considered.}
+\begin{spacing}{1.3}
+\begin{tabular}{ccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc}
+\hline \hline
+
+           & \multirow{2}{0.3cm}{$\Lambda$} & \multirow{2}{0.5cm}{$\hbar\omega$}
+                                    &&     \multicolumn{3}{c}{40 neutrons}        &&    \multicolumn{3}{c}{70 neutrons}        \\ \cline{5-7} \cline{9-11}
+           &&                       &&$R_t^{(1)}/R_i^{(1)}$&$R_t^{(2)}/R_i^{(2)}$&$R_t^{({\rm all})}/R_i^{({\rm all})}$
+                                    &&$R_t^{(1)}/R_i^{(1)}$&$R_t^{(2)}/R_i^{(2)}$&$R_t^{({\rm all})}/R_i^{({\rm all})}$     \\ \hline
+
+CD-Bonn   ~&~ 2.0 ~&~7.5  ~&&~ 0.763/0.521 ~&~ 0.758/0.510 ~&~ 0.756/0.508 ~&&~ 0.754/0.505 ~&~ 0.752/0.502 ~&~ 0.752/0.501    ~\\
+
+CD-Bonn   ~&~ 2.0 ~&~8.5  ~&&~ 0.760/0.515 ~&~ 0.755/0.506 ~&~ 0.754/0.504 ~&&~ 0.752/0.502 ~&~ 0.751/0.499 ~&~ 0.750/0.498    ~\\
+
+CD-Bonn   ~&~ 2.0 ~&~9.5  ~&&~ 0.759/0.512 ~&~ 0.754/0.504 ~&~ 0.753/0.502 ~&&~ 0.752/0.502 ~&~ 0.751/0.499 ~&~ 0.750/0.498    ~\\
+
+CD-Bonn   ~&~ 2.0 ~&~10.5 ~&&~ 0.758/0.511 ~&~ 0.754/0.504 ~&~ 0.754/0.502 ~&&~ 0.753/0.503 ~&~ 0.752/0.501 ~&~ 0.751/0.500    ~\\
+
+CD-Bonn   ~&~ 2.0 ~&~12.0 ~&&~ 0.759/0.513 ~&~ 0.756/0.507 ~&~ 0.755/0.505 ~&&~ 0.755/0.508 ~&~ 0.754/0.506 ~&~ 0.754/0.506    ~\\
+
+CD-Bonn   ~&~ 1.8 ~&~10.5 ~&&~ 0.758/0.510 ~&~ 0.754/0.503 ~&~ 0.753/0.501 ~&&~ 0.752/0.502 ~&~ 0.751/0.500 ~&~ 0.751/0.499    ~\\
+
+CD-Bonn   ~&~ 2.3 ~&~10.5 ~&&~ 0.758/0.511 ~&~ 0.754/0.504 ~&~ 0.754/0.502 ~&&~ 0.753/0.503 ~&~ 0.752/0.501 ~&~ 0.751/0.500    ~\\
+
+HCSW-1    ~&~ 2.0 ~&~10.5 ~&&~ 0.760/0.516 ~&~ 0.754/0.504 ~&~ 0.753/0.501 ~&&~ 0.750/0.498 ~&~ 0.748/0.494 ~&~ 0.748/0.493    ~\\ %r3bm5
+
+HCSW-2    ~&~ 2.0 ~&~10.5 ~&&~ 0.754/0.503 ~&~ 0.751/0.497 ~&~ 0.750/0.495 ~&&~ 0.750/0.498 ~&~ 0.749/0.496 ~&~ 0.749/0.495    ~\\ %r15bm2
+
+HCSW-3    ~&~ 2.0 ~&~10.5 ~&&~ 0.753/0.502 ~&~ 0.750/0.494 ~&~ 0.749/0.493 ~&&~ 0.749/0.495 ~&~ 0.748/0.493 ~&~ 0.747/0.492    ~\\ %r3bm3
+
+HCSW-4    ~&~ 2.0 ~&~10.5 ~&&~ 0.753/0.500 ~&~ 0.749/0.493 ~&~ 0.748/0.491 ~&&~ 0.749/0.496 ~&~ 0.748/0.493 ~&~ 0.748/0.493    ~\\ %r5bm5
+
+\hline
+\end{tabular}
+\end{spacing}
+\end{table*}
+
+
+\begin{figure}
+\centering
+\includegraphics[width = 0.38\textwidth]{unitfig1.eps}
+\caption{\label{fig2} Energy per neutron (denoted as $E_0/A$)
+given by the all-order sum of the $pphh$ ring diagrams,
+versus the $\hbar\omega$ value. See text for further explanations.}
+\end{figure}
+
+
+
+\begin{figure}
+\centering
+\includegraphics[width = 0.440\textwidth]{unitfig2.eps}
+\caption{\label{fig6} Summation of $e^{\rm int}_{\rm qp}(a)=e_{\rm qp}(a)-\frac{1}{2}\epsilon _a ^{(0)}$ up to the $n$-th orbit,
+for two closed-shell systems with $A$=40 and 70, respectively.
+The results are based on the unitary CD-Bonn interaction combined with $\hbar\omega$=8.5 MeV
+and the unitary HCSW-2 interaction combined with $\hbar\omega$=10.5 MeV, respectively.
+The values over $\hbar\omega$ are presented here.}
+\end{figure}
+
+
+\begin{figure}
+\centering
+\includegraphics[width = 0.38\textwidth]{unitfig3.eps}
+\caption{\label{fig7} Quasi-particle energy $e_{\rm qp}$ of the $n$-th orbit,
+for two closed-shell systems with (a) $A$=40 and (b) $A$=70, respectively.
+The results are based on the unitary CD-Bonn interaction combined with $\hbar\omega$=8.5 MeV
+and the HCSW-2 interaction with $\hbar\omega$=10.5 MeV, respectively.
+The values over $\hbar\omega$ are presented here.}
+\end{figure}
+
+\vskip 0.4cm
+{\bf Results and discussions.}
+In this section we discuss the calculated g.s.~properties
+for a finite-number system confined in a harmonic trap
+interacting with unitary neutron-neutron interactions.
+In Table \ref{table1} we present the trap ratio $R_t$ connecting
+the total energy of the unitary system and that of the non-interacting system,
+as well as the intrinsic ratio $R_i$ connecting
+the two intrinsic energies, for two closed-shell systems with $A$=40 and 70.
+The ratios with the superscript ``all'' are given
+by the g.s.~energy shifts calculated by
+summing up the $pphh$ ring diagrams
+to all orders, using both the eigenvector method of Eq.~(\ref{eigen-vec})
+and the eigenvalue method of Eq.~(\ref{eigen-val}). In fact, the results given by both are
+identical (to fourth decimal), providing a check of
+our numerical calculations.
+We also present the ratios given
+by the first- and second-order approximations, of Eqs.~(\ref{D1}, \ref{D2}),
+with their results denoted by the superscripts ``1'' and ``2'', respectively.
+
+In Table \ref{table1} one can see that, for each case,
+starting from the 1st-order approximation,
+the ratios decrease slightly by including the 2nd-order diagram.
+The ratios given by the 2nd-order approximation are further decreased,
+but only very slightly, by summing up the diagrams to all orders.
+These very small differences indicate that  our  linked-diagram expansion
+provides  a rapidly converging framework for calculating
+the g.s energy of
+trapped closed-shell unitary neutron systems.
+As also shown in Table \ref{table1}, of great interest is that
+the $R_t^{\rm (all)}$ (and $R_i^{\rm (all)}$) values
+are remarkably invariant in regard to variations of the harmonic trap parameter,
+the decimation momentum $\Lambda$ of $V_{{\rm low}-k}$,
+and the choice of the unitarity potential.
+
+
+Below we study a connection between
+our results and the unitary-limit virial theorem
+of Werner and Castin \cite{virial}. According to  this thorem,
+the g.s.~energies of unitary Fermion systems in a harmonic trap
+satisfy the relation
+\begin{equation}
+\langle \Psi_0|[T +U_{\rm osc} +V]|\Psi _0   \rangle=E_0
+=2 \langle \Psi_0|U_{\rm osc}|\Psi _0   \rangle \,,
+\end{equation}
+where $T$ is the kinetic energy,  $U_{\rm osc}$ the oscillator potential
+($\sum_i \frac{1}{2}m\omega ^2 r_i^2$) and $V$ an unitary neutron-neutron
+interaction. $E_0$ and $\Psi_0$ are respectively the g.s.~energy
+and wave function of the system.
+
+From the above equation we readily have
+\begin{equation}
+\omega \frac{d}{d\omega}E_0=E_0~,
+\end{equation}
+which gives
+\begin{equation}
+ E_0=\alpha \hbar \omega ~, \label{linear}
+\end{equation}
+where $\alpha$ is a constant independent of $\hbar \omega$.
+The above is a special virial linear scaling relation for the g.s.~energy $E_0$
+of a unitary Fermion system trapped in a harmonic trap.
+We shall check if our calculated
+g.s.~energies are consistent with this scaling relation.
+
+In Fig.~\ref{fig2}(a) we present our ring-diagram
+g.s.~energies using the fine-tuned CD-Bonn potential
+and $\hbar\omega$=7.5, 8.5, 9.5, 10.5, 12.0 MeV.
+Three closed-shell systems with $A$=20, 40, and 70 are considered.
+Plotted are the results for the energy per neutron (dots) ,
+versus the $\hbar\omega$ value,
+as well as the corresponding linear-fitting results (line).
+One sees all lines fit the data nearly perfectly,
+and moreover   they all converge to
+the origin $(E,\hbar\omega)=(0,0)$
+also near perfectly. Clearly our results are in highly
+satisfactory agreement with the virial linear scaling
+of Eq.~(\ref{linear}).
+
+We also generalize our study to open-shell systems,
+with valence neutrons occupying the major shell just
+above the closed core.
+Because of space consideration, let us only briefly
+outline our procedures in carrying out such  calculations.
+The one-body and two-body effective interactions for valence neutrons
+are derived
+using a $\hat{Q}$-box folded-diagram method \cite{vlowk3,Kuo1990},
+with its $\hat{Q}$-box vertex function  composed of
+1st- and 2nd-order irreducible valence-linked diagrams,
+including the core-polarization ones.
+The unitary interactions used are the same as those
+for the closed-shell systems.
+We then calculate and diagonalize the Hamiltonian matrix
+in the many-body model space of valence particles,
+using a standard shell-model code \cite{nushellx}.
+
+In Fig.~\ref{fig2}(b)
+we exemplify the results of open-shell systems
+using the systems
+with $A$=26, 36, 46
+and $\hbar\omega$=7.5, 8.5, 9.5, 10.5, 12.0 MeV.
+One sees for open-shell systems, the energy per
+neutron is also remarkably proportional to the energy scale $\hbar\omega$,
+again in very good agreement with the scaling relation of Eq.~(\ref{linear}).
+According to our calculation, this scaling relation also
+holds perfectly for odd-$A$ systems.
+
+Returning to Table 1, the ratios $R_t$
+presented there are practically
+invariant with the variation of $\hbar \omega$.
+This invariance is actually
+a consequence of the above scaling relation.
+$R_t$ is given by $E_0/E_0^{\rm free}$
+where the denominator is proportional to  $\hbar \omega$.
+The g.s.~energy $E_0$
+is also proportional to $\hbar\omega$ according to
+the scaling relation. Thus $R_t$ should be invariant in regard to
+$\hbar \omega$, as we have found.
+
+
+At last we study the unitary ratio guided by Landau's Fermi liquid (FL) theory \cite{MBT}.
+In this way, a simple relation between the unitary ratio
+and the Fermi-liquid quasi-particles can be obtained.
+For a system of neutrons in a harmonic trap, the quasi-particle
+energy $e_{\rm qp}$ and the g.s.~energy $E_0$ are related as
+\begin{eqnarray}
+e_{\rm qp}(a) &=& \frac{\delta E_0}{\delta n_a}~, \nonumber \\
+E_0 &=& \frac{1}{2}[\sum _a \epsilon_a ^{(0)}n_a + \sum _a e_{\rm qp}(a) n_a]~.
+\end{eqnarray}
+The unitary ratio of Eq.~(\ref{Rt}) then becomes
+\begin{equation}
+\sum _a [e_{\rm qp}(a)-\frac{1}{2}\epsilon _a ^{(0)} ]n_a
+= 2(R_t-\frac{3}{4})E_0^{\rm free}~.
+\end{equation}
+To have $R_t$=0.75, the FL quasi-particles should satisfy the sum rule
+\begin{equation}
+\sum\limits_a [e_{\rm qp}(a)-\frac{1}{2}\epsilon _a^{(0)}] n_a = 0~. \label{sumrule}
+\end{equation}
+We also define an intrinsic quasi-particle energy $e^{\rm int}_{\rm qp}(a)=e_{\rm qp}(a)-\frac{1}{2}\epsilon _a^{(0)}$,
+and the intrinsic ratio of Eq.~(\ref{Ri}) is then determined by $\sum _a e^{\rm int}_{\rm qp}(a) n_a = 2(R_i-\frac{1}{2})T_0$
+if $K_{\rm cm}$ is neglected. One easily sees the sum rule also gives $R_i=0.5$.
+
+As indicated by Table \ref{table1}, the g.s.~energy given by low-order approximation is closely equal to that including high-order diagrams,
+we have thus approximated $e_{\rm qp}$ by
+\begin{equation}
+ e_{\rm qp}^{(2)}(a)
+ = \epsilon _a^{(0)} +\frac{\delta}{\delta n_a}[D^{(1)}+D^{(2)}]~.
+\end{equation}
+Then $e_{\rm qp}^{(2)}$ is obtained by solving the above equation in a self-consistent manner.
+We exemplify the sum rule of Eq.~(\ref{sumrule}) in Fig.~\ref{fig6}, using the closed-shell systems with $A$=40 and 70.
+The results are based on the unitary CD-Bonn interaction
+combined with $\hbar\omega$=8.5 MeV
+and the unitary HCSW-2 interaction combined with
+$\hbar\omega$=10.5 MeV, respectively.
+In Fig.~\ref{fig6} one can see that the above sum rule is indeed well satisfied by our results.
+We also present the quasi-particle energy $e_{\rm qp}$
+in Fig.~\ref{fig7}, where one sees that
+the $e_{\rm qp}$ values for orbits within one harmonic oscillator
+shell are nearly degenerate,
+and moreover the spacing of the $e_{\rm qp}$ between two
+neighboring shells is about 1.5$\hbar\omega$,
+i.e., about 1.5 times larger than that of
+s.p.~energies in the non-interacting system.
+In ordinary nuclear systems the s.p.~energy levels
+of each major shell are generally non-degenerate, such as the non-degenerate
+($0f_{7/2},0f_{5/2},1p_{3/2},1p_{1/2}$) levels of $^{40}$Ca.
+Our results indicate that these levels should become
+nearly degenerate in the unitary limit. It will be
+of much interest to check if this drastic change does take place experimentally.
+
+
+\vskip 0.4cm
+{\bf Summary.}
+We have studied finite numbers of neutrons in a harmonic
+trap at the unitary limit.
+Two very different types of neutron-neutron interactions have
+been applied, namely, the
+meson-theoretic CD-Bonn potential and hard-core square-well interactions, all
+tuned to posses infinite scattering lengths. The potentials were renormalized
+to equivalent, scattering-length preserving
+low-momentum potentials, $V_{{\rm low}-k}$,
+with which the particle-particle hole-hole
+ring diagrams are summed to all orders
+to yield the ground-state energy $E_0$ of the finite neutron systems.
+The eigen-vector and eigen-value methods were both employed
+for the ring-diagram $E_0$ calculation,
+giving practically identical results.
+We find the ratio
+$R_t \equiv E_0/E_0^{\rm free}$ (where $E_0^{\rm free}$ denotes
+the ground-state energy of the corresponding non-interacting system)
+to be remarkably invariant in regard to variations of the harmonic
+trap parameter,
+the number of neutrons,
+the decimation momentum $\Lambda$ of $V_{{\rm low}-k}$,
+and the choice of the unitarity potential.
+Resulting $R_t$'s
+are all very close to 0.75 as seen in Table~I.
+Our results also support a special virial linear scaling relation.
+At the unitary limit, we find that Landau's
+quasi-particles for trapped neutrons satisfy a sum rule
+and have a major-shell degeneracy behavior.
+
+\begin{acknowledgments}
+We thank Ismail Zahed for many helpful discussions.
+The works by T.T.S.K. and R.M. were supported in part by the U.S. Department of Energy
+under Award Numbers DE-FG02-88ER40388 and DE-FG02-03ER41270, respectively.
+Y.Y.C. and Y.M.Z. thank the National Natural Science Foundation of China (Grant Nos.~11875134, 11505113 and 11675101),
+and the Program of Shanghai Academic/Technology Research Leader (Grant No.~16XD1401600) for financial supports.
+\end{acknowledgments}
+
+\begin{thebibliography}{50}
+
+\bibitem{Bertsch} R. F. Bishop, Int. J. Mod. Phys. B {\bf 15}, iii (2001), Many-Body Challenge Problem by G. F. Bertsch.
+\bibitem{CDBonn} R. Machleidt, Phys. Rev. C {\bf 63}, 024001 (2001).
+\bibitem{Jr1999} G. A. Baker, Jr., Phys. Rev. C {\bf 60}, 054311 (1999).
+\bibitem{Heiselberg2001} H. Heiselberg, Phys. Rev. A {\bf 63}, 043606 (2001).
+\bibitem{Carlson2003} J. Carlson, S. Y. Chang, V. R. Pandharipande, and K. E. Schmidt, Phys. Rev. Lett. {\bf 91}, 050401 (2003).
+\bibitem{Perali2004} A. Perali, P. Pieri, and G. C. Strinati, Phys. Rev. Lett. {\bf 93}, 100404 (2004).
+\bibitem{Bulgac2005} A. Bulgac and G. F. Bertsch, Phys. Rev. Lett. {\bf 94}, 070401 (2005).
+\bibitem{Nishida2006} Y. Nishida and D. T. Son, Phys. Rev. Lett. {\bf 97}, 050403 (2006).
+\bibitem{Haussmann2007} R. Haussmann, W. Rantner, S. Cerrito, and W. Zwerger, Phys. Rev. A {\bf 75}, 023610 (2007).
+\bibitem{Schaefer2007} T. Sch\"{a}fer, Phys. Rev. A {\bf 76}, 063618 (2007).
+\bibitem{Siu2008} L. W. Siu, T. T. S. Kuo, and R. Machleidt, Phys. Rev. C {\bf 77}, 034001 (2008).
+\bibitem{Dong2010} H. Dong, L. W. Siu, T. T. S. Kuo, and R. Machleidt, Phys. Rev. C {\bf 81}, 034003 (2010).
+\bibitem{Schaefer2010} T. Sch\"{a}fer, Phys. Rev. A {\bf 82}, 063629 (2010).
+
+\bibitem{exp1} K. M. O'Hara, S. L. Hemmer, M. E. Gehm, S. R. Granade, and J. E. Thomas, Science {\bf 298}, 2179 (2002).
+\bibitem{exp2} T. Bourdel, L. Khaykovich, J. Cubizolles, J. Zhang, F. Chevy, M. Teichmann, L. Tarruell, S. J. J. M. F. Kokkelmans, and C. Salomon, Phys. Rev. Lett. {\bf 93}, 050401 (2004).
+\bibitem{exp3} J. Kinast, A. Turlapov, J. E. Thomas, Q. Chen, J. Stajic, and K. Levin, Science {\bf 307}, 1296 (2005).
+\bibitem{exp4} G. B. Partridge, W. Li, R. I. Kamar, Y. A. Liao, and R. G. Hulet, Science {\bf 311}, 503 (2006).
+\bibitem{exp5} J. T. Stewart, J. P. Gaebler, C. A. Regal, and D. S. Jin, Phys. Rev. Lett. {\bf 97}, 220406 (2006).
+\bibitem{exp6} L. Luo and J. E. Thomas, J. Low Temp. Phys. {\bf 154}, 1 (2009).
+\bibitem{exp7} S. Nascimb\`{e}ne, N. Navon, K. J. Jiang, F. Cevy, C. Salomon, Nature {\bf 463}, 1057 (2010).
+\bibitem{exp8} C. Cao, E. Elliott, J. Joseph, H. Wu, J. Petricka, T. Sch\"{a}fer, J. E. Thomas, Science {\bf 331}, 58 (2011).
+\bibitem{exp9} M. J. H. Ku, A. T. Sommer, L. W. Cheuk, M. W. Zwierlein, Science {\bf 335}, 563 (2012).
+
+\bibitem{Konig2017} S. K\"{o}nig, H. W. Grie{\ss}hammer, H. W. Hammer, and U. van Kolck, Phys. Rev. Lett. {\bf 118}, 202501 (2017).
+\bibitem{Kievsky2018} A. Kievsky, M. Viviani, D. Logoteta, I. Bombaci, and L. Girlanda, Phys. Rev. Lett. {\bf 121}, 072701 (2018).
+
+
+\bibitem{Werner2006} F. Werner and Y. Castin, Phys. Rev. Lett. {\bf 97}, 150401 (2006).
+\bibitem{virial} F. Werner and Y. Castin, Phys. Rev. A {\bf 74}, 053604 (2006).
+\bibitem{Chang2007} S. Y. Chang and G. F. Bertsch, Phys. Rev. A {\bf 76}, 021603(R) (2007).
+\bibitem{Blume2007} D. Blume, J. von Stecher, and C. H. Greene, Phys. Rev. Lett. {\bf 99}, 233201 (2007).
+
+\bibitem{vlowk1} S. K. Bogner, T. T. S. Kuo, and L. Coraggio, Nucl. Phys. A {\bf 684}, 432c (2001).
+\bibitem{vlowk2} S. K. Bogner, T. T. S. Kuo, L. Coraggio, A. Covello and N. Itaco, Phys. Rev. C {\bf 65}, 051301(R) (2002).
+\bibitem{vlowk3} L. Coraggio, A. Covello, A. Gargano, N. Itaco, T. T. S. Kuo, D. R. Entem, and R. Machleidt, Phys. Rev. C {\bf 66}, 021303(R) (2002).
+\bibitem{vlowk4} A. Schwenk, G. E. Brown, and B. Friman, Nucl. Phys. A {\bf 703}, 745 (2002).
+\bibitem{vlowk5} J. D. Holt, T. T. S. Kuo, and G. E. Brown, Phys. Rev. C {\bf 69}, 034329 (2004).
+\bibitem{vlowk6} S. K. Bogner, T. T. S. Kuo, and A. Schwenk, Phys. Rep. {\bf 386}, 1 (2003).
+\bibitem{vlowk7} T. T. S. Kuo, J. W. Holt, and E. Osnes, Phys. Scr. {\bf 91}, 033009 (2016).
+
+\bibitem{MBT} G. E. Brown, {\it Many-Body Theory} (North-Holland Publishing Company, Amsterdam Holland, 1972).
+
+\bibitem{Goldstone} J. Goldstone, Proc. R. Soc. London, Ser. A {\bf 239}, 267 (1957).
+\bibitem{Kuo1971} T. T. S. Kuo, S. Y. Lee, and K. F. Ratcliff, Nucl. Phys. A {\bf 176}, 65 (1971).
+\bibitem{Kuo1990} T. T. S. Kuo and E. Osnes, Lect. Notes Phys. {\bf 364}, 1 (1990).
+
+\bibitem{pphh1} S. D. Yang, J. Heyer, and T. T. S. Kuo, Nucl. Phys. A {\bf 448}, 420 (1986).
+\bibitem{pphh2} Y. H. Tzeng and T. T. S. Kuo, Nucl. Phys. A {\bf 485}, 85 (1988).
+%\bibitem{Song1987} H. Q. Song, S. D. Yang, and T. T. S. Kuo, Nucl. Phys. A {\bf 462}, 491 (1987).
+\bibitem{Kuo1994} T. T. S. Kuo and Y. Tzeng, Int. Jour. Mod. Phys. E {\bf 3}, 523 (1994).
+
+\bibitem{nushellx} B. A. Brown, W. D. M. Rae, E. McDonald, and M. Horoi, NuShellX@MSU.
+
+\end{thebibliography}
+
+\end{document}
+

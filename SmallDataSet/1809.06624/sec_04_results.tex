@@ -1,0 +1,40 @@
+\section{Results and Performance Evaluation}
+\label{sec_results}
+
+We evaluate the performance of both SDN control traffic and application-layer data traffic when allocating IETF 6TiSCH tracks using the Cooja network simulator for Contiki. As well as providing a network simulation, Cooja emulates the physical hardware, allowing the 6TiSCH and $\mu$SDN stacks to run on top of Contiki OS as they would in real-world scenarios. We used EXP5438 emulated motes to run the simulations, which provide 32KB of ROM and 16KB of RAM memory. Due to the memory limitations of the hardware it was not possible to run simulations with more than a handful of motes, as the 6TiSCH/$\mu$SDN code requires a large amount of RAM for buffers. We therefore throttled the available traffic bandwidth traffic in a 5-hop network, in order to emulate the increased traffic rate seen within a larger mesh, as seen in Figure \ref{fig:track_schedule}.
+
+Section \ref{sec_motivation} demonstrated the effect of $\mu$SDN control traffic in a IEEE 802.15.4-2015 network. Specifically, we characterized the \textit{periodic} and \textit{intermittent bursty} traffic behavior of NSU and FTQ messages, used to update the controller about node state and query the controller as the result of flowtable misses. Using this traffic characterization, we performed simulations evaluating the latency and jitter of application-layer traffic: firstly in a regular \textit{6TiSCH scenario} using a distributed scheduler which allocates timeslots for optimal latency; and secondly in a 6TiSCH \textit{track scenario}, where each node has allocated a track towards the controller. In both cases UDP application traffic was sent using the resources allocated through the scheduler. However, in the track scenario, control traffic was sent on the dedicated track slice allocated for each node. The objective of these simulations was to analyze the capability of tracks as Layer-2 network slices for SDN control route isolation, and demonstrate their potential to reduce contention with regular network flows. All parameters used for the simulations parameters are summarized in Table \ref{table:results_params}.
+
+\begin{table}[ht]
+	\renewcommand{\arraystretch}{1.0}
+	\caption{Simulation Parameters}
+    \label{table:results_params}
+	\centering
+    \begin{tabular}{ |l|l| }
+    \hline
+      	\bfseries Simulation Parameter & \bfseries Value \\ \hline
+        Transmission Range & 100m \\ \hline
+        Radio Medium & UDGM (Distance Loss) \\ \hline
+        Link Quality & 90\% \\ \hline
+        App. Data (UDP) Interval & 5-10s \\ \hline
+        SDN Update Rate (Periodic) & 10s \\ \hline
+        SDN Query Rate (Intermittent) & 60s \\ \hline
+        RPL Route Lifetime & 10min \\ \hline
+        RPL Default Route & $\infty$ \\ \hline
+        TSCH Shared Slots & 4 \\ 
+    \hline
+    \end{tabular}
+\end{table}
+
+Figure \ref{fig:overhead_delay} presents the results of the two simulation scenarios: a base 6TiSCH SDN network, and a 6TiSCH SDN network using tracks. We have included a \textit{NO SDN Case + RPL} benchmark to show application traffic performance in a 6TiSCH network without any SDN overhead. 
+
+\begin{figure}[ht]
+\centering
+  \includegraphics[width=0.8\columnwidth]{images/overhead-delay.pdf}
+  \caption{Delay and jitter of application and SDN traffic in a 6TiSCH SDN network with a distributed scheduler (optimizing for minimal latency), and a 6TiSCH SDN network after track slicing for SDN control flows. Results are benchmarked against a 6TiSCH scenario without SDN.}
+  \label{fig:overhead_delay}
+\end{figure}
+
+The results show latency and jitter for both application-layer traffic and SDN control traffic in each scenario. When tracks are allocated between the nodes and the controller, it is demonstrated that delay and jitter are reduced considerably: both for SDN control traffic as well as application data flows. As each track is essentially its own slice of the network, the SDN control overhead is isolated from the rest of the network, preventing interference and buffer contention. The application traffic in the track scenario performs marginally better than the \textit{NO SDN Case + RPL} benchmark. This is due to small differences in the SDN forwarding process overhead, when dealing with application traffic, compared to the RPL forwarding process overhead. In addition, the control traffic in the track scenario also performs better than the benchmark: as each track has dedicated network resources, buffer contention is eliminated for SDN control message.
+
+

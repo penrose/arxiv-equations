@@ -1,0 +1,70 @@
+\section{Background and Related Works}
+\label{sec_background}
+
+\subsection{The Difficulties of SDN in Low Power and Lossy Networks}
+\label{sec_sdn_background}
+
+Over the last decade SDN has generated considerable academic and industrial interest, and has been successfully applied to areas such as data-center and optical networks \cite{sdn_comprehensive_survey}. However, the concept faces difficulties when trying to apply it within a wireless medium, where issues such as channel contention, interference, mobility, and topology management need to be addressed \cite{sdwn_opportunities_challenges}. Low Power and Lossy Networks face an even greater set of challenges, as they are typically made up of embedded devices where nodes are constrained in terms of energy, processing, and memory. The protocols governing these networks employ a variety of techniques in order to manage these limitations, and the IEEE 802.15.4 stack has allowed the IoT to be extended to even the smallest of devices. Yet the high-overhead approach of traditional SDN networks, where devices can enjoy large flowtables and quick responses from the controller, isn't possible within a constrained LLN environment. This ultimately forces a rethink of many of the assumptions traditionally held in SDN architecture. We attempt to lay out these assumptions, and show how they are challenged by the realities within a LLN.
+
+\textbf{Low-Latency Controller Communication:} In traditional SDN architecture, low-latency links between SDN devices and the controller allow rapid state and configuration changes. This ability, to be able to quickly convey network information and decision making between the control and data planes, is vital within a SDN network. The constraints of IEEE 802.15.4 mesh networks mean that traffic faces maximum transfer rates of 250kbit/s, 127B frame sizes before fragmentation (depending on the 6LoWPAN \cite{6lowpan_rfc}), and a multi-hop mesh topology where processing and link overhead is incurred at each hop.
+
+\textbf{Reliable Links:} In placing an external SDN controller, there is an inherent assumption that network devices will be able to reliably communicate with that controller. However, the lossy medium in LLNs means that this reliability cannot be guaranteed - a direct consequence of the low power requirements of many IoT sensor networks. The problem becomes more acute when traversing multiple hops, as an element of uncertainty is introduced at each link. Depending on the buffers at each node, and the losses incurred at each hop, this can lead to a large amount of jitter.
+
+\textbf{Dedicated Control Channel:} In addition to the physical layer issues such as fading and interference, SDN control messages must compete with both topology and synchronization protocols, as well as regular application traffic. This contention can lead to retransmissions and lost packets. Given the energy limitations of the devices, this can be undesirable.
+
+\textbf{Large Flowtables:} In a traditional wired SDN implementations device hardware will support multiple, large flowtables. These tables are often able to hold thousands or tens of thousands of entries, allowing SDN devices to be configured for many different types of data flows and perform a number of network functions. LLNs are constrained not only by their environment, but also by the devices themselves. In order to reduce costs and energy expenditure,  devices are typically limited in their processing power and only support a few kB of memory, meaning that nodes cannot store more than a handful of flowtable entries.
+
+\textbf{Real-Time Network State:} A core principle of SDN is the assumption that the network will be able to maintain an abstraction of the distributed network state, mirroring the changes made in the physical network in near real-time. The problems of latency and reliability in a LLN mean that there is a great deal of uncertainty within the network, and this uncertainty is reflected in the abstraction model of the network state. Without this accuracy there can only be limited confidence attributed to controller decisions.
+
+%------------------------------------------------------------%
+
+\subsection{6TiSCH Architecture and Terminology}
+\label{sec_6tisch_background}
+
+Recent work from the IETF 6TiSCH standardization Working Group (WG) aims to incorporate concepts from the IETF Deterministic Networking \cite{ietf_detnet} and SDN \cite{ietf_sdn_rfc} WGs, enabling deterministic, centralized scheduling of communication across IEEE 802.15.4-2015 TSCH networks. The charter tasks the WG with producing specifications for how nodes communicate the TSCH schedule between themselves, default scheduling functions for dynamic scheduling of timeslots for IP traffic, and the detailing of an interface to allow deterministic routes across the 6TiSCH LLN through the manipulation of 6TiSCH scheduling and forwarding mechanisms. This section attempts to introduce the main concepts of 6TiSCH and its associated terminology, as well as explore how the SDN concept is imagined within the architecture.
+
+\begin{figure}[ht]
+\centering
+  \includegraphics[width=1.0\columnwidth]{images/tsch-slotframe.pdf}
+  \caption{Allocation of TSCH resources in a 5 hop network, with dedicated SDN control slices.}
+  \label{fig:track_schedule}
+\end{figure}
+
+\textbf{IEEE 802.15.4-2015 TSCH:} 
+Time Scheduled Channel Hopping (TSCH) is a deterministic MAC layer that introduces channel hopping across a Time Division Multiple Access (TDMA) schedule. This frequency diversity allows for greater reliability and energy efficiency than CSMA-based MAC layers, particularly in environments where there is a high degree of fading and interference. The TSCH schedule is sliced into repeating slotFrames [sic], consisting of timeslots spread over a number of frequency channels. Nodes periodically exchange synchronization beacons, which contain startup information about the TSCH schedule. Each timeslot can be allocated as a dedicated Transmit (Tx) or Receive (Rx) opportunity for that node, used as a "sleep" cell, or shared with other nodes in a contention-based scheme. By creating a schedule across the spectrum, interference is reduced, as it ensures that nodes within interference range aren't attempting to transmit simultaneously. In addition, nodes only need to be awake for Tx, Rx, and Shared cells, improving their energy consumption. 
+
+\textbf{6top Sublayer:} 
+The 6TiSCH Operation Sublayer (6top) allows 6TiSCH to communicate TSCH scheduling information to and from nodes within the network, and provides mechanisms for both distributed and centralized scheduling. In the distributed scenario, schedule information is communicated between nodes using the 6top Protocol (6P), transported on 6TiSCH Information Elements (IEs). In a centralized scheduling scenario, schedule information is communicated to and from a centrally located Path Computation Engine (PCE), analogous to a SDN controller, through the 6top CoAP Management Interface (COMI).
+
+\textbf{Schedule Management:}
+The 6TiSCH standard allows for a number of schedule management paradigms. These mechanisms allow for flexible maintenance of the TSCH schedule, based upon the the needs of the network. In \textit{Static Scheduling} a common fixed schedule is shared by all nodes in the network, and can be used as a network initialization mechanism. It is equivalent to Slotted ALOHA, and remains unchanged once a node joins the network. \textit{Neighbor-to-Neighbor} allows distributed scheduling functions by providing mechanisms so that matching portions of the TSCH schedule can be established by and between two neighboring nodes. As part of the charter, 6TiSCH is tasked with incorporating elements of SDN architecture: for \textit{Remote Schedule Management}, a centralized Path Coordination Engine (PCE) is able to make schedule changes based on the overall network state collected from each node. Finally, a \textit{Hop-by-Hop} scheduling mechanism is used for the distributed allocation of 6TiSCH tracks, and is the method we use in this paper. With Hop-by-Hop scheduling, a node can reserve a slice of the TSCH schedule as a dedicated Layer-2 forwarding path towards a destination, by getting 6top to allocate cells at each intermediate node.
+
+\textbf{Routing and Forwarding:} 
+6TiSCH supports three forwarding models: \textit{IPv6 Forwarding}, where each node decides on the forwarding path based on its own forwarding tables; \textit{6LoWPAN Fragment Forwarding}, where successive fragmented packets are forwarded onto the destination of the first fragment; and finally, \textit{Generalized Multi-Protocol Label Switching (G-MPLS) Track Forwarding}, which switches frames at Layer-2 based on dedicated ingress and egress cell bundles along a path.
+
+
+\begin{table}[ht]
+	\renewcommand{\arraystretch}{1.0}
+	\caption{Summary of 6TiSCH scheduling, routing and forwarding mechanisms.}
+    \label{table:6tisch_shed_rout_fwd}
+	\centering
+    \begin{tabular}{ |m{3cm}|l|l| }
+    \hline
+      	\bfseries Scheduling & \bfseries Forwarding & \bfseries Routing\\ \hline
+		Static & IPv6 + 6LoWPAN Frag. & RPL \\ \hline
+        Neighbor to Neighbor & IPv6 + 6LoWPAN Frag. & RPL \\ \hline
+        Remote Monitoring and Schedule Management & G-MPLS Track Fwd. & PCE \\ \hline
+        Hop-By-Hop & G-MPLS Track Fwd. & Reactive P2P  \\
+    \hline
+    \end{tabular}
+\end{table}
+
+%------------------------------------------------------------%
+
+
+\subsection{IETF 6TiSCH Tracks: Deterministic Layer-2 Slices}
+
+Importantly, the concept of 6TiSCH forwarding \textit{tracks} are suggested as a mechanism for providing QoS guarantees in industrial process control, automation, and monitoring applications, and where failures or loss of communications can jeopardize safety processes, or have knock on effects on processes down-the-line. Essentially the 6TiSCH interpretation of Deterministic Paths \cite{6tisch_ietf_architecture,ietf_detnet}, tracks exhibit deterministic properties through the reservation of constrained resources (such as memory buffers), and the dedicated allocation of TSCH slotFrame cells at each intermediate node. 
+
+Tracks are a form of Generalized Multi-Protocol Label Switching (G-MPLS), and frames are switched at Layer-2 based on the ingress cell bundle at which they were received, and forwarded to a paired transmission cell bundle. Cell bundles are groups of cells represented by a tuple consisting of \textit{\{Source MAC, Destination MAC, Track ID\}}, with the number of cells within the bundle representing the allotted bandwidth for the track. Successive bundle pairs at each intermediate node create a low-latency point-to-point path between a source and destination. As packets do not need to be delivered to Layer-3, there is less process overhead at each node. In addition, the dedicated buffer and slotFrame resources means the likelihood of retransmissions and congestion loss is reduced, as frames sent along the track don't need to compete with other traffic, reducing jitter considerably. 
+

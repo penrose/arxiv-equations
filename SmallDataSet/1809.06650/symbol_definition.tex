@@ -1,0 +1,488 @@
+
+\usepackage{amssymb}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{chains}
+\usetikzlibrary{scopes}
+\usetikzlibrary{shapes.geometric}
+\usetikzlibrary{trees}
+\usetikzlibrary{topaths}
+\usetikzlibrary{positioning}
+\usetikzlibrary{patterns,decorations.pathreplacing}
+
+\newcommand{\Pabcd}{
+ \left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.00,0.00);
+ \draw [thick] (0.10,0.25)--(0.10,0.00);
+ \draw [thick] (0.20,0.25)--(0.20,0.00);
+ \draw [thick] (0.30,0.25)--(0.30,0.00);
+ \end{tikzpicture}
+\right)
+}
+
+\newcommand{\Pabdc}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.00,0.00);
+ \draw [thick] (0.10,0.25)--(0.10,0.00);
+ \draw [thick] (0.20,0.25)--(0.30,0.00);
+ \draw [thick] (0.30,0.25)--(0.20,0.00);
+ \end{tikzpicture}
+\right)
+ }
+
+\newcommand{\Pacbd}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.00,0.00);
+ \draw [thick] (0.10,0.25)--(0.20,0.00);
+ \draw [thick] (0.20,0.25)--(0.10,0.00);
+ \draw [thick] (0.30,0.25)--(0.30,0.00);
+ \end{tikzpicture}
+\right)
+ }
+
+\newcommand{\Pacdb}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.00,0.00);
+ \draw [thick] (0.10,0.25)--(0.20,0.00);
+ \draw [thick] (0.20,0.25)--(0.30,0.00);
+ \draw [thick] (0.30,0.25)--(0.10,0.00);
+ \end{tikzpicture}
+\right)
+ }
+
+\newcommand{\Padbc}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.00,0.00);
+ \draw [thick] (0.10,0.25)--(0.30,0.00);
+ \draw [thick] (0.20,0.25)--(0.10,0.00);
+ \draw [thick] (0.30,0.25)--(0.20,0.00);
+ \end{tikzpicture}
+\right)
+ }
+
+
+
+\newcommand{\Padcb}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.00,0.00);
+ \draw [thick] (0.10,0.25)--(0.30,0.00);
+ \draw [thick] (0.20,0.25)--(0.20,0.00);
+ \draw [thick] (0.30,0.25)--(0.10,0.00);
+ \end{tikzpicture}
+\right)
+ }
+
+%%%end of a
+\newcommand{\Pbacd}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.10,0.00);
+ \draw [thick] (0.10,0.25)--(0.00,0.00);
+ \draw [thick] (0.20,0.25)--(0.20,0.00);
+ \draw [thick] (0.30,0.25)--(0.30,0.00);
+ \end{tikzpicture}
+\right)
+ }
+
+\newcommand{\Pbadc}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.10,0.00);
+ \draw [thick] (0.10,0.25)--(0.00,0.00);
+ \draw [thick] (0.20,0.25)--(0.30,0.00);
+ \draw [thick] (0.30,0.25)--(0.20,0.00);
+ \end{tikzpicture}
+\right)
+ }
+
+\newcommand{\Pbcad}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.10,0.00);
+ \draw [thick] (0.10,0.25)--(0.20,0.00);
+ \draw [thick] (0.20,0.25)--(0.00,0.00);
+ \draw [thick] (0.30,0.25)--(0.30,0.00);
+ \end{tikzpicture}
+\right)
+ }
+
+\newcommand{\Pbcda}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.10,0.00);
+ \draw [thick] (0.10,0.25)--(0.20,0.00);
+ \draw [thick] (0.20,0.25)--(0.30,0.00);
+ \draw [thick] (0.30,0.25)--(0.00,0.00);
+ \end{tikzpicture}
+\right)
+ }
+
+\newcommand{\Pbdac}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.10,0.00);
+ \draw [thick] (0.10,0.25)--(0.30,0.00);
+ \draw [thick] (0.20,0.25)--(0.00,0.00);
+ \draw [thick] (0.30,0.25)--(0.20,0.00);
+ \end{tikzpicture}
+\right)
+ }
+
+\newcommand{\Pbdca}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.10,0.00);
+ \draw [thick] (0.10,0.25)--(0.30,0.00);
+ \draw [thick] (0.20,0.25)--(0.20,0.00);
+ \draw [thick] (0.30,0.25)--(0.00,0.00);
+ \end{tikzpicture}
+\right)
+ }
+
+%%%%%%%%end of b
+
+\newcommand{\Pcabd}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.20,0.00);
+ \draw [thick] (0.10,0.25)--(0.00,0.00);
+ \draw [thick] (0.20,0.25)--(0.10,0.00);
+ \draw [thick] (0.30,0.25)--(0.30,0.00);
+ \end{tikzpicture}
+\right)
+ }
+\newcommand{\Pcadb}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.20,0.00);
+ \draw [thick] (0.10,0.25)--(0.00,0.00);
+ \draw [thick] (0.20,0.25)--(0.30,0.00);
+ \draw [thick] (0.30,0.25)--(0.10,0.00);
+ \end{tikzpicture}
+\right)
+ }
+\newcommand{\Pcbad}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.20,0.00);
+ \draw [thick] (0.10,0.25)--(0.10,0.00);
+ \draw [thick] (0.20,0.25)--(0.00,0.00);
+ \draw [thick] (0.30,0.25)--(0.30,0.00);
+ \end{tikzpicture}
+\right)
+ }
+\newcommand{\Pcbda}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.20,0.00);
+ \draw [thick] (0.10,0.25)--(0.10,0.00);
+ \draw [thick] (0.20,0.25)--(0.30,0.00);
+ \draw [thick] (0.30,0.25)--(0.00,0.00);
+ \end{tikzpicture}
+\right)
+ }
+\newcommand{\Pcdab}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.20,0.00);
+ \draw [thick] (0.10,0.25)--(0.30,0.00);
+ \draw [thick] (0.20,0.25)--(0.00,0.00);
+ \draw [thick] (0.30,0.25)--(0.10,0.00);
+ \end{tikzpicture}
+\right)
+ }
+\newcommand{\Pcdba}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.20,0.00);
+ \draw [thick] (0.10,0.25)--(0.30,0.00);
+ \draw [thick] (0.20,0.25)--(0.10,0.00);
+ \draw [thick] (0.30,0.25)--(0.00,0.00);
+ \end{tikzpicture}
+\right)
+ }
+
+
+%%%%end of c
+\newcommand{\Pdabc}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.30,0.00);
+ \draw [thick] (0.10,0.25)--(0.00,0.00);
+ \draw [thick] (0.20,0.25)--(0.10,0.00);
+ \draw [thick] (0.30,0.25)--(0.20,0.00);
+ \end{tikzpicture}
+\right)
+ }
+\newcommand{\Pdacb}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.30,0.00);
+ \draw [thick] (0.10,0.25)--(0.00,0.00);
+ \draw [thick] (0.20,0.25)--(0.20,0.00);
+ \draw [thick] (0.30,0.25)--(0.10,0.00);
+ \end{tikzpicture}
+\right)
+ }
+\newcommand{\Pdbac}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.30,0.00);
+ \draw [thick] (0.10,0.25)--(0.10,0.00);
+ \draw [thick] (0.20,0.25)--(0.00,0.00);
+ \draw [thick] (0.30,0.25)--(0.20,0.00);
+ \end{tikzpicture}
+\right)
+ }
+\newcommand{\Pdbca}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.30,0.00);
+ \draw [thick] (0.10,0.25)--(0.10,0.00);
+ \draw [thick] (0.20,0.25)--(0.20,0.00);
+ \draw [thick] (0.30,0.25)--(0.00,0.00);
+ \end{tikzpicture}
+\right)
+ }
+\newcommand{\Pdcab}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.30,0.00);
+ \draw [thick] (0.10,0.25)--(0.20,0.00);
+ \draw [thick] (0.20,0.25)--(0.00,0.00);
+ \draw [thick] (0.30,0.25)--(0.10,0.00);
+ \end{tikzpicture}
+\right)
+ }
+\newcommand{\Pdcba}{ 
+\left( 
+ \begin{tikzpicture}
+[baseline=1pt]
+ \draw [fill] (0,0) circle(0.2ex);
+ \draw [fill] (0.10,0) circle(0.2ex);
+ \draw [fill] (0.20,0) circle(0.2ex);
+ \draw [fill] (0.30,0) circle(0.2ex);
+ \draw [fill] (0,0.25) circle(0.2ex);
+ \draw [fill] (0.10,0.25) circle(0.2ex);
+ \draw [fill] (0.20,0.25) circle(0.2ex);
+ \draw [fill] (0.30,0.25) circle(0.2ex);
+ \draw [thick] (0.00,0.25)  --(0.30,0.00);
+ \draw [thick] (0.10,0.25)--(0.20,0.00);
+ \draw [thick] (0.20,0.25)--(0.10,0.00);
+ \draw [thick] (0.30,0.25)--(0.00,0.00);
+ \end{tikzpicture}
+\right)
+ }

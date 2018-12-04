@@ -1,0 +1,22 @@
+The objective of this section is to describe some technical details for people who do not plan to read the source code.
+
+For the majority of network, we use leaky ReLUs as the activation function, which has the form
+\begin{equation}
+y=x \quad \text{if} \  x>0; \quad y=0.2x \quad \text{if} \  x\leq0
+\end{equation}
+Apart from the last layer of each renormalization block and the last dense layer, the number of filters in each convolution layer is 200, and the output dimension of each dense layer is 50.
+
+The optimizer we use is the ADAM~\cite{kingma2014adam}.
+The learning rate parameter of the optimizer is set to $7\times 10^{-4}$ for training belief propagation network, $10^{-3}$ for training dense layers, $7\times 10^{-5}$ for global training of $L=16,32$ lattice, and $7\times 10^{-6}$ for $L=64$.
+The batch size for training is 50.
+The training of the dense layers uses around 1000 batches.
+For the strong policy, the global training uses 3000 batches regardless of the code distance.
+To see the potential of our neural decoder at $d=64$, we also did a longer training and compared it to MWPM in \autoref{fig:comparison_to_MWPM}.
+In total, it is trained using 18000 batches.
+The first 12000 batches are trained on physical error rate $p=0.09$, and the last 6000 batches are on $p=0.095$.
+The reason of switching to a higher error rate for late stage training is that the accuracy at $p=0.09$ is too close to 1 for effective training.
+
+
+
+%ADAM keeps track of t by saving $beta^t$.
+%Batch normalization moving mean is trainable in Tensorflow.

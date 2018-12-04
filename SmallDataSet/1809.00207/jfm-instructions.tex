@@ -1,0 +1,208 @@
+% This is file JFM2esam.tex
+% first release v1.0, 20th October 1996
+%       release v1.01, 29th October 1996
+%       release v1.1, 25th June 1997
+%       release v2.0, 27th July 2004
+%       release v3.0, 16th July 2014
+%   (based on JFMsampl.tex v1.3 for LaTeX2.09)
+% Copyright (C) 1996, 1997, 2014 Cambridge University Press
+
+\documentclass{jfm}
+\usepackage{graphicx}
+\usepackage{epstopdf, epsfig}
+\usepackage{xcolor}
+\usepackage{soul}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+
+
+\shorttitle{Turbulent Taylor rolls: a localized self-sustained process}
+\shortauthor{F. Sacco, R. Verzicco and R. Ostilla-M\'onico}
+
+\title{Turbulent Taylor rolls: a localized self-sustained process}
+
+\author{Francesco Sacco\aff{1}
+  \corresp{\email{francesco.sacco@gssi.it}},
+  Roberto Verzicco\aff{2,3}
+ \and Rodolfo Ostilla-M\'onico\aff{4}\corresp{\email{rostilla@central.uh.uk}} }
+
+\affiliation{\aff{1}Gran Sasso Science Institute, Viale Francesco Crispi 7, L’Aquila 67100, Italy
+\aff{2} Dipartimento di Ingegneria Industriale, University of Rome ``Tor Vergata", Via del Politecnico 1, Roma 00133, Italy
+\aff{3} Physics of Fluids Group, Faculty of Science and Technology, MESA+ Research             Institute, and J. M. Burgers Centre for Fluid Dynamics, University of Twente, PO Box 217, 7500 AE Enschede, The Netherlands
+\aff{4} Cullen College of Engineering, University of Houston, Houston, TX 77204, USA
+
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+In many shear- and pressure-driven wall-bounded turbulent flows secondary motions spontaneously develop and their interaction with the main flow alters the overall large-scale features and transfer properties. Taylor-Couette flow, the fluid motion developing in the gap between two concentric cylinders rotating at different angular velocity, is not an exception, and toroidal Taylor rolls have been observed from the early development of the flow up to the fully turbulent regime. In this manuscript we show that under the generic name of ``Taylor rolls'' there is a wide variety of structures that differ for the vorticity distribution within the cores, the way they are driven and their effects on the mean flow. We relate the rolls at high Reynolds numbers not to centrifugal instabilities, but to a combination of shear and anti-cyclonic rotation, showing that they are preserved in the limit of vanishing curvature and can be better understood as a pinned self-sustained process. By analyzing the effect of the computational domain size, we show that this pinning is not a product of numerics, and that the rolls perform a random walk that depends on domain size and with fleeting time scales. 
+\end{abstract}
+
+\begin{keywords}
+
+\end{keywords}
+
+
+\section{Introduction}
+
+Taylor-Couette flow, the fluid flow between two coaxial, independently rotating cylinders, is one of the paradigmatic system of fluid dynamics, and a model system for studying the influence of rotation and curvature on turbulence \citep{gro16}. Historically, this system has been heavily researched from the 1890s up to the present day, uncovering interesting phenomena for a system that even at the lowest Reynolds numbers is extremely rich. Taylor-Couette flow is linearly unstable when angular momentum decreases with radius, and different configurations of inner and outer cylinder rotation lead to diverse dynamics \citep{and86}. Large-scale structures arise because of instabilities and can fill the entire gap between the cylinders remaining relatively stationary in time. These structures, known as Taylor rolls or Taylor vortices \citep{tay23}, have been observed both in experiments and simulations, and dominate the flow topology up to the highest values of Reynolds number \citep{hui14,ost14}, where the Reynolds number $Re$ is defined as $Re=Ud/\nu$, with $U$ a characteristic shear velocity of the cylinders which will be defined in a precise manner later, $d$ the distance between the cylinders and $\nu$ the kinematic viscosity.  
+
+The phase diagram of Taylor rolls is quite complex. At Reynolds numbers just beyond the onset of linear instability ($Re\sim 10^2$),  these coherent structures appear and are stationary and axisymmetric. With increasing Reynolds number, secondary instabilities arise, and the Taylor rolls develop azimuthal oscillations, entering the wavy Taylor Vortex flow regime \citep{jon85}. Further increasing the Reynolds number causes the onset of time-dependence, and this is known as the modulated wavy Taylor Vortex regime. When increasing the driving even more, the flow becomes  chaotic and then turbulence starts to develop, first in the bulk, and eventually in the boundary layers. This is the so-called turbulent Taylor vortex regime. For Reynolds numbers exceeding $Re\sim10^3$, the small-scale vortices arising due to the driving begin to be strong enough to weaken the large-time-scale circulation. However, the turbulent Taylor vortices survive up to very large Reynolds numbers, having  been observed experimentally up to Re $\sim 10^6$ \citep{hui14}, and, in the corresponding parameter regimes in all DNS simulations up to now. In this high Reynolds number regime depending on the kind of rotation, and on the curvature of the system, Taylor rolls can either fill the entire gap, partially survive close to the inner cylinder or completely disappear from the bulk \citep{ost14}. 
+
+However, the continuity we have assumed between the steady, axisymmetric vortices near the onset of centrifugal instability to the large-$Re$ turbulent Taylor rolls is not totally clear. Several questions remain: first, Taylor rolls have been traditionally attributed to the effects of centrifugal instabilities. However, for pure inner cylinder rotation, they appear to be strongest for narrow-gap (i.e.~small curvature) instances of Taylor-Couette flow \citep{ost14}. For high curvature instances, they survive only at mild counter-rotation \citep{van16}. If they were caused solely by centrifugal effects, one could expect them to be always the strongest for the largest centrifugal driving, i.e.~pure inner cylinder rotation, and this is not the case. In this manuscript we first intend to clarify the reason for this discrepancy. Second, the question remains about the axial pinning. While this comes about naturally in experiments due to the presence of end-plates, in numerics it is still not clear why structures should be fixed in a homogeneous direction, and the broken symmetry is not recovered in a statistical sense. Some numerical studies have been conducted to check that the axial pinning of the rolls is not an effect of small computational boxes due to aliasing of long-wavelength modes \citep{ost15,ost16}. However, recent numerical work by \cite{lee18} has shown that in channel flow structures become pinned for extremely large computational boxes, something that defies the common wisdom. In this paper we set out to show in a rigorous manner that the effect of computational boxes on pinning structures can never be eliminated, but it can at least be quantified. 
+
+In this manuscript, we set up to answer these two questions by simulating small-gap Taylor-Couette flow at moderate Reynolds numbers and vary the curvature and the size of the computational domain. We will relate Taylor-Couette flow to the self-sustained process of shear flows, and analyse its transition to rotating Plane Couette flow, the flow between two infinite and parallel plates moving at different velocities. Finally, we will quantify the effect of box-size on the pinning of large-scale streamwse-invariant structures. The paper is structured as follows: in section \ref{sec:numerics} we describe the numerical method used and the parameter setup used in the simulations. All the properties and the characterization of Taylor rolls are reported in section \ref{sec:results}. In section \ref{sec:conclusion} we briefly summarize and give some remarks and an outlook for future works.
+
+\section{Numerical details}\label{sec:numerics}
+
+We perform direct numerical simulations of Taylor-Couette flow by solving the incompressible Navier-Stokes equations in a rotating reference frame:
+
+\begin{equation}
+ \displaystyle\frac{\partial \textbf{u}}{\partial t} + \textbf{u}\cdot \nabla \textbf{u} + 2\Omega\times\textbf{u} = -\nabla p + \nu \nabla^2 \textbf{u},
+ \end{equation}
+ 
+ \begin{equation}
+  \nabla \cdot \textbf{u} = 0,
+ \end{equation}
+
+\noindent in cylindrical coordinates, where $\textbf{u}$ is the velocity, $\Omega$ the angular velocity of the rotating frame, $p$ the pressure and $t$ is time. Spatial discretization is performed using a second-order energy-conserving centered finite difference scheme, while time is advanced using a low-storage third-order Runge-Kutta for the explicit terms and a second-order Adams-Bashworth scheme for the implicit treatment of the wall-normal viscous terms. Further details of the algorithm can be found in \citep{ver96,poe15}. The code has been extensively validated for Taylor-Couette flow \citep{ost14} and is parallelized using MPI directives. 
+
+Axially periodic boundary conditions are taken with a periodicity length $L_z$, expressed non-dimensionally as an aspect ratio $\Gamma=L_z/d$, where $d=r_o-r_i$ is the gap between both cylinders, and $r_i$ ($r_o$) the radius of the inner (outer) cylinder. The non-dimensional radius ratio $\eta=r_i/r_o$ provides a measure of the curvature of the system, and is the second geometrical control parameter. In the azimuthal direction, Taylor-Couette is naturally periodic. However, a rotational symmetry of order $N$ is imposed on the system with a double purpose: to reduce computational costs and to explore the effect of the the streamwise periodic length on turbulent structures. We perform the simulations in a convective reference frame \citep{dub05} such that both cylinders rotate with opposite velocities $\pm U/2$, and any combination of differential rotations of the cylinders are  reflected as a Coriolis force. In this frame the two control parameters become a shear Reynolds number $Re_s=Ud/\nu$ and a non-dimensional Coriolis parameter $R_\Omega=2d\Omega /U$, in which all combinations of the classical parameters $Re_i$ and $Re_o$ can be expressed.
+
+In order to compare Taylor-Couette system in the limit of a vanishing curvature, also a few simulations of Plane-Couette flow have been performed, since it is the limit of Taylor-Couette flow when $\eta\to 1$. For this case we have used a Cartesian version of the previously mentioned code. In the convective frame, the control parameters $Re_s$ and $R_\Omega$ naturally reduce to those of Plane-Couette flow when that limit is taken.
+
+Temporal convergence is assessed by measuring the difference in torque between both cylinders, and ensuring that they are within $1\% $ of each other. The spatial resolution of lower $Re_s$ simulations is based on \cite{ost14}. For $Re_s=3.61\cdot 10^4$, we take the criteria $\Delta z^+\approx 5$, $\Delta x^+ = r\Delta \theta^+\approx 9$ and $\Delta r^+\in (0.5,5)$, resulting in resolutions of $n_\theta\times n_r\times n_z = 384 \times 512 \times 768$ in the azimuthal, radial and axial directions respectively for $N=20$. For simulations in which we halve $N$, we double the resolution in the azimuthal direction.
+
+\section{Results}
+\label{sec:results}
+
+\subsection{Changes in the rolls with Reynolds number}
+\label{subsec:LSE}
+
+In order to analyze the properties of the large scale structures, we have performed several simulations fixing the cylinder radius ratio to $\eta=0.909$, and increasing the driving by rotating the inner cylinder only and varying the Reynolds number $Re_s$ between $10^2$ and $3.6\cdot10^4$, covering the full range between linear instability and turbulent rolls. Indeed, for all the outcomes, the axially pinned structures exist and fill up the entire domain. These Taylor rolls are known to redistribute angular momentum and have a visible large scale pattern \citep{lat92,ost16}, as shown in Figure \ref{fi:avgvelsvorts}: if we look at averaged azimuthal velocity and azimuthal vorticity, indeed, we can see that the signature of the rolls is preserved for all the cases. However, the two quantities show different behaviours: the mean azimuthal velocity preserves a similar pattern during all the transition, revealing two zones where the fluid detaches from the inner/outer boundary layer and impacts the opposite wall; these patterns have been already characterized as plumes in terms of thermal convection terminology, or as hairpin vortices, in the context of wall-bounded turbulence.  Alternatively, the intensity of the vorticity concentrates near the wall due to the rotational effects as the Reynolds number increase and this produces an ``emptying'' process of the bulk of the rolls. They become largely quiescent and inactive. 
+
+This matches previous intuition that as the Reynolds number increases and the flow reaches the ultimate regime, the rolls undergo a series of transitions. In \cite{ost14b}, when the ultimate-regime was reached for pure inner cylinder rotation at $\eta=0.714$, the rolls simply vanished away. For $\eta=0.909$, even if they persist, between the right-most panels at $Re=3.61\cdot 10^4$, corresponding to the so-called ultimate regime, and the panels at $Re_s=4.97\cdot 10^3$, the azimuthal velocity in the bulk can be seen to increase even if strong axial signatures are still present. This calls into question the assumption that turbulent Taylor rolls before the ultimate regime such as those in \cite{and86}, and those in the ultimate regime such as those in \cite{hui14} are generated by the same mechanisms. The continuity between the left and right panels becomes less apparent upon close examination, and it appears that fundamental changes happen as the rolls are becoming relatively empty of vorticity. 
+
+\begin{figure}
+\includegraphics[trim=4cm 0 5cm 0, clip, height=0.29\textwidth]{figs/Q1mean_Re1.pdf}
+\includegraphics[trim=4cm 0 5cm 0, clip, height=0.29\textwidth]{figs/Q1mean_Re2.pdf}
+\includegraphics[trim=4cm 0 5cm 0, clip, height=0.29\textwidth]{figs/Q1mean_Re3.pdf}
+\includegraphics[trim=6cm 0 0cm 0, clip, height=0.29\textwidth]{figs/Q1mean_Re4.pdf}\\
+\includegraphics[trim=4cm 0 5cm 0, clip, height=0.3\textwidth]{figs/W1isomean_Re1.pdf}
+\includegraphics[trim=4cm 0 5cm 0, clip, height=0.3\textwidth]{figs/W1isomean_Re2.pdf}
+\includegraphics[trim=4cm 0 5cm 0, clip, height=0.3\textwidth]{figs/W1isomean_Re3.pdf}
+\includegraphics[trim=6cm 0 0cm 0, clip, height=0.3\textwidth]{figs/W1isomean_Re4.pdf}\\
+\centering
+\caption{Temporally- and azimuthally averaged azimuthal velocity $\hat{u}_\theta$ (top row) and normalized averaged azimuthal vorticity $\hat{\omega}_\theta/\max |\hat{\omega}_\theta|$ (bottom row) for inner cylinder rotation and several shear Reynolds numbers (from left to right, $Re_s=1.96\cdot 10^2$, $1.37\cdot10^3$, $4.97\cdot10^3$, $3.61\cdot10^4$). Contours levels for vorticity are shown for values between -0.001 and 0.001, to highlight the roll structures.  }
+\label{fi:avgvelsvorts} 
+\end{figure}
+
+\subsection{The Taylor roll as pinned self sustained process}
+
+\begin{figure}
+\includegraphics[width=0.48\textwidth]{figs/Streaks_Instantaneous.pdf}
+\includegraphics[width=0.48\textwidth]{figs/Streaks_Filtered.pdf}
+\centering
+\caption{Left: Instantaneous visualization of the azimuthal (streamwise) velocity at $r^+\approx 13$. Right: Same velocity field as on the left under a low-pass filter. The characteristic streaks of the self-sustained process can be clearly seen. }
+\label{fi:inststreaks} 
+\end{figure}
+
+
+
+It thus seems useful to analyze the turbulent Taylor rolls in the ultimate regime not in the context of centrifugal instabilities, but instead in the framework of shear flows. For this aim we introduce the self-sustained process of shear flows. Following the argument of \cite{Wal97}, we know that a self sustained process is composed of three main phases:
+
+\begin{itemize}
+\item[i)] the redistribution of mean shear stress by streamwise rolls to create streaks;
+\item[ii)] the wake-like instability of the streaks;
+\item[iii)] the regeneration of the streamwise rolls from the nonlinear development of the streak instability.
+\end{itemize}
+
+In the previous section, we saw that Taylor rolls are esentially large-scale streamwise rolls which redistribute mean shear-stress. If these rolls are related to a shear process, we could expect large-scale streaky structures to also exist for Taylor-Couette flow. These structures would then feed the Taylor rolls. Thus, axially pinned Taylor rolls would simply be a fixed instance of the above self-sustained process. 
+
+A streaky flow would contain strong spanwise inflections. In the near-wall region of turbulent flows this will lead to two possible patterns, a typical staggered row of vortices and a less frequent horseshoe structure. To detect the existence of these spanwise variations, we have checked the instantaneous azimuthal velocity near the wall for pure inner cylinder rotation, and the results are illustrated in figure \ref{fi:inststreaks}. After applying a low-pass filter to the fields, the streaks-row structure clearly comes up. This provides an initial indication that a Taylor roll in the ultimate regime is an axially pinned self-sustained process.
+
+
+If the Taylor roll is simply a self-sustained process, which is axially pinned, what is causing the pinning? Is it the instabilities caused by curvature, or can rotation alone cause the pinning of the rolls? To answer this question we have simulated several narrow-gap radius ratios up to the limit of $\eta \to 1$, i.e.~the Plane Couette limit. By varying the curvature and keeping the other control parameters constant we can account for its effect. We set $Re_s=3.4\cdot 10^4$, in the ultimate regime \citep{ost14}. The non-dimensional rotation parameter $R_\Omega$ is set to $R_\Omega=0.1$, so we are considering weak anti-cyclonic rotation very close to the value for pure inner cylinder rotation at $\eta=0.909$, which is $R_\Omega=0.0909$. Analyzing the instantaneous and averaged azimuthal or streamwise velocity fields we find out that large-scale structure analogous to Taylor rolls are present for all the cases. The average and instantaneous flow-fields look very similar, so we expect them to be sustained by the same pattern of streaks that we have described previously. These facts are illustrated in the left and center panels of Figure \ref{fi:etatoone}. 
+
+Moreover we have checked the intensity of the rolls as curvature vanishes by looking at the  magnitude of the Fourier component associated to them in the $u_r$-$u_\theta$ mean at the mid-gap: the axisymmetric mode in the streamwise direction ($k_x=0$) and the axially/spanwise largest mode ($k_z = 2 \pi/\Gamma$). This is shown in the right panel of Figure \ref{fi:etatoone}, where we can clearly see that the variations of this quantity are around $6\%$ between $\eta=0.909$ and $\eta=1$. This matches the intuition coming from the Navier-Stokes equations that the strength of forces due to curvature is measured by the $R_c=d/\sqrt{r_ir_o}$ parameter \citep{bra15}, which corresponds to $R_c\approx 0.095$ for $\eta=0.909$. This is further evidence that the nature of the rolls are similar in all the systems, and that their pinning is caused by rotation, and not curvature. Indeed, the Coriolis forces arising from solid body rotation, reflected non-dimensionally as $R_\Omega$, seem crucial in controlling the regions of parameter space in which rolls form. We have seen that for non-rotating plane Couette flow, axially pinned structures do not arise for $R_\Omega=0$, even if large-scale structures do exist \citep{avs14}. But adding a mild anti-cyclonic rotation $R_\Omega=0.1$ pins these structures, as seen not only in our simulations but also in the large-box simulations of \cite{tob17}. This is also true for moderate values of curvature. The $\eta=0.714$ ($R_c\approx 0.33$) experiments of \cite{hui14} show the signature of rolls between $R_\Omega \approx 0.1$ and $R_\Omega \approx 0.2$ when expressed as a Coriolis force. In the $\eta=0.5$ ($R_c\approx 0.71$) experiments of \cite{van16}, they saw a fixed roll structure for counter-rotating cylinders at $\omega_o/\omega_i=-0.2$, which corresponds to $R_\Omega=0.25$, but not for pure inner cylinder rotation corresponding to $R_\Omega=0.5$. 
+
+We can see that as curvature becomes larger, the solid-body anti-cyclonic rotation of the system becomes larger too- this is reflected by a larger $R_\Omega$ in the rotating frame of \cite{dub05}, i.e.~$R_\Omega(Re_o=0)=(1-\eta)$. This is the probable reason for the vanishing of the rolls for pure inner cylinder rotation at $\eta=0.5$ and $0.714$, but not for $0.909$ as seen in \cite{ost14}. Mild anti-cyclonic Coriolis forces and not centrifugal forces are the primary cause of the pinning of structures in the ultimate regime. 
+
+\begin{figure}
+\includegraphics[trim=4cm 0 5cm 0, clip, height=0.3\textwidth]{figs/UthetaMean_Eta085.pdf}
+\includegraphics[trim=6cm 0 0cm 0, clip, height=0.3\textwidth]{figs/vyme_PCR.pdf}
+\includegraphics[height=0.3\textwidth]{figs/Eta_E01.pdf}
+\centering
+\caption{Left: Mean azimuthal velocity for Taylor-Couette at $\eta=0.85$ and $R_\Omega=0.1$, $Re_s=3.4\cdot10^4$. Center: Mean streamwise velocity for plane Couette flow ($\eta \to 1$) at $R_\Omega=0.1$, $Re_s=3.4\cdot10^4$. Spanwise-pinned large-scale structures analogous to the turbulent Taylor rolls can be seen. Right: strength of the Fourier component associated to the turbulent Taylor roll at the mid-gap as a function of curvature for $R_\Omega=0.1$, $Re_s=3.4\cdot10^4$.} 
+\label{fi:etatoone} 
+\end{figure}
+
+\subsection{The effect of the domain size}
+
+From the previous sections, it seems apparent that mild anticyclonic rotation causes some self-organization in shear-flows by pinning the self-sustained process in the span-wise (axial) direction. However, while the pinning seemed natural for experiments, due to the presence of end-plates, it is still unclear what the effect of box-size is on simulations. As mentioned in the introduction, extreme-sized box sizes can also cause the existence of pinned structures. 
+
+To probe the pinning of rolls, we decompose the velocity into mean flow and fluctuations:
+
+\begin{equation}
+u(t,\theta,r,z)=U(t,r,z) + u^{'}(t,\theta,r,z),
+\end{equation}
+
+\noindent and we take a further step, as in \cite{MoserMoin87} by analyzing two derived quantities, the streaks: 
+
+\begin{equation}
+U_s(t,r,z) = U(t,r,z) - \left\langle U(t,r,z) \right\rangle_{z},
+\end{equation}
+
+\noindent and the rolls: 
+
+\begin{equation}
+\Omega_{\theta} = \frac{\partial U_r}{\partial z} -\frac{\partial U_z}{\partial r}.
+\end{equation}
+
+We first compare two TC systems, with $R_\Omega=0.0909$, corresponding to pure inner cylinder rotation, with strong turbulent rolls, the other with $R_\Omega=-0.1$, corresponding to pure outer cylinder rotation, with fixed $Re=3.4\cdot10^4$ and $\eta=0.909$. As we previously discussed when analyzing $\Omega_{\theta}$ field, large scale axially pinned rolls are present only with a mild anticyclonic rotation, and so are a characteristic of the first system only, while the second does not present this feature at all. This is also reflected on the streak fields $U_s$, as we have found also there large-scale axially pinned structure, only for inner cylinder rotation, while they are completely missing in the other case. This is displayed in the left and central panels of figure \ref{fi:boxsize}. 
+
+Moreover if we look closer at the central panel, we can see that the axial signature of the rolls has a well defined shape and an influence also in the bulk, analogous to what was seen for the azimuthal velocity in subsection \ref{subsec:LSE}. This is further proof that different mechanisms are taking place, and that Taylor rolls are part of an axially pinned self sustained process: the Coriolis forces are also pinning the streak fields, which in turn reinforces the rolls, keeping them fixed. 
+
+We now compare the effect of the azimuthal domain size on the two cases, to further prove that the rolls are not simply a product of aliasing caused by small domain extents. Even if recent studies have found that the computational domain (or box) size does affect the profile of the rolls \citep{ost15,ost16}, since the axial extent of the box plays a crucial role on the correlations and spectra of the velocity field, no size of box was able to unpin the rolls. Moreover larger boxes in the azimuthal extent allow for azimuthal wave-like patterns in the Taylor rolls to develop, which affects the statistics in the bulk region, but does not unpin them anyway. After the findings by \cite{lee18} in a box-size of streamwise extent $100\pi$, the question remains of how large is ``large enough''? Here, we attempt to rigorously quantify the effect of box-size to understand whether the presence of Taylor rolls is a product of numerics, since we are imposing artificial rotational symmetry in the azimuthal direction. We can do this by systematically varying the azimuthal (streamwise) extent of the computational box. If the rolls are a product of aliasing, then, the energy of the rolls and streaks should decrease with box-size as $\sim 1/N$, as they are essentially a mean ($k_x = 0$). On the other side, if they are physical, the energy should plateau to a constant with box-size.
+
+We again use the comparison between pure inner rotating cylinder system and pure outer rotating one, as the last one, as we pointed out before, has a lack of structures. The simulations are performed with the same parameters, and varying the imposed rotational symmetry of the system between the values $N=5,10,20$. In the right panel of figure \ref{fi:boxsize} we show the streak and roll energies for both systems: for inner cylinder rotation we can see that even if the azimuthal extent of the domain change, the amplitude of rolls and streaks is almost constant; on the other side for pure outer cylinder rotation the amplitude goes down with box-size as predicted for a mean mode.
+
+
+\begin{figure}
+\includegraphics[trim=4cm 0 5cm 0, clip, height=0.3\textwidth]{figs/Ustreak_OCR.pdf}
+\includegraphics[trim=6cm 0 0cm 0, clip, height=0.3\textwidth]{figs/Ustreak_ICR.pdf}
+\includegraphics[height=0.3\textwidth]{figs/Us_Omega_Boxsize.pdf}
+\centering
+\caption{Left and center: Mean azimuthal velocity anomaly ($U_s$) for outer cylinder rotation (left) and inner cylinder rotation (center). Right: Normalized energy of the streaks and rolls as a function of the streamwise domain length at the mid-gap $L_x/d=2\pi (r_i+r_o)/(2dN)$. The dashed line indicates the expected $A\sim L_x^{-1}$ behaviour for a structure-less flow. }
+\label{fi:boxsize} 
+\end{figure}
+
+As the last point we still want to understand if Taylor rolls are effectively fixed in the axial direction for all times or if  they perform random walks. For this reason, we decompose TC between the low-wavenumber roll modes and high-wavenumber fluctuations, in the spirit of the generalized quasi-linear approximation \citep{tob17}. We have already mentioned that the energy of the rolls is mainly contained in the axisymmetric ($k_x=0$) and the axially largest ($k_z = 2 \pi/\Gamma$) modes, and for the roll to move, the phase of this mode has to shift. All non-linear interactions are triadic interactions of low or high wavenumber modes. A force that could shift the phase has to come from the interaction of two high-wavenumber fluctuations, that is, from a triadic interaction of the form $\widehat{u}'(k_1),\widehat{u}'(k_2) \to \widehat{U}(k_1 + k_2)$. If we now assume that fluctuations are random, using the central limit theorem we expect that the mean of all triadic interactions affecting the roll behave like a Gaussian. We also expect that an increase in the computational box, which adds more modes to the averaging, makes the expected value of the fluctuations approach zero as $1/\sqrt{L_x}$.
+
+By looking at the phase of the Fourier transform of the streamwise velocity $u_\theta$ at the mid-gap we can probe the extent of pinning. In figure \ref{fi:alpha} we show the results for the pure inner cylinder rotation cases at $Re_s=3.4\cdot10^4$ and $\eta=0.909$, with a varying imposed rotational symmetry between the values of $N=5,10,20$. The results verify reasonably well our expectations. In the left panel we can see that rolls are actually moving, and the walk amplitude depends on the domain size. On the right panel we show that the movement is consistent with the random walk hypothesis. This shows that rolls are anyway moving, but this movement depends on the box-size: the larger the domain the smaller the walk. Computational effects cannot be completely avoided. Indeed, boxes which are very large might pin structures by the averaging out fluctuations over long spatial extents. This is probably the case of the pinning of the structures in the extremely large domain of \cite{lee18}. 
+
+\begin{figure}
+\includegraphics[width=0.48\textwidth]{figs/Alpha_vs_time_Ro01.pdf}
+\includegraphics[width=0.48\textwidth]{figs/AlphaRms_Ro01.pdf}
+\centering
+\caption{Left: Phase ($\alpha$) of the Fourier mode associated to the Taylor roll for three different azimuthal (streamwise) domain lengths. Right: Root mean squared value of $\alpha$ against the streamwise domain length. The dashed line represents the expectation for a random walk $|\alpha|\sim 1/\sqrt{L_x}$. }
+\label{fi:alpha} 
+\end{figure}
+
+\section{Summary and conclusions}\label{sec:conclusion}
+
+Several DNS simulations have been performed in a large parameter range of Taylor-Couette system in order to better understand the high-Reynolds number behaviour of the large-scale structures known as Taylor rolls. We have shown that, at a fixed radius ratio $\eta=0.909$, these structures become more and more empty of vorticity in the bulk as the Reynolds number increases, while the behaviour of the streamwise velocity remains somewhat similar, leaving behind the characteristic imprint in the axial direction on both instantaneous and mean fields. In a similar way to the rolls, large-scale streaky structures arise in the azimuthal (streamwise) direction. At high Reynolds numbers the roll/streak pairs can be understood in the context of a spatially localized instance of the self-sustained process of shear flows: the primary mechanism for the generation is not the centrifugal instabilities caused by rotation and curvature, as previously thought \citep{ost16}. Instead, streaks are generated by the redistribution of shear stress by the rolls, and their instability sustains the evolution of the same rolls. For a narrow gap system, the  self-sustained process is pinned under the presence of moderate anti-cyclonic rotation. The pinning is not due to destabilizing centrifugal effects, as the process remains pinned in the plane Couette limit value $\eta \to 1$, i.e.~for no curvature. The $R_\Omega$ parameter range where the rolls are pinned matches previous experimental results from large-gaps between $\eta=0.5-0.714$. Finally, we have shown that the rolls are not a product of aliasing due to small computational domains, and actually perform a random walk with fleeting time-scales. The smaller the domain, the larger the random walks of the rolls, because the average of the triadic interactions between fluctuations deviates more from zero. Further investigation should look at the role of the rotation parameter $R_{\Omega}$ on other important parameters, as torque, and on the velocity field, in order to understand when Taylor rolls have an optimal flow, and the effects that rotation and curvature have on large scales, whether alone or coupled.
+
+\emph{Acknowledgments:} We thank B. Eckhardt, B. Farell and P. Ioannu for fruitful discussions. We thank the Center for Advanced Computing and Data Science (CACDS) at the University of Houston for providing computing resources and we also acknowledge PRACE for awarding us access to MareNostrum IV, based in Spain at the Barcelona Supercomputing Center (BSC) under PRACE project number 2017174146.
+
+
+
+\bibliographystyle{jfm}
+
+\bibliography{jfm-instructions}
+
+\end{document}

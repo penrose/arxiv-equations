@@ -1,0 +1,277 @@
+\section{Feature Extraction and Experimental Methods}\label{sec:featextraction}
+
+\subsection{Experimental Data and Setup}\label{sec:exp_setup}
+The experimental radar data were recorded in an office environment (no absorbers) at Technische Universit\"{a}t Darmstadt, Germany. An ultra wide band radar \cite{Anc} was used in continues wave mode with a carrier frequency of 24\,GHz. The antenna feed point of the radar was placed at table height, 1.15\,m above the floor, which represents a nominal hip height. Ten volunteers (age: 23.8 $\pm$ 2.6, 8 men, 2 women) were asked to walk slowly and without arm swinging toward and away from the radar system in an $0\degree$ angle relative to the radar LOS, between approximately 4.5\,m and 1\,m from the antenna feed point. All participants provided informed consent. Note that this setup would be a practice when radar is used as a diagnostic tool for analysis of gait abnormalities, where weak micro-Doppler signatures due to large aspect angles can easily be avoided. In total, the data set contains 1000 measurements, i.e., 100 measurements per person. Five different walking styles are considered: normal walking (NW), limping with one (L1) or both legs (L2), walking with a cane in sync with one leg (CW) and out of sync with any leg (CW/oos). Here, a limping leg is simulated by a knee that cannot be bent such that the stride motion is performed in a semicircular manner. In the case of limping with both legs neither of the knees can be bent. The number of samples per class and walking direction are equal among the test subjects. Using the same experimental setup, radar data of four additional subjects (4 women) with diagnosed gait disorders were collected at Villanova University, USA. This test data set contains 13, 20, 28 (16 thereof with a cane in sync with one leg), and 28 measurements for person A, B, C, and D, respectively, i.e., 89 measurements in total.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 					Phy features	    											%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Physical Features based on Sum-of-Harmonics Analysis}\label{subsec:phyfeatures}
+% Spectrogram and CVD
+Gait characteristics manifest themselves differently depending on the data representation and the transforms adopted. For feature extractions, we consider both spectrogram and CVD. Whereas the former depicts the Doppler and micro-Doppler signatures which correspond to velocities and their time-varying natures, the latter accentuates periodicities and better describes the harmonic components of the limbs. 
+
+% Physical features
+Concerning the feature extraction mechanism, we note that physical gait features are inter-related, and depend on \cite{Bjoe15,Gur15}
+\begin{itemize}
+	\item data pre-processing, e.g., noise reduction in the spectrogram,% \cite{Gur15},
+	\item type of radar used,% \cite{Bjoe15}, 
+	\item environment,% \cite{Bjoe15}, 
+	\item target characteristics.% \cite{Bjoe15}.
+\end{itemize}
+Since the features play an important role in classification problems, they should be chosen to be (i) relevant to the considered classification problem and (ii) accurately estimated or extracted from the micro-Doppler signature or its transforms \cite{Gur15}. Features of physical interpretations have been widely used for radar-based human activity recognition and include, but are not limited to \cite{Kim09,Ote05}: 
+\begin{itemize}
+	\item torso Doppler frequency,% \cite{Kim09},
+	\item total Doppler bandwidth,% \cite{Kim09},
+	\item offset of the total Doppler,% \cite{Kim09},
+	\item Doppler bandwidth without micro-Doppler effects,% \cite{Kim09},
+	\item normalized standard deviation of Doppler signal strength,% \cite{Kim09},
+	\item period of the limb motion or stride rate,% \cite{Kim09},
+	\item average radial velocity,% \cite{Ote05},
+	\item stride length,% \cite{Ote05},
+	\item radar cross-section of some moving body components (gait amplitude ratio).% \cite{Ote05}.
+\end{itemize}
+However, most of the above features are not descriptive for distinguishing different walking styles. For example, the target's average radial velocity is expected to be similar for the different classes of gait considered. Hence, the offerings of these features in human gait recognition need to be examined.
+
+% Base velocity
+In order to estimate the average radial velocity of a person, referred to as base velocity $v_0$, the mean Doppler spectrum is calculated as given by (\ref{eq:meanDS}). This mean value can be smoothed to minimize the influence of noise by applying a moving average filter with a span corresponding to approximately 11\,Hz in Doppler frequency or 0.07\,m/s. Next, the maximum value of the mean Doppler spectrum is determined, and used as an estimate of the average walking speed of the person by using (\ref{eq:Doppler}).
+
+% micro-Doppler repetition frequency fmD
+An important characteristic of a person's walk is the gait periodicity, which corresponds to the stride rate for a normal human walk. However, in the case of cane-assisted walks, the strides may not be periodic due to the additional cane movements (see Figs.~\ref{fig:specs}\subref{CWoos} and \ref{fig:specs}\subref{CWoosa}). Hence, we introduce the micro-Doppler repetition frequency $\fmd$, which captures the periodicity of the micro-Doppler signatures irrespective of being due to leg or cane movements. For extracting $\fmd$, the spectrogram, given by (\ref{eq:spectrogram}), is used and the upper and lower envelopes of the micro-Doppler signatures are extracted for toward and away from radar motions, respectively, by applying an energy-based thresholding technique \cite{Ero16}. Since a swinging foot or a cane motion assumes the highest Doppler shifts in human gait motions, they lead to maxima in the absolute value of the envelope signal. 
+%As such, the envelope signal becomes periodic. 
+Taking the FT of the envelope signal, we find $\fmd$ by determining the frequency with the maximal amplitude.
+
+% fmD vs. v_0 and fmD vs. maxD
+\begin{figure}[!t]
+	\begin{minipage}{\columnwidth} %clip, trim= 0 0 30 18
+		\includegraphics[width=0.9\textwidth]{figures/v0_vs_fDmax}
+		\caption*{(a)\label{fig:f0_vs_v0}}
+	\end{minipage}
+	\begin{minipage}{\columnwidth}
+		\includegraphics[width=0.9\textwidth]{figures/fmD_vs_fDmax}
+		\caption*{(b)\label{fig:f0_vs_fdmax}}
+	\end{minipage}
+	\caption{Scatter plots of physical features: (a) base velocity $v_0$ vs.~maximal Doppler shift $\fdmax$ and (b) micro-Doppler repetition frequency $\fmd$ vs.~$\fdmax$. \label{fig:scatterPhyFeat}\vspace{-0.5em}}
+\end{figure}
+
+% maximal Doppler shift
+Next, we consider the maximal observed Doppler shift in the measurement as a feature. This is motivated by the observation that a limping leg has a lower radial velocity, and thus causes smaller Doppler shifts. The envelope signals can also be utilized for this purpose. The maximal Doppler shift $\fdmax$ is estimated by use of the maximal values of the envelope signal. Here, the mean of the highest 10\% of the maximal Doppler shifts is used to be less sensitive to variations between different micro-Doppler signatures. 
+
+In order to show relevance, Fig.~\ref{fig:scatterPhyFeat} shows scatter plots of the three described features, namely the base velocity $v_0$, the micro-Doppler repetition frequency $\fmd$ and the maximal Doppler shift $\fdmax$, for the five considered gait classes. From (a), it can be seen that the base velocity is not discriminative of the walks, because the walking speed of a person is not (necessarily) influenced by the use of an assistive walking device or gait impairments. However, the scatter plot in (b) reveals that the micro-Doppler repetition frequency increases when walking with a cane. In particular, we remark that if the cane is moved out of sync, $\fmd$ becomes notably higher compared to the other four classes. Further we note that limping with both legs has clearly the lowest maximal Doppler shift among the considered classes.
+
+% coefficient of variation
+However, except for limping with both legs, the maximal Doppler shift does not help in discriminating between the remaining gait classes, at least not in the person-generic case considered here. In this respect, we note that some walking styles exhibit different maximum Doppler shifts per leg or cane motion. In particular, from Figs.~\ref{fig:specs}\subref{L1} and \ref{fig:specs}\subref{L1a}, we observe that limping with one leg leads to a characteristic pattern of alternating high and low maximal Doppler shifts. For capturing this oscillatory behavior, we find the peaks of the envelope signal and approximate the envelope's envelope using spline interpolation. In order to quantify the variation in maximal Doppler shifts, we proceed to calculate the coefficient of variation as
+\begin{equation}
+c_v = \frac{\sigma}{\mu},
+\end{equation}
+where $\sigma$ is the standard deviation and $\mu$ is the mean of the interpolated signal. The coefficient of variation is expected to be particularly high for limping with one leg and thus serves as an indicator of abnormality.
+
+% Gait harmonic ratio 
+Further, we observe that the gait classes of normal walking (NW), limping with one leg (L1) and walking with a cane (CW) are not well separated in the feature space spanned by $\fmd$ and $\fdmax$ depicted in Fig.~\ref{fig:scatterPhyFeat}(b). That is, the micro-Doppler repetition frequency $\fmd$, by itself, does not capture the underlying regularity or irregularity of the walk. For this, we calculate the gait harmonic frequency ratio as \cite{Alz14}
+\begin{equation}
+\beta = \frac{f_0}{\fmd},
+\label{eq:beta}
+\end{equation}
+where $f_0$ is the fundamental frequency (FF) of the gait. For the considered gait classes, we expect the values of $\beta$ to be:
+\begin{itemize}
+	\item $1$ for NW and L2 as each micro-Doppler stride signature assumes the same pattern,
+	\item $1/2$ for L1 and CW as every other micro-Doppler signature appears the same,
+	\item $1/3$ for CW/oos as a set of two strides and one cane movement constitutes one period.
+\end{itemize}
+In order to find $f_0$, we use the short-time energy signal defined in (\ref{eq:meanEnergy}) and model it as a sum-of-harmonics (SOH) \cite{Sei18}, i.e.,
+\begin{equation}\label{eq:soh}
+\begin{aligned}%T_\text{s} 
+x(n) &= \sum_{i=1}^{q} u_i \cos(2 \pi i f_0 n ) + v_i \sin(2 \pi i f_0 n ) \\
+     &= \sum_{i=1}^{q} \alpha_i \cos(2 \pi i f_0 n + \phi_i),
+\end{aligned} 
+\end{equation}
+where $f_0$ is the fundamental frequency in Hz, $q$ is the number of harmonics (NOH), and the harmonic amplitudes and phases are $\alpha_i$ and $\phi_i$, respectively. 
+Here, we use the algorithm proposed in \cite{Whi03} to estimate the FF, the NOH, and harmonic amplitudes and phases. Assuming the energy signal $E(n)$ is composed of a SOH signal $x(n)$ and an additive white Gaussian noise component $u(n)$, i.e.,
+\begin{equation}\label{eq:model}
+E(n) = x(n) + u(n), \quad n = 0, \dots,N-1, 
+\end{equation}
+the parameters are then found by minimizing the squared-error between the data and the model, i.e.,
+\begin{equation}\label{eq:LS}
+\xi = \sum_{n = 0}^{N-1} \left| x(n) - E(n) \right|^2,
+\end{equation}
+and utilizing the nonlinear least squares method for estimating $f_0$, which is augmented by a model order selection method for detecting $q$. For this, (\ref{eq:LS}) is jointly optimized over candidate FFs and candidate orders. We use $\fmd$ as an initial estimate of the FF. In a first step of the SOH algorithm, this estimate is refined by minimizing (\ref{eq:LS}) using an optimization technique. Next, candidate FFs are determined from the refined $f_0$ estimate for which the cost function defined by the NLS method is evaluated. At this point, we incorporate prior knowledge to limit computational costs in the joint-optimization for finding $f_0$ and $q$, and avoid overfitting. As described earlier, we expect $f_0$ to be $1/3 \cdot \fmd$, $1/2 \cdot \fmd$ or $1 \cdot \fmd$ given the initial FF estimate $\fmd$ is correct. Thus, the candidate FFs assume only the aforementioned values.  
+Given the estimates for the FF and the NOH, the SOH model in (\ref{eq:soh}) is linear in the parameters $u_i$ and $v_i$. Thus, using the linear least-squares solution, the harmonic amplitudes $\alpha_i$ and phases $\phi_i$, $i=1,\dots,q$, can be computed in a closed-form as a function of $f_0$ and $q$. The estimated parameter vector is thus given by
+\begin{equation}
+\mathbf{h} = \left[ f_0~q~\alpha_1 \cdots \alpha_q ~\phi_1 \cdots \phi_q \right].
+\label{eq:SOHparas}
+\end{equation}
+
+Given $f_0$, we proceed to calculate the gait harmonic frequency ratio $\beta$ using (\ref{eq:beta}). Table~\ref{tab:results_beta} shows the classification results using solely the $\beta$ feature for all considered walking styles. Clearly, $\beta$ is proving to be an important descriptive feature to characterize the analyzed walking patterns, as 68\%, 75\% and 91\% of the respective measurements show the expected gait harmonic frequency ratios $1/3$, $1/2$ and $1$, respectively. 
+
+Based on the above results and the contributions of the various parameters, we form a physical feature vector as
+\begin{equation}
+\mathbf{z}^\text{phy} = \left[\fmd~\fdmax~c_v~\beta~\alpha_1 \cdots \alpha_{q_\text{max}} \right],
+\label{eq:phyfeat}
+\end{equation}
+where again $\fmd$ is the micro-Doppler repetition frequency, $\fdmax$ is the maximal observed Doppler shift in the measurement, $c_v$ is the coefficient of variation of maximal micro-Doppler shifts, and $\beta$ is the gait harmonic frequency ratio. The harmonic amplitudes $\alpha_i$ relate to the height of the peaks in the mCS and help to discriminate different articulations of abnormality. Here, $q_\text{max}=5$ is the maximal order of the SOH model and $\alpha_i = 0~\forall~i > q$. Note that we do not include the base velocity $v_0$, as it was found not to be an appropriate discriminative feature for the motions considered.
+
+% BETA Table
+\begin{table}[!t]
+	\renewcommand{\arraystretch}{1.2}\setlength{\tabcolsep}{0.3em}
+	\caption{Confusion matrices for classifying three different gait patterns using the gait harmonic feature $\beta$. Numbers are given in \%.}
+	\label{tab:results_beta}
+	\centering
+	\subfloat[both]{
+		\begin{tabular}{ l | c | c | c }
+			\hline
+			\textbf{True / Predicted } & NW, L2 & CW, L1 & CW/oos \\
+			\hline \hline
+			Normal walk (NW), Limping both (L2) 			& \cellcolor{green!20} 68 & \cellcolor{orange!20} 28 & 4 \\
+			\hline
+			Cane - synchronized (CW), Limping one (L1) 	& \cellcolor{orange!20} 21 & \cellcolor{green!20} 75 & 4 \\
+			\hline
+			Cane - out of sync (CW/oos) 				& 5 & 4 & \cellcolor{green!20} 91 \\
+			\hline
+		\end{tabular} \label{tab:beta_both}}\\
+	\subfloat[toward]{
+		\begin{tabular}{ l | c | c | c }
+			\hline
+			\textbf{True / Predicted } & NW, L2 & CW, L1 & CW/oos \\
+			\hline \hline
+			Normal walk (NW), Limping both (L2) 			& \cellcolor{green!20} 68 & \cellcolor{orange!20} 28 & 4 \\
+			\hline
+			Cane - synchronized (CW), Limping one (L1) 	& \cellcolor{yellow!20} 11 & \cellcolor{green!20} 83 & 6\\
+			\hline
+			Cane - out of sync (CW/oos) 				&  4 & 5 & \cellcolor{green!20} 91 \\
+			\hline
+		\end{tabular} \label{tab:beta_toward}}\\
+	\subfloat[away]{
+		\begin{tabular}{ l | c | c | c }
+			\hline
+			\textbf{True / Predicted } & NW, L2 & CW, L1 & CW/oos \\
+			\hline \hline
+			Normal walk (NW), Limping both (L2) 			& \cellcolor{green!20} 68 & \cellcolor{orange!20} 29 & 3\\
+			\hline
+			Cane - synchronized (CW), Limping one (L1) 	& \cellcolor{orange!20} 31 & \cellcolor{green!20} 67 & 2\\
+			\hline
+			Cane - out of sync (CW/oos) 				& 5 & 5 & \cellcolor{green!20} 90\\
+			\hline
+		\end{tabular} \label{tab:beta_away}}
+	\vspace{-1.7em}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 					other approaches     											%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In this work, we desire to compare the classification performance using the above features with those used by recent works in this field, particularly \cite{Bjoe15} and \cite{Ric15}. We limit our comparison to the classification techniques that employ the cadence-velocity domain, as proposed in this paper.
+%%%%%%%%%%%%%%%%%%% [Bjoe15] %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Bj{\"o}rklund \textit{et.~al} \cite{Bjoe15} used a 77\,GHz radar system to discriminate between the motions crawl, creep, walk, jog and run, which were performed by three test subject. For classification they used features from the cadence-velocity domain and a support vector machine (SVM). By taking the average over all velocities in the CVD, they form the mCS, from which the three highest peaks are identified. At the corresponding cadence frequencies, denoted as $f_1$, $f_2$, and $f_3$, the velocity profiles $\Gamma_1$, $\Gamma_2$, and $\Gamma_3$ are extracted from the CVD, i.e., the energy distribution in the CVD for the given cadence frequencies as a function of the Doppler frequency. The velocity profiles are resampled to have 100 samples each.
+% and normalized, while their relative magnitudes are maintained. 
+Further, the base velocity $v_0$ is extracted by finding the maximum in the mean Doppler spectrum. The corresponding feature vector is given by
+\begin{equation}\label{eq:Bjoefull}
+\mathbf{z}^\text{B1}  = [f_1~f_2~f_3~\Gamma_1~\Gamma_2~\Gamma_3~v_0],
+\end{equation}
+where $\Gamma_i$ denotes the resampled velocity profile at cadence frequency $f_i$, $i=1,\dots,3$, and $v_0$ is the base velocity.
+Further, they define a reduced feature vector as $\mathbf{z}^\text{B2} = [f_1~f_2~f_3~|v_0|]$, where the velocity profiles are not considered. Note that they drop the sign of the base velocity by taking the absolute value, i.e., they do take the direction of motion into account.
+
+%%%%%%%%%%%%%%%%%%% [Ric15] %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Ricci and Balleri \cite{Ric15} extracted features from the cadence-velocity domain for target recognition and identification. For that, four different subjects were walking on a treadmill in front of a 10\,GHz radar at constant speed. For discriminating the targets performing the same motion, the following features were extracted. From the mCS, they obtain an estimate of the person's stride rate. In our work, we resort to $\fmd$, which is more reliably estimated from the envelope of the micro-Doppler signatures. Next, a mean Doppler spectrum $\bar{\Gamma}_\text{mD}$ is formed around $\fmd$ by averaging over $\delta = 5$ neighboring cadence frequencies corresponding to 0.825\,Hz cadence bandwidth. The second and third feature, $f^\mathrm{D}_\text{mD,min}$ and $f^\mathrm{D}_\text{mD,max}$, are found by determining the minimum and maximum Doppler frequencies in $\bar{\Gamma}_\text{mD}$ exceeding a predefined threshold $\gamma = 0.05$. 
+Thus, the first feature vector is defined as
+\begin{equation} \label{eq:Ric1}
+\mathbf{z}^\text{R1} = [\fmd~f^\text{D}_{\text{mD,min}}~f^\text{D}_{\text{mD,max}}].
+\end{equation}
+%where the superscript of the features highlights that the mean Doppler spectrum is formed around $f_\text{mD}$ only.
+Second, the mean Doppler spectrum around $f_\text{mD}$ is used to define the feature vector
+\begin{equation} \label{eq:Ric2}
+\mathbf{z}^\text{R2} = \bar{\Gamma}_{\text{mD}}.
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 					PCA 															%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Subspace Features}\label{subsec:pcafeatures}
+In PCA, the intrinsic features of the considered walking styles are automatically learned and do not necessarily bear one-to-one correspondence to human motion kinematics \cite{Sei17a}. First, the input signals $\mathbf{C}$ are vectorized row-wise, i.e., $\mathbf{c} = \text{vec}\{\mathbf{C}^\mathrm{T}\} \in \mathbb{R}^{p \times 1}$, and stacked column-wise to form a data matrix $\mathbf{Y}$, such that
+\begin{equation}
+\mathbf{Y} = [\mathbf{c}_1~\mathbf{c}_2~\cdots~\mathbf{c}_d ] \in \mathbb{R}^{p \times d},
+\end{equation} 
+where $d$ is the number of training samples. The principal components are given by the eigenvectors of the covariance matrix.
+There are various methods to compute the principal components \cite{Shl14}. We apply singular value decomposition (SVD) to decompose the data matrix such that $\mathbf{Y} = \mathbf{U} \mathbf{D} \mathbf{V}^\mathrm{T}$, where the columns of $\mathbf{U}$ and $\mathbf{V}$ are the left and right eigenvectors, respectively, and the diagonal entries of the diagonal matrix $\mathbf{D}$ are the singular values. The eigenvalues are related to the singular values by $\mathbf{\Lambda} = 1/(d-1) \mathbf{D}^2$ \cite{Koc13}.
+The left eigenvector that has the largest eigenvalue, i.e., explains most of the variance in the data, is the first principal component. Using $\lambda$ principal components, which span a $\lambda$-dimensional subspace of the originally $d$-dimensional data space, each vectorized training and test image, $\mathbf{c}$, is projected onto that subspace by
+\begin{equation}
+\mathbf{p} = \tilde{\mathbf{U}}^\mathrm{T} \mathbf{c} \in \mathbb{R}^{\lambda \times 1},
+\end{equation}
+where $\tilde{\mathbf{U}} \in \mathbb{R}^{p \times \lambda}$ are the eigenvectors, or eigenimages, corresponding to the first $\lambda$ eigenvalues. The resulting projections $\mathbf{p}$ form the feature vector used for classification, i.e.,
+\begin{equation}
+\mathbf{z}^\text{PCA} = [p_1~p_2~\cdots~p_{\lambda}]^\mathrm{T}, \quad \lambda \leq d \in \mathbb{N}.
+\label{eq:pcafeature}
+\end{equation}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 					Input Signals													%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Radar Data Representations}\label{ssec:inputsignals}
+The different radar data representations and their dimension are listed in Table~\ref{tab:inputs}.
+
+% spectrogram
+Using measurements of 6\,s duration, we calculate the spectrogram using (\ref{eq:spectrogram}), where a Hamming window of approximately 0.1\,s length is applied and the STFT is evaluated at $K = 2048$ frequency points. An excerpt of the spectrogram is used with Doppler components smaller than 500\,Hz as depicted in Fig.~\ref{fig:specs}, and its amplitude is normalized to the range of $[0,1]$. To further reduce the dimensionality of the spectrogram, it is sub-sampled in the time-domain by a factor of 20 and image binning is applied, where groups of $4\times4$ pixel are averaged. Thus, the spectrogram has $90 \times 192 = 17280$ entries. 
+
+%CVD
+Next, the CVD is calculated according to (\ref{eq:CVD}), where zero-padding is used to obtain a cadence frequency resolution of approximately 0.04\,Hz. Again, the relevant part of the CVD images is extracted. In this regards, cadences up to 5\,Hz and Doppler frequencies from 0\,Hz to +500\,Hz and 0\,Hz to \mbox{-500\,Hz} for toward and away from radar motion measurements are considered, respectively, as shown in Fig.~\ref{fig:cvds}. Further, the resulting CVD image is downsampled in the Doppler domain to yield an image of dimensions $101 \times 129$ pixels, and is normalized to have values in the range of $[0,1]$. From this excerpt of the CVD, the mCS is obtained via (\ref{eq:meanCS}). 
+
+% warped CVD
+As we are particularly interested in the characteristic pattern in the CVD image, different stride rates and different maximal Doppler shifts among the measurements are compensated so as to align the CVD images. This is achieved by warping the CVD images along the cadence frequency and Doppler frequency axis using $\fmd$ and $\fdmax$, respectively. Afterwards, all CVDs assume $\fmd = 1$\,Hz and $\fdmax = 500$\,Hz. These CVDs are again considered up to 5\,Hz cadence frequency resulting in images of dimension $101 \times 129$ pixels. Hereafter, these CVDs will be referred to as pre-processed CVDs. As for the raw CVD images, we can find the pre-processed mCS and from the pre-processed CVDs using (\ref{eq:meanCS}).
+
+%time-domain signal
+Finally, one can alternatively utilize the time-domain signal itself, where the lower Doppler components due to the torso's motion are removed by high-pass filtering the signal with a cut-off frequency corresponding to $2v_0$. Taking the FT of this high-pass filtered signal, we obtain a similar representation as the mCS with peaks at the fundamental cadence and its harmonics.
+
+\begin{table}[!t]
+	\renewcommand{\arraystretch}{1.3}
+	\caption{Radar data representations and their dimensions.}
+	\label{tab:inputs}
+	\centering
+	\begin{tabular}{l c c }
+		\hline
+		Representation & Dimension & $p$ \\
+		\hline \hline
+		Spectrogram			    					& 90 $\times$ 192 & 17280 \\
+		Cadence-velocity diagram (CVD)  			& 101 $\times$ 129 & 13029 \\
+		Mean cadence spectrum (mCS)					& 1 $\times$ 129 & 129 \\
+		Pre-processed CVD 							& 101 $\times$ 129 & 13029\\
+		Pre-processed mCS 							& 1 $\times$ 129 & 129 \\
+		FT of filtered time-domain signal 			& 1 $\times$ 129 & 129 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% 				Methodology	+ Parameter Opt   										%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Methodology and Parameter Optimization}\label{ssec:method}
+In order to assess the appropriateness of the proposed features to the intra gait motion classification problem at hand, a very simple classifier is considered, namely the nearest neighbor (NN) classifier. Each classification result is obtained using 80\% of the data for training, where stratified sampling is applied to randomly choose the training samples, and the remaining data is used for testing. Final classification numbers are obtained by averaging over 500 classification results.
+
+Considering the different radar data representations listed in Table~\ref{tab:inputs}, we aim to find the optimal dimension of the PCA-based feature vector, as defined in (\ref{eq:pcafeature}), which depends on the number of principal components $\lambda$ used to span a subspace for data representation. In this work, we choose $\lambda$ such that the average correct classification rate is maximized. Toward this end, Fig.~\ref{fig:parapet} shows the achieved correct classification rates as a function of the number of principal components $\lambda$. We find that the classification accuracy does not significantly increase for $\lambda >$ 20 for any of the considered data representations.
+
+In general, the NN classifier can be easily extended to the $\kappa$-NN classifier, which considers a number of $\kappa$ neighbors in the decision process. Similarly, the parameter $\kappa$ can be optimized such that the classifier achieves the highest average correct classification rate. Fig.~\ref{fig:kappa_vs_lambda} illustrates the joint optimization of the parameters $\lambda$ and $\kappa$ using pre-processed CVDs, where the color indicates the average correct classification rate. Note that we omitted the results for $\lambda <$ 10 for visual clarity, as the corresponding classification rates are significantly lower. We find that the highest average correct classification rate is achieved by using the NN classifier ($\kappa$ = 1) and $\lambda$ = 20 principal components in the PCA-based feature extraction process. Increasing $\kappa$ does not increase the average classification rate. Note that, larger values of $\kappa$ or $\lambda$ increases computation time.
+
+% optimzing lambda
+\begin{figure}[!t]
+	\centering
+	\includegraphics[clip, trim= 0 0 20 18,width=\columnwidth]{figures/classify_fig4_j6}
+	\caption{Average correct classification rate over all classes as a function of the number of principal components used for PCA-based feature extraction based on different radar data representations. The shaded areas depict the interval of $\pm1\sigma$. \label{fig:parapet}}
+	\vspace{-0.5em}
+\end{figure}
+
+% #PC vs #NN
+\begin{figure}[!t]
+	\centering
+	\vspace{-0.5em}
+	\includegraphics[clip, trim= 0 0 20 18,width=0.9\columnwidth]{figures/NN_vs_NPC.png}
+	\caption{Average correct classification rates for different numbers of neighbors $\kappa$ for the classification process and different numbers of principal components $\lambda$ used for PCA-based feature extraction based on pre-processed CVDs. \label{fig:kappa_vs_lambda}}
+	\vspace{-0.5em}
+\end{figure}
+
+\subsection{Features from Different Data Domains}
+We highlight the importance of the CVD to the classification problem at hand by comparing the classification performance using PCA-based features from different data domains. Here, we use the spectrogram, the pre-processed CVD, the pre-processed mCS as inputs to the PCA. The subspace-based feature vectors are obtained as described in Section~\ref{subsec:pcafeatures}. The number of principal components is set to $\lambda$ = 20. Fig.~\ref{fig:compare_domains} shows the correct classification rates for each gait class using PCA-based features from the three different domains. Clearly, the spectrogram is inferior to the other representations for extracting descriptive subspace-based features. One reason for the poor classification performance is that the spectrogram is a time-dependent representation of the human gait, i.e., the measurements are not aligned in time. The CVD shows the highest classification rates. This indicates that the CVD contains key information relevant to classification but lost when calculating the mCS. Based on the above results, the CVD is used as a reference in the follow-on comparison below.
+
+% CLASSIY: PCA-based - specs vs. cvds vs. mcd (both) 
+\begin{figure}[!t]
+	\centering 
+	\vspace{-0.5em}
+	\includegraphics[clip, trim= 0 0 20 18,width=\columnwidth]{figures/classify_fig6_j6.png}
+	\caption{Classification results using subspace features ($\lambda$ = 20) obtained from the spectrogram, the pre-processed cadence-velocity diagram (CVD) and the pre-processed mean cadence spectrum (mCS).
+	\label{fig:compare_domains}}
+\end{figure}

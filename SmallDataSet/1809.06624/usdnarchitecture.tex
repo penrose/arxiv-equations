@@ -1,0 +1,55 @@
+
+\section{SDN and 6TiSCH Stack Integration}
+\label{sec_approach}
+
+\begin{figure}[ht]
+\centering
+  \includegraphics[width=1.0\columnwidth]{images/usdn-arch.pdf}
+  \caption{TSCH slotFrame for 5 Hop Network}
+  \label{fig:usdn_arch}
+\end{figure}
+
+In this section we introduce $\mu$SDN, our lightweight SDN implementation written for Contiki OS, detailing how we have integrated it within the 6TiSCH protocol stack. Additionally, we provide information on our 6TiSCH Track implementation, and describe how SDN uses the track allocation processes in order to setup and allocate Layer-2 resources towards the SDN controller.
+
+\subsection{$\mu$SDN: Lightweight SDN for Contiki OS}
+We have developed a lightweight SDN framework, $\mu$SDN, incorporating some of the concepts from \cite{sensor_openflow} and \cite{sdwn}, whilst introducing additional features in order to minimize controller overhead and increase node programmability. The $\mu$SDN layer is integrated with the Contiki IEEE 802.15.4-2015 protocol stack, and has been tested in Cooja using TI's exp5438 platform with MSP430F5438 CPU and CC2420 radio. Figure \ref{fig:usdn_arch} shows how $\mu$SDN is implemented within Contiki OS. We have developed a modular architecture that allows us to separate implementation and scenario specific features from core SDN processes.
+
+\textbf{Core SDN Library:} The core SDN library provides essential SDN processes, allowing protocol and framework specific implementations to be built on top. The \textit{Controller Discovery Process} integrates with the distributed RPL routing protocol (both Storing and Non-Storing) to allow nodes to discover routes to and from the SDN controller. Initial controller information is disseminated after the RPL join process using ICMPv6 messages between nodes, and the \textit{Controller Join} process uses the interface and external protocol provided by the SDN Stack implementation. \textit{Configuration and Metrics} allow controllers to setup the SDN network, and choose which metrics to receive from the node. The \textit{Flowtable} is optimized for memory, due to the constraints of LLN node hardware, however, it can make a number of functions designed to reduce the controller overhead in the network. Additionally, a \textit{Flowtable Blacklist} allows configuration of which packets are handled by the Flowtable, and which packets are handed by the regular Layer 3 processes. The core SDN processes provide \textit{Controller Overhead Reduction} through a number of features. Control Message Quenching (CMQ) \cite{cmq} is used to handle repeated flowtable misses. Partial Packet Queries (PPQ) allow flowtable requests to be sent to the controller using only partial packet information, reducing 6LoWPAN fragmentation. Source Routing Header (SRH) insertion allows routing headers to be inserted onto packets, and can be read by either the RPL or SDN layer. Finally, Active Flowtable Refresh (AFR) allows controllers to instruct particularly active flowtable entries to reset their lifetimers, rather than having the entry expire.  
+
+\textbf{$\mu$SDN Stack:} $\mu$SDN uses its own lightweight \textit{SDN Protocol} for controller communication. It's transported over UDP to allow for secure DTLS when communicating with controllers outside the mesh, and is highly optimized to ensure no packet fragmentation. However, its easily able to be switched out for other controller protocols using the \textit{Controller Socket Adapter}. This adapter exposes an abstract controller interface to the SDN layer, allowing the SDN Engine to send and receive controller messages without having to worry about the underlying protocol being used. The \textit{SDN Engine} defines how the messages to and from the controller are handled. It is essentially the concrete implementation of the protocol logic, dictating how the node handles controller communication. The \textit{SDN Driver} provides an API for the SDN Engine by defining how the SDN Flowtable is handled. It provides high-level functions for performing certain tasks through the setting of flowtable entries: such as creating firewall entries, setting routing paths through the network, or aggregating flows. It also provides handling of the flowtable actions, and determines how and when nodes should defer to the controller for instruction.
+
+\begin{figure*}
+\centering
+  \begin{subfigure}[t]{0.65\columnwidth}
+    \centering
+    \includegraphics[width=1.0\columnwidth]{images/stack-usdn.pdf}
+    \caption{$\mu$SDN stack in 802.15.4 stack with CSMA MAC.}
+    \label{fig:stack_usdn}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.65\columnwidth}
+  	\centering
+  	\includegraphics[width=1.0\columnwidth]{images/stack-6tisch.pdf}
+  	\caption{6TiSCH stack with IEEE 802.15.4-2015 TSCH MAC.}
+  	\label{fig:stack_6tisch}
+  \end{subfigure}
+  \begin{subfigure}[t]{0.65\columnwidth}
+  	\centering
+  	\includegraphics[width=1.0\columnwidth]{images/stack-6tisch-usdn.pdf}
+  	\caption{Integration of $\mu$SDN and 6TiSCH stacks}.
+  	\label{fig:stack_6tisch_usdn}
+  \end{subfigure}
+\caption{Protocol stacks for $\mu$SDN and 6TiSCH, and the integration of $\mu$SDN within the 6TiSCH stack.}
+\label{fig:stacks_all}
+\end{figure*}
+
+%-----------------------------------------------------------%
+
+\subsection{Integration with 6TiSCH Tracks}
+
+As discussed in Section \ref{sec_6tisch_background}, 6TiSCH envisions two methods of track reservation, Centralized and Distributed. In the first case, this is done through a centrally located PCE, where a node sends a message to the PCE requesting a track to a destination, and the PCE responds by scheduling the resources at each intermediate node towards that destination. In the distributed case the node requesting the track initializes Hop-By-Hop scheduling process which reserves resources along a path towards the intended destination node.
+
+
+
+\noindent \textbf{Insert flow digram of SDN + Track process} 
+
+%-----------------------------------------------------------%

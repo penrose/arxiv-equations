@@ -1,0 +1,189 @@
+\section{Experimental Results}\label{sec:results}
+
+\subsection{Physical Features}
+Table \ref{tab:Phy_results_5classes} shows the classification results using the feature vector as defined in (\ref{eq:phyfeat}). The average correct classification rates assume 82\%, 80\%, 90\%, 79\% and 93\% for NW, L1, L2, CW and CW/oos, respectively. The corresponding overall classification performance is 85\%, with a false alarm rate of 18\% and a missed detection rate of 17\%. False alarms are normal walks that are misclassified as abnormal or assisted, and missed detections denote abnormal or assisted walks that are wrongly classified as normal walk. We note that normal walks (NW) are mostly confused with walking with a cane (CW), and vice versa. This is expected in the sense that the underlying motion of walking with a cane is a normal walk, where the cane's micro-Doppler signatures superimpose every other leg micro-Doppler signature.
+
+% [Bjoe15]
+Next, Table \ref{tab:Bjoe151_results_5classes} presents the classification results for the feature vector $\mathbf{z}^{\text{B1}}$ used by Bj{\"o}rklund \textit{et. al}~\cite{Bjoe15}. For comparison, we use the same classifier as for the physical features, i.e., the NN classifier. Using the first feature vector, the overall correct classification rate assumes 78\%, with a false alarm rate of 13\% and a missed detection rate of 29\%. Despite the increased number of features, the average correct classification rate is lower compared to using physical features. Removing the velocity profiles from the feature vector, i.e., using $\mathbf{z}^{\text{B2}}$, the classification accuracy decreases to only 42\%, which shows that the cadence frequencies $f_1$, $f_2$ and $f_3$ along with the base velocity $v_0$ are not key in discriminating the considered gait classes.
+
+% [Ric15]
+Using the feature vectors $\mathbf{z}^{\text{R1}}$ and $\mathbf{z}^{\text{R2}}$ defined by Ricci and Balleri \cite{Ric15}, the results are given in Tables \ref{tab:Ric151_results_5classes} and \ref{tab:Ric152_results_5classes}, respectively. In the first case, the parameters $\Delta m$ and $\gamma$ were optimized as to achieve the highest average classification rate. We observe that a high number of abnormal (L1) and assisted walks (CW) are wrongly classified as normal gait, and vice versa. Further, limping with one leg (L1) is confused with cane-assisted walks (CW) and vice versa. Thus, the gait classes that reveal the same gait pattern are difficult to be classified correctly. The overall classification rate is found as 56\% with a false alarm rate of 60\% and a missed detection rate of 59\%. Using the mean Doppler spectrum around $\fmd$ as a feature, i.e., $\mathbf{z}^{\text{R2}}$, the correct classification rate is given by 75\%, where the false alarm and missed detection rates assume 26\% and 27\%, respectively. Here, most confusions are observed between limping with one (L1) and both legs (L2), as well as, between normal walk (NW) and cane-assisted walks (CW). Again, we note that the mean Doppler spectrum comprises more information for classification of the considered motions than single Doppler or cadence frequencies.
+
+Hence, we conclude that physical features, such as the base velocity or the micro-Doppler repetition frequency, are not suited to discriminate between the considered gait classes, i.e., to solve the intra motion category classification problem of gait recognition. However, signals obtained from the CVD, e.g., the mean Doppler spectrum, do hold discriminative characteristics that allow to distinguish between different walking styles.
+
+\subsection{Subspace-based Features}
+
+Table~\ref{tab:subspace_results_cvd_5classes} shows the classification results utilizing PCA-based features of CVDs and the NN classifier. Here, $\lambda$ = 20 principal components are used. The overall correct classification rate assumes 93\%, where the false alarm rate is 8\% and the missed detection rate is 12\%. The highest classification rates are achieved for walking with a cane out of sync (99\%). The gait class CW shows the lowest classification rate (85\%) as this motion is again confused with normal walking, and vice versa.
+
+The results demonstrate the suitability of the CVD and the effectiveness of PCA for feature extraction. Even though we only consider one motion class and a single signal domain, the proposed method classifies the gaits with a high accuracy.
+
+\begin{table}[!t]
+	\renewcommand{\arraystretch}{1.2} \setlength{\tabcolsep}{0.25em}
+	\caption{Confusion matrix for classification using physical features, i.e, $\mathbf{z}^\text{phy}$, and the NN classifier. Numbers are given in \%.} 
+	%myq = 5, NN, 500 MCRuns, FA: 17.84%, MD: 16.07%
+	\label{tab:Phy_results_5classes}
+	\centering
+	\begin{tabular}{  l | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} }
+		\hline
+		\textbf{True / Predicted } & NW & L1 & L2 & CW & CW/oos \\
+		\hline \hline
+		Normal walk (NW) & \cellcolor{green!20} 82 & 1 & 4 & \cellcolor{yellow!20} 11 & 2\\
+		\hline
+		Limping with one leg (L1) & 3 & \cellcolor{green!20} 80 & 5 & 9 & 3\\
+		\hline
+		Limping with both legs (L2) & 3 & 4 & \cellcolor{green!20} 90 & 3 & 0\\
+		\hline
+		Cane - synchronized (CW) & 9 & 7 & 4 & \cellcolor{green!20} 79 & 1 \\
+		\hline
+		Cane - out of sync (CW/oos) & 2 & 4 & 0 & 1 & \cellcolor{green!20} 93\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+	\renewcommand{\arraystretch}{1.2} \setlength{\tabcolsep}{0.25em}
+	\caption{Confusion matrix for classification using the feature vector $\mathbf{z}^{\text{B1}}$ by Bj\"orklund \textit{et al.} \cite{Bjoe15}, and the NN classifier. Numbers are given in \%.}
+	%NN, 500 MCRuns, FA: 13.82%, MD: 19.93%
+	\label{tab:Bjoe151_results_5classes}
+	\centering
+	\begin{tabular}{  l | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} }
+		\hline
+		\textbf{True / Predicted } & NW & L1 & L2 & CW & CW/oos \\
+		\hline \hline
+		Normal walk (NW) & \cellcolor{green!20} 87 & 2 & 2 & 8 & 1\\
+		\hline
+		Limping with one leg (L1) & 5 & \cellcolor{green!20} 79 & 7 & 7 & 2\\
+		\hline
+		Limping with both legs (L2) & 1 & 2 & \cellcolor{green!20} 94 & 3 & 0\\
+		\hline
+		Cane - synchronized (CW) & \cellcolor{yellow!20} 18 & 4 & 1 & \cellcolor{green!20} 73 & 4 \\
+		\hline
+		Cane - out of sync (CW/oos) & \cellcolor{yellow!20} 11 & 9 & 2 & \cellcolor{yellow!20} 18 & \cellcolor{green!20} 60\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+	\renewcommand{\arraystretch}{1.2} \setlength{\tabcolsep}{0.25em}
+	\caption{Confusion matrix for classification using the feature vector $\mathbf{z}^{\text{R1}}$ by Ricci and Balleri \cite{Ric15}, and the NN classifier.
+		Numbers are given in \%.}
+	%NN, 500 MCRuns, FA: 52.45 MD: 54%
+	\label{tab:Ric151_results_5classes} 
+	\centering
+	\begin{tabular}{  l | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} }
+		\hline
+		\textbf{True / Predicted } & NW & L1 & L2 & CW & CW/oos \\
+		\hline \hline
+		Normal walk (NW) & \cellcolor{green!20} 40 & \cellcolor{yellow!20} 17 & 9 & \cellcolor{orange!20} 27 & 7\\
+		\hline
+		Limping with one leg (L1) & \cellcolor{yellow!20} 14 & \cellcolor{green!20} 44 &  \cellcolor{yellow!20} 16 &  \cellcolor{orange!20} 20 &  6\\
+		\hline
+		Limping with both legs (L2) & \cellcolor{yellow!20} 12 &  \cellcolor{yellow!20} 10 & \cellcolor{green!20} 74 & 3 & 1\\
+		\hline
+		Cane - synchronized (CW) & \cellcolor{orange!20} 26 & \cellcolor{yellow!20} 18 & 3 & \cellcolor{green!20} 43 &  \cellcolor{yellow!20} 10 \\
+		\hline
+		Cane - out of sync (CW/oos) & 5 & 6 & 0 & 9 & \cellcolor{green!20} 80\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+	\renewcommand{\arraystretch}{1.2} \setlength{\tabcolsep}{0.25em}
+	\caption{Confusion matrix for classification using the feature vector $\mathbf{z}^{\text{R2}}$ by Ricci and Balleri \cite{Ric15}, and the NN classifier.
+		Numbers are given in \%.}
+	%NN, 500 MCRuns, FA: 29.45 MD: 39.93%
+	\label{tab:Ric152_results_5classes}
+	\centering
+	\begin{tabular}{  l | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} } %44 FA 45 , MD 41
+		\hline
+		\textbf{True / Predicted } & NW & L1 & L2 & CW & CW/oos \\
+		\hline \hline
+		Normal walk (NW) & \cellcolor{green!20} 74 & 5 & 4 & \cellcolor{yellow!20} 15 & 2\\
+		\hline
+		Limping with one leg (L1) & 6 & \cellcolor{green!20} 74 & \cellcolor{yellow!20} 10 &  5 &  5\\
+		\hline
+		Limping with both legs (L2) & 4 & \cellcolor{yellow!20} 12 & \cellcolor{green!20} 80 & 4 & 0\\
+		\hline
+		Cane - synchronized (CW) & \cellcolor{yellow!20} 12 & 4 & 3 & \cellcolor{green!20} 74 &  7 \\
+		\hline
+		Cane - out of sync (CW/oos) & 6 & 6 & 1 &  \cellcolor{yellow!20} 12 & \cellcolor{green!20} 75\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+	\renewcommand{\arraystretch}{1.2} \setlength{\tabcolsep}{0.25em}
+	\caption{Confusion matrix for classification using the feature vector $\mathbf{z}^{\text{PCA}}$ ($\lambda$ = 20), and the NN classifier. Numbers are given in \%.}
+	\label{tab:subspace_results_cvd_5classes}
+	%NN, lambda = 18, 500 MCRuns, FA: 7.06 MD: 13.10%
+	\centering
+	\begin{tabular}{  l | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} | >{\centering\arraybackslash}m{0.9cm} } % j8 results: 73 % (FA 22 MD 21) %j7 results: 69% (FA 27,MD 26)
+		\hline
+		\textbf{True / Predicted } & NW & L1 & L2 & CW & CW/oos \\
+		\hline \hline
+		Normal walk (NW) & \cellcolor{green!20} 93 & 1 & 0 & 6 & 0\\
+		\hline
+		Limping with one leg (L1) & 0 & \cellcolor{green!20} 95 & 0 & 5 & 0\\
+		\hline
+		Limping with both legs (L2) & 3 & 0 & \cellcolor{green!20} 95 & 2 & 0\\
+		\hline
+		Cane - synchronized (CW) & \cellcolor{yellow!20} 10 & 5 & 0 & \cellcolor{green!20} 85 & 0 \\
+		\hline
+		Cane - out of sync (CW/oos) & 0 & 1 & 0 & 0 & \cellcolor{green!20} 99\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\begin{table}[!t]
+	\renewcommand{\arraystretch}{1.2}
+	\caption{Comparison of different gait recognition algorithms. Numbers are given in \%.}
+	\label{tab:all_results}
+	\centering
+	\begin{tabular}{ l | >{\centering\arraybackslash}m{0.4cm} | >{\centering\arraybackslash}m{0.4cm} | >{\centering\arraybackslash}m{0.4cm} | >{\centering\arraybackslash}m{0.4cm} | >{\centering\arraybackslash}m{0.4cm}} 
+		\hline
+		& Phy & B1 & R1 & R2 & PCA\\
+		\hline \hline
+		Correct classification rate & 85 & 78 & 56 & 75 & \textbf{93}\\
+		\hline
+		False alarm rate 		& 18 & 13 & 60 & 26 & \textbf{8}\\
+		\hline
+		Missed detection rate 	& 17 & 29 & 59 & 27 & \textbf{12}\\
+		\hline
+	\end{tabular}
+\end{table}
+
+\subsection{Discussion}
+
+We used radar measurements that contain a representative portion of the gait to classify five different walking styles, including abnormal and assisted gait. Table~\ref{tab:all_results} summarizes the results of all presented gait classification methods. The subspace feature extraction method utilizing PCA of CVD images achieves the highest correct classification rate (93\%), while the false alarm (8\%) and missed detection (12\%) rates are kept low. Thus, we conclude that (i) subspace-based features are superior to physical features in classifying different gaits, and (ii) the CVD comprises more information on the gait than, e.g., the spectrogram.
+It is pointed out that the proposed method works reasonably good for all gait classes, despite of the relatively small number of 1000 measurements of ten different test subjects. This is certainly one benefit over popular deep learning approaches, which require a very large (training) data set and are computationally costly \cite{Sey18,Kim16}.
+
+In order to underscore the relevance of the acquired radar data, we also conducted experiments for radar data acquisition involving four test subjects with gait disorders due to different medical conditions. Examples of spectrograms for these subjects are shown in Fig.~\ref{fig:specs_threesubjects}. Figs.~\ref{fig:specs_threesubjects}\subref{LA}, \subref{LD} and \subref{LB} clearly show the same characteristic as the spectrogram of abnormal walking in Fig.~\ref{fig:specs}\subref{L1a}. Here, every other micro-Doppler stride signature has a lower maximal Doppler shift, which indicates an asymmetrical gait. In fact, as a result of a stroke at young age, Person A suffers from generalized dystonia affecting multiple muscle groups on one side of the body. Person B also experienced a stroke which caused a different gait disorder. In the case of Person C, due to the relative strength of the left side of the body, the asymmetry of the gait manifests itself in the knees' motions, rather than in different swinging velocities of the feet. Still, the spectrogram, as shown in Fig.~\ref{fig:specs_threesubjects}\subref{LC}, evidently reveals the gait asymmetry: on the onset of every other micro-Doppler stride signature, we can observe higher energy levels due to the altered stride motions (see arrows). Fig.~\ref{fig:specs_threesubjects}\subref{LCCane} shows a spectrogram of Person C walking with a cane, where the cane's signatures is overlapping with every other stride signature, similar to Fig.~\ref{fig:specs}\subref{CW}. The fourth person (D) has a congenital hip dislocation and suffers from a hip osteoarthritis on one body side due to it.
+
+When applying the proposed classification method, i.e., using subspace-based features of pre-processed CVDs, we can correctly identify the gait as abnormal in 100\% (13/13), 100\% (20/20), 83\% (10/12), and 100\% (28/28) of the cases for Person A, B, C, and D, respectively. The cane is correctly detected for Person C in 81\% (13/16) of the cases. Here, the test data set included the measurements of one individual at a time, and the data set of ten individuals as described in Section~\ref{sec:exp_setup} was used for training. Even though the observation time is only 6\,s per measurement, we can detect the asymmetry of the gait with very high accuracies. These results, which are based on Doppler radar data representations of subjects with diagnosed gait disorders, are very promising and will serve as a basis for more extensive studies.
+
+% Example of spectrograms
+\begin{figure}[!t]
+	\vspace{-1em}
+	\centering{
+		\subfloat[Person A]{\includegraphics[clip, trim= 0 0 20 18, width=0.5\columnwidth]{figures/PersonA_A.png}%
+			\label{LA}}
+		%\hfill
+		\subfloat[Person D]{\includegraphics[clip, trim= 0 0 20 18,width=0.5\columnwidth]{figures/PersonD_A.png}%
+			\label{LD}}\vspace{-0.7em}}
+	
+	\centering{
+		\subfloat[Person B]{\includegraphics[clip, trim= 0 0 20 18,width=0.5\columnwidth]{figures/PersonB_T.png}%
+			\label{LB2}}
+		%\hfill
+		\subfloat[Person B]{\includegraphics[clip, trim= 0 0 20 18,width=0.5\columnwidth]{figures/PersonB_A.png}%
+			\label{LB}}\vspace{-0.7em}}
+
+	\centering{
+		\subfloat[Person C]{\includegraphics[clip, trim= 0 0 20 18,width=0.5\columnwidth]{figures/PersonC_T_arrows.png}%
+			\label{LC}}
+		%\hfill
+		\subfloat[Person C walking with a cane]{\includegraphics[clip, trim= 0 0 20 18,width=0.5\columnwidth]{figures/PersonC_CW_T.png}%
+			\label{LCCane}}}
+	\caption{Examples of spectrograms of four subjects with diagnosed gait disorders. The color indicates the energy level in dB.}
+	\label{fig:specs_threesubjects}
+\end{figure}

@@ -1,0 +1,112 @@
+\documentclass[letterpaper, 10 pt, journal, twoside]{IEEEtran}
+
+\usepackage{graphicx}
+\usepackage{setspace}
+\usepackage[T1]{fontenc}
+\usepackage{multicol}
+\usepackage{amsmath,amssymb}
+\usepackage{epstopdf}
+\usepackage{graphicx,color}
+\usepackage{xspace}
+\usepackage{balance}
+\usepackage[per-mode=symbol,binary-units=true]{siunitx}
+\sisetup{detect-weight=true, detect-family=true} % adapt unit- and number-font to surrounding style
+\usepackage{ textcomp } % \texttimes
+\usepackage{booktabs}
+\usepackage{paralist}
+\usepackage{layouts}
+\usepackage{url}
+\usepackage{bm}
+\usepackage{tikz}
+\usepackage[percent]{overpic}
+\usepackage{tabularx} % better tables
+\usetikzlibrary{fit,shapes.callouts,shapes.geometric,backgrounds,positioning,arrows.meta}
+
+%\graphicspath{{./figures/}}
+\newcommand{\ie}{i.e.,\ }
+\newcommand{\eg}{e.g.,\ }
+\newcommand{\wrt}{w.r.t.\xspace}
+\newcommand{\cf}{cf.\xspace}
+
+\def\argmin{\mathop{\rm argmin}}
+\def\argmax{\mathop{\rm argmax}}
+
+\newlength{\figureheight}
+\newcommand{\etal}{\xspace{}et al.\xspace}
+\newcommand{\TODO}[1]{\textcolor{red}{{\bf TODO:} #1}}
+\newcommand{\reffig}[1]{Fig.~\ref{#1}}
+\newcommand{\reftab}[1]{Tab.~\ref{#1}}
+\newcommand{\refsec}[1]{Sec.~\ref{#1}}
+
+%\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+\begin{document}
+
+\title{Fast Autonomous Flight in Warehouses for Inventory Applications}
+
+\author{Marius Beul, David Droeschel, Matthias Nieuwenhuisen, Jan Quenzel, Sebastian Houben, and Sven Behnke%
+\thanks{Manuscript received: February 23, 2018; Revised: May 17, 2018; Accepted: June 6, 2018.}%Use only for final RAL version
+\thanks{This paper was recommended for publication by Editor Jonathan Roberts upon evaluation of the Associate Editor and Reviewers' comments.
+
+This work was supported by the German Bundesministerium f\"ur Wirtschaft und Energie in the Autonomics for Industry 4.0 project InventAIRy, and grants BE 2556/7-2 and BE 2556/8-2 of the German Research Foundation (DFG).}%
+\thanks{The authors are with the Autonomous Intelligent Systems Group, University of Bonn, Germany
+        {\tt\footnotesize mbeul@ais.uni-bonn.de}}%
+\thanks{Digital Object Identifier (DOI): see top of this page.}
+}
+
+% The paper headers
+%\markboth{Journal of \LaTeX\ Class Files,~Vol.~14, No.~8, August~2015}%
+%{Shell \MakeLowercase{\textit{et al.}}: Bare Demo of IEEEtran.cls for IEEE Journals}
+\markboth{IEEE Robotics and Automation Letters. Preprint Version. Accepted June, 2018}
+{Beul \MakeLowercase{\textit{et al.}}: Fast Autonomous Flight in Warehouses}
+
+\maketitle
+
+\begin{abstract}
+The past years have shown a remarkable growth in use-cases for micro aerial vehicles (MAVs). Conceivable indoor applications require highly robust environment perception, fast reaction to changing situations, and stable navigation, but reliable sources of absolute positioning like GNSS or compass measurements are unavailable during indoor flights.
+
+We present a high-performance autonomous inventory MAV for operation inside warehouses. The MAV navigates along warehouse aisles and detects the placed stock in the shelves alongside its path with a multimodal sensor setup containing an RFID reader and two high-resolution cameras. We describe in detail the SLAM pipeline based on a 3D lidar, the setup for stock recognition, the mission planning and trajectory generation, as well as a low-level routine for avoidance of dynamical or previously unobserved obstacles. Experiments were performed in an operative warehouse of a logistics provider, in which an external warehouse management system provided the MAV with high-level inspection missions that are executed fully autonomously.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Aerial Systems: Applications; Aerial Systems: Perception and Autonomy; Motion and Path Planning;
+\end{IEEEkeywords}
+
+\section{Introduction}
+\label{sec:Introduction}
+\input{introduction.tex}
+
+\section{Related Work}
+\label{sec:Related_Work}
+\input{related_work.tex}
+
+\section{System Setup}
+\label{sec:System_Setup}
+\input{system_setup.tex}
+
+\section{Environment Perception}
+\label{sec:Environment_Perception}
+\input{environment_perception.tex}
+
+\section{Navigation and Control}
+\label{sec:Navigation_and_Control}
+\input{navigation_and_control.tex}
+
+\section{Evaluation}
+\label{sec:Evaluation}
+\input{evaluation.tex}
+
+\section{Conclusion}
+\label{sec:Conclusion}
+\input{conclusion.tex}
+
+%\IEEEtriggeratref{2}
+
+\bibliographystyle{IEEEtran}
+\bibliography{literature_references}
+
+
+\end{document}
+
+

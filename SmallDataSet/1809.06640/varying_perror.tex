@@ -1,0 +1,41 @@
+A natural use of the neural decoder is to train it with experimental data.
+Naturally, the noise models in the experiments will not be translational invariant.
+There are two simple ways to reconcile this fact with the translational-invariance of convolutional neural nets:
+\begin{enumerate}
+	\item Allow the first few layers of the network to be non-translational invariant.
+	\item Introduce site-dependent trainable variables to the networks.
+\end{enumerate}
+In this section, we will consider the error model that has varying bit-flip error rates across the lattice.
+For this, we can use the second approach, where the site-dependent variables can in principle represents the varying error rates.
+In fact, recall that the neural decoder has an input shape $(L,L,3)$, which contains $2L^2$ numbers that are originally error rates feeding into belief propagation.
+Thus we can simply feed the site-dependent variables into the neural decoder and then train them.
+
+However, there is still a complication regarding the starting point of this training.
+A natural choice is to start with the trained neural decoder for uniform error rate and only train the site-dependent variables.
+With this route, there is a risk that if previously we trained the neural decoder under uniform error rate for long enough, the neural decoder could learn to ignore the error rate inputs as they are constant.
+In this case, only training the site-dependent variables can fail.
+
+Another route we can take is that we also reinitialize the first renormalization block.
+More accurately, we do the following:
+\begin{enumerate}
+	\item We start with the trained neural decoder for uniform error rate.
+	\item We reverse the belief propagation network in the first renormalization block to the pre-trained weights. In other words, it now again approximates belief propagation.
+	\item We then train the site-dependent variables and the first renormalization block together.
+\end{enumerate}
+We test this scheme with a distance 16 toric code.
+For each qubit, there is a $50\%$ chance it has bit-flip rate $0.16$, and a $50\%$ chance of rate $0$.
+In other words, only around half of the qubits are noisy.
+With this new error model, we train the site-dependent variables and the first renormalization block for 4500 batches, where each batch contains 50 training data.
+The learning rate of the ADAM optimizer is set to $2\times 10^{-4}$.
+By performing this training, we increase the logical accuracy from $0.967$ to $0.993$, where $0.967$ corresponding to the decoder trained on uniform bit-flip error model.
+The accuracy is each evaluated by using $10^5$ (syndrome, logical correction) pair.
+To provide some comparison, we run the minimum-weight perfect matching (MWPM) algorithm for the same error model.
+Without providing error rate information, the MWPM algorithm assigns an equal weight to each qubit, and have a logical accuracy of $0.975$.
+If we provide the perfect information about the error rates, we can assign weight 1 to noisy qubits, and weight 100 to the noiseless ones.
+For each pair of violated parity checks, we can select the path with the minimum total weight between them, and use this weight for the MWPM algorithm.
+With this choice, the logical accuracy rises to $1$, e.g. $100\%$ success.
+These accuracies are each evaluated by $10^4$ (syndrome, logical correction) pair.
+
+Based on the thoughts above, it is likely better to not start with the neural decoder trained on uniform error rate.
+Instead, we can train a neural decoder with training data that has varying error rates, but otherwise the same procedure as depicted in \autoref{subfig:complete_network}.
+This way, the first renormalization block will not learn to ignore the error rate inputs.

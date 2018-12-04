@@ -1,0 +1,786 @@
+\documentclass[10pt]{wlscirep}
+
+\title{Variation of the spin textures of 2-species spin-1 condensates
+studied beyond the single spatial mode approximation and the experimental
+identification of these textures}
+
+\author[1]{Y. Z. He}
+\author[2]{Y. M. Liu}
+\author[1,*]{C. G. Bao}
+\affil[1]{School of Physics, Sun Yat-Sen University, Guangzhou, 510275, P. R. China}
+\affil[2]{Department of physics, Shaoguan University, shaoguan, 510205, P. R. China}
+\affil[*]{Corresponding author: C.G. Bao, stsbcg@mail.sysu.edu.cn}
+
+\begin{abstract}
+Based on the numerical solutions of the coupled Gross-Pitaevskii equations, the spin-texture of a Bose-Einstein condensate with two kinds of spin-1 atoms has been studied. Besides, the probabilities of an atom in spin component $\mu$ and of two correlated atoms one in $\mu$ and one in $\nu$ have been calculated. By an analysis of the probabilities, three (and only three) types of texture have been found. (i) Both species are in polar phase. (ii) Both species are in ferromagnetic (f) phase. The two kinds of aligned spins can be parallel or anti-parallel to each other. (iii) One in f-phase, one in quasi-f phase (when the total spin $S$ is given along the $Z$-axis, the spin-state in the quasi-f phase will have a part of atoms having spin-component $\mu=1$ while all the rest having $\mu =-1$). This finding simplifies the previous classification. Moreover, we found that the variation of the spin-textures can be sensitively reflected by these probabilities. Therefore, the theoretical and experimental studies on these probabilities provide a way to determine the parameters involved.
+\end{abstract}
+
+\begin{document}
+
+\flushbottom
+\maketitle
+
+
+
+\section*{Introduction}
+
+It is well known that the Bose-Einstein condensates (BEC) as man-made and
+controllable systems are promising in application. In particular, due to the
+optical traps, the spin-degrees of freedom can be liberated and therefore
+the inherent physics becomes much richer\cite{ref5,ref6,ref7,ref8,ref9,ref10}.
+The so called spinor BEC (S-BEC) is a very exquisite system. Although the
+spin-dependent forces are very weak, the spin-textures are decisively
+determined by them. When the temperature is sufficiently low (say, lower
+than $10^{-10}$K), the spatial degrees of freedom
+are nearly frozen and the spin degrees of freedom play essential roles. In
+this case, the S-BEC might be an ideal system for realizing exquisite
+control.
+
+The ground state (g.s.) of 1-species S-BEC with spin-1 atoms has two well
+known phases, namely, the polar and ferromagnetic phases. Due to the
+influence of the spin-dependent interspecies interactions, the spin-textures
+of 2-species S-BEC become more complicated. These textures have been studied
+by a number of authors \cite{ml,ref11,ref12,ref13,ref14,ref15,ref16,ref17,ref18}.
+The present paper is
+one along this line. The condensate is a mixture of A-atoms and B-atoms. In
+the previous study the single mode approximation has been adopted. The
+details of the spatial wave functions have not yet been taken into account.
+Instead, the coupled Gross-Pitaevskii equations (CGP) have been numerically
+solved in this paper. Thereby we can obtain the spatial wave functions and
+evaluate their effect.
+
+Furthermore, the probability of an atom (A- or B-atom) having its
+spin-component in $\mu$ denoted as $P_{\mu}$, and the probability of two
+atoms (of the same kind or different kinds) having their spin-components in
+$\mu$ and $\nu$ denoted as $P_{\mu\nu}$ have been calculated. How $P_{\mu}$
+and $P_{\mu\nu}$ match the variation of the spin-texture has been
+studied. Based on the probabilities, the emphasis of this paper is placed on
+clarifying the physical picture of the spin-textures. Since $P_{\mu}$ and
+$P_{\mu\nu}$ are observables (say, via the time-of-flight images), the
+spin-texture can be thereby identified via experimental measurements of
+these probabilities. In particular, the critical points where a
+spin-texture-transition (STT) occurs can be identified. It was found that
+the locations of the critical points depend on the spatial wave functions
+seriously (as shown below). Therefore, the measurement of $P_{\mu}$ and 
+$P_{\mu\nu}$ can provide useful information on the spin-textures. Together
+with the exact solution of the CGP, this information can be used to
+determine the values of the parameters involved (say, the strengths of
+interactions).
+
+In the following derivation, the fractional
+parentage coefficients of spin-1 many-body systems have been introduced
+\cite{bao05,bao06}. With these coefficients, all the
+matrix elements of 1-body and 2-body spin-operators can be straightly
+obtained without knowing the detailed expressions of the related
+spin-states. Thus these coefficients facilitate greatly the following
+derivation.
+
+
+
+\section*{The coupled Gross-Pitaevskii equations and the spin-textures}
+
+Let the condensate contain $N_{A}$ A-atoms and $N_{B}$ B-atoms. Let $X$
+denotes A or B. The intra-species interaction for spin-1 atoms is $%
+V_{X}=\sum_{1\leq i<j\leq N_{X}}\delta (\mathbf{r}_{i}-\mathbf{r}%
+_{j})(c_{X0}+c_{X2}\hat{\mathbf{F}}_{i}^{X}\cdot \hat{\mathbf{F}}_{j}^{X})$,
+where $\hat{\mathbf{F}}_{i}^{X}$ is the spin operator for the $i$-th $X$%
+-atom. When the singlet-pairing force has been ignored, the inter-species
+interaction is $V_{AB}=\sum_{1\leq i\leq N_{A}}\sum_{1\leq i^{\prime }\leq
+N_{B}}\delta (\mathbf{r}_{i}-\mathbf{r}_{i^{\prime }})(c_{AB0}+c_{AB2}\hat{%
+\mathbf{F}}_{i}^{A}\cdot \hat{\mathbf{F}}_{i^{\prime }}^{B})$, In the g.s.
+all the particles of the same kind will condense to a spatial state (denoted
+as $\varphi _{X}$) which is most favorable for binding. Let $\Xi $ denotes a
+general normalized total spin-state for both species. Then, the g.s. can be
+written as
+\begin{equation}
+\Psi _{o}=\prod_{i=1}^{N_{A}}\varphi _{A}(\mathbf{r}_{i})\prod_{j=1}^{N_{B}}%
+\varphi _{B}(\mathbf{r}_{j})\Xi .  \label{twf}
+\end{equation}
+
+Let $\vartheta_{S_XM_X}^{N_X}$ denotes a normalized and all-symmetric
+spin-state for the $X$-atoms, where all the spins are coupled to $S_X$ and
+its $Z$-component $M_X$. According to the theory given in Ref. \citen{katr},
+$N_X-S_X$ must be even, $\vartheta_{S_X,M_X}^{N_X}$ is unique when $S_X$ and
+$M_X$ are given, and the set $\{\vartheta_{S_X,M_X}^{N_X}\}$ (where $S_X=N_X$%
+, $N_X-2$, to 0 or 1) is complete for all-symmetric spin-states with $N_X$
+spin-1 atoms. We further introduce $(\vartheta_{S_A}^{N_A}%
+\vartheta_{S_B}^{N_B})_{SM}$ where $S_A$ and $S_B$ are coupled to $S$ and $M$
+. The set $\{(\vartheta_{S_A}^{N_A}\vartheta_{S_B}^{N_B})_{SM}\}$ is
+complete for the total spin-states which is invariant against the
+permutation of the same kind of spins. Thus, in general, we have the
+expansion $\Xi=\sum_{S_AS_BS}D_{S_AS_BS}(\vartheta_{S_A}^{N_A}%
+\vartheta_{S_B}^{N_B})_{SM}$, where $D_{S_AS_BS}$ are the coefficients for
+expansion.
+
+Let $\frac{1}{2}m_X\omega_X^2 r^2$ be the isotropic trap for the $X$-atoms.
+Let us introduce $m$ and $\omega$, and use $\hbar\omega$ and $\lambda\equiv%
+\sqrt{\hbar/(m\omega)}$ as the units for energy and length throughout this
+paper. Then, the Hamiltonian is
+\begin{equation}
+\hat{H} = \hat{K}_A+\hat{K}_B+V_A+V_B+V_{AB},  \label{h}
+\end{equation}
+where $\hat{K}_X=\sum_{i=1}^{N_X}\hat{h}_X(i)$, $\hat{h}_X(i)=\frac{1}{2}(-%
+\frac{m}{m_X}\nabla_i^2+\gamma_X r_i^2)$ and $\gamma_X=\frac{m_X\omega_X^2}{%
+m\omega^2}$.
+
+Since the spin-space is expanded by $\vartheta _{S_{X}}^{N_{X}}$ which is
+all-symmetric, making use of the symmetry, the Hamiltonian is equivalent to
+an effective Hamiltonian $H_{\mathrm{eff}}$, in which $V_{X}$ is replaced by
+\begin{equation}
+V_{X}^{\mathrm{eff}}=\sum_{i<j}\delta (\mathbf{r}_{i}-\mathbf{r}%
+_{j})[c_{X0}+c_{X2}\frac{1}{N_{X}(N_{X}-1)}(\hat{\mathbf{S}}_{X}\cdot \hat{%
+\mathbf{S}}_{X}-2N_{X})],  \label{vefx}
+\end{equation}%
+and $V_{AB}$ is replaced by
+\begin{equation}
+V_{AB}^{\mathrm{eff}}=\sum_{i,j}\delta (\mathbf{r}_{i}-\mathbf{r}%
+_{j})[c_{AB0}+c_{AB2}\frac{1}{2N_{A}N_{B}}(\hat{\mathbf{S}}\cdot \hat{%
+\mathbf{S}}-\hat{\mathbf{S}}_{A}\cdot \hat{\mathbf{S}}_{A}-\hat{\mathbf{S}}%
+_{B}\cdot \hat{\mathbf{S}}_{B})],  \label{vefab}
+\end{equation}%
+where $\hat{\mathbf{S}}_{X}=\sum_{i}\hat{\mathbf{F}}_{i}^{X}$ is the total
+spin-operator for the $X$-atoms and $\hat{\mathbf{S}}=\hat{\mathbf{S}}_{A}+%
+\hat{\mathbf{S}}_{B}$ is the total spin-operator for both kinds of atoms. In
+the derivation of Eqs.(\ref{vefx}) and (\ref{vefab}),
+the following two equalities $\sum_{i<j}\hat{\mathbf{F}}_{i}^{X}\cdot \hat{%
+\mathbf{F}}_{j}^{X}=\frac{1}{2}(\hat{\mathbf{S}}_{X}\cdot \hat{\mathbf{S}}%
+_{X}-2N_{X})$ and $\sum_{i}\sum_{j}\hat{\mathbf{F}}_{i}^{A}\cdot \hat{%
+\mathbf{F}}_{j}^{B}=\frac{1}{2}(\hat{\mathbf{S}}\cdot \hat{\mathbf{S}}-\hat{%
+\mathbf{S}}_{A}\cdot \hat{\mathbf{S}}_{A}-\hat{\mathbf{S}}_{B}\cdot \hat{%
+\mathbf{S}}_{B})$ have been introduced. It is clear that $H_{\mathrm{eff}}$
+keeps $S_{A}$, $S_{B}$, and $S$ to be conserved.
+
+With the above good quantum numbers, the g.s. can be rewritten as
+\begin{equation}
+\Psi_o = \prod_{i=1}^{N_A} \varphi_A(\mathbf{r}_i) \prod_{j=1}^{N_B}
+\varphi_B(\mathbf{r}_j) (\vartheta_{S_A}^{N_A}\vartheta_{S_B}^{N_B})_{SM}
+\equiv \Psi_{S_AS_BSM},  \label{gs}
+\end{equation}
+where $S_A$, $S_B$, and $S$ together with $\varphi_A$ and $\varphi_B$ will
+be determined via a standard variational procedure.
+
+Since $\vartheta_{S_X,M_X}^{N_X}$ is unique as being proved in Ref. %
+\citen{katr}, the spin-texture described by $(\vartheta_{S_A}^{N_A}%
+\vartheta_{S_B}^{N_B})_{SM}$ is unique. Therefore,
+the label $(S_AS_BS)$ can be used to classify the spin-textures (note that $%
+M $ is not necessary in the label because it manifests only the geometry)%
+\cite{ref14}.
+
+From $\delta(\langle\Psi_{S_AS_BSM}|H_{\mathrm{eff}}|\Psi_{S_AS_BSM}\rangle/%
+\langle\Psi_{S_AS_BSM}|\Psi_{S_AS_BSM}\rangle)=0$, we obtain the CGP for $%
+\varphi_A$ and $\varphi_B$ as\cite{ml}
+\begin{eqnarray}
+&&(\hat{h}_A+\alpha_{11}\varphi_A^2+\alpha_{12}\varphi_B^2-\varepsilon_A)%
+\varphi_A = 0,  \label{cgp1} \\
+&&(\hat{h}_B+\alpha_{21}\varphi_A^2+\alpha_{22}\varphi_B^2-\varepsilon_B)%
+\varphi_B = 0,  \label{cgp2}
+\end{eqnarray}
+where
+\begin{eqnarray*}
+ &&
+ \alpha_{11}=D_A N_A,\ \ \
+ \alpha_{12}=D_{AB}N_B,\ \ \
+ \alpha_{21}=D_{AB}N_A,\ \ \
+ \alpha_{22}=D_B N_B, \\
+ &&
+ D_X=c_{X0}+\frac{S_X(S_X+1)-2N_X}{N_X(N_X-1)}c_{X2}, \ \ \
+ D_{AB}=c_{AB0}+\frac{S(S+1)-S_A(S_A+1)-S_B(S_B+1)}{2N_A N_B}c_{AB2}.
+\end{eqnarray*}
+Besides, $\varphi_A$ and $\varphi_B$ are required to be
+normalized.
+
+Once the set $(S_A,S_B,S)$ has been presumed, we can solve the CGP to obtain
+$\varphi_A$ and $\varphi_B$, together with the total energy
+\begin{equation}
+E_{S_AS_BS} = N_A\langle\varphi_A|\hat{h}_A|\varphi_A\rangle
++N_B\langle\varphi_B|\hat{h}_B|\varphi_B\rangle +\frac{N_A(N_A-1)}{2}D_AI_A +%
+\frac{N_B(N_B-1)}{2}D_BI_B +N_AN_BD_{AB}I_{AB},  \label{th}
+\end{equation}
+where $I_X=\int\mathrm{d}\mathbf{r}|\varphi_X(\mathbf{r})|^4$ and $%
+I_{AB}=\int\mathrm{d}\mathbf{r}|\varphi_A(\mathbf{r})\varphi_B(\mathbf{r}%
+)|^2 $. From a series of presumed $(S_A,S_B,S)$, we can find out the optimal
+set $(S_A,S_B,S)$ which leads to the minimum of the total energy. This set
+is for the g.s..
+
+Based on the numerical solutions of the CGP, we concentrate on studying the
+effect of the spin-dependent inter-species interaction on spin-textures. In
+the follows, $c_{AB2}$ is considered to be variable.
+The other parameters are listed in the captions of Fig.\ref{fig1} to Fig.\ref%
+{fig3}. They are so chosen to assure that the g.s. is a miscible state, in
+which the A- and B-atoms have a better overlap (otherwise, the effect of $%
+c_{AB2}$ is weak). $N_A\leq N_B$ is assumed. The variation of the
+spin-texture of the g.s. against $c_{AB2}/c_{AB0}$ is demonstrated by the
+variation of the good quantum numbers $(S_A,S_B,S)$. Three cases are
+considered. (i) Both $c_{A2}$ and $c_{B2}$ are
+positive. (ii) Both $c_{A2}$ and $c_{B2}$ are
+negative. (iii) $c_{A2}>0$ and $c_{B2}<0$. The
+variations are plotted in Fig.\ref{fig1}, \ref{fig2} and \ref{fig3},
+respectively.
+
+\begin{figure}[htbp]
+\centering \resizebox{0.6\columnwidth}{!}{\includegraphics{STT1.eps} }
+\caption{(color online) Variation of the total energy $E_{S_A S_B S}$ and
+the spin-texture (specified by $(S_A,S_B,S)$) of the g.s. against $%
+c_{AB2}/c_{AB0}$ from $-0.1$ to $0.1$. The parameters are given as $N_A=1000$%
+, $N_B=1200$, $m_A/m_B=23/87$, $\gamma_A=\gamma _B=1$; $%
+c_{A0}=10^{-3}$, $c_{B0}=2c_{A0}$, $c_{AB0}=0.9c_{A0}$; $c_{A2}=c_{A0}/50$, $%
+c_{B2}=c_{B0}/50$. The units for energy and length are $\hbar\omega$
+and $\sqrt{\hbar/(m\omega)}$. The solid line is for 
+$E_{S_AS_BS}-E_o$, where $E_o$ is the total energy at the
+left-end of the curve. The dashed line is for $S_A/N_A$, the dash-dot line
+is for $S_B/N_A$, the dash-dot-dot line is for $S/N_A$.}
+\label{fig1}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering \resizebox{0.6\columnwidth}{!}{\includegraphics{STT2.eps}}
+\caption{(color online) The parameters are the same as in Fig.\ref%
+{fig1} but with $c_{A2}=-c_{A0}/50$, $c_{B2}=-c_{B0}/50$.}
+\label{fig2}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering \resizebox{0.6\columnwidth}{!}{\includegraphics{STT3.eps}}
+\caption{(color online) The parameters are the same as in Fig.\ref%
+{fig1} but with $c_{B2}=-c_{B0}/50$.}
+\label{fig3}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering \resizebox{0.6\columnwidth}{!}{\includegraphics{STT4.eps}}
+\caption{(color online) $P_{\mu}^A$ (a) and $P_{\mu}^B$ (b)
+against $c_{AB2}/c_{AB0}$. The parameters are the same as in Fig.\ref%
+{fig1}. Solid line is for $\mu=1$, dotted line is for $\mu=0$%
+, and dash line is for $\mu=-1$. The points $P_{1}$ to $P_{5}$ mark
+the boundary of the zones, refer to Fig.1.}
+\label{fig4}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering \resizebox{0.6\columnwidth}{!}{\includegraphics{STT5.eps}}
+\caption{(color online)Selected $P_{\mu\nu}^{AB}$ against $%
+c_{AB2}/c_{AB0}$. The parameters are the same as in Fig.\ref{fig1}. $%
+\mu$ ($\nu$) is the component of an A-atom (a B-atom). $%
+\mu$ and $\nu$ are marked in the figure.}
+\label{fig5}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering \resizebox{0.6\columnwidth}{!}{\includegraphics{STT6.eps}}
+\caption{(color online) $P_{\mu}^A$ (a) and $P_{\mu}^B$ (b)
+against $c_{AB2}/c_{AB0}$. The parameters are the same as in Fig.\ref%
+{fig2}.}
+\label{fig6}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering \resizebox{0.6\columnwidth}{!}{\includegraphics{STT7.eps}}
+\caption{(color online) Selected $P_{\mu\nu}^{AB}$ against $%
+c_{AB2}/c_{AB0}$. The parameters are the same as in Fig.\ref{fig2}.}
+\label{fig7}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering \resizebox{0.6\columnwidth}{!}{\includegraphics{STT8.eps}}
+\caption{(color online) $P_{\mu}^A$ (a) and $P_{\mu}^B$ (b)
+against $c_{AB2}/c_{AB0}$. The parameters are the same as in Fig.\ref%
+{fig3}.}
+\label{fig8}
+\end{figure}
+
+{In} Fig.\ref{fig1} to 3, the total energy $E_{S_{A}S_{B}S}$ is also given.
+Ahead of carrying on an analysis of the figures, we are going to another
+topic which is related to the experimental identification of the
+spin-textures.
+
+
+
+\section*{Probability of an atom with spin-component $\mu$ and the
+probability of a pair of atoms with $\mu$ and $\nu$}
+
+It is believed that, in different spin-textures, the spins are correlated in
+different ways. Accordingly, the probability of an A-atom or a B-atom lying
+in a specific spin-component $\mu$ (denoted as $P_{\mu}$) is prescribed by
+the spin-texture. Moreover, the probability of two atoms that one in $\mu$
+and one in $\nu$ (denoted as $P_{\mu\nu}$) is also prescribed by the
+spin-texture. Therefore, information on the spin-textures can be extracted
+from these probabilities. To obtain the analytical expressions for these
+probabilities, a crucial point is to extract the
+spin-state of an atom or of two atoms from the total spin-state. By using
+the fractional parentage coefficients developed for spin-1 many-body systems%
+\cite{bao05,bao06}, the extraction can be realized even when the details of
+the total spin-state have not yet been known. The analytical expressions of
+the fractional parentage coefficients are given in the Appendix.
+
+With the coefficients Eq.(\ref{fpc}) given in the Appendix, the total
+spin-state $(\vartheta_{S_A}^{N_A}\vartheta_{S_B}^{N_B})_{SM}$ can be
+rewritten as
+\begin{equation}
+(\vartheta_{S_A}^{N_A} \vartheta_{S_B}^{N_B})_{SM} = \sum_{\mu}
+\chi_{\mu}(i) \sum_{S^{\prime }} [ T_{\mu}^{S^{\prime }}
+(\vartheta_{S_A+1}^{N_A-1} \vartheta_{S_B}^{N_B})_{S^{\prime }M-\mu }
++Q_{\mu}^{S^{\prime }} (\vartheta_{S_A-1}^{N_A-1}
+\vartheta_{S_B}^{N_B})_{S^{\prime }M-\mu }],  \label{tss}
+\end{equation}
+where the spin-state of an A-atom in $\mu$ component has been extracted.
+\begin{eqnarray}
+& T_{\mu}^{S^{\prime }} = C_{1\mu;S^{\prime },M-\mu}^{SM} a_{S_A}^{N_A}
+\sqrt{(2S_A+1)(2S^{\prime }+1)} W(1,S_A+1,S,S_B;S_AS^{\prime }),&  \label{p}
+\\
+& Q_{\mu}^{S^{\prime }} = C_{1\mu;S^{\prime },M-\mu}^{SM} b_{S_A}^{N_A}
+\sqrt{(2S_A+1)(2S^{\prime }+1)} W(1,S_A-1,S,S_B;S_AS^{\prime }),&  \label{q}
+\end{eqnarray}
+where the W-coefficient of Racah has been introduced. Then, the
+normalization of the total wave function $\Psi_{S_AS_BSM}$ can be expanded
+as
+\begin{equation}
+\langle\Psi_{S_AS_BSM}|\Psi_{S_AS_BSM}\rangle = \sum_{\mu}P_{\mu}^A,
+\end{equation}
+where
+\begin{equation}
+P_{\mu }^A = \sum_{S^{\prime }} [(T_{\mu}^{S^{\prime
+}})^2+(Q_{\mu}^{S^{\prime }})^2],
+\end{equation}
+is just the probability of an A-atom with its spin lying at $\mu$. The
+probability of a B-atom at $\mu$, i.e. $P_{\mu}^B$, can be obtained simply
+by interchanging $N_A\leftrightarrow N_B$ and $S_A\leftrightarrow S_B$ in
+the above formulae.
+
+When the coupled spin-state of two A-atoms has been extracted by using Eq.(%
+\ref{tswf}), we have the expansion
+\begin{equation}
+\langle\Psi_{S_AS_BSM}|\Psi_{S_AS_BSM}\rangle =
+\sum_{\mu,\nu}P_{\mu\nu}^{AA},
+\end{equation}
+where
+\begin{eqnarray}
+& P_{\mu\nu}^{AA} = \sum_{S^{\prime }_AS^{\prime }} (X_{S^{\prime
+}_AS^{\prime }}^{\mu\nu})^2,& \\
+& X_{S_A^{\prime }S^{\prime }}^{\mu\nu} = \sum_{\lambda}
+C_{1,\mu;1,\nu}^{\lambda,\mu+\nu} C_{\lambda,\mu+\nu;S^{\prime
+},M-\mu-\nu}^{SM} h_{\lambda S_A^{\prime }S_A}^{N_A} \sqrt{%
+(2S_A+1)(2S^{\prime }+1)} W(\lambda S_A^{\prime }SS_B;S_AS^{\prime }),&
+\end{eqnarray}
+where $\lambda$ runs over $0$ and $2$. $P_{\mu\nu}^{AA}$ is the probability
+of two A-atoms with spin-components $\mu$ and $\nu$, respectively. The
+probability $P_{\mu\nu}^{BB}$ can be similarly obtained by interchanging the
+indexes $A$ and $B$.
+
+Let $i$ ($i^{\prime }$) denotes an A-atom (a B-atom). When $\chi_{\mu }(i)$
+and $\chi_{\nu}(i^{\prime })$ have been simultaneously extracted, by using
+Eq.(\ref{fpc}) we have the expansion
+\begin{equation}
+\langle\Psi_{S_AS_BSM}|\Psi_{S_AS_BSM}\rangle = \sum_{\mu\nu} P_{\mu \nu
+}^{AB},
+\end{equation}
+where
+\begin{eqnarray}
+& P_{\mu\nu}^{AB} = \sum_{S_{AB}} [ (Z_{S_{AB}}^{I,\mu\nu})^2
++(Z_{S_{AB}}^{II,\mu\nu})^2 +(Z_{S_{AB}}^{III,\mu\nu})^2
++(Z_{S_{AB}}^{IV,\mu\nu})^2 ],& \\
+& Z_{S_{AB}}^{I,\mu\nu} = \sum_{\lambda} C_{1,\mu;1,\nu}^{\lambda,\mu+\nu}
+C_{\lambda,\mu+\nu;S_{AB},M-\mu-\nu}^{SM} a_{S_A}^{N_A} a_{S_B}^{N_B} \sqrt{%
+(2\lambda+1)(2S_{AB}+1)(2S_A+1)(2S_B+1)} \left(
+\begin{array}{ccc}
+1 & 1 & \lambda \\
+S_A+1, & S_B+1, & S_{AB} \\
+S_A & S_B & S%
+\end{array}
+\right), &
+\end{eqnarray}
+where the 9-$j$ symbol has been introduced, $\lambda$ runs over $0$, $1$,
+and $2$. $Z_{S_{AB}}^{II,\mu\nu}$ is similar to $Z_{S_{AB}}^{I,\mu\nu}$ but
+with $a_{S_B}^{N_B}$ being changed to $b_{S_B}^{N_B}$ and the index $S_B+1$
+in the 9-$j$ symbol being changed to $S_B-1$. $Z_{S_{AB}}^{III,\mu\nu}$ is
+similar to $Z_{S_{AB}}^{I,\mu\nu}$ but with $a_{S_A}^{N_A}\rightarrow
+b_{S_A}^{N_A}$ and $S_A+1\rightarrow S_A-1$. $Z_{S_{AB}}^{IV,\mu\nu}$ is
+similar to $Z_{S_{AB}}^{I,\mu\nu}$ but with $a_{S_A}^{N_A}a_{S_B}^{N_B}%
+\rightarrow b_{S_A}^{N_A}b_{S_B}^{N_B}$, $S_A+1\rightarrow S_A-1$, and $%
+S_B+1\rightarrow S_B-1$.
+
+Numerical examples of these probabilities are shown in Fig.\ref{fig4} to Fig.%
+\ref{fig8}. Where $M=S$ is given, namely, the $Z$-axis is chosen lying along
+the orientation of $S$.
+
+
+
+\section*{Variation of the spin-texture against the inter-species interaction%
+}
+
+Note that, when the spin-spin force is repulsive (attractive), two
+anti-parallel (parallel) spins will be lower in energy. This point is
+important to the following analysis.
+
+(1) The case $c_{A2}>0$ and $c_{B2}>0$
+
+Recall that, if $c_{AB2}=0$, both species are in polar phase due to both $%
+c_{A2}$ and $c_{B2}$ are positive. Thus, the spins are two-by-two coupled to
+zero to form the singlet-pairs ($s$-pairs) in which the two spins are
+anti-parallel so as to minimize the repulsion caused by $c_{A2}$ and $c_{B2}$%
+. When $c_{AB2}>0$, Fig.\ref{fig1} demonstrates that, in the domain marked
+by zone III, $(S_A,S_B,S)=(0,0,0)$. Thus the polar-polar phase remains
+unchanged when $|c_{AB2}|$ is not so large. On the other hand, Fig.\ref{fig4}
+demonstrates that all the $P_{\mu}^A=P_{\mu}^B=1/3$ in zone III. In other
+words, the spin-states are both isotropic. This coincides with the texture $%
+(0,0,0)$.
+
+When $c_{AB2}$ increases and exceeds $p_{3}$ and enters into
+zone IV but not very close to $p_{4}$, from Fig.\ref{fig1} we
+know that $S_{A}=N_{A}$, $S_{A}>S_{B}$, and $S=S_{A}-S_{B}$. Since $S$ is
+given lying along the $Z$-axis, $S_{A}$ ($S_{B}$) must be lying along $+Z$%
+-axis ($-Z$-axis) to assure $S=S_{A}-S_{B}$. The value of $S_{B}$ at
+$p_{3}$ (denoted as $S_{B}|_{p_{3}}$) is
+determined by the input parameters. The crossing over $p_{3}$
+causes a spin-texture-transition (STT) from $(0,0,0)$ to $(N_{A},S_{B}|_{p_{3}},N_{A}-S_{B}|_{p_{3}})$.
+Thus $p_{3}$ is the critical point of the STT. During the STT, all
+the spins of the A-atoms are suddenly free from the $s$-pairs and lying
+along the $Z$-axis. This is shown in Fig.\ref{fig4}a where $P_{1}^{A}=1$ , $%
+P_{0}^{A}=0$, and $P_{-1}^{A}=0$ in zone IV. The fact that $P_{0}^{A}=0$
+implies a complete breakdown of all the $s$-pairs of the A-atoms. Meanwhile
+all the spins of the B-atoms are also suddenly free from the $s$-pairs and
+re-align along the $\pm Z$-axis as shown in Fig.\ref{fig4}b where $%
+P_{0}^{B}=0$ and $P_{-1}^{B}>P_{1}^{B}>0$ in the zone IV. Accordingly, $%
+S_{B}=N_{B}(P_{-1}^{B}-P_{1}^{B})$ lying along the $-Z$-axis.
+
+When $c_{AB2}$ increases from $p_{3}$, $P_{-1}^{B}$ increases
+linearly and $P_{1}^{B}$ decreases as shown in Fig.\ref{fig4}b. Accordingly,
+$S_{B}$ becomes larger and larger while $S=S_{A}-S_{B}$ becomes smaller.
+When $c_{AB2}\rightarrow p_{4}$, $S_{B}\rightarrow S_{A}$ and
+$S\rightarrow 0$. In a narrow domain neighboring to $p_{4}$,
+the numbers of A- and B-atoms with $\mu =0$ increase greatly. This is shown
+in Fig.\ref{fig4}a and \ref{fig4}b by the very narrow and sharp peak of $%
+P_{0}^{X}$ peaked at $p_{4}$, where all the six $P_{\mu
+}^{X}=1/3$.
+
+When $c_{AB2}$ increases further from $p_{4}$ and enters into
+zone V, in a narrow domain at the right side of $p_{4}$, $%
+P_{\mu }^{A}$ is changed from $1/3$ (at $p_{4}$) to $\delta
+_{\mu ,-1}$. The magnitude $S_{A}=N_{A}$ remains unchanged. However, recall
+that $P_{\mu }^{A}=\delta _{\mu ,1}$ in zone IV, the orientation of $S_{A}$
+has reversed. Meanwhile, the spins of the B-atoms change also swiftly from
+being isotropic (at $p_{4}$) to being partially polarized, a
+larger part points to the $Z$-axis while a smaller part points to the $-Z$%
+-axis. This is shown in Fig.\ref{fig4}b where the three $P_{\mu }^{B}$ are
+changed from $1/3$ to $P_{1}^{B}>P_{-1}^{B}>0$ and $P_{0}^{B}=0$. When $%
+c_{AB2}$ increases further in zone V, $P_{1}^{B}$ ($P_{-1}^{B}$) keeps
+monotonically increasing (decreasing). Accordingly, $%
+S_{B}=N_{B}(P_{1}^{B}-P_{-1}^{B})$ keeps increasing against $c_{AB2}$ but
+its orientation is changed from being arbitrary (at $p_{4}$)
+to lying along the $+Z$-axis. Thus, from zone IV to zone V, the crossing
+over $p_{4}$ leads also to a great change in the spin-texture
+(including the emergence and vanish of atoms with $\mu =0$ and the reverse
+of the orientations of $S_{A}$ and $S_{B}$). Therefore, $p%
+_{4} $ is also a critical point of the STT.
+
+It is mentioned that, in zone V, $P_{-1}^{B}$ is decreasing. Thus it will
+eventually become zero as shown in Fig.\ref{fig4}b marked by $p_{5}$.
+Crossing over $p_{5}$, the next domain is zone VI.
+Where all the A-atoms (B-atoms) are fully polarized along the $-Z$-axis ($+Z$%
+-axis) when $N_{B}>N_{A}$ is assumed. Accordingly, $S=N_{B}-N_{A}$. In this
+case, the spin of any A-atom and the spin of any B-atom are anti-parallel.
+In this way, the repulsion raised by the positive $c_{AB2}$ is minimized.
+The associated texture in zone VI is denoted as $(N_{A},N_{B},N_{B}-N_{A})$,
+and is named anti-parallel ferro-ferro (f-f) phase. Since the effect of $%
+c_{AB2}$ has been optimized in this texture, it is stable against the
+further increase of $c_{AB2}$. The turning point $p_{5}$
+marks the boundary of this phase
+
+When $c_{AB2}$ decreases from zero, the zone III extends to the left until $%
+c_{AB2}=p_{2}$. It implies that the texture $(0,0,0)$ holds
+at both sides of $c_{AB2}=0$ from $p_{2}$ to $p%
+_{3}$, When $|c_{AB2}|$ exceeds $p_{2}$ and enters into zone
+II, all the A-atoms align along the $Z$-axis. Meanwhile, a larger part of
+the B-atoms align along the $Z$-axis while a smaller part along $-Z$-axis,
+none of them have $\mu =0$. Accordingly, $S_{A}=N_{A}$, $%
+S_{B}=N_{B}(P_{1}^{B}-P_{-1}^{B})>0$, and $S=S_{A}+S_{B}$. In this zone, $%
+P_{-1}^{B}$ ($P_{1}^{B}$) decreases (increases) with the decrease of $c_{AB2}
+$. When $c_{AB2}=p_{1}$, $P_{-1}^{B}$ arrives at zero and all
+the B-atoms are also lying along the $Z$-axis. Accordingly, $S_{A}=N_{A}$, $%
+S_{B}=N_{B}$, and $S=N_{A}+N_{B}$. In this case the two spins in any A-B
+pairs (each is composed of an A-atom and a B-atom) are parallel so as to
+maximize the attraction raised by the negative $c_{AB2}$. This texture is
+denoted as $(N_{A},N_{B},N_{A}+N_{B})$ and is named parallel f-f phase which
+is stable against the further decrease of $c_{AB2}$. The turning point
+$p_{1}$ marks the boundary of this phase.
+
+Comparing Fig.\ref{fig1} and \ref{fig4}, we see that the variation and
+transition of the spin-texture are sensitively reflected in $P_{\mu }^{X}$.
+In particular, the five critical and turning points $p_{1}$
+to $p_{5}$ are clearly shown in $P_{\mu }^{X}$. Besides,
+selected $P_{\mu \nu }^{AB}$ ($\mu $ is for an A-atom and $\nu $ is for a
+B-atom) are shown in Fig.\ref{fig5}. Information on the spin-textures can
+also be extracted from this figure. Say, all the $P_{\mu \nu }^{AB}=1/9$ in
+zone III and at the boundary separating Zone IV and V, this demonstrates the
+isotropism when $S=0$. $P_{-1,1}^{AB}=1$ in zone VI, this demonstrates
+directly the anti-parallel f-f phase. $P_{1,1}^{AB}=1$ in zone I, this
+demonstrates directly the parallel f-f phase. The case that $%
+P_{1,1}^{AB}+P_{1,-1}^{AB}=1$ and $P_{1,1}^{AB}>P_{1,-1}^{AB}>0$ appears
+only in zone II, this demonstrates that all the A-atoms are lying along the $%
+Z$-axis, while a larger (smaller) part of the B-atoms are lying along
+(opposite to) the $Z$-axis. The case that $P_{1,1}^{AB}+P_{1,-1}^{AB}=1$ and
+$P_{1,-1}^{AB}>P_{1,1}^{AB}>0$ appears only in zone IV, and so on.
+
+(2) The case $c_{A2}<0$ and $c_{B2}<0$
+
+It is shown in Fig.\ref{fig2} that, when the two intra-species
+spin-dependent interactions are both attractive, both kinds of species will
+keep the ferro-phase disregarding how $c_{AB2}$ is. Nonetheless, the two
+groups of aligned atoms will point to the same direction if $c_{AB2}<0$
+(i.e., the g.s. has $S=N_{A}+N_{B}$ and is in parallel f-f phase), or point
+to opposite directions if $c_{AB2}>0$ (i.e., the g.s. has $S=|N_{A}-N_{B}|$
+and is in anti-parallel f-f phase). This is confirmed by $P_{\mu }^{X}$ and $%
+P_{\mu \nu }^{AB}$ as shown in Fig.\ref{fig6} and \ref{fig7}. Obviously, $%
+c_{AB2}=0$ is a critical point where the transition $%
+(N_{A},N_{B},N_{A}+N_{B})\rightarrow (N_{A},N_{B},|N_{A}-N_{B}|)$ occurs.
+
+(3) The case $c_{A2}>0$ and $c_{B2}<0$
+
+It is shown in Fig.\ref{fig3} that $S_{B}=N_{B}$ holds in the whole range of
+$c_{AB2}$. Thus the B-atoms are in the ferro-phase and very stable against $%
+c_{AB2}$. When $c_{AB2}=0$ the A-atoms are in the polar phase and,
+accordingly, $P_{\mu }^{A}=1/3$ as shown in Fig.\ref{fig8}. However, the
+polar phase is extremely fragile against $c_{AB2}$. Once $|c_{AB2}|$
+deviates from zero, $P_{0}^{A}$ falls into zero in an extremely narrow
+domain surrounding $c_{AB2}=0$ (refer to the sub-figure inside Fig.\ref{fig8}%
+). Remind that $P_{0}^{A}=0$ implies the emergence of all the $s$-pairs.
+Thus all the $s$-pairs will be completely broken
+outside the extremely narrow domain where the free
+A-atoms are either have $\mu =1$ or $\mu =-1$. When $c_{AB2}$ increases
+further and arrives at $p_{2}$ (marked in Fig.\ref{fig8}), $%
+P_{-1}^{A}$ increases from $1/3$ to 1 while $P_{1}^{A}$ decreases from $1/3$
+to 0. Accordingly, $S_{A}$ increases from 0 to $N_{A}$ but lying along the $%
+-Z$-axis. When $c_{AB2}\geq P_{2}$, all the A-atoms are aligned and lying
+along the opposite direction of the B-atoms. Thus, $p_{2}$ is
+a turning point, and it marks the boundary of the anti-parallel f-f phase,
+which is stable against the further increase of $c_{AB2}$. Similarly,
+$p_{1}$ is also a turning point, and it marks the boundary of
+the parallel f-f phase.
+
+Comparing Fig.\ref{fig1} (where the zone III for the $(0,0,0)$ texture is
+broad) and Fig.\ref{fig3} (where the domain for $(0,0,0)$ is only a point),
+we know that the stability of the $s$-pairs of the A-atoms depends on the
+status of the B-atoms. If both are in $s$-pairs, then both are stable until $%
+|c_{AB2}|$ exceeds a critical value. Alternatively, if the B-atoms are
+aligned, the A-atom will be attracted to align along the same direction (if $%
+c_{AB2}<0$) or the opposite direction (if $c_{AB2}>0$) with them. This leads
+to the extremely fragile $(0,0,0)$ texture.
+
+
+
+\section*{Summary}
+
+We have solved the CGP numerically to obtain the solutions for 2-species
+spin-1 BEC. The knowledge of the spin-textures is extracted from these
+solutions. The results qualitatively support the previous results based on
+the single-spatial mode approximation. Thus, this approximation is confirmed
+to be applicable in the qualitative sense. The variation of the
+spin-textures is further analyzed via the 1-body and 2-body probability
+densities $P_{\mu }^{X}$ and $P_{\mu \nu }^{AB}$. The analysis leads to the
+following understanding on the physical picture of the spin-texture. Recall
+that the $Z$-axis is chosen to be lying along $S$.
+
+Remind that the g.s. of the 1-species spin-1 BEC has two well known phases,
+the polar and ferromagnetic phases. Thus, for 2-species, it is naturally to
+guess that there would be three phases: polar-polar, polar-ferro, and f-f
+phases. However, by solving the CGP, we know that the polar-polar phase
+exists only if both species are polar in nature (i.e., $c_{A2}>0$ and $%
+c_{B2}>0$) and $|c_{AB2}|$ is smaller than a critical value.
+
+The presumed polar-ferro phase does not exist (unless $c_{AB2}=0$). This is
+because the polar phase will become extremely fragile when it is influenced
+by a nearby ferro phase even when $|c_{AB2}|$ is very weak. The aligned
+atoms in ferro phase (say, the B-atoms) lure the atoms in polar phase (say,
+the A-atoms) to align with them along the same or opposite direction (refer
+to Fig.\ref{fig3} and Fig.\ref{fig8}). Consequently, all the $s$-pairs of
+the A-atoms will be broken when $|c_{AB2}|$ deviates from zero. This is
+confirmed by the exact solution of the CGP, which leads to $P_{0}^{A}=0$
+(whereas if the $s$-pairs survive, $P_{0}^{A}$ cannot be zero). After being
+free from the $s$-pairs, the A-atoms will fall into a quasi-ferro (qf) phase
+in which the atoms are divided into two parts lying parallel and
+anti-parallel to the direction of $S$, respectively. When $c_{AB2}<0$, more
+A-atoms are in the former part. When $c_{AB2}$ decreases further, this part
+will become bigger and bigger until all A-atoms are parallel to the $Z$%
+-axis. Whereas when $c_{AB2}>0$, more A-atoms are in the latter part. Thus,
+instead of the polar-ferro phase, the 2-BEC has the qf-ferro phase. The main
+feature of the qf phase is the vanish of the $\mu =0$ component (as shown
+in Fig.\ref{fig8}).
+
+Finally, the existence of the presumed f-f phase is confirmed. It can be
+further divided into parallel f-f phase and antiparallel f-f phase depending
+on the relative orientation of the spins of the two species.
+
+The above results from 2-species BEC give a hint to multi-species BEC. Say,
+for 3-species BEC, it is guessed that the polar-polar-polar could emerge
+only if all intra-species spin-dependent interactions are repulsive and the
+strengths of the inter-species spin-dependent interactions fall inside a
+limited scope, the polar-f-f phase does not exist but replaced by qf-f-f
+phase, and there would be f-f-f phase with two groups of spins lying along a
+direction while the third group lying along the opposite direction, and so
+on. These suggestions remain to be checked.
+
+Due to the existence of different phases, phase transitions are inevitable.
+It turns out that all the critical points can be sensitively reflected in
+the probability densities $P_{\mu}^X$ and $P_{\mu\nu}^{XX^{\prime }}$. The
+theoretical and experimental studies on these quantities will deepen the
+understanding of the spin-textures, and provide a way for determining the
+parameters involved. In particular, the spin-textures are found to be
+sensitive to the spin-dependent forces, the parameters of these very weak
+forces could be thereby determined.
+
+
+
+\section*{Appendix}
+
+Let $\vartheta_{S,M}^N$ be the normalized all-symmetric total spin-state of $%
+N$ spin-1 atoms of the same kind, all the spins are coupled to $S$ and $M$.
+Then, $\chi(i)$ (the spin-state of the $i$-th particle) can be extracted as%
+\cite{bao05,bao06}
+\begin{equation}
+\vartheta_{SM}^N = a_S^N [\chi(i)\vartheta_{S+1}^{N-1}]_{SM} +b_S^N [\chi
+(i)\vartheta_{S-1}^{N-1}]_{SM},  \label{fpc}
+\end{equation}
+where $a_S^N$ and $b_S^N$ are the fractional parentage coefficients for
+extracting one particle. They appear as
+\begin{eqnarray}
+&&a_S^N=\sqrt{\frac{[1+(-1)^{N-S}](N-S)(S+1)}{2N(2S+1)}},  \nonumber \\
+&&b_S^N=\sqrt{\frac{[1+(-1)^{N-S}]S(N+S+1)}{2N(2S+1)}},  \label{ab}
+\end{eqnarray}
+where $\vartheta_{S\pm 1}^{N-1}$ are also normalized and all-symmetric but
+for $N-1$ spins coupled to $S\pm 1$.
+
+Let the $i$-th and $j$-th spins be coupled to $\lambda$, and the coupled
+spin-state is denoted by $[\chi(i)\chi(j)]_{\lambda}$. Then this pair can be
+extracted as
+\begin{equation}
+\vartheta_{SM}^N = \sum_{\lambda S^{\prime }} h_{\lambda S^{\prime }S}^N \{
+[\chi(i)\chi(j)]_{\lambda }\vartheta_{S^{\prime }}^{N-2} \}_{SM},
+\label{tswf}
+\end{equation}
+where the coefficients $h_{\lambda S^{\prime }S}^N$ are the fractional
+parentage coefficients for extracting two particles. They are
+\begin{eqnarray}
+h_{0,SS}^N &=&[\frac{(N+S+1)(N-S)}{3N(N-1)}]^{1/2},  \nonumber \\
+h_{2,S+2,S}^N &=&[\frac{(S+1)(S+2)(N-S)(N-S-2)}{(2S+1)(2S+3)N(N-1)}]^{1/2},
+\nonumber \\
+h_{2,S,S}^N &=&[\frac{S(2S+2)(N-S)(N+S+1)}{3(2S-1)(2S+3)N(N-1)}]^{1/2},
+\nonumber \\
+h_{2,S-2,S}^N &=&[\frac{S(S-1)(N+S+1)(N+S-1)}{(2S-1)(2S+1)N(N-1)}]^{1/2}.
+\label{h2}
+\end{eqnarray}
+All the other $h_{\lambda S^{\prime }S}^N$ are zero. Furthermore, when $S=0$%
+, $h_{2,S,S}^N$ and $h_{2,S-2,S}^N$ should be zero.
+
+
+
+\begin{thebibliography}{99}
+\bibitem{ref5} Stamper-Kurn, D. M., Andrews, M. R., Chikkatur, A. P.,
+Inouye, S., Miesner, H. J., Stenger, J., and Ketterle, W., Optical
+Confinement of a Bose-Einstein Condensate, \textit{Phys. Rev. Lett.} \textbf{%
+80}, 2027 (1998).
+
+\bibitem{ref6} Ho, T. L., Spinor Bose Condensates in Optical Traps, \textit{%
+Phys. Rev. Lett.} \textbf{81}, 742 (1998).
+
+\bibitem{ref7} Law, C. K., Pu, H., and Bigelow, N. P., Quantum Spins Mixing
+in Spinor Bose-Einstein Condensates, \textit{Phys. Rev. Lett.} \textbf{81},
+5257 (1998).
+
+\bibitem{ref8} Goldstein, Elena V., and Meystre, Pierre, Quantum theory of
+atomic four-wave mixing in Bose-Einstein condensates, \textit{Phys. Rev. A}
+\textbf{59}, 3896 (1999).
+
+\bibitem{ref9} Ho, T. L., and Yip, S. K., Fragmented and Single Condensate
+Ground States of Spin-1 Bose Gas, \textit{Phys. Rev. Lett.} \textbf{84},
+4031 (2000).
+
+\bibitem{ref10} Koashi, M., and Ueda, M., Exact Eigenstates and Magnetic
+Response of Spin-1 and Spin-2 Bose-Einstein Condensates, \textit{Phys. Rev.
+Lett.} \textbf{84}, 1066 (2000).
+
+\bibitem{ml} Luo, M., Li, Z. B., and Bao, C. G., Bose-Einstein condensate of
+a mixture of two species of spin-1 atoms, \textit{Phys. Rev. A} \textbf{75},
+043609 (2007).
+
+\bibitem{ref11} Xu, Z. F., Zhang, Yunbo, and You, L., Binary mixture of
+spinor atomic Bose-Einstein condensates, \textit{Phys. Rev. A} \textbf{79},
+023613 (2009).
+
+\bibitem{ref12} Shi,Yu, Ground states of a mixture of two species of spinor
+Bose gases with interspecies spin exchange, \textit{Phys. Rev. A} \textbf{82}%
+, 023603 (2010).
+
+\bibitem{ref13} Xu, Z. F., L\"{u}, R., and You, L., Quantum entangled ground
+states of two spinor Bose-Einstein condensates, \textit{Phys. Rev. A}
+\textbf{84}, 063634 (2011).
+
+\bibitem{ref14} Shi, Yu, and Ge, Li, Three-dimensional quantum phase diagram
+of the exact ground states of a mixture of two species of spin-1 Bose gases
+with interspecies spin exchange, \textit{Phys. Rev. A} \textbf{83}, 013616
+(2011).
+
+\bibitem{ref15} Shi, Yu, and Ge, Li, Ground states of a mixture of two
+species of spin-1 Bose gases with interspecies spin exchange in a magnetic
+field, \textit{Int. J. Mod. Phys. B} \textbf{26}, 1250002 (2012).
+
+\bibitem{ref16} Xu, Z. F., Mei, J. W., L\"{u}, R., and You, L.,
+Spontaneously axisymmetry-breaking phase in a binary mixture of spinor
+Bose-Einstein condensates, \textit{Phys. Rev. A} \textbf{82}, 053626 (2010).
+
+\bibitem{ref17} Zhang, J., Li, T. T., and Zhang, Yunbo, Interspecies singlet
+pairing in a mixture of two spin-1 Bose condensates, \textit{Phys. Rev. A}
+\textbf{83}, 023614 (2011).
+
+\bibitem{ref18} Irikura, Naoki, Eto, Yujiro, Hirano, Takuya, and Saito,
+Hiroki, Ground-state phases of a mixture of spin-1 and spin-2 Bose-Einstein
+condensates, \textit{Phys. Rev. A} \textbf{97}, 023622 (2018).
+
+\bibitem{bao05} Bao, C. G., and Li, Z. B., First excited band of a spinor
+Bose-Einstein condensate, \textit{Phys. Rev. A} \textbf{72}, 043614 (2005).
+
+\bibitem{bao06} Bao., C. G., ne-body and Two-body Fractional Parentage
+Coefficients for Spinor Bose-Einstein Condensation, \textit{Front. Phys.
+China} \textbf{1}, 92-96 (2006)
+
+\bibitem{katr} Katriel, J., Weights of the total spins for systems of
+permutational symmetry adapted spin-1 particles, \textit{Journal of
+Molecular Structure: THEOCHEM} \textbf{547}, 1-11 (2001).
+
+\bibitem{zbli} Li, Z. B., Liu, Y. M., Yao, D. X., and Bao, C. G., Two types
+of phase diagrams for two-species Bose-Einstein condensates and the combined
+effect of the parameters, \textit{J. Phys. B: At. Mol. Opt. Phys.} \textbf{50%
+}, 135301 (2017).
+
+\bibitem{liu} Liu, Y. M., He, Y. Z., and Bao, C. G., Singularity in the
+matrix of the coupled Gross-Pitaevskii equations and the related
+state-transitions in three-species condensates, \textit{Scientific reports}
+\textbf{7}, 6585 (2017).
+\end{thebibliography}
+
+
+
+\section*{Acknowledgements}
+
+Supported by the National Natural Science Foundation of China under Grants
+No.11372122, 11274393, 11574404, and 11275279; the Open Project Program of
+State Key Laboratory of Theoretical Physics, Institute of Theoretical
+Physics, Chinese Academy of Sciences, China(No.Y4KF201CJ1); the National
+Basic Research Program of China (2013CB933601); and the
+Natural Science Foundation of Guangdong of China (2016A030313313).
+
+
+
+\section*{Author contributions}
+
+Y. Z. He is responsible to the numerical calculation. Y. M. Liu is
+responsible to the theoretical derivation. C. G. Bao provides the idea,
+write the paper, and responsible to the whole paper. All authors reviewed
+the manuscript.
+
+
+
+\section*{Additional information}
+
+\textbf{Competing Interests:} The authors declare that they have no
+competing interests.
+
+\end{document}

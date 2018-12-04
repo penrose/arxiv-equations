@@ -1,0 +1,514 @@
+%\documentclass[aps,prb,floatfix,epsfig,preprint,preprintnumbers]{revtex4}
+\documentclass[aps,prb,floatfix,epsfig,twocolumn,preprintnumbers]{revtex4}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{tablefootnote}
+\usepackage{setspace}
+%\usepackage{authblk}
+
+\begin{document}
+
+\title{Vertex corrections in self-consistent GW$\Gamma$ calculations: ground state properties of vanadium}
+\author{Andrey L. Kutepov\footnote{e-mail: akutepov@bnl.gov}}
+\affiliation{Brookhaven National Laboratory, Upton, NY 11973-5000, USA}
+
+\begin{abstract}
+Self-consistent vertex corrected GW calculations have been performed to evaluate the equilibrium volume and corresponding bulk modulus of 3d transition metal vanadium. The study demonstrates the feasibility of this approach. The accuracy of the results obtained for vanadium is considerably better as compared to the accuracy of the results obtained with self consistent GW method without vertex corrections. It is shown that vertex corrections are important not only for the self energy, but also for the irreducible polarizability. The contribution to the value of the $\Psi$-functional from the vertex corrections is about 30 times smaller than the contribution from the GW part (correlation only!), suggesting the fast convergence of the expansion in terms of the screened interaction for this material.
+\end{abstract}
+
+\maketitle
+
+
+\section*{Introduction}
+\label{intro}
+
+Below, a brief account is given of the study which purpose was to fill in a certain gap still existing in the applications of the many body perturbation theory (MBPT) to the calculations of the physical properties of materials in their solid state. Essentially, the story is the following. When one begins to study a certain material computationally, it is quite natural to apply first the density functional theory (DFT\cite{pr_136_B864,pr_140_1133}) in its local density approximation (LDA\cite{prl_45_566,cjp_58_1200}) or in the generalized gradient approximation (GGA\cite{prb_33_8800,prl_77_3865}). The approach is rather inexpensive and provides quite reasonable answers to many questions. It is also quite natural and already is becoming a tradition to call for the MBPT when some features of one-electron spectra (for instance, calculated band gap in a semiconductor) are not good enough. As a rule, one applies the simplest MBPT variant, namely the GW approximation (G is for the Green's function, and W is for the screened interaction) in its non-self-consistent form G$_{0}$W$_{0}$.\cite{pr_139_A796,prb_34_5390} If we discuss the band gaps in simple semiconductors/insulators then this approximation allows one to reduce the DFT error considerably (from about 100\% to 10-20\%\cite{prb_93_115203}). Further improvement possible with application of self-consistent vertex corrected GW approach.\cite{prb_95_195120} However, the situation is quite different when one encounters the problem in an application of DFT to the study of the ground state properties (GSP), such as volume dependence of the total energy. There is no well known route yet to cure such a problem. In such situation, the common way is to search for another approximation to the density functional, which can be a meta-GGA\cite{prl_91_146401,prl_103_026403,jcp_125_194101} (addition of the kinetic energy density to the functional) or different flavors of the hybrid functionals\cite{jcp_110_6158,jcp_98_5648,jcp_125_224106,jctc_9_1631} (addition of a portion of non-local exchange). Whereas one can often find an appropriate functional (for a specific material!), the approach hardly can have a predictive power as it looks more like an adjustment to the known experimental results.\cite{jctc_10_3832} Another popular approach in problematic situations is to invoke such methods as DFT+U\cite{prb_48_16929} or DFT+DMFT,\cite{rmp_68_13} and to use on-site Hubbard parameters U and J to improve DFT results for the GSP. However, one has to classify these two methods as semiempirical ones. Often used for the evaluation of U constrained Random Phase Approximation\cite{prb_70_195104} (cRPA) has, as an independent method, its own parameters which can alter the colculated U value by more than factor of two.\cite{prb_82_045105} Whereas a new physics can be brought into consideration in these two approaches (especially in DFT+DMFT), the uncertainty of the on-site (local) approximation and the arbitrariness in the choice of the Hubbard parameters cannot be thought of as totally satisfactory. Namely, often it is not clear which part of the improvement (as compared to DFT) comes from the new physics, and which part comes from the adjustment of the parameters. 
+
+Ab-initio many body methods (those, without involvement of the adjustable parameters and not relying on the on-site (local) approximation) can, in principle, be used to study the GSP. Formal theory for such applications was developed long time ago.\cite{pr_118_1417,AGD} Obviously, principal obstacle up to a present day, was the high computational requirements for applications of ab-initio MBPT to GSP studies in real materials. We are witnessing, however, a great improvement in the computational capabilities nowadays, which can potentially make the applications of MBPT to the studies of GSP possible. Thus, at least from the academic point of view (and from the point of view of possible practical applications in a near future) it is interesting to see how the ab-inito MBPT performs on realistic materials. Existing applications of MBPT for studying the GSP of crystalline materials are not yet numerous. Most of them were non self consistent and used DFT one-electron energies and wave functions as input to evaluate the total energy in Random Phase Approximation\cite{prb_66_245103,prl_103_056401,prl_105_196401,prb_87_214102} (RPA) to the Luttinger-Ward functional.\cite{pr_118_1417} A few years ago, fully self consistent GW approach was applied to study the GSP of simple elements (Na, Al, Si) in their crystalline state.\cite{prb_80_041103}
+
+Recently, self-consistent GW calculations (scGW) were performed for 3d transition metals.\cite{jcm_29_465503} scGW approach represents the simplest variant of ab-inito self-consistent MBPT suitable for studying GSP. The calculations have demonstrated improved performance as compared to the calculations in LDA. The error in the calculated equilibrium volume was reduced by a factor of more than 2 as compared to the LDA error. But the performance of scGW method in comparison with the performance of GGA was not very good. However, quite encouraging circumstance found in [\onlinecite{jcm_29_465503}] is that the deviation (for example of the calculated equilibrium volume) from the experimental data is quite systematic in scGW and it is suggestive of a certain well defined effect which is missing in scGW approximation. It was speculated in [\onlinecite{jcm_29_465503}] that vertex corrections might be a good candidate for this missing effect. The speculation was based on the observation\cite{prb_96_035108} that in the electron gas, the gain in the calculated total energy when vertex corrections are included becomes more negative when the volume expands. This work is designated for a systematic study of this question with the metal Vanadium as an example. The reason why this element has been picked up from the 3d metals is that it is the simplest (one atom per unit cell and no magnetic order) which is crucial for very time consuming self-consistent vertex corrected (scGW$\Gamma$) calculations.
+
+The plan of the paper is the following. Section \ref{methods} explains the method which was used in the study and the computational setup. Section \ref{res} provides the results obtained and the discussion. The conclusions are given afterwords.
+
+\section{Calculation method and setup}
+\label{methods}
+
+When generating conserving self consistent schemes which include vertex corrections, it is convenient to start with the variational expression for the grand potential written in terms of the so called $\Psi$-functional introduced by Almbladh et al. in [\onlinecite{ijmpb_13_535}]:
+
+
+\begin{align}\label{om0}
+\Omega=\Omega_{0}+\Psi&+\frac{1}{2}Tr[PW+\ln(1-VP)]\nonumber\\&-Tr[G^{-1}_{0}G-1]+Tr[\ln G-\ln G_{0}],
+\end{align}
+where $G_{0}$ is the Green function of some reference (non-interacting) system, and $\Omega_{0}$ is the corresponding grand potential. The $\Psi$-functional is a functional of the Green's function G and the screened interaction W, and is related to the Luttinger-Ward $\Phi$-functional\cite{pr_118_1417}:
+
+
+
+\begin{equation}\label{om1a}
+\Psi [G,W]=\Phi[G]-\frac{1}{2}[PW-\ln (1+PW)],
+\end{equation}
+where $P$ is the irreducible polarizability. The advantage of using the $\Psi$-functional instead of the Luttinger-Ward functional in the approximations which include vertices is that the expansion in terms of W converges much faster than the expansion in terms of the bare Coulomb interaction V. As a result, a number of useful approximations with non-trivial vertices can be formulated in terms of just a few diagrams. On the other hand, in the $\Phi$-functional formulation which uses expansion in terms of the bare Coulomb interaction, even the GW approximation which corresponds to the trivial vertex, consists of an infinite number of diagrams (ring diagrams). Taking an approximation to the $\Psi$-functional (by drawing a set of the diagrams with G and W as building blocks) the approximations for the irreducible polarizability and the self energy $\Sigma$ are fixed by the relations\cite{ijmpb_13_535}:
+
+
+\begin{equation}\label{om1b}
+P=-2\frac{\delta \Psi}{\delta W}|_{G},
+\end{equation}
+and
+\begin{equation}\label{om1c}
+\Sigma=\frac{\delta \Psi}{\delta G}|_{W}.
+\end{equation} 
+
+
+
+
+
+
+
+In this study, the Hartree-Fock (exchange) approximation was used as a reference and, correspondingly, the expression for the grand potential was the following:
+
+\begin{align}\label{om1}
+\Omega=\Omega_{x}+\Psi_{c}&+\frac{1}{2}P\widetilde{W}+\frac{1}{2}Tr[PV+\ln(1-VP)]
+\nonumber\\&-Tr[G^{-1}_{x}G-1]+Tr[\ln G-\ln G_{x}],
+\end{align}
+
+where the exchange part (first term on the right hand side (rhs)) and the correlation part (the remaining terms on the rhs) were separated for convenience, and $G_{x}$ is the exchange part of Green's function. If we further represent the full irreducible polarizability as a sum of a simple bubble ($P_{0}$) and the vertex part $\Delta P$: $P=P_{0}+\Delta P$, then the very first diagram in $\Psi_{c}$ (which is $-\frac{1}{2}TrP_{0}\widetilde{W}$, with $\widetilde{W}$ being the frequency-dependent part of the $W$: $W=V+\widetilde{W}$) can be canceled with the corresponding contribution from the third term on the rhs of Eq.(\ref{om1}). Equation (\ref{om1}) can, therefore, be written in more convenient for the evaluation form:
+
+\begin{align}\label{om11}
+\Omega=\Omega_{x}+\Psi_{vrt}+&\frac{1}{2}\Delta P\widetilde{W}+\frac{1}{2}Tr[PV+\ln(1-VP)]
+\nonumber\\&-Tr[G^{-1}_{x}G-1]+Tr[\ln G-\ln G_{x}],
+\end{align}
+where $\Psi_{vrt}$ stands for the part of $\Psi$-functional containing non-trivial vertices. The exchange part of the grand potential entering the equation (\ref{om11}) is:
+
+\begin{align}\label{om2}
+\Omega_{x}=&-\frac{1}{\beta N_{\mathbf{k}}}\sum_{\alpha \mathbf{k}\lambda} \ln 
+[1+e^{-(\varepsilon^{\alpha\mathbf{k}}_{\lambda}-\mu)\beta}]+E_{coul}-Tr (V^{H}G)\nonumber\\
+&-\frac{1}{2} Tr (\Sigma^{x}G),
+\end{align}
+where $\alpha$ is the spin, $\mathbf{k}$ enumerates k-points in the Brillouin zone, $\lambda$ is the band index, $\beta$ is the inverse temperature, $N_{\mathbf{k}}$ is the total number of k-points in the Brillouin zone, $\mu$ is the chemical potential. $E_{coul}$ represents the energy of the Coulomb interaction (sum of nuclear-nuclear, electron-nuclear, and classical electron-electron). $V^{H}$ is the electronic Hartree potential, $\Sigma^{x}$ is the exchange (frequency-independent) part of self energy.
+
+
+
+
+
+
+
+
+
+In this work, in order to generate an approximation for the correlation part of the problem, the simplest approximation for the $\Psi$-functional which includes vertex correction has been adapted (Fig. \ref{diag_Psi}). In Fig. \ref{diag_Psi}, the first diagram corresponds to the famous GW approximation, whereas the second one includes first order vertex correction. The second diagram in Fig. \ref{diag_Psi} is, correspondingly, the quantity $\Psi_{vrt}$ which was introduced before in Eq. (\ref{om11}).
+
+
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=7.0 cm]{fig11.pdf}
+\caption{Scheme of the evaluation of the second order diagram for the self energy.}
+\label{diag_Psi}
+\end{figure}
+
+
+\begin{figure}[b]
+\centering
+\includegraphics[width=7.0 cm]{fig22.pdf}
+\caption{Diagrammatic representation of the irreducible polarizability in the simplest vertex corrected scheme.}
+\label{diag_P}
+\end{figure}
+
+
+
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=7.0 cm]{fig33.pdf}
+\caption{Diagrammatic representation of the self energy in the simplest vertex corrected scheme.}
+\label{diag_S}
+\end{figure}
+
+
+
+
+Diagrammatic representations for the irreducible polarizability (Fig. \ref{diag_P}) and for the self energy (Fig. \ref{diag_S}) follow from the chosen approximation to the $\Psi$-functional. The set of diagrams for the polarizability and the self energy shown in Figs. \ref{diag_P} and \ref{diag_S} corresponds to the scheme B introduced earlier in Ref. [\onlinecite{prb_94_155101}]. Technical details of the GW part were described in the Ref. [\onlinecite{prb_85_155129}]. Numerical algorithm for the evaluation of the first order polarizability was the same in this study as described in details in Ref. [\onlinecite{prb_94_155101}]. For the evaluation of the second order self-energy, however, more efficient algorithm (as compared to the one described in [\onlinecite{prb_94_155101}]) was used. The brief account of the details of this new algorithm can be found in Appendix. The value of $\Psi_{vrt}$ can be evaluated from the second order self energy $\Sigma_{2}$ (second diagram in Fig. \ref{diag_S}) as its convolution with Green's function: $\Psi_{vrt}=\frac{1}{4}Tr(\Sigma_{2}G)$. Equivalently, the $\Psi_{vrt}$ can be evaluated from the first order irreducible polarizability $P_{1}$ (second diagram in Fig. \ref{diag_P}) as its convolution with the screened interaction: $\Psi_{vrt}=-\frac{1}{2}Tr(P_{1}W)$.
+
+
+
+For the remaining terms in Eq.(\ref{om11}), the following expressions were used in practical calculations:
+
+
+
+
+\begin{equation}\label{om4}
+Tr[G^{-1}_{x}G-1]=Tr[\Sigma_{c}G],
+\end{equation}
+and
+\begin{equation}\label{om5}
+Tr[\ln G-\ln G_{x}]=Tr_{0} \sum_{\omega>0}\ln [G(\omega)G^{+}(\omega)-G_{x}(\omega)G^{+}_{x}(\omega)].
+\end{equation}
+
+In the equations above, $\Sigma_{c}$ is the correlation (frequency-dependent) part of the self energy. Matrices in Eq. (\ref{om5}) have been transformed to the hermitian form in order to facilitate the evaluation of the logarithm. Taking the trace ($Tr$) means the summation over the \textbf{k}-points in the Brillouin zone, spins, Matsubara's frequencies, and diagonal matrix elements. Symbol $Tr_{0}$ means that frequency summation is excluded from the evaluation of trace. Having evaluated the grand potential, the free energy simply is $F=\Omega-\mu N$, with $N$ being the number of electrons. In order to obtain the equilibrium volume and the corresponding bulk modulus, free energy was evaluated on the equidistant mesh of six volumes arranged near the theoretical minimum of the free energy. The obtained function $F(V)$ was approximated by quadratic polynomial of $V$ which allowed one to get the position of the minimum (equilibrium volume) and the second derivative (related to the bulk modulus).
+
+Bloch band states of the effective exchange problem\cite{prb_85_155129} (corresponds to the approximation $\Sigma^{c}=0$) were used to represent $G$, $V^{H}$, $\Sigma^{x}$, and $\Sigma^{c}$. The polarizability and the Coulomb interaction were expressed in the mixed product basis.\cite{prb_76_165106,arx_1606_08427} FLAPW+LO method was used to solve the one-electron problems (Kohn-Sham equation in LDA and effective exchange hamiltonian). The specifics of the construction of the local orbitals (LO) were given earlier in the Ref. [\onlinecite{jcm_29_465503}]. The number of LO's for every \textit{l} was defined by specifying (from the convergence requirement) the maximal principal quantum number $n_{max}$ which was equal 9 in this study. The maximal value of the orbital momentum in MT spheres was equal 8. As compared to the work [\onlinecite{jcm_29_465503}], the radius of the muffin-tin (MT) spheres was slightly reduced in this study (2.1 a.u. versus 2.47 a.u. in [\onlinecite{jcm_29_465503}]). This was done in order to alleviate the need for using too many LO's inside the MT spheres and, thus, to make the basis set better balanced between the MT spheres and the interstitial region. The number of the augmented plane waves was about 100. Integrations over the Brillouin zone were performed using the mesh $12\times 12\times 12$. Evaluations of the vertex corrections were done on the coarser mesh $4\times 4\times 4$ with subsequent interpolation. All band states generated from the LAPW+LO basis set (about 300) were used to represent the self energy and Green's function of the GW part of the problem. 20 band states closest to the chemical potential were used to evaluate the vertex corrections. The size of the mixed product basis is related to the quality of LAPW+LO basis and was 1040 (average over the \textbf{k}-points) for the GW part and 120 for the vertex part. The electronic temperature $T$ was 500K. 64 imaginary time points (distributed inhomogeneously\cite{prb_85_155129}) were used to represent functions on the interval $[0:1/T]$. Similar number of Matsubara's frequencies (again, distributed inhomogeneously) were used to effectively cover the interval $[-\infty:+\infty]$.
+
+The calculations didn't involve any uncontrollable approximations, such as on-site (local) approximation or static (frequency independent) approximation for W. Besides truncation in the diagrammatic representation of the $\Psi$-functional, the only approximations involved were the ones related to the finite number of \textbf{k}-points, frequency/time points, band states, and product basis functions. All of them are totally controllable. Every calculation included 22 DFT iterations (up to convergence) which purpose was to generate an initial approximation for the Green's function to start scGW iterations. Then 30 iterations of scGW followed which allowed to converge the calculated free energy within $10^{-5} Ry$. Finally, 20 iterations of scGW$\Gamma$ were performed, starting with G and W from the last scGW iteration and providing in the end similar to the scGW convergence in the free energy. 512 MPI processes were used. Approximate time for one scGW iteration was 18 minutes, whereas about 1 hour was required to accomplish one scGW$\Gamma$ iteration. All calculations have been performed using computer code FlapwMBPT.\cite{flapwmbpt}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Results}
+\label{res}
+
+
+
+\begin{table}[b]
+\caption{Theoretical and experimental equilibrium volume and bulk modulus of vanadium. All theoretical results in this Table were obtained with the same code FlapwMBPT. The experimental data corrected for zero-point vibrational effects have been cited from the Ref. [\onlinecite{jctc_10_3832}].} \label{v0b0}
+\begin{center}
+\begin{tabular}{@{}c c c} &$V_{0}$ (a.u./atom) &$B_{0}$ (GPa)\\
+\hline \hline
+LDA &84.31 &247.0\\
+GGA &92.62 &186.2\\
+scGW &88.04 &206.9\\
+scGW$\Gamma$ &91.28 &180.1\\
+Exp. &91.94 &158.9\\
+\hline \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=7.0 cm]{fig4.pdf}
+\caption{Components $\Psi_{GW}$ (GW part, only correlation) and $\Psi_{vrt}$ (vertex part) of the $\Psi$-functional as functions of relative volume for vanadium. The values for the $\Psi_{GW}$ component were shifted upward by 3.0912 Ry for better comparison with the components of the $\Psi_{vrt}$. $V_{0}$ is the experimental equilibrium volume.} \label{psi_vv0}
+\end{figure}
+
+Figure \ref{psi_vv0} represents the volume dependence of the GW part (correlation only, i.e. only frequency dependent part of W is counted) and the vertex part of the $\Psi$-functional. Correlation part of the $\Psi_{GW}$ has a positive slope reflecting the fact that the effect of the correlations included in the GW approximation consists primarily in reducing the calculated in the Hartree-Fock approximation (and, as a rule, severely overestimated) equilibrium volume. On the other hand, as one can see from the Fig. \ref{psi_vv0}, the vertex part of the functional has negative slope, and acts in the opposite (as compared to the GW part) direction, increasing the calculated (now in GW approximation) equilibrium volume. Despite the fact, that the amplitude of the $\Psi_{vrt}$ is about 30 times smaller than the amplitude of the correlation part of the $\Psi_{GW}$, its variations around $V_{0}$ are about 5 mRy, which is not negligible and provide an important contribution to the final result for the GSP. Table \ref{v0b0} presents the calculated equilibrium volume and corresponding bulk modulus. The results obtained in LDA and GGA have also been included for comparison. As one can see from the Table, scGW$\Gamma$ eliminates considerable part of the disagreement of scGW and experiment, justifying the speculation about importance of the vertex corrections mentioned in the Introduction. Remaining mismatch with the experimental data is pretty small (about 0.7\% in the equilibrium volume and about 11\% in the bulk modulus). It can be attributed to numerical inaccuracies (especially to the evaluation of the second derivative of the free energy needed for the bulk modulus), and/or to the higher order vertex corrections not included in this study. In any case, the smallness of the mismatch suggests that higher order vertex corrections are not important for the GSP of vanadium, i.e. from this point of view, vanadium belongs to the so called weakly correlated materials. scGW$\Gamma$ results for vanadium, as one can judge, are considerably more accurate as compared to the results obtained in LDA, and have similar accuracy as compared to the GGA results.
+
+\begin{figure}[b]
+\centering
+\includegraphics[width=7.0 cm]{fig5.pdf}
+\caption{Spectral function as obtained in scGW and in scGW$\Gamma$ for the experimental equilibrium volume of Vanadium. Analytical continuation for the frequency dependent part of the self energy was performed as described in the Appendix D of the Ref. [\onlinecite{prb_85_155129}]. It was needed to obtain the spectral function as a function of real frequency.} \label{dos}
+\end{figure}
+
+Spectral functions presented in Fig. \ref{dos}, as obtained in scGW and in scGW$\Gamma$, do not show any essential difference. The effect of vertex corrections consists in a slight narrowing of the spectral features, namely, the states under the Fermi level are shifted up, and the states above the Fermi level are shifted towards lower energies. The smallness of the effect of vertex corrections on the spectral function supports the idea that vanadium belongs to the class of materials, which can be well addressed with ab-initio MBPT.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=7.0 cm]{fig6.pdf}
+\caption{Imaginary part of the self energy for the uppermost valence band (s-band) at the $\Gamma$ point in the Brillouin zone. $\Sigma_{2}$ corresponds to the second order contribution to the self energy (last diagram in the Fig. \ref{diag_S}). The inset shows the self energy from scGW and scGW$\Gamma$ calculations in a broader frequency range.} \label{sigma_s}
+\end{figure}
+
+
+\begin{figure}[b]
+\centering
+\includegraphics[width=7.0 cm]{fig7.pdf}
+\caption{Imaginary part of the self energy for the lowest conduction band (d-band) at the $\Gamma$ point in the Brillouin zone. $\Sigma_{2}$ corresponds to the second order contribution to the self energy (last diagram in the Fig. \ref{diag_S}). The inset shows the self energy from scGW and scGW$\Gamma$ calculations in a broader frequency range.} \label{sigma_d}
+\end{figure}
+
+
+
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=7.0 cm]{fig8.pdf}
+\caption{The components $P^{\mathbf{q}}_{\mathbf{G}=\mathbf{G}'=0}(\nu)$ of the calculated irreducible polarizability as functions of the momentum $\mathbf{q}$ along the direction (011) in the Brillouin zone.} \label{p_pw}
+\end{figure}
+
+
+Figures \ref{sigma_s} and \ref{sigma_d} illustrate the self energy as a function of Matsubara frequency for the uppermost valence band (s-band) and the lowest conduction band (d-band) at the $\Gamma$ point in the Brillouin zone. As one can see, the contribution of the second order diagram essentially disappear above 100 eV, whereas GW part decays very slowly up to a few tens of thousand electron-volts (see insets).
+
+The difference in the self energy obtained from scGW and from scGW$\Gamma$ calculations consists not only from the second order diagram shown in Fig. \ref{diag_S} but also from the vertex correction in W entering through the polarizability and from the effects of self-consistency in both G and W. As it is seen in the figures \ref{sigma_s} and \ref{sigma_d}, the second order self energy correction is effective only for the very low frequencies (roughly up to 50 eV). The noticeable difference in the scGW and scGW$\Gamma$ curves between approximately 100 eV and above 250 eV, thus, comes mostly from the vertex corrections in W and self-consistency effects.
+
+Two more interesting points deserve to be mentioned. The amplitude of the GW part of the self energy is about 10 times larger for the s-band and about 7 times larger for the d-band than the amplitude of the second order diagram. From this point of view, the expansion in W converges rather fast for this material, again supporting the applicability of ab-initio MBPT. Second point is that the vertex correction for the s-band is only about twice less than the correction for the d-band. Quantitatively, it is far from being negligible. Thus, for the quantitative account of the correlation effects in 3d metals one cannot consider only 3d electrons.
+
+The effect of the vertex correction on the calculated irreducible polarizability is shown in the Fig. \ref{p_pw}, where the momentum dependence of the polarizability for zero frequency and for the first positive Matsubara frequency ($\nu=2\pi T$) is presented. Components of this function for higher frequencies have similar (to the component with $\nu=2\pi T$) behavior with gradual decreasing in the amplitude. Generally one can see a considerable effect of the vertex corrections on the calculated polarizability, reflecting the fact that total difference in the self energy calculated with scGW and scGW$\Gamma$ cannot be explained only by the second order correction to the self energy.
+
+
+
+\section*{Conclusions}
+\label{concl}
+
+In conclusion, self-consistent vertex corrected GW calculations have been performed for vanadium metal in order to assess the feasibility of applications of ab-inito MBPT for studying GSP of realistic materials. It has been shown that scGW$\Gamma$ improves the results obtained with scGW noticeably, thus, confirming the importance of vertex corrections (despite their smallness in case of vanadium) for accurate evaluation of the ground state properties. It has been shown, that both, the correction to the irreducible polarizability and the correction to the self energy are important. From more general point of view, the work demonstrates the feasibility of using the ab-initio MBPT as one more tool (in addition to already available tools) to study the ground state properties of crystalline solids.
+
+
+\section*{Acknowledgments}
+\label{ackn}
+
+
+This work was   supported by the U.S. Department of Energy, Office of Science, Basic
+Energy Sciences as a part of the Computational Materials Science Program.
+
+
+
+
+\appendix
+
+\section{Details of the evaluation of some diagrams}\label{diag_det}
+
+
+
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=7.0 cm]{fig44.pdf}
+\caption{Scheme of the evaluation of the second order diagram for the self energy.}
+\label{sigma_steps}
+\end{figure}
+
+
+
+
+\begin{figure}[b]
+\centering
+\includegraphics[width=7.0 cm]{fig55.pdf}
+\caption{Scheme of the evaluation of the first order diagram for the irreducible polarizability.}
+\label{p_steps}
+\end{figure}
+
+
+
+
+In the Ref. [\onlinecite{prb_94_155101}] the evaluation of the vertex correction to the self energy was presented as a two-step process. In the first step, the non-trivial part of the three-point vertex function $\Gamma$ was evaluated. In the second step, this vertex function was combined with the Green function G and the screened interaction W to form the self energy $GW\Gamma$. However, it was found later, that a considerably more efficient procedure for the evaluation of the second order self enery consists in the evaluation of the corresponding diagram directly, avoiding the intermediate construction of $\Gamma$. Namely, the second diagram presented in Fig. \ref{diag_S} can be evaluated in three steps as it is demonstrated in Fig. \ref{sigma_steps}. The pieces A, B, and C shown in Fig. \ref{sigma_steps} are combined together beginning from the right and proceeding to the left. Essentially, the algorithm is very similar to the algorithm for the first order polarizability presented in Fig. \ref{p_steps} and described in details in Ref. [\onlinecite{prb_94_155101}].
+
+
+
+
+The piece C (Fig. \ref{sigma_steps}) is evaluated in (reciprocal space + frequency) representation with the band states indexes representing the orbital basis set. After evaluation, piece C is transformed into (real space + imaginary time) representation (see Ref. [\onlinecite{prb_94_155101}] for the specifics of the representations of functions in real space). Thus, pieces B and C are combined in (real space + imaginary time) representation, which approximately can be thought of as point by point multiplication. After that, the object B+C is transformed back to the (reciprocal space + frequency) representation, and it is combined with the piece A. In practice, this algorithm of self energy evaluation is a few times faster than the original one presented in Ref. [\onlinecite{prb_94_155101}] and requires considerably less memory.
+
+\begin{thebibliography}{37}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname bibnamefont\endcsname\relax
+  \def\bibnamefont#1{#1}\fi
+\expandafter\ifx\csname bibfnamefont\endcsname\relax
+  \def\bibfnamefont#1{#1}\fi
+\expandafter\ifx\csname citenamefont\endcsname\relax
+  \def\citenamefont#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{\texttt{#1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+\providecommand{\bibinfo}[2]{#2}
+\providecommand{\eprint}[2][]{\url{#2}}
+
+\bibitem[{\citenamefont{{P. Hohenberg and W. Kohn}}(1964)}]{pr_136_B864}
+\bibinfo{author}{\bibnamefont{{P. Hohenberg and W. Kohn}}},
+  \bibinfo{journal}{Phys.~Rev.} \textbf{\bibinfo{volume}{136}},
+  \bibinfo{pages}{B864} (\bibinfo{year}{1964}).
+
+\bibitem[{\citenamefont{{W.~Kohn and L.~J.~Sham}}(1965)}]{pr_140_1133}
+\bibinfo{author}{\bibnamefont{{W.~Kohn and L.~J.~Sham}}},
+  \bibinfo{journal}{Phys.~Rev.} \textbf{\bibinfo{volume}{140}},
+  \bibinfo{pages}{A1133} (\bibinfo{year}{1965}).
+
+\bibitem[{\citenamefont{{D.~M.~Ceperley and B.~J.~Alder}}(1980)}]{prl_45_566}
+\bibinfo{author}{\bibnamefont{{D.~M.~Ceperley and B.~J.~Alder}}},
+  \bibinfo{journal}{Phys.~Rev.~Lett.} \textbf{\bibinfo{volume}{45}},
+  \bibinfo{pages}{566} (\bibinfo{year}{1980}).
+
+\bibitem[{\citenamefont{{S.~H.~Vosko, L.~Wilk and
+  M.~Nusair}}(1980)}]{cjp_58_1200}
+\bibinfo{author}{\bibnamefont{{S.~H.~Vosko, L.~Wilk and M.~Nusair}}},
+  \bibinfo{journal}{Can.~J.~Phys.} \textbf{\bibinfo{volume}{58}},
+  \bibinfo{pages}{1200} (\bibinfo{year}{1980}).
+
+\bibitem[{\citenamefont{{J.~P.~Perdew and Y.~Wang}}(1986)}]{prb_33_8800}
+\bibinfo{author}{\bibnamefont{{J.~P.~Perdew and Y.~Wang}}},
+  \bibinfo{journal}{Phys.~Rev.~B} \textbf{\bibinfo{volume}{33}},
+  \bibinfo{pages}{8800} (\bibinfo{year}{1986}).
+
+\bibitem[{\citenamefont{{J.~P.~Perdew, K.~Burke, and
+  M.~Ernzerhof}}(1996)}]{prl_77_3865}
+\bibinfo{author}{\bibnamefont{{J.~P.~Perdew, K.~Burke, and M.~Ernzerhof}}},
+  \bibinfo{journal}{Phys.~Rev.~Lett.} \textbf{\bibinfo{volume}{77}},
+  \bibinfo{pages}{3865} (\bibinfo{year}{1996}).
+
+\bibitem[{\citenamefont{{L.~Hedin}}(1965)}]{pr_139_A796}
+\bibinfo{author}{\bibnamefont{{L.~Hedin}}}, \bibinfo{journal}{Phys.~Rev.}
+  \textbf{\bibinfo{volume}{139}}, \bibinfo{pages}{A796} (\bibinfo{year}{1965}).
+
+\bibitem[{\citenamefont{{M.~S.~Hybertsen and S.~G.~Louie}}(1986)}]{prb_34_5390}
+\bibinfo{author}{\bibnamefont{{M.~S.~Hybertsen and S.~G.~Louie}}},
+  \bibinfo{journal}{Phys.~Rev.B} \textbf{\bibinfo{volume}{34}},
+  \bibinfo{pages}{5390} (\bibinfo{year}{1986}).
+
+\bibitem[{\citenamefont{{H.~Jiang, and P.~Blaha}}(2016)}]{prb_93_115203}
+\bibinfo{author}{\bibnamefont{{H.~Jiang, and P.~Blaha}}},
+  \bibinfo{journal}{Phys.~Rev.~B} \textbf{\bibinfo{volume}{93}},
+  \bibinfo{pages}{115203} (\bibinfo{year}{2016}).
+
+\bibitem[{\citenamefont{{A.~L.~Kutepov}}(2017)}]{prb_95_195120}
+\bibinfo{author}{\bibnamefont{{A.~L.~Kutepov}}},
+  \bibinfo{journal}{Phys.~Rev.~B} \textbf{\bibinfo{volume}{95}},
+  \bibinfo{pages}{195120} (\bibinfo{year}{2017}).
+
+\bibitem[{\citenamefont{{J.~Tao, J.~P.~Perdew, V.~N.~Staroverov, and
+  G.~E.~Scuseria}}(2003)}]{prl_91_146401}
+\bibinfo{author}{\bibnamefont{{J.~Tao, J.~P.~Perdew, V.~N.~Staroverov, and
+  G.~E.~Scuseria}}}, \bibinfo{journal}{Phys.~Rev.~Lett.}
+  \textbf{\bibinfo{volume}{91}}, \bibinfo{pages}{146401}
+  (\bibinfo{year}{2003}).
+
+\bibitem[{\citenamefont{{J.~P.~Perdew, A.~Ruzsinszky, G.~I.~Csonka,
+  L.~A.~Constantin, and J.~Sun}}(2009)}]{prl_103_026403}
+\bibinfo{author}{\bibnamefont{{J.~P.~Perdew, A.~Ruzsinszky, G.~I.~Csonka,
+  L.~A.~Constantin, and J.~Sun}}}, \bibinfo{journal}{Phys.~Rev.~Lett.}
+  \textbf{\bibinfo{volume}{103}}, \bibinfo{pages}{026403}
+  (\bibinfo{year}{2009}).
+
+\bibitem[{\citenamefont{{Y.~Zhaoa and D.~G.~Truhlar}}(2006)}]{jcp_125_194101}
+\bibinfo{author}{\bibnamefont{{Y.~Zhaoa and D.~G.~Truhlar}}},
+  \bibinfo{journal}{J.~of~Chem.~Phys.} \textbf{\bibinfo{volume}{125}},
+  \bibinfo{pages}{194101} (\bibinfo{year}{2006}).
+
+\bibitem[{\citenamefont{{C.~Adamo, V.~Barone}}(1999)}]{jcp_110_6158}
+\bibinfo{author}{\bibnamefont{{C.~Adamo, V.~Barone}}},
+  \bibinfo{journal}{J.~of~Chem.~Phys.} \textbf{\bibinfo{volume}{110}},
+  \bibinfo{pages}{6158} (\bibinfo{year}{1999}).
+
+\bibitem[{\citenamefont{{A.~D.~Becke}}(1993)}]{jcp_98_5648}
+\bibinfo{author}{\bibnamefont{{A.~D.~Becke}}},
+  \bibinfo{journal}{J.~of~Chem.~Phys.} \textbf{\bibinfo{volume}{98}},
+  \bibinfo{pages}{5648} (\bibinfo{year}{1993}).
+
+\bibitem[{\citenamefont{{A.~V.~Krukau, O.~A.~Vydrov, A.~F.~Izmaylov, and
+  G.~E.~Scuseria}}(2006)}]{jcp_125_224106}
+\bibinfo{author}{\bibnamefont{{A.~V.~Krukau, O.~A.~Vydrov, A.~F.~Izmaylov, and
+  G.~E.~Scuseria}}}, \bibinfo{journal}{J.~of~Chem.~Phys.}
+  \textbf{\bibinfo{volume}{125}}, \bibinfo{pages}{224106}
+  (\bibinfo{year}{2006}).
+
+\bibitem[{\citenamefont{{P.~Janthon, S.~M.~Kozlov, F.~Vi$\tilde{n}$es,
+  J.~Limtrakul, and F.~Illas}}(2013)}]{jctc_9_1631}
+\bibinfo{author}{\bibnamefont{{P.~Janthon, S.~M.~Kozlov, F.~Vi$\tilde{n}$es,
+  J.~Limtrakul, and F.~Illas}}}, \bibinfo{journal}{J.~Chem.~Theor.~Comp.}
+  \textbf{\bibinfo{volume}{9}}, \bibinfo{pages}{1631} (\bibinfo{year}{2013}).
+
+\bibitem[{\citenamefont{{P.~Janthon, S.~(Andy)~Luo, S.~M.~Kozlov, F.~Vines,
+  J.~Limtrakul, D.~G.~Truhlar, and F.~Illas}}(2014)}]{jctc_10_3832}
+\bibinfo{author}{\bibnamefont{{P.~Janthon, S.~(Andy)~Luo, S.~M.~Kozlov,
+  F.~Vines, J.~Limtrakul, D.~G.~Truhlar, and F.~Illas}}},
+  \bibinfo{journal}{J.~Chem.~Theor.~Comp.} \textbf{\bibinfo{volume}{10}},
+  \bibinfo{pages}{3832} (\bibinfo{year}{2014}).
+
+\bibitem[{\citenamefont{{V.~I.~Anisimov, I.~V.~Solovyev, M.~A.~Korotin,
+  M.~T.~Czyzyk, and G.~A.~Sawatzky}}(1993)}]{prb_48_16929}
+\bibinfo{author}{\bibnamefont{{V.~I.~Anisimov, I.~V.~Solovyev, M.~A.~Korotin,
+  M.~T.~Czyzyk, and G.~A.~Sawatzky}}}, \bibinfo{journal}{Phys.~Rev.~B}
+  \textbf{\bibinfo{volume}{48}}, \bibinfo{pages}{16929} (\bibinfo{year}{1993}).
+
+\bibitem[{\citenamefont{{A.~Georges, G.~Kotliar, W.~Krauth, and
+  M.~Rozenberg}}(1996)}]{rmp_68_13}
+\bibinfo{author}{\bibnamefont{{A.~Georges, G.~Kotliar, W.~Krauth, and
+  M.~Rozenberg}}}, \bibinfo{journal}{Rev.~Mod.~Phys.}
+  \textbf{\bibinfo{volume}{68}}, \bibinfo{pages}{13} (\bibinfo{year}{1996}).
+
+\bibitem[{\citenamefont{{F.~Aryasetiawan, M.~Imada, A.~Georges, G.~Kotliar,
+  S.~Biermann, and A.~I.~Lichtenstein}}(2004)}]{prb_70_195104}
+\bibinfo{author}{\bibnamefont{{F.~Aryasetiawan, M.~Imada, A.~Georges,
+  G.~Kotliar, S.~Biermann, and A.~I.~Lichtenstein}}},
+  \bibinfo{journal}{Phys.~Rev.~B} \textbf{\bibinfo{volume}{70}},
+  \bibinfo{pages}{195104} (\bibinfo{year}{2004}).
+
+\bibitem[{\citenamefont{{A.~Kutepov, K.~Haule, S.~Y.~Savrasov, and
+  G.~Kotliar}}(2010)}]{prb_82_045105}
+\bibinfo{author}{\bibnamefont{{A.~Kutepov, K.~Haule, S.~Y.~Savrasov, and
+  G.~Kotliar}}}, \bibinfo{journal}{Phys.~Rev.~B} \textbf{\bibinfo{volume}{82}},
+  \bibinfo{pages}{045105} (\bibinfo{year}{2010}).
+
+\bibitem[{\citenamefont{{J.~M.~Luttinger and J.~C.~Ward}}(1960)}]{pr_118_1417}
+\bibinfo{author}{\bibnamefont{{J.~M.~Luttinger and J.~C.~Ward}}},
+  \bibinfo{journal}{Phys.~Rev.} \textbf{\bibinfo{volume}{118}},
+  \bibinfo{pages}{1417} (\bibinfo{year}{1960}).
+
+\bibitem[{AGD()}]{AGD}
+\bibinfo{note}{A.~A.~Abrikosov, L.~P.~Gorkov, I.~E.~Dzyaloshinski, Methods of
+  Quantum Field Theory in Statistical Physics, Revised English Edition
+  Translated and Edited by R.~A.~Silverman, 1963.}
+
+\bibitem[{\citenamefont{{T.~Miyake, F.~Aryasetiawan, T.~Kotani,
+  M.~van~Schilfgaarde, M.~Usuda, and K.~Terakura}}(2002)}]{prb_66_245103}
+\bibinfo{author}{\bibnamefont{{T.~Miyake, F.~Aryasetiawan, T.~Kotani,
+  M.~van~Schilfgaarde, M.~Usuda, and K.~Terakura}}},
+  \bibinfo{journal}{Phys.~Rev.B} \textbf{\bibinfo{volume}{66}},
+  \bibinfo{pages}{245103} (\bibinfo{year}{2002}).
+
+\bibitem[{\citenamefont{{J.~Harl and G.~Kresse}}(2009)}]{prl_103_056401}
+\bibinfo{author}{\bibnamefont{{J.~Harl and G.~Kresse}}},
+  \bibinfo{journal}{Phys.~Rev.~Lett.} \textbf{\bibinfo{volume}{103}},
+  \bibinfo{pages}{056401} (\bibinfo{year}{2009}).
+
+\bibitem[{\citenamefont{{S.~Lebegue, J.~Harl, T.~Gould, J.~G.~Angyan,
+  G.~Kresse, and J.~F.~Dobson}}(2010)}]{prl_105_196401}
+\bibinfo{author}{\bibnamefont{{S.~Lebegue, J.~Harl, T.~Gould, J.~G.~Angyan,
+  G.~Kresse, and J.~F.~Dobson}}}, \bibinfo{journal}{Phys.~Rev.~Lett.}
+  \textbf{\bibinfo{volume}{105}}, \bibinfo{pages}{196401}
+  (\bibinfo{year}{2010}).
+
+\bibitem[{\citenamefont{{L.~Schimka, R.~Gaudoin, J.~Klimes, M.~Marsman, and
+  G.~Kresse}}(2013)}]{prb_87_214102}
+\bibinfo{author}{\bibnamefont{{L.~Schimka, R.~Gaudoin, J.~Klimes, M.~Marsman,
+  and G.~Kresse}}}, \bibinfo{journal}{Phys.~Rev.~B}
+  \textbf{\bibinfo{volume}{87}}, \bibinfo{pages}{214102}
+  (\bibinfo{year}{2013}).
+
+\bibitem[{\citenamefont{{A.~Kutepov, S.~Y.~Savrasov, and
+  G.~Kotliar}}(2009)}]{prb_80_041103}
+\bibinfo{author}{\bibnamefont{{A.~Kutepov, S.~Y.~Savrasov, and G.~Kotliar}}},
+  \bibinfo{journal}{Phys.~Rev.~B} \textbf{\bibinfo{volume}{80}},
+  \bibinfo{pages}{041103} (\bibinfo{year}{2009}).
+
+\bibitem[{\citenamefont{{Andrey~L~Kutepov}}(2017)}]{jcm_29_465503}
+\bibinfo{author}{\bibnamefont{{Andrey~L~Kutepov}}}, \bibinfo{journal}{J.~Phys.:
+  Condens.~Matter} \textbf{\bibinfo{volume}{29}}, \bibinfo{pages}{465503}
+  (\bibinfo{year}{2017}).
+
+\bibitem[{\citenamefont{{A.~L.~Kutepov and G.~Kotliar}}(2017)}]{prb_96_035108}
+\bibinfo{author}{\bibnamefont{{A.~L.~Kutepov and G.~Kotliar}}},
+  \bibinfo{journal}{Phys.~Rev.~B} \textbf{\bibinfo{volume}{96}},
+  \bibinfo{pages}{035108} (\bibinfo{year}{2017}).
+
+\bibitem[{\citenamefont{{C.-O.~Almbladh, U.~von~Barth and
+  R.~van~Leeuwen}}(1999)}]{ijmpb_13_535}
+\bibinfo{author}{\bibnamefont{{C.-O.~Almbladh, U.~von~Barth and
+  R.~van~Leeuwen}}}, \bibinfo{journal}{Int.~J. of Mod.Phys. B}
+  \textbf{\bibinfo{volume}{13}}, \bibinfo{pages}{535} (\bibinfo{year}{1999}).
+
+\bibitem[{\citenamefont{{A.~L.~Kutepov}}(2016)}]{prb_94_155101}
+\bibinfo{author}{\bibnamefont{{A.~L.~Kutepov}}},
+  \bibinfo{journal}{Phys.~Rev.~B} \textbf{\bibinfo{volume}{94}},
+  \bibinfo{pages}{155101} (\bibinfo{year}{2016}).
+
+\bibitem[{\citenamefont{{A.~Kutepov, K.~Haule, S.~Y.~Savrasov, and
+  G.~Kotliar}}(2012)}]{prb_85_155129}
+\bibinfo{author}{\bibnamefont{{A.~Kutepov, K.~Haule, S.~Y.~Savrasov, and
+  G.~Kotliar}}}, \bibinfo{journal}{Phys.~Rev.~B} \textbf{\bibinfo{volume}{85}},
+  \bibinfo{pages}{155129} (\bibinfo{year}{2012}).
+
+\bibitem[{\citenamefont{{T.~Kotani and M.~van~Schilfgaarde,
+  S.~V.~Faleev}}(2007)}]{prb_76_165106}
+\bibinfo{author}{\bibnamefont{{T.~Kotani and M.~van~Schilfgaarde,
+  S.~V.~Faleev}}}, \bibinfo{journal}{Phys.~Rev.B}
+  \textbf{\bibinfo{volume}{76}}, \bibinfo{pages}{165106}
+  (\bibinfo{year}{2007}).
+
+\bibitem[{\citenamefont{{A.~L.~Kutepov, V.~S.~Oudovenko,
+  G.~Kotliar}}(2016)}]{arx_1606_08427}
+\bibinfo{author}{\bibnamefont{{A.~L.~Kutepov, V.~S.~Oudovenko, G.~Kotliar}}},
+  \bibinfo{journal}{arXiv.cond.mat.:1606.08427}  (\bibinfo{year}{2016}).
+
+\bibitem[{fla()}]{flapwmbpt}
+\bibinfo{note}{Https://www.bnl.gov/cmpmsd/flapwmbpt/}.
+
+\end{thebibliography}
+
+%\bibliography{Method,Actinides}
+
+
+\end{document}

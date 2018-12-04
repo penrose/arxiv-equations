@@ -1,0 +1,83 @@
+\documentclass[journal]{IEEEtran}
+
+\pdfoutput=1
+
+\usepackage{color}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{amssymb} 
+\usepackage{gensymb}
+\usepackage{multirow}
+\usepackage{subfig}
+\usepackage[table]{xcolor}
+\usepackage{array}
+
+\usepackage[bookmarks=false,colorlinks=true,citecolor=blue]{hyperref}
+
+\def\fmd{{f_\text{mD}}}
+\def\fdmax{{f^\mathrm{D}_\text{max}}}
+
+
+\begin{document}
+
+% paper title
+\title{Toward Unobtrusive In-home Gait Analysis \\ Based on Radar Micro-Doppler Signatures}
+
+% author names and IEEE memberships
+\author{Ann-Kathrin~Seifert,~\IEEEmembership{Student Member,~IEEE,}
+        Moeness~G.~Amin,~\IEEEmembership{Fellow,~IEEE,}
+        and~Abdelhak~M.~Zoubir,~\IEEEmembership{Fellow,~IEEE} 
+        \thanks{
+Ann-Kathrin Seifert is a member of the Signal Processing Group at Technische Universit\"at Darmstadt, Germany. E-Mail: seifert@spg.tu-darmstadt.de
+
+Moeness G.~Amin is the Director of the Center for Advanced Communications at Villanova University, PA, USA. E-Mail: moeness.amin@villanova.edu
+
+Abdelhak M.~Zoubir is the Head of the Signal Processing Group at Technische Universit\"at Darmstadt, Germany. E-Mail: zoubir@spg.tu-darmstadt.de
+        }}% <-this % stops a space
+\markboth{Submitted for publication}{}
+% make the title area
+\maketitle
+
+\begin{abstract}
+\textit{Objective:} In this paper, we demonstrate the applicability of radar for gait classification with application to home security, medical diagnosis, rehabilitation and assisted living. Aiming at identifying changes in gait patterns based on radar micro-Doppler signatures, this work is concerned with solving the intra motion category classification problem of gait recognition. 
+\textit{Methods:} New gait classification approaches utilizing physical features, subspace features and sum-of-harmonics modeling are presented and their performances are evaluated using experimental K-band radar data of four test subjects. Five different gait classes are considered for each person, including normal, pathological and assisted walks. 
+\textit{Results:} The proposed approaches are shown to outperform existing methods for radar-based gait recognition which utilize physical features from the cadence-velocity data representation domain as in this paper. The analyzed gait classes are correctly identified with an average accuracy of 93\%, where single gait classes reach 99\% correct detection rates.
+\textit{Conclusion:} Radar micro-Doppler signatures and their Fourier transforms are well suited to capture changes in gait. Five different walking styles are recognized with high accuracy. 
+\textit{Significance:} Radar-based sensing of human gait is an emerging technology with multi-faceted applications in security and health care industries. We show that radar, as a contact-less sensing technology, can supplement existing gait diagnostic tools with respect to long-term monitoring and reproducibility of the examinations.
+\end{abstract}
+
+% Note that keywords are not normally used for peerreview papers.
+\begin{IEEEkeywords}
+assisted living, biomedical monitoring, Doppler radar, gait recognition, radar signal processing
+\end{IEEEkeywords}
+
+\IEEEpeerreviewmaketitle
+
+%-----------------------------------------------------------------------------------
+%	Paper CONTENTS
+%-----------------------------------------------------------------------------------
+
+\input{Sec1} % Introduction
+\input{Sec2} % Representations of Human Radar Signatures
+\input{Sec3} % Experimental Methods and Feature Extraction
+\input{Sec4} % Results
+\input{Sec5} % Conclusions
+
+%-----------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENT
+%-----------------------------------------------------------------------------------
+
+\section*{Acknowledgment}
+This work is supported by the Alexander von Humboldt Foundation, Bonn, Germany.
+
+%----------------------------------------------------------------------------------------
+%	REFERENCE LIST
+%----------------------------------------------------------------------------------------
+\bibliographystyle{IEEEtran}
+\bibliography{ref_Journal2017}
+
+%----------------------------------------------------------------------------------------
+\end{document}
+
+

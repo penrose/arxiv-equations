@@ -1,0 +1,68 @@
+In this section, we will show the performance of the neural net decoders when trained with simpler approaches (more precisely, approaches with less human involvement and prior knowledge of toric code decoding), and provide some reasoning if possible.
+The neural nets will be the same as the ones we used in the main text, except that they do not contain the ``removing complexity'' step in the post-processing.
+We will see in general the performance gets much worse, especially when the lattice size grows large.
+However, this does not mean these simpler approaches will always fail.
+It just imply that a large amount of training time / human involvement is needed, which could make them impossible in practice.
+
+The simplest approach is to train the whole network with input-output pairs (syndrome, logical correction).
+This does not work.
+A hand-waving explanation is the following.
+It is fair to assume a lot of parity functions need to be evaluated during the decoding process.
+It is known that the parity is not an easy function for neural nets to compute~\cite{bengio2007scaling}, and one good way to approximate it is to increase the depth of the network.
+So let us assume each renormalization stage need 5 layers.
+This means to decode $L=32$ toric code, the network will have 25 layers, which exceeds the range where neural nets can be reliably trained.
+
+The problem of too many layers can be alleviated if we can pre-train the earlier layers of the network.
+Similar strategy was used in training neural nets for computer vision problems~\cite{erhan2010does}.
+For the bit-flip noise model, we can pre-train the earlier layers to mimic the renormalization group decoder.
+Recall in \autoref{sec:toric_code_and_rn_decoder}, we mentioned that for the renormalization group decoder, the output corresponding to a coarse-grained edge $e$ is $p_e$.
+Since we generate syndromes by first sampling $x(e)$ for all (not coarse-grained) edges $e$, we also have the ability to generate pairs (syndrome, $\{x(e)\}$ for coarse-grained edges $e$) for training.
+Although $\{x(e)\}$ in the above pairs are binary numbers, with the cross-entropy as the cost function, in theory the output will converge to $p_e(1)$.
+The pre-training is done one renormalization block at a time.
+More concretely, with the network we are using in the main text, we will train the output of the 12th layer with the training target of first renormalization block, and the output of the 24th layer with the second block, etc.
+We can try this method on $L=32$ toric code and bit-flip error rate $0.08$.
+It does not work well, as we can see in \autoref{tab:cross_entropy_after_blocks}.
+\begin{table}
+	\begin{tabular}{c c c c c c}
+		Block & RN1 & RN2 & RN3 & RN4 & Dense\\
+		Cross-entropy  & 0.16 & 0.22 & 0.28 & 0.4 & 0.5 \\
+		Accuracy & 0.93 & 0.90 & 0.86 & 0.79 & 0.58
+	\end{tabular}
+	\caption{Cross-entropy and accuracy after each renormalization block when we do the training block by block.
+		It is done with a bit-flip error rate $0.08$.
+		Although the accuracy after the first RN block is comparable to the input error rate, it gradually decreases until barely above $0.5$}
+	\label{tab:cross_entropy_after_blocks}
+\end{table}
+These numbers are not very accurate and coming from a single training instance.
+However, the author has observed the same trend many times that the loss and accuracy slowly degrade in the process of renormalization, even though the error rate is way below the theoretical threshold.
+To diagnose the reason, we first notice that the first RN block actually performs reasonably well.
+This suggests that the optimizer is capable of training each RN block alone.
+Assume this is indeed the case, the degrading of performance is likely caused by the following two reasons.
+
+First, later in the renormalization process, if we look at the coarse-grained syndrome or $p_e$ alone, they behave more and more like white noise.
+While it is possible for the neural nets to do the same post-processing described in \autoref{subsec:design_network}, a few layers of the network will be occupied by this.
+Therefore, the natural solution is to implement the post-processing ourselves.
+By doing this, we suspect it is possible to reach a threshold of $8\%$, but apparently $8\%$ is still not good enough.
+
+The second reason is related to the convergence of $p_e$.
+When below the threshold, we will encounter very often that $p_e$ is very close to $0$ or $1$.
+For example, if $x(e)=1$ vs $x(e)=0$ corresponding to a weight $4$ vs weight $1$ local configuration, then we will have $p_e \approx p_0^3$, where $p_0$ is the initial error rate.
+This will become more prominent later in the renormalization process, as $p_e$ from previous renormalization stage become the error rate in the next stage.
+It is important to know how close to $0$ (or $1$) $p_e$ is on the logarithmic scale.
+Otherwise, in the later stage, the information will not be accurate enough to deduce configuration close to minimum weight of errors.
+This poses the following requirements:
+\begin{itemize}
+	\item When we pass $p_e$ to some intermediate layer of a neural net, it should be able to distinguish between small $p_e$.
+	However, recall that each layer does the computation $f(Ax + b)$, where $f$ has a bounded derivative.
+	Thus, to distinguish a set of small $\{p_e\}$, we need $\| A \| \sim 1/\min \{p_e\}$.
+	This will either not achieved by training, or cause instability of the network.
+	Another issue related to the minuscule nature of $p_e$ is the cross-entropy loss function does not provide enough motivation for $p_e$ to converge to the target value $q$ in log-scale.
+	More accurately, the derivative of the cross-entropy scale like $O(|p_e - q|)$ when $p_e \approx q$, which will be too small before the convergence in log-scale.
+	A natural solution is we replace the appearance of $p_e$ with $\log p_e -\log (1-p_e)$.
+	\item Even with a good representation of $p_e$, we shall still be very cautious about the training, as we are trying to estimate very small $p_e$ from sampling.
+	In the end, we decide to implement a belief propagation routine, and use the input-output pair from the routine to train the network.
+	The advantage is that belief propagation directly output the probability, which should be reasonably accurate in the logarithmic scale.
+	Therefore, we can get a much stable training process.
+\end{itemize}
+
+

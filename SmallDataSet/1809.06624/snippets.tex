@@ -1,0 +1,63 @@
+\subsection{Relevant SDN Architectures for Sensor Networks}
+\label{sec_relevant_works}
+
+Although many of the assumptions traditionally held by SDN cannot be relied upon in a LLN, there have been recent works which attempt to address the challenges. These works are covered extensively in a number of recent works \cite{wsdn_survey_taxonomy,sdwn_opportunities_challenges}. However, in this section we attempt to summarize some of the notable proposals with respect to the challenges outlined in Section II-A. In particular, we try to highlight the key approaches in each case and present the overall prevailing ideas from these works. 
+
+\textbf{Sensor OpenFlow:} Sensor OpenFlow \cite{sensor_openflow} proposes a low power SDN protocol and architecture within the mesh, which directly maps to OpenFlow messages. This approach would allow constrained devices to participate in an OpenFlow-based SDN network. In addition, the authors attempt to reduce control overhead with Control Message Quenching (CMQ): buffering matching packets but blocking repeat requests to the controller while waiting for a controller response.
+
+\textbf{SDWN:} Software Defined Wireless Networking \cite{sdwn}, provides a full architectural framework for implementing SDN within a sensor network. SDWN tries to address the challenge of \textit{Energy Efficiency} in the network. In particular, it introduces the idea of using SDN flowtables to facilitate \textit{Data Aggregation} and \textit{Radio Duty-Cycling} in order to programmatically reduce energy expenditure within the network, as well as suggesting the use of \textit{Windowed Flowtables} to reduce flowtable memory footprint on constrained nodes. 
+
+\textbf{SDN-WISE:} Building on the concepts in SDWN, SDN-WISE \cite{sdn-wise} demonstrates a stateful approach to SDN. By introducing \textit{state} into the flowtable, SDN-WISE attempts to reduce controller overhead and delegate some of the control decisions back to individual nodes. In a stateful solution, flowtable actions are executed based on the node's state: allowing a controller to program control decisions on the node, without incurring the large amount of overhead needed for a node to query controller decisions. Additionally, the authors define \textit{OpenPath} packets which allow the creation of \textit{paths} through the WSN by setting Flowtable forwarding entries at each hop along a route.
+
+%------------------------------------------------------------%
+
+\subsection{Guaranteeing Reliable SDN Control}
+There has been notable effort in addressing the challenges of reducing SDN control overhead and packet size. Sensor OpenFlow and SDWN, in particular, succinctly frame the main issues and serve as the base architecture for some of the other works highlighted in \cite{wsdn_survey_taxonomy}. However the challenge of trying to apply a centralized, high-overhead, architecture within the constraints LLN is considerable. Most of the surveyed works attempt to mitigate the cost of SDN by looking at ways to minimize the memory, limiting the control overhead, and conserving energy expenditure. Although these necessary in a constrained network, they also limit the effectiveness of a SDN architecture. One of the key issues which is therefore still faced is how to guarantee the link between LLN nodes and the SDN controller: thus allowing effective centralized control of the mesh.
+
+
+%----------------------------------------------------------%
+
+\subsection{$\mu$SDN: Lightweight SDN for IEEE 802.15.4-2015}
+\label{sec_motivation_usdn}
+
+In this section we introduce $\mu$SDN, our lightweight SDN implementation written for Contiki OS, detailing how we have integrated it within the 6TiSCH protocol stack. Additionally, we provide information on our 6TiSCH Track implementation, and describe how SDN uses the track allocation processes in order to setup and allocate Layer-2 resources towards the SDN controller.
+
+$\mu$SDN incorporates features in order to minimize controller overhead and allow SDN-enabled node programmability.  The $\mu$SDN layer is integrated with the Contiki IEEE 802.15.4-2015 protocol stack, and has been tested in Cooja using TI's exp5438 platform with MSP430F5438 CPU and CC2420 radio. Figure \ref{fig:usdn_arch} shows how $\mu$SDN is implemented within Contiki OS. We have developed a modular architecture that allows us to separate implementation and scenario specific features from what we feel are core SDN processes.
+
+\textbf{Core SDN Library:} The core SDN library provides essential SDN processes, allowing protocol and framework specific implementations to be built on top. The \textit{Controller Discovery Process} integrates with the distributed RPL routing protocol (both Storing and Non-Storing) to allow nodes to discover routes to and from the SDN controller. Initial controller information is disseminated after the RPL join process using ICMPv6 messages between nodes, and the \textit{Controller Join} process uses the interface and external protocol provided by the SDN Stack implementation. \textit{Configuration and Metrics} allow controllers to setup the SDN network, and choose which metrics to receive from the node. The \textit{Flowtable} is optimized for memory due to the constraints of LLN node hardware. Using a similar approach to Protocol Oblivious Forwarding allows for a flowtable with a minimal memory footprint, as well as incorporating a number of functions designed to reduce the controller overhead in the network. Additionally, a \textit{Flowtable Blacklist} allows configuration of which packets are handled by the Flowtable, and which packets are handed by the regular Layer 3 processes. The core SDN processes provide \textit{Controller Overhead Reduction} through a number of features. Control Message Quenching (CMQ) \cite{cmq} is used to handle repeated flowtable misses. Partial Packet Queries (PPQ) allow flowtable requests to be sent to the controller using only partial packet information, reducing 6LoWPAN fragmentation. Source Routing Header (SRH) insertion allows routing headers to be inserted onto packets, and can be read by either the RPL or SDN layer. Finally, Active Flowtable Refresh (AFR) allows controllers to instruct particularly active flowtable entries to reset their lifetimers, rather than having the entry expire.  
+
+\textbf{$\mu$SDN Stack:} $\mu$SDN uses its own lightweight \textit{SDN Protocol} for controller communication. It's transported over UDP to allow for secure DTLS when communicating with controllers outside the mesh, and is highly optimized to ensure no packet fragmentation. However, its easily able to be switched out for other controller protocols using the \textit{Controller Socket Adapter}. This adapter exposes an abstract controller interface to the SDN layer, allowing the SDN Engine to send and receive controller messages without having to worry about the underlying protocol being used. The \textit{SDN Engine} defines how the messages to and from the controller are handled. It is essentially the concrete implementation of the protocol logic, dictating how the node handles controller communication. The \textit{SDN Driver} provides an API for the SDN Engine by defining how the SDN Flowtable is handled. It provides high-level functions for performing certain tasks through the setting of flowtable entries: such as creating firewall entries, setting routing paths through the network, or aggregating flows. It also provides handling of the flowtable actions, and determines how and when nodes should defer to the controller for instruction.
+
+%-----------------------------------------------------------%
+
+\subsection{Allocating 6TiSCH Tracks in the Controller Join Process}
+\label{sec_motivation_track_alloc_sdn}
+
+As discussed in Section \ref{sec_6tisch_background}, 6TiSCH envisions two methods of track reservation: Centralized and Distributed. Centralized track reservation is managed through a centrally located PCE, which is analogous to a SDN controller. In this scenario, a node will send a message to the PCE requesting a track to a destination. The PCE responds by scheduling the resources at each intermediate node towards that destination. Although this allows the PCE full control over TSCH resources, considerable overhead is generated as the PCE needs to coordinate with every node along the track. In the distributed case the node requesting the track initializes Hop-By-Hop scheduling process which reserves resources along a path towards the intended destination. A list of candidate cells is selected at each intermediate node and forwarded to the next node along the track. If each node along the track successfully allocates resources, then the destination node will send back a message along the same path in order to indicate successful track allocation. The cells are chosen in such a way that frames transmitted along the track incur minimal delay, and are dedicated for that particular track. This distributed method allows greater scalability, due to the minimal local overhead generated during track allocation.
+
+The integration of 6TiSCH track allocation within the SDN Controller Join process is shown in Figure \ref{fig:usdn_track_aloc}. As each node joins the RPL DAG, information about the SDN controller is received through the $\mu$SDN Controller Discovery process. The node then attempts to join the SDN Controller, and waits for an acknowledgement. If this process is successful, the node will start a distributed Track allocation process as described above. Once the track has been allocated, the SDN node has a dedicated, low latency link with the SDN controller.
+
+\begin{figure}[ht]
+\centering
+  \includegraphics[width=1.0\columnwidth]{images/track-alloc-flow.pdf}
+  \caption{Track allocation within $\mu$SDN controller join process.}
+  \label{fig:usdn_track_aloc}
+\end{figure}
+
+
+%-----------------------------------------------------------%
+
+\section{Isolating SDN Control Traffic \\ with 6TiSCH Tracks}
+\label{sec_motivation}
+
+\subsection{IETF 6TiSCH Tracks: Deterministic Layer-2 Slices}
+
+6TiSCH proposes the concept of \textit{Tracks}, which are suggested as a mechanism for providing QoS guarantees in industrial process control, automation, and monitoring applications: where failures or loss of communications can jeopardize safety processes, or have knock on effects on processes down-the-line. Tracks are the 6TiSCH version of a Deterministic Paths \cite{6tisch_ietf_architecture,ietf_detnet}, where the deterministic properties of the track are allocated through reservation of memory buffers, and cells within the TSCH slotFrame at each intermediate node, creating an allotted network slice towards the destination. 
+
+In order to address the reliability deficit of SDN control links within a LLN, we propose that 6TiSCH \textit{Tracks} can also be effective as a means of delivering low latency SDN controller communication with minimal jitter. By allocating dedicated slices for control traffic, tracks can mitigate the effects of SDN overhead on the normal operation of the network, and provide a more reliable SDN platform. In this section we provide an overview of the proposed mechanics of Tracks, with respect to the 6TiSCH concepts highlighted in Section \ref{sec_6tisch_background}.
+
+Within a TSCH schedule, cells can be grouped into transmitting and receiving bundles. These are groups of cells which are scheduled for the same purpose with the same neighbor and a pair of bundles between two nodes (one transmitting, the other receiving) represents a half-duplex link at Layer-3. A bundle is represented by a tuple consisting of \textit{\{Source MAC, Destination MAC, Track ID\}}. If the \textit{Track ID} is set, the 6TiSCH Track process is able to use the bundle label to switch packets at Layer-2, without knowledge of the underlying protocols. 
+
+By allocating buffers, and reserving cells at each node, Tracks create a dedicated Layer-2 forwarding slice across the network between a source and destination node. As packets do not need to be delivered to Layer-3, this means that there is less process overhead at each node, and packets can immediately be sent on the next transmission opportunity for that Track. In addition,  the jitter can be reduced considerably. As long as tracks are scheduled on a one-to-one relationship with cells, the likelihood of retransmissions and congestion loss is reduced. The jitter therefore becomes dependent on the amount of bandwidth allocated for the track within the TSCH schedule rather than having to compete with other traffic.
+
+%-----------------------------------------------------------%

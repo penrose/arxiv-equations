@@ -1,0 +1,68 @@
+\subsection{3D Mapping}
+\label{sec:3D_Mapping}
+To localize the MAV within the environment, we build an allocentric map of the warehouse from measurements of the lidar. Fig.~\ref{fig:mapping} shows parts of the warehouse and the initial map.
+We incorporate measurements of the IMU to account for motion of the sensor during acquisition.
+Using an extended version of our lidar-based SLAM method described in~\cite{Droeschel2017104}, we first aggregate 3D scans in a local multiresolution grid map.
+Local multiresolution maps correspond to the sensor measurement characteristics by having a high resolution close to the sensor and a coarser resolution farther away. 
+For each grid cell, a local surface element (surfel) is estimated which summarizes the aggregated measurements in the cell's volume and captures the statistics of the points.
+We recover the transformation between a newly acquired scan and the local map by matching surfels~\cite{Droeschel:ICRA2014}. 
+Compared to point-based registration, considerably less elements are taken into account for registration, allowing for efficient registration of the extensive amount of measurements from the sensor. 
+
+Registered 3D scans are added to the local map, replacing older measurements. 
+Local mapping allows to track the robot in a local frame and provides a dense aggregation of measurements in the robot's vicinity. 
+
+We construct an allocentric pose graph by aligning local multiresolution maps from different view poses which allows the robot to localize itself in an allocentric frame. Hence, local multiresolution maps from different view poses model nodes in a graph~$\mathcal{G} = ( \mathcal{V}, \mathcal{E} )$ that are connected by edges.
+Edges model spatial constraints between nodes and result from aligning two local multiresolution maps by surfel-based registration.
+The registration result~$x_i^j$ between a new node~$v_i$ and the previous node~$v_j$ constitutes an edge~$e_{ij} \in \mathcal{E}$.
+
+Additionally, the current local map is registered towards a reference node in order to connect the current pose to the global pose graph and enable a straightforward optimization.
+The reference node is the local map that is closest to the current MAV pose.
+If the robot moved sufficiently far, we extend the pose graph by the current local map.
+
+Furthermore, we include edges between the newly added local map and close-by local maps to obtain loop closure if the robot revisits previously mapped areas. 
+Hence, we check for one new edge between the current reference~$v_{\text{ref}}$ and other nodes~$v_{\text{cmp}}$.
+We determine a probability
+\begin{equation*}
+  p_\text{chk}(v_{\text{cmp}}) = \mathcal{N}\left(d(x_{\text{ref}}, x_{\text{cmp}}); 0, \sigma_d^2\right)
+\end{equation*}
+that depends on the linear distance~$d(x_{\text{ref}}, x_{\text{cmp}})$ between the view poses~$x_{\text{ref}}$ and~$x_{\text{cmp}}$.
+According to~$p_\text{chk}(v)$, we draw a node~$v$ from the graph and determine a spatial constraint between the nodes using our surfel registration method.
+
+From the spatial constraints, we infer the probability of the trajectory estimate given all relative pose observations
+\begin{equation*}
+ p( \mathcal{V} \mid \mathcal{E} ) \propto \prod_{e_{ij} \in \mathcal{E}} p( x_i^j \mid x_i, x_j ).
+\end{equation*}
+Each spatial constraint is a normally distributed estimate with mean and covariance determined by our probabilistic registration method.
+This pose graph optimization is efficiently solved using g\textsuperscript{2}o~\cite{kuemmerle2011_g2o}, yielding maximum likelihood estimates of the view poses $x_i$.
+
+We extend our mapping approach presented in~\cite{Droeschel2017104} to allow for efficient processing of Velodyne scans.
+In contrast to the approach presented in our previous work, we do not aggregate multiple 3D scans using odometry information but register 
+single 3D scans from the lidar sensor to the local multiresolution map---only using orientation information from the IMU and barometric height as prior for registration. 
+
+\subsection{Lidar-based Localization}
+\label{sec:Lidar_based_Localization}
+Prior to autonomous operation, we acquire an initial map from a manual flight. We extend our SLAM system to serialize the graph-based structure of the allocentric map to gain persistent storage of the so-far acquired pose graph.
+
+For autonomous operation during mission, the mapping system is initialized with the pose graph from the initial flight. By aligning the current local map to the pose graph, we gain a localization pose with 
+respect to the initial map and the warehouse model. Although the pose graph (and the associated map) can be extended if the MAV traverses parts of the environment that where not covered by the initial flight, 
+we choose the coverage volume of the initial flight to be larger than the MAV's workspace in the experiments since this is the envisaged operating mode during standard inventory missions.
+
+While executing the mission, we localize towards the closest local map in the graph by registering the current local map with it.
+Our approach allows to process the lidar scans in real-time.
+
+\subsection{Tag Detection}
+\label{sec:Tag_Detection}
+We perceive the position of stock in the warehouse by means of visual fiducial markers (AprilTags) and RFID tags attached to storage boxes.
+Perceived RFID tags, the current MAV position, signal strength, and direction of the detecting antenna are transmitted to the WMS for further processing, \eg assigning stock to storage units.
+Regarding the fiducial markers, we use the implementation by Olson \etal~\cite{olson2011tags} and transform the camera-based relative tag pose into an allocentric frame via the known camera extrinsics and the estimated pose of the MAV. Likewise, these allocentric positions and the corresponding tag IDs are sent to the WMS for incorporation into the warehouse model. We use the tag family \texttt{36h11} as we experienced it to be very reliable.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[trim=00mm 00mm 00mm 00mm,clip,height=0.295\linewidth]{registration.pdf}~
+  \includegraphics[trim=00mm 00mm 00mm 00mm,clip,height=0.295\linewidth]{poses.pdf}%
+  \vspace{-1ex}
+  \caption{Left: Registration of a semantic map (coordinates of storage units, geometric shelf model depicted in red) with a 3D laser map. Color encodes height. Right: Generated inventory mission (depicted by the coordinate axes) in the obstacle grid map.}
+  \label{fig:registration}
+  \vspace{-3ex}
+\end{figure}
+

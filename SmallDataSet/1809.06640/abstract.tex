@@ -1,0 +1,11 @@
+We still do not have the perfect decoders for topological codes that can satisfy all needs of different experimental setups.
+Recently, a few neural network based decoders have been studied, with the motivation that they can adapt to a wide range of noise models, and can easily run on dedicated chips without a full-fledged computer.
+The later feature might lead to fast speed and the ability to operate in low temperature.
+However, a question which has not been addressed in previous works is whether neural network decoders can handle 2D topological codes with large distances.
+In this work, we provide a positive answer for the toric code~\cite{Kitaev2003Faulttolerantanyon}.
+The structure of our neural network decoder is inspired by the renormalization group decoder~\cite{duclos2010fast,duclos2013fault}.
+With a fairly strict policy on training time, when the bit-flip error rate is lower than $9\%$, the neural network decoder performs better when code distance increases.
+With a less strict policy, we find it is not hard for the neural decoder to achieve a performance close to the minimum-weight perfect matching algorithm.
+The numerical simulation is done up to code distance $d=64$.
+Last but not least, we describe and analyze a few failed approaches.
+They guide us to the final design of our neural decoder, but also serve as a caution when we gauge the versatility of stock deep neural networks.

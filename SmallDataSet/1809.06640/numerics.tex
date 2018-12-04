@@ -1,0 +1,41 @@
+\begin{figure}
+	\includegraphics[width=\linewidth]{logi_error_rate}
+	\caption{Logical accuracy versus physical error rate.
+		The neural decoders are trained at physical error rate $9\%$.
+		For the three solid lines, the decoder has been trained globally, while the dashed lines it has not.
+		The colors of the dashed lines indicate the code distance they are evaluated on.
+		The vertical grid indicates the physical error rates for which we evaluate the logical accuracy.
+	}
+\label{fig:logical_vs_physical}
+\end{figure}
+
+\begin{figure}
+	\includegraphics[width=\linewidth]{comparison_to_MWPM}
+	\caption{In this figure, we compare the performance of our neural decoders to the MWPM algorithm.
+		The solid line for $d=16$ and the dashed line for $d=64$ decoder are using the strict training policy, while more training has been done on  the $d=64$ decoder corresponding to the solid line.
+		The ``star'' points are the performance of the minimum-weight perfect matching algorithm.
+		The colors of stars indicate the code distance they are evaluated on.
+		The vertical grid indicates the physical error rates for which we evaluate the logical accuracy for the lines.
+		We see the performance of neural decoders can be almost as good as MWPM for a decent range of physical error rates.
+	}
+	\label{fig:comparison_to_MWPM}
+\end{figure}
+
+For the strict training policy, we plot the logical accuracies versus the physical error rates in \autoref{fig:logical_vs_physical}.
+Logical accuracy is simply $(1-\text{logical error rate})$ and is averaged over the two logical qubits.
+For the solid lines, the decoders have been trained globally, i.e. have done both step 1 and 2 in \autoref{subfig:complete_network}.
+For the dashed lines, the decoders only did the step 1, i.e. only the dense layers are trained.
+The colors of the dashed lines indicate the code distance they are evaluated on.
+The vertical grid indicates the physical error rates for which we evaluate the logical accuracy, where for each point we sample $10^4$ (syndrome, logical correction) pairs.
+%The gray dotted line corresponding to $y=1-x$.
+We can see that the solid lines cross around $p_{\text{physical}}=0.095$, therefore we might say our neural decoder has an effective threshold around $9.5\%$.
+It can be seen that the global training is crucial for getting a decent performance because without it the effective threshold will be below $8\%$.
+
+We can also spend more time to train the $d=64$ decoder, and then compare the performance of the neural decoders to the minimum-weight perfect matching algorithm (MWPM) in \autoref{fig:comparison_to_MWPM}.
+The ``star'' points are the logical accuracies of MWPM, where each one is evaluated by $3000$ trials.
+The $d=16$ decoder corresponding to the solid line and the $d=64$ decoder corresponding to the dashed line are from the strict training policy.
+The $d=64$ decoder corresponding to the solid line is obtained by doing more training while having the same network architecture.
+We see that without the strict training policy, the performance of the neural decoder is almost identical to MWPM for a decent range of physical error rates.
+We can also compare to the renormalization group (RG) decoder in~\cite{duclos2010fast}, where the authors have shown a threshold of $8.2\%$ when using $2\times 1$ unit cell, and claim a threshold around $9.0\%$ if using $2\times 2$ unit cell.
+With the strict training policy, our neural decoder is slightly better or at least comparable to the RG decoder, while without the policy our neural decoder is clearly better for $d\leq 64$.
+\smallskip

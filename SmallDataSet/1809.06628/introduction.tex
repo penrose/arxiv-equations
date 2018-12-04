@@ -1,0 +1,42 @@
+\IEEEPARstart{I}{n} the last years, many novel applications for flying robots emerged, enabled by two main factors: i) manufacturers  developed affordable and capable micro aerial vehicles (MAVs) for hobby, recreation and professional usage that do not require extensive flight training; ii) recent advances in robotic research led to efficient methods for environment perception and safe navigation, enabling various applications that can only be performed autonomously.
+This includes operations at high velocities and close to structures. Both conditions are prohibitive for safe operation by a human pilot.
+One driver for developing such systems is also the DARPA-formulated goal of flying fast and autonomously in cluttered environments without GPS and external sensing or control in their Fast Lightweight Autonomy Program (FLA) \cite{darpaFLA}.
+
+\begin{figure}[t]
+  \centering
+  \begin{tikzpicture}
+      \definecolor{red}{rgb}{0.7,0.0,0.0}
+      \node[inner sep = 0,anchor=north west] at (0,0) {\includegraphics[trim=010mm 000mm 000mm 070mm,clip,width=1.00\columnwidth]{teaser.pdf}};
+      \draw[line width=0.4mm, red] (4.5,-1.90) circle (1.2cm and 0.6cm);
+  \end{tikzpicture}
+  \vspace{-2.0em}
+  \caption{Our inventory system performs a fully autonomous inspection of a warehouse. The main challenges are the fast navigation in narrow passages close to structures and the localization in a large self-similar indoor environment with distant walls.}
+  \label{fig:inventur_screenshot}
+  \vspace{-3ex}
+\end{figure}
+
+While in most current applications, MAVs maintain a safe distance from the object to inspect or follow; many future applications require the MAV to operate close to obstacles or even in restricted indoor spaces. As an example, in this paper, we consider the use case of automatic inventory in a warehouse.
+It requires the MAV to quickly detect, identify, and map the stored items.
+In this way, it is possible to keep an always-up-to-date inventory record of the contents within the warehouse. Current commercial systems~\cite{dronescan,eyesee} for this task merely deploy a scanner on the platform and perform a piloted flight in order to read tags on the goods.
+
+Autonomous maneuvering inside such a building is highly challenging as most of the space is occupied with high shelves filled with stocked goods as shown in \reffig{fig:inventur_screenshot}.
+This leaves only small aisles for navigation which might also be obstructed by other objects like forklifts. Additionally, the shelf rows lack distinctive geometric features and are highly self-similar which makes precise self-localization difficult.
+On the other hand, these narrow structures are embedded in large halls with stable, but far-away localization aids like walls.
+This requires real-time localization with long-distance sensors in large maps with many structures.
+
+We present our self-localization and mapping approach based on a 3D lidar, which is able to handle these challenging situations robustly. The lidar is also the basis of a low-level obstacle avoidance mechanism. In addition, the robot carries a sensor setup to identify the stocked material by means of fiducial markers and RFID tags. The flight mission is provided by a warehouse management system (WMS) as a sequence of storage panels that have to be inspected. The mission is planned in a semantic, yet metric, map of the warehouse that contains the approximate placing of all the shelf rows and the number and relative position of the storage panels within. The laser-based map is aligned with this representation in order to define the inspection poses that the robot consecutively visits during its flight.
+
+Experiments are performed in a warehouse of a logistics provider containing narrow aisles between shelves and larger open areas.
+We mapped several shelf rows and performed autonomous inventory missions including the transition between rows and the avoidance of static obstacles.
+Furthermore, we demonstrated the reactive avoidance of dynamic obstacles approaching the MAV.
+We discuss guidelines for the development of future systems for autonomous indoor operation and draw prospects for the future of autonomous inventory robots.
+To demonstrate the robustness of our localization and control at high velocities, not reachable in our indoor environments due to the required acceleration distance, we further evaluate our system outdoors with flights reaching velocities over \SI{28}{\kilo\meter\per\hour} without GNSS feedback.
+
+In our integrated system, we employ and extend methods based on our own previous work: The SLAM system is detailed in~\cite{Droeschel2017104} and~\cite{Droeschel:ICRA2014}. Our obstacle avoidance extends~\cite{nieuwenhuisen2013isprs} and the mechanics of our model predictive controller (MPC) are described in~\cite{beul2017icuas}.
+
+\noindent Our main contributions are
+\begin{compactitem}
+    \item robust self-localization solely based on an onboard lidar at high velocities up to \SI{7.8}{\meter\per\second} (Sec.~\ref{sec:Environment_Perception}),
+    \item fast fully autonomous navigation and control, including avoidance of static and dynamic obstacles in indoor and outdoor environments (Sec.~\ref{sec:Navigation_and_Control}),
+    \item an integrated autonomous robot system for aerial stocktaking with multimodal tag detection, evaluated in an operative warehouse (Sec.~\ref{sec:Evaluation}).
+\end{compactitem}

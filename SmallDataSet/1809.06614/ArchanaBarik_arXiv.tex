@@ -1,0 +1,635 @@
+%% ****** Start of file apstemplate.tex ****** %
+%%
+%%
+%%   This file is part of the APS files in the REVTeX 4 distribution.
+%%   Version 4.1r of REVTeX, August 2010
+%%
+%%
+%%   Copyright (c) 2001, 2009, 2010 The American Physical Society.
+%%
+%%   See the REVTeX 4 README file for restrictions and more information.
+%%
+%
+% This is a template for producing manuscripts for use with REVTEX 4.0
+% Copy this file to another name and then work on that file.
+% That way, you always have this original template file to use.
+%
+% Group addresses by affiliation; use superscriptaddress for long
+% author lists, or if there are many overlapping affiliations.
+% For Phys. Rev. appearance, change preprint to twocolumn.
+% Choose pra, prb, prc, prd, pre, prl, prstab, prstper, or rmp for journal
+%  Add 'draft' option to mark overfull boxes with black boxes
+%  Add 'showpacs' option to make PACS codes appear
+%  Add 'showkeys' option to make keywords appear
+%\documentclass[aps,pre,preprint,groupedaddress]{revtex4-1}
+%\documentclass[aps,prl,preprint,superscriptaddress]{revtex4-1}
+\documentclass[aps,pre,reprint,groupedaddress]{revtex4-1}
+\usepackage{graphicx}
+\usepackage{float}
+% You should use BibTeX and apsrev.bst for references
+% Choosing a journal automatically selects the correct APS
+% BibTeX style file (bst file), so only uncomment the line
+% below if necessary.
+%\bibliographystyle{apsrev4-1}
+
+\begin{document}
+
+% Use the \preprint command to place your local institutional report
+% number in the upper righthand corner of the title page in preprint mode.
+% Multiple \preprint commands are allowed.
+% Use the 'preprintnumbers' class option to override journal defaults
+% to display numbers if necessary
+%\preprint{}
+
+%Title of paper
+\title{Temperature dependent divergence of thermal conductivity in momentum conserving 1D lattice with asymmetric potential}
+
+% repeat the \author .. \affiliation  etc. as needed
+% \email, \thanks, \homepage, \altaffiliation all apply to the current
+% author. Explanatory text should go in the []'s, actual e-mail
+% address or url should go in the {}'s for \email and \homepage.
+% Please use the appropriate macro foreach each type of information
+
+% \affiliation command applies to all authors since the last
+% \affiliation command. The \affiliation command should follow the
+% other information
+% \affiliation can be followed by \email, \homepage, \thanks as well.
+\author{Archana G R and Debashis Barik}
+\email[]{dbariksc@uohyd.ac.in}
+%\homepage[]{Your web page}
+%\thanks{}
+%\altaffiliation{}
+\affiliation{School of Chemistry, University of Hyderabad, Gachibowli, 500046, Hyderabad, India}
+
+%Collaboration name if desired (requires use of superscriptaddress
+%option in \documentclass). \noaffiliation is required (may also be
+%used with the \author command).
+%\collaboration can be followed by \email, \homepage, \thanks as well.
+%\collaboration{}
+%\noaffiliation
+
+\date{\today}
+
+\begin{abstract}
+In this study we used nonequilibrium simulation method to investigate the temperature dependent divergence of thermal conductivity in one dimensional momentum conserving system with asymmetric double well nearest-neighbor interaction potential. We show that the value of divergence exponent ($\alpha$) in the power law divergence of thermal conductivity depends on the temperature of the system. At low and high temperatures $\alpha$ reaches close to $\sim0.5$ and $\sim0.33$ respectively. Whereas in the intermediate temperature the divergence of thermal conductivity with the chain length saturates with $\alpha\sim0.07$. Subsequent analysis showed that the predicted value of $\alpha$ in the intermediate temperature may not have reached its thermodynamic limit. Further calculations of local $\alpha$ revealed that its approach towards the thermodynamic limit crucially dependent on the temperature of the system. At low and high temperatures local $\alpha$ reaches its thermodynamic limits in shorter chain lengths. On the contrary in case of intermediate temperature it's progress towards the asymptotic limit is nonmonotonous. 
+\end{abstract}
+
+% insert suggested PACS numbers in braces on next line
+\pacs{}
+% insert suggested keywords - APS authors don't need to do this
+%\keywords{}
+
+%\maketitle must follow title, authors, abstract, \pacs, and \keywords
+\maketitle
+
+% body of paper here - Use proper section commands
+% References should be done using the \cite, \ref, and \label commands
+\section{Introduction}\label{intro}
+
+Understanding the heat conduction in finite dimensional systems has been a long standing and much debated problem for some time. Particularly a major focus has been establishing Fourier's law of heat conduction for low dimensional systems. In Fourier's law the heat flux ($J$) becomes proportional to the temperature gradient ($\bigtriangledown T$) with thermal conductivity ($\kappa$) as the proportionality constant, $J=-\kappa \bigtriangledown T$. In pursuit of finding out the microscopic basis of macroscopic law of heat conduction, lattice models of one-dimensional (1D) chain of particles connected by nonlinear interaction potentials have been investigated\cite{Lepri2003a,Dhar2008}. These investigations concluded that in 1D momentum conserving nonlinear lattices the heat flux follows a power law scaling with the system size ($N$), $J \sim N^{\alpha-1}$\cite{Lepri1997}, which is a deviation from Fourier's law that dictates $J \sim N^{-1}$. Therefore in the thermodynamic limit of large $N$, the thermal conductivity diverges with the system size and it scales as $\kappa \sim N^\alpha$. Both theoretical calculations \cite{Lepri1998,Prosen2000,Narayan2002,Lepri2003a,Wang2004a,Lee-Dadswell2005,Li2006a,Delfini2006,Mai2006,VanBeijeren2012,Mendl2013,Spohn2014,Lee-Dadswell2015} and numerical simulations \cite{Lepri1997,Lepri1998,Hu2000,Wang2004a,Li2005,Mai2007,Dhar2008,Roy2012a,Li2015} of lattice models with various variants of Fermi-Pasta-Ulam (FPU) interaction potential predicted anomalous nature of $\kappa$ in 1D momentum conserving systems. Specific values of $\alpha$ varied from one calculation to other\cite{Dhar2008}. However in all cases the exponent lies in the range of $0\le\alpha\le1$. The specific value of $\alpha$ was found to depend on the nature of nonlinearity in the interaction potential. However generally three different value $\alpha=2/5$\cite{Lepri1998,Lepri2003}, $\alpha=1/3$ \cite{Narayan2002,Wang2004a,Mai2006,Mai2007,Roy2012a} and $\alpha=1/2$ \cite{Lee-Dadswell2005,Delfini2006,VanBeijeren2012,Mendl2013} have been obtained in different calculations. Further momentum conserving chains with asymmetric potentials that allow bond dissociation (e.g. Lennard-Jones or Morse potential) were predicted to show convergent thermal conductivity\cite{Savin2014,Sato2016}. In    
+
+However there has been report of finite thermal conductivity in momentum conserving systems with asymmetric interaction potential \cite{Zhong2012a}. This result was in contradiction with theoretical and numerical results in 1D momentum conserving systems that was predicted to have divergence conductivity. The prediction of normal thermal conductivity for asymmetric lattice in 1D at low temperature was debated and possibility of strong low-temperature finite-size effects were discussed by Das \textit{et al.} \cite{Das2014}. Further using equilibrium Green-Kubo method of heat current auto correlation Wang \textit{et al.} \cite{Wang2013} predicted length scale ($N$) dependence of the divergence exponent ($\alpha$) for single-well asymmetric FPU-$\alpha\beta$ and LWAII \cite{Zhong2012a} 1D lattices. They concluded that $\alpha$ reaches its asymptotic thermodynamic limit at a much longer chain length in asymmetric LWAII lattice as compared to asymmetric FPU-$\alpha\beta$ lattice. Therefore at shorter length scale $\alpha$ becomes a function of $N$. However $N$ dependence of $\alpha$ may further be affected by parameters in the potential and more importantly the average temperature of heat bath. Temperature dependent divergence was reported in symmetric double well (DW) potential where $\kappa$ diverged with $\alpha=0.33$ at high temperature and at low temperature it showed weak divergence\cite{Roy2012a}. Similar conclusion was also made for FPU-$\alpha\beta$ lattice with $\alpha=0.4$ at high temperature and weak divergence at low temperature\cite{Savin2014}. Thus temperature dependent divergence in asymmetric momentum conserving lattice needed further systematic investigations. 
+
+In this paper we addressed the problem of temperature dependent divergence of thermal conductivity in 1D nonlinear lattice with asymmetric nearest-neighbor interaction potential. We used asymmetric DW potential for nearest-neighbor interaction among the particles in the lattice. We varied the heat bath temperatures and using nonequilibrium simulation method we calculated $\kappa$ for the lattice of various sizes with different degree of asymmetry in the interaction potential to investigate the temperature dependence of divergence of $\kappa$.   
+
+% Put \label in argument of \section for cross-referencing
+\section{Model and Results}
+We have considered one dimensional lattice model with nearest-neighbor interaction potential. The classical Hamiltonian for the model can be represented as
+
+\begin{equation}
+H=\sum_{i=1}^{N}\frac{p_i^2}{2m}+\sum_{i=1}^{N-1}V(x_i-x_{i-1}),
+\label{eq1}
+\end{equation}
+
+where $x_i$ and $p_i$ are the displacement from equilibrium position and momentum of the $\it{i}$-th particle, respectively. The mass and the total number of particles on the chain are given by $m$ and $N$, respectively. The nearest-neighbor interaction potential between the particle $i$ and $i-1$ is given by $V(x_i-x_{i-1})$. As we have not considered any external potential, our lattice model becomes a momentum conserving chain. We fixed $m=1$ for our calculations throughout. We have chosen asymmetric double well nearest-neighbor interaction potential of the form given by
+
+\begin{equation}
+V(x)=-\frac{1}{2}k_2x^2+\frac{1}{3}k_3x^3+\frac{1}{4}k_4x^4,
+\label{eq2}
+\end{equation}
+ 
+where $k_2$, $k_3$ and $k_4$ are three positive constants. This potential  belongs to the general class of FPU-$\alpha\beta$ potential and due to the cubic nonlinearity the potential becomes asymmetric ($V(x)\neq V(-x)$). In Fig.1 we present the asymmetric nature of double well potential for two different values of cubic nonlinear parameter $k_3$ that determines the degree of asymmetry of the potential. With increase in the value of $k_3$ the asymmetric nature of the potential increases.
+
+
+In order to study the thermal conduction through the nonlinear chain using nonequilibrium simulation method, both the ends of lattice are connected to Langevin heat baths having different temperatures. The equation of motion of the $i^{th}$ particle in the chain is given by
+
+%\begin{widetext}
+\begin{eqnarray}
+\ddot{x_i} & = & k_2(2x_i-x_{i+1}-x_{i-1})-k_3[(x_i-x_{i-1})^2\nonumber \\
+& - &(x_{i+1}-x_i)^2]- k_4[(x_i-x_{i-1})^3-(x_{i+1}-x_i)^3] \nonumber \\
+& - &\gamma_i\dot{x_i}+\eta_i ,
+\label{eq3}
+\end{eqnarray}
+%\end{widetext}
+
+where the fluctuation ($\eta_i$) and dissipation ($\gamma_i$) terms are defined as $\eta_i=\eta_L\delta_{i,1}+\eta_R\delta_{i,N}$ and $\gamma_i=\gamma(\delta_{i,1}+\delta_{i,N})$, respectively. The heat baths are characterized by the fluctuation-dissipation relations followed by the two Markovian heat baths, $\langle \eta_L(t)\eta_L(t^\prime)\rangle=2\gamma k_BT_L\delta(t-t^\prime)$ and $\langle \eta_R(t)\eta_R(t^\prime)\rangle=2\gamma k_BT_R\delta(t-t^\prime)$. The $\gamma$, $k_B$, $T_L$ and $T_R$ are the dissipation constant, Boltzmann constant, temperatures of left and right heat baths, respectively. The values of Boltzmann constant ($k_B$) and the dissipation constant ($\gamma$) were chosen to be unity throughout. We varied the left and right bath temperatures ($T_L$ and $T_R$) to investigate the effect of temperature on the divergence behavior of thermal conductivity. In this context we defined two relevant quantities: the temperature difference, $\Delta T=T_L-T_R$ and the average temperature, $T=(T_L+T_R)/2$. 
+
+The instantaneous local heat current between $i^{th}$ and $(i+1)^{th}$ is defined by 
+
+\begin{eqnarray}
+j_i=\frac{1}{2}(\dot{x}_i+\dot{x}_{i+1})\frac{\partial H}{\partial x_i} .
+\label{eq4}
+\end{eqnarray}
+
+Defining the time-averaged local heat current as $J_i=\lim_{t\rightarrow\infty}\frac{1}{t}\int_{0}^{t}j_i(\tau)d\tau$, that reaches a nonequilibrum stationary state across the lattice after long time, the global heat current in the lattice is given by
+
+\begin{eqnarray}
+J=\sum_{i=1}^{N-1}\frac{J_i}{N-1} .
+\label{eq5}
+\end{eqnarray}
+
+The thermal conductivity is related to the steady state global heat current as
+
+\begin{eqnarray}
+\kappa=\frac{JN}{\Delta T} .
+\label{eq6}
+\end{eqnarray}
+
+If the global heat current follows $J\sim N^{-1}$ scaling then the thermal conductivity becomes convergent in the thermodynamic limit (large $N$). However in 1D momentum conserving systems $J$ has been predicted to scale as $J\sim N^{\alpha-1}$. Thus $\kappa$ becomes divergent with a power law scaling relation as $\kappa \sim N^\alpha$.  
+
+\begin{figure}
+	\centering
+	\includegraphics[trim = 55mm 60mm 60mm 45mm,clip,width=1\linewidth]{Fig1}
+	%\includegraphics[width=1\linewidth]{Fig1}
+	\caption{Schematic representation of the double-well (DW) nearest-neighbor interaction potential, $V(x)$, with different values of asymmetric parameter $k_3$. $k_2=0.1$ and $k_4=0.002$.}
+	\label{fig:fig1}
+\end{figure}
+
+In order to numerically integrate the dynamical equations (\ref{eq3}), we used 4-th order Runge-Kutta method. We chose to use 4-th order Runge-Kutta method to achieve higher accuracy in our calculations although it leads to considerable increase in simulation time. We typically ran $2-5\times10^{10}$ iterations in numerical integrations with an integration step length of $0.01$. In the DW potential (\ref{eq2}) we fixed $k_2=0.1$, $k_4=0.002$ and varied $k_3$ ($0.003$ or $0.006$) in order to explored the effect of asymmetry on the nature of divergence in $\kappa$. Further to investigate the temperature dependence of divergence we chose various combination of $T$ and $\Delta T$ ($T, \Delta T$). We used fixed boundary condition (BC), $x_0=x_{N+1}=0$, in our calculations. Previous works highlighted the importance of boundary conditions in the heat conduction in lattice models\cite{Das2014,Cividini2017}. 
+
+In Fig.2a we show the divergence of thermal conductivity for the asymmetric potential ($k_3=0.003$) with varying average heat bath temperatures keeping the $\Delta T$ fixed. The chosen ($T$, $\Delta T$) pairs were ($9.5, 1.0$); ($4.5, 1.0$); ($1.5, 1.0$). For these three different values of $T$ the system exhibits power-law divergence of thermal conductivity with $\alpha$ ranging between $0.31-0.35$. These $\alpha$ values are similar to the predicted $\alpha=1/3$ by renormalization group theory, mode coupling theory and many numerical simulations\cite{Narayan2002,Wang2004a,Mai2006,Mai2007,Roy2012a,Delfini2006}. We found similar divergence of $\kappa$ for the same system with higher asymmetry ($k_3=0.006$) in the interaction potential (Fig.2b). One important aspect of these divergence behavior is that the average temperature of the system is large. Therefore at the high temperature limit the asymmetric-DW-momentum-conserving system behaves similar to the symmetric-FPU-$\alpha\beta$-momentum-conserving system. 
+
+\begin{figure}
+	\centering
+	\includegraphics[trim = 45mm 50mm 50mm 40mm,clip,width=1\linewidth]{Fig2}
+	%\includegraphics[width=1\linewidth]{Fig1}
+	\caption{Divergence of thermal conductivity, $\kappa$, as a function of chain length, $N$. Different colored symbols represent simulations with different average bath temperatures with fixed temperature difference, ($T$, $\Delta T$); circle: ($1.5,1$), triangle: ($4.5,1$), square: ($9.5,1$) and star: ($3.0,4$). Solid lines are from power law fitting ($\kappa\sim N^\alpha$). The values of $\alpha$ are indicated inside the plots for (a) $k3=0.003$ and (b) $k3=0.006$.}
+	\label{fig:fig2}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[trim = 60mm 60mm 60mm 40mm,clip,width=1\linewidth]{Fig3}
+	%\includegraphics[width=1\linewidth]{Fig1}
+	\caption{Divergence of $\kappa$ as a function of $N$ for different average $T$ and $\Delta T$;  circle: ($1.5,1$), triangle: ($0.3,0.2$), square: ($0.15,0.1$) and diamond: ($0.075,0.05$). The asymmetric parameter $k_3$ was $0.003$. The $\alpha$ values are indicated inside the plot.}
+	\label{fig:fig3}
+\end{figure}
+
+
+\begin{figure}
+	\centering
+	\includegraphics[trim = 53mm 55mm 65mm 45mm,clip,width=1\linewidth]{Fig4}
+	%\includegraphics[width=1\linewidth]{Fig1}
+	\caption{Divergence of $\kappa$ with $N$ at different temperatures with asymmetric parameter $k_3=0.006$. ($T$, $\Delta T$) pairs are: circle-($1.5,1$), triangle-($0.3,0.2$), square- ($0.15,0.1$).}
+	\label{fig:fig4}
+\end{figure}
+
+We next investigated the divergence behavior of thermal conductivity for a range of average temperature values in the intermediate to low $T$ limits again by varying the heat bath temperatures $T_L$ and $T_R$. Particularly we aimed to determine the nature of divergence in the intermediate and low temperature regimes. In Fig.3 we show the divergence of $\kappa$ in different average temperatures of the system with $k_3=0.003$. Fig.3 indicates that the qualitative nature of divergence changes depending on the average temperature of the heat bath. The conductivity diverged sharply with $\alpha=0.49$ at very low temperature ($T=0.075$). With increase of temperature ($T=0.15$) the divergence becomes shallow with $\alpha=0.18$. Further increase of temperature ($T=0.3$) the thermal conductivity appears to saturate with $N$ with $\alpha=0.07$. At high temperature ($T=1.5$) $\kappa$ shows its usual divergence behavior with $\alpha=0.31$. The striking feature of the temperature dependent thermal conductivity here is that two different types of scaling behaviors of $\kappa$ at very low ($\alpha=0.49$) and very high ($\alpha=0.31$) temperatures. Further the very weak divergence of thermal conductivity (or saturation of $\kappa$ with $N$) in the intermediate $T$ poses a possibility of validity of Fourier's law. In addition, consistent with previous observations \cite{Das2014,Savin2014} we also find the weak divergence with the fixed BC even though fixed BC does not allow thermal expansion that was known to provide additional avenue of phonon scatterings leading to normal conductivity. Similar saturation of $\kappa$ with $N$ was first reported in asymmetric lattice by Zhong \textit{et al.}\cite{Zhong2012a} and it was proposed by them that the system follows Fourier's law. However in asymmetric FPU-$\alpha\beta$ potential whether the saturation was indeed due to asymmetric nature of interaction potential or not was discussed later \cite{Das2014,Wang2013}. Repeating calculations with higher asymmetry of the potential ($k_3=0.006$) also resulted similar observations as in $k_3=0.003$ (Fig.4). Thus our simulation results indicate that the values of $\alpha$ depends on the temperature of the system in asymmetric DW interaction potential.
+
+\begin{figure}
+	\centering
+	\includegraphics[trim = 55mm 65mm 60mm 40mm,clip,width=1\linewidth]{Fig5}
+	%\includegraphics[width=1\linewidth]{Fig1}
+	\caption{Temperature dependence of $\alpha$ for two different values of asymmetric parameters $k_3$.}
+	\label{fig:fig5}
+\end{figure}
+
+To determine the temperature dependence of $\alpha$, we plotted the $\alpha$ as a function of $T$ for two different values of asymmetric parameter $k_3$ (Fig.5). With increase in $T$, $\alpha$ decreases sharply and passing through a minimum it increases to saturate with $\alpha=0.35$ at high $T$. The weakest divergence of $\kappa$ occurs at the intermediate $T$ both for low and high asymmetries of the potential. This type of turnover behavior has been reported in the recent past \cite{Xiong2014,Xiong2016} in case of 1D anharmonic chain. The comparison of $\alpha$ vs. $T$ for low and high $k_3$ indicates that the divergence behaviors of thermal conductivity for different asymmetry values are identical. If the saturation of $\kappa$ in this system was an asymmetry induced effect then there must have been a shift in $\alpha$ vs. $T$ plots for the two different values of $k_3$. However the two curves overlap with each other. Further for the same reason, expectedly higher asymmetry would have resulted saturation of $\kappa$ at lower $N$ as compared to lower asymmetry \cite{Das2014}. The comparison of $\kappa$ vs. $N$ profiles for higher and lower asymmetry at different $T$ (Fig.6) do not indicate any such asymmetry induced early saturation of $\kappa$. These results and analyses point out that the saturation of $\kappa$ may be a finite length effect occurs only at intermediate $T$. However our results does point out that the nature of divergence is indeed temperature dependent.
+
+\begin{figure}
+	\centering
+	\includegraphics[trim = 56mm 65mm 60mm 40mm,clip,width=1\linewidth]{Fig6}
+	%\includegraphics[width=1\linewidth]{Fig1}
+	\caption{Comparison of divergence of $\kappa$ with $N$ for different values of asymmetric parameter $k_3$ at various average bath temperatures, $T$. Solid line: $T=1.5$, dotted line: $T=0.3$ and dashed line: $T=0.15$.}
+	\label{fig:fig6}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[trim = 53mm 50mm 65mm 50mm,clip,width=1\linewidth]{Fig7}
+	%\includegraphics[width=1\linewidth]{Fig1}
+	\caption{Plot of local divergence coefficient $\alpha_N$ with $N$ for different values of asymmetric parameter $k_3$ and at different average bath temperature, $T$. The $\alpha_N$ was estimated by calculating the local slope of $\kappa$ vs. $N$ plots given in Fig.3 and Fig.4. Solid line: $T=1.5$, dotted line: $T=0.3$, dashed line: $T=0.15$ and dashed-dot line: $T=0.075$. The horizontal dashed line represents $\alpha=0.33$.}
+	\label{fig:fig7}
+\end{figure}
+
+In order to determine the finite-size effect on $\alpha$ we calculated the local divergence coefficient, $\alpha_{N}$, by determining the local slope in $\kappa$ vs. $N$ line. In Fig.7 we present the $\alpha_N$ as a function of $N$ estimated at various $T$ for two different values asymmetry parameter. At high $T$ ($T=1.5$) the well-known thermodynamic limit of $0.33$ is achieved at the shorter length of the chain and $\alpha_N$ settles nearly with that value for large range of $N$.  On the other hand, at very low $T$ ($T=0.075$), $\alpha_N$ appeared to settle at $\alpha\sim0.5$ value, indicating the different scaling behavior of the system depending on the temperature of the system. However at the intermediate $T$ ($T=0.3$) with increasing $N$, $\alpha_N$ decreases below the thermodynamic limit ($\alpha=0.33$, dashed line in Fig.7) and passing through a minimum it shows an increasing trend for both the values of asymmetry parameters. Similar trend was seen for $T=0.15$ although without the minimum as probably the minimum is located at larger $N$. As at these two temperatures the local $\alpha$ does not settle to a particular value, it may be concluded that the value of $\alpha$ at the intermediate $T$ are not from the thermodynamic limit of the system. 
+
+\section{Conclusion}  
+
+Understanding the divergent nature of thermal conductivity in low dimensional systems has been a long standing problem. A large number of theoretical and numerical calculations on 1D momentum conserving systems concluded power-law divergence of thermal conductivity with the length of lattice \cite{Dhar2008,Lepri2003a}. In this study we used nonequilibrium simulation method to show that the divergent nature of $\kappa$ in 1D asymmetric lattice depends on the temperature of the heat baths. In the thermodynamic limit, the system exhibits $\alpha\sim0.5$ and $\alpha\sim0.33$ at low and high $T$ respectively. Therefore our calculations points out two different scaling behavior of the same system depending on the temperature of the system. At low $T$ our predicted value of $\alpha$ ($\sim0.5$) becomes same as given previously by mode coupling theory \cite{Lee-Dadswell2005,Delfini2006,VanBeijeren2012,Mendl2013}. Whereas at high $T$ our calculation leads to an $\alpha$ ($\sim0.33$) as predicted previously by renormalization group analysis \cite{Narayan2002,Mai2006}. Further at the intermediate $T$, $\kappa$ appears to saturate against $N$ with very small value ($\alpha=0.07$). Similar weak divergence of $\kappa$ has been reported before in case of 1D asymmetric momentum conserving lattice \cite{Zhong2012a} and it was characterized as the validity of Fourier's law by the asymmetric system. However latter it was determined that the behavior may not be associated with the \textit{true} thermodynamic limit of the system \cite{Das2014,Wang2013}. In order to probe the weak divergence of $\kappa$ in the intermediate $T$,  we calculated local divergence exponent, $\alpha_N$, and showed that in the intermediate $T$, $\alpha_N$ does not saturate to a fixed value in the length scale of our simulations. $\alpha_N$ decreases with $N$ and passing a minima it showed a tendency to increase again with $N$. Had the system reached its thermodynamic limit there should not have any further increase in the local $\alpha$. On the contrary in the low and high temperatures $\alpha_N$ decreases with $N$ and saturate to its respective thermodynamic limits independent of extent of asymmetry in the interaction potential. Therefore our calculations indicate that the approach to the thermodynamic limit of $\alpha$ is indeed temperature dependent in case of asymmetric interaction potential.
+
+%\subsection{}
+%\subsubsection{}
+
+
+% If in two-column mode, this environment will change to single-column
+% format so that long equations can be displayed. Use
+% sparingly.
+%\begin{widetext}
+% put long equation here
+%\end{widetext}
+
+% figures should be put into the text as floats.
+% Use the graphics or graphicx packages (distributed with LaTeX2e)
+% and the \includegraphics macro defined in those packages.
+% See the LaTeX Graphics Companion by Michel Goosens, Sebastian Rahtz,
+% and Frank Mittelbach for instance.
+%
+% Here is an example of the general form of a figure:
+% Fill in the caption in the braces of the \caption{} command. Put the label
+% that you will use with \ref{} command in the braces of the \label{} command.
+% Use the figure* environment if the figure should span across the
+% entire page. There is no need to do explicit centering.
+
+% \begin{figure}
+% \includegraphics{}%
+% \caption{\label{}}
+% \end{figure}
+
+% Surround figure environment with turnpage environment for landscape
+% figure
+% \begin{turnpage}
+% \begin{figure}
+% \includegraphics{}%
+% \caption{\label{}}
+% \end{figure}
+% \end{turnpage}
+
+% tables should appear as floats within the text
+%
+% Here is an example of the general form of a table:
+% Fill in the caption in the braces of the \caption{} command. Put the label
+% that you will use with \ref{} command in the braces of the \label{} command.
+% Insert the column specifiers (l, r, c, d, etc.) in the empty braces of the
+% \begin{tabular}{} command.
+% The ruledtabular enviroment adds doubled rules to table and sets a
+% reasonable default table settings.
+% Use the table* environment to get a full-width table in two-column
+% Add \usepackage{longtable} and the longtable (or longtable*}
+% environment for nicely formatted long tables. Or use the the [H]
+% placement option to break a long table (with less control than 
+% in longtable).
+% \begin{table}%[H] add [H] placement to break table across pages
+% \caption{\label{}}
+% \begin{ruledtabular}
+% \begin{tabular}{}
+% Lines of table here ending with \\
+% \end{tabular}
+% \end{ruledtabular}
+% \end{table}
+
+% Surround table environment with turnpage environment for landscape
+% table
+% \begin{turnpage}
+% \begin{table}
+% \caption{\label{}}
+% \begin{ruledtabular}
+% \begin{tabular}{}
+% \end{tabular}
+% \end{ruledtabular}
+% \end{table}
+% \end{turnpage}
+
+% Specify following sections are appendices. Use \appendix* if there
+% only one appendix.
+%\appendix
+%\section{}
+
+% If you have acknowledgments, this puts in the proper section head.
+%\section{acknowledgments}
+\begin{acknowledgments}
+This work is partially supported by Major Research Project scheme of University Grants Commission, India (MRP-MAJOR-CHEM-2013-43860).
+\end{acknowledgments}
+
+% Create the reference section using BibTeX:
+%\bibliography{ReferenceHC}
+
+%merlin.mbs apsrev4-1.bst 2010-07-25 4.21a (PWD, AO, DPC) hacked
+%Control: key (0)
+%Control: author (8) initials jnrlst
+%Control: editor formatted (1) identically to author
+%Control: production of article title (-1) disabled
+%Control: page (0) single
+%Control: year (1) truncated
+%Control: production of eprint (0) enabled
+\begin{thebibliography}{29}%
+	\makeatletter
+	\providecommand \@ifxundefined [1]{%
+		\@ifx{#1\undefined}
+	}%
+	\providecommand \@ifnum [1]{%
+		\ifnum #1\expandafter \@firstoftwo
+		\else \expandafter \@secondoftwo
+		\fi
+	}%
+	\providecommand \@ifx [1]{%
+		\ifx #1\expandafter \@firstoftwo
+		\else \expandafter \@secondoftwo
+		\fi
+	}%
+	\providecommand \natexlab [1]{#1}%
+	\providecommand \enquote  [1]{``#1''}%
+	\providecommand \bibnamefont  [1]{#1}%
+	\providecommand \bibfnamefont [1]{#1}%
+	\providecommand \citenamefont [1]{#1}%
+	\providecommand \href@noop [0]{\@secondoftwo}%
+	\providecommand \href [0]{\begingroup \@sanitize@url \@href}%
+	\providecommand \@href[1]{\@@startlink{#1}\@@href}%
+	\providecommand \@@href[1]{\endgroup#1\@@endlink}%
+	\providecommand \@sanitize@url [0]{\catcode `\\12\catcode `\$12\catcode
+		`\&12\catcode `\#12\catcode `\^12\catcode `\_12\catcode `\%12\relax}%
+	\providecommand \@@startlink[1]{}%
+	\providecommand \@@endlink[0]{}%
+	\providecommand \url  [0]{\begingroup\@sanitize@url \@url }%
+	\providecommand \@url [1]{\endgroup\@href {#1}{\urlprefix }}%
+	\providecommand \urlprefix  [0]{URL }%
+	\providecommand \Eprint [0]{\href }%
+	\providecommand \doibase [0]{http://dx.doi.org/}%
+	\providecommand \selectlanguage [0]{\@gobble}%
+	\providecommand \bibinfo  [0]{\@secondoftwo}%
+	\providecommand \bibfield  [0]{\@secondoftwo}%
+	\providecommand \translation [1]{[#1]}%
+	\providecommand \BibitemOpen [0]{}%
+	\providecommand \bibitemStop [0]{}%
+	\providecommand \bibitemNoStop [0]{.\EOS\space}%
+	\providecommand \EOS [0]{\spacefactor3000\relax}%
+	\providecommand \BibitemShut  [1]{\csname bibitem#1\endcsname}%
+	\let\auto@bib@innerbib\@empty
+	%</preamble>
+	\bibitem [{\citenamefont {Lepri}(2003)}]{Lepri2003a}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+			{Lepri}},\ }\href {\doibase 10.1016/S0370-1573(02)00558-6} {\bibfield
+		{journal} {\bibinfo  {journal} {Physics Reports}\ }\textbf {\bibinfo {volume}
+			{377}},\ \bibinfo {pages} {1} (\bibinfo {year} {2003})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Dhar}(2008)}]{Dhar2008}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont
+			{Dhar}},\ }\href {\doibase 10.1080/00018730802538522} {\bibfield  {journal}
+		{\bibinfo  {journal} {Advances in Physics}\ }\textbf {\bibinfo {volume}
+			{57}},\ \bibinfo {pages} {457} (\bibinfo {year} {2008})},\ \Eprint
+	{http://arxiv.org/abs/0808.3256} {arXiv:0808.3256} \BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Lepri}\ \emph {et~al.}(1997)\citenamefont {Lepri},
+		\citenamefont {Livi},\ and\ \citenamefont {Politi}}]{Lepri1997}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+			{Lepri}}, \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Livi}}, \ and\
+		\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Politi}},\ }\href
+	{\doibase 10.1103/PhysRevLett.78.1896} {\bibfield  {journal} {\bibinfo
+			{journal} {Physical Review Letters}\ }\textbf {\bibinfo {volume} {78}},\
+		\bibinfo {pages} {1896} (\bibinfo {year} {1997})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Lepri}\ \emph {et~al.}(1998)\citenamefont {Lepri},
+		\citenamefont {Livi},\ and\ \citenamefont {Politi}}]{Lepri1998}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+			{Lepri}}, \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Livi}}, \ and\
+		\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Politi}},\ }\href
+	{\doibase 10.1209/epl/i1998-00352-3} {\bibfield  {journal} {\bibinfo
+			{journal} {Europhysics Letters (EPL)}\ }\textbf {\bibinfo {volume} {43}},\
+		\bibinfo {pages} {271} (\bibinfo {year} {1998})},\ \Eprint
+	{http://arxiv.org/abs/9806133} {arXiv:9806133 [cond-mat]} \BibitemShut
+	{NoStop}%
+	\bibitem [{\citenamefont {Prosen}\ and\ \citenamefont
+		{Campbell}(2000)}]{Prosen2000}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {T.}~\bibnamefont
+			{Prosen}}\ and\ \bibinfo {author} {\bibfnamefont {D.~K.}\ \bibnamefont
+			{Campbell}},\ }\href {\doibase 10.1103/PhysRevLett.84.2857} {\bibfield
+		{journal} {\bibinfo  {journal} {Physical Review Letters}\ }\textbf {\bibinfo
+			{volume} {84}},\ \bibinfo {pages} {2857} (\bibinfo {year} {2000})},\ \Eprint
+	{http://arxiv.org/abs/9908021} {arXiv:9908021 [chao-dyn]} \BibitemShut
+	{NoStop}%
+	\bibitem [{\citenamefont {Narayan}\ and\ \citenamefont
+		{Ramaswamy}(2002)}]{Narayan2002}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {O.}~\bibnamefont
+			{Narayan}}\ and\ \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+			{Ramaswamy}},\ }\href {\doibase 10.1103/PhysRevLett.89.200601} {\bibfield
+		{journal} {\bibinfo  {journal} {Physical Review Letters}\ }\textbf {\bibinfo
+			{volume} {89}},\ \bibinfo {pages} {200601} (\bibinfo {year}
+		{2002})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Wang}\ and\ \citenamefont {Li}(2004)}]{Wang2004a}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.-S.}\ \bibnamefont
+			{Wang}}\ and\ \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Li}},\
+	}\href {\doibase 10.1103/PhysRevLett.92.074302} {\bibfield  {journal}
+		{\bibinfo  {journal} {Physical Review Letters}\ }\textbf {\bibinfo {volume}
+			{92}},\ \bibinfo {pages} {074302} (\bibinfo {year} {2004})},\ \Eprint
+	{http://arxiv.org/abs/0403162} {arXiv:0403162 [cond-mat]} \BibitemShut
+	{NoStop}%
+	\bibitem [{\citenamefont {Lee-Dadswell}\ \emph {et~al.}(2005)\citenamefont
+		{Lee-Dadswell}, \citenamefont {Nickel},\ and\ \citenamefont
+		{Gray}}]{Lee-Dadswell2005}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.~R.}\ \bibnamefont
+			{Lee-Dadswell}}, \bibinfo {author} {\bibfnamefont {B.~G.}\ \bibnamefont
+			{Nickel}}, \ and\ \bibinfo {author} {\bibfnamefont {C.~G.}\ \bibnamefont
+			{Gray}},\ }\href {\doibase 10.1103/PhysRevE.72.031202} {\bibfield  {journal}
+		{\bibinfo  {journal} {Physical Review E}\ }\textbf {\bibinfo {volume} {72}},\
+		\bibinfo {pages} {031202} (\bibinfo {year} {2005})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Li}\ \emph {et~al.}(2006)\citenamefont {Li},
+		\citenamefont {Tong},\ and\ \citenamefont {Li}}]{Li2006a}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {N.}~\bibnamefont
+			{Li}}, \bibinfo {author} {\bibfnamefont {P.}~\bibnamefont {Tong}}, \ and\
+		\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Li}},\ }\href {\doibase
+		10.1209/epl/i2006-10079-7} {\bibfield  {journal} {\bibinfo  {journal}
+			{Europhysics Letters (EPL)}\ }\textbf {\bibinfo {volume} {75}},\ \bibinfo
+		{pages} {49} (\bibinfo {year} {2006})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Delfini}\ \emph {et~al.}(2006)\citenamefont
+		{Delfini}, \citenamefont {Lepri}, \citenamefont {Livi},\ and\ \citenamefont
+		{Politi}}]{Delfini2006}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {L.}~\bibnamefont
+			{Delfini}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Lepri}},
+		\bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Livi}}, \ and\ \bibinfo
+		{author} {\bibfnamefont {A.}~\bibnamefont {Politi}},\ }\href {\doibase
+		10.1103/PhysRevE.73.060201} {\bibfield  {journal} {\bibinfo  {journal}
+			{Physical Review E}\ }\textbf {\bibinfo {volume} {73}},\ \bibinfo {pages}
+		{060201} (\bibinfo {year} {2006})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Mai}\ and\ \citenamefont {Narayan}(2006)}]{Mai2006}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {T.}~\bibnamefont
+			{Mai}}\ and\ \bibinfo {author} {\bibfnamefont {O.}~\bibnamefont {Narayan}},\
+	}\href {\doibase 10.1103/PhysRevE.73.061202} {\bibfield  {journal} {\bibinfo
+			{journal} {Physical Review E}\ }\textbf {\bibinfo {volume} {73}},\ \bibinfo
+		{pages} {061202} (\bibinfo {year} {2006})},\ \Eprint
+	{http://arxiv.org/abs/0601585} {arXiv:0601585 [cond-mat]} \BibitemShut
+	{NoStop}%
+	\bibitem [{\citenamefont {van Beijeren}(2012)}]{VanBeijeren2012}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {van
+				Beijeren}},\ }\href {\doibase 10.1103/PhysRevLett.108.180601} {\bibfield
+		{journal} {\bibinfo  {journal} {Physical Review Letters}\ }\textbf {\bibinfo
+			{volume} {108}},\ \bibinfo {pages} {180601} (\bibinfo {year} {2012})},\
+	\Eprint {http://arxiv.org/abs/arXiv:1106.3298v2} {arXiv:arXiv:1106.3298v2}
+	\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Mendl}\ and\ \citenamefont
+		{Spohn}(2013)}]{Mendl2013}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {C.~B.}\ \bibnamefont
+			{Mendl}}\ and\ \bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Spohn}},\
+	}\href {\doibase 10.1103/PhysRevLett.111.230601} {\bibfield  {journal}
+		{\bibinfo  {journal} {Physical Review Letters}\ }\textbf {\bibinfo {volume}
+			{111}},\ \bibinfo {pages} {230601} (\bibinfo {year} {2013})},\ \Eprint
+	{http://arxiv.org/abs/arXiv:1305.1209v1} {arXiv:arXiv:1305.1209v1}
+	\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Spohn}(2014)}]{Spohn2014}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {H.}~\bibnamefont
+			{Spohn}},\ }\href {\doibase 10.1007/s10955-014-0933-y} {\bibfield  {journal}
+		{\bibinfo  {journal} {Journal of Statistical Physics}\ }\textbf {\bibinfo
+			{volume} {154}},\ \bibinfo {pages} {1191} (\bibinfo {year} {2014})},\ \Eprint
+	{http://arxiv.org/abs/1305.6412} {arXiv:1305.6412} \BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Lee-Dadswell}(2015)}]{Lee-Dadswell2015}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {G.~R.}\ \bibnamefont
+			{Lee-Dadswell}},\ }\href {\doibase 10.1103/PhysRevE.91.012138} {\bibfield
+		{journal} {\bibinfo  {journal} {Physical Review E}\ }\textbf {\bibinfo
+			{volume} {91}},\ \bibinfo {pages} {012138} (\bibinfo {year}
+		{2015})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Hu}\ \emph {et~al.}(2000)\citenamefont {Hu},
+		\citenamefont {Li},\ and\ \citenamefont {Zhao}}]{Hu2000}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+			{Hu}}, \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Li}}, \ and\
+		\bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Zhao}},\ }\href {\doibase
+		10.1103/PhysRevE.61.3828} {\bibfield  {journal} {\bibinfo  {journal}
+			{Physical Review E}\ }\textbf {\bibinfo {volume} {61}},\ \bibinfo {pages}
+		{3828} (\bibinfo {year} {2000})},\ \Eprint {http://arxiv.org/abs/0002192}
+	{arXiv:0002192 [cond-mat]} \BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Li}\ \emph {et~al.}(2005)\citenamefont {Li},
+		\citenamefont {Wang}, \citenamefont {Wang},\ and\ \citenamefont
+		{Zhang}}]{Li2005}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont
+			{Li}}, \bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Wang}}, \bibinfo
+		{author} {\bibfnamefont {L.}~\bibnamefont {Wang}}, \ and\ \bibinfo {author}
+		{\bibfnamefont {G.}~\bibnamefont {Zhang}},\ }\href {\doibase
+		10.1063/1.1832791} {\bibfield  {journal} {\bibinfo  {journal} {Chaos: An
+				Interdisciplinary Journal of Nonlinear Science}\ }\textbf {\bibinfo {volume}
+			{15}},\ \bibinfo {pages} {015121} (\bibinfo {year} {2005})},\ \Eprint
+	{http://arxiv.org/abs/0410355} {arXiv:0410355 [cond-mat]} \BibitemShut
+	{NoStop}%
+	\bibitem [{\citenamefont {Mai}\ \emph {et~al.}(2007)\citenamefont {Mai},
+		\citenamefont {Dhar},\ and\ \citenamefont {Narayan}}]{Mai2007}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {T.}~\bibnamefont
+			{Mai}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Dhar}}, \ and\
+		\bibinfo {author} {\bibfnamefont {O.}~\bibnamefont {Narayan}},\ }\href
+	{\doibase 10.1103/PhysRevLett.98.184301} {\bibfield  {journal} {\bibinfo
+			{journal} {Physical Review Letters}\ }\textbf {\bibinfo {volume} {98}},\
+		\bibinfo {pages} {184301} (\bibinfo {year} {2007})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Roy}(2012)}]{Roy2012a}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
+			{Roy}},\ }\href {\doibase 10.1103/PhysRevE.86.041102} {\bibfield  {journal}
+		{\bibinfo  {journal} {Physical Review E}\ }\textbf {\bibinfo {volume} {86}},\
+		\bibinfo {pages} {041102} (\bibinfo {year} {2012})},\ \Eprint
+	{http://arxiv.org/abs/arXiv:1203.4303v1} {arXiv:arXiv:1203.4303v1}
+	\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Li}\ \emph {et~al.}(2015)\citenamefont {Li},
+		\citenamefont {Liu}, \citenamefont {Li}, \citenamefont {H{\"{a}}nggi},\ and\
+		\citenamefont {Li}}]{Li2015}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont
+			{Li}}, \bibinfo {author} {\bibfnamefont {S.}~\bibnamefont {Liu}}, \bibinfo
+		{author} {\bibfnamefont {N.}~\bibnamefont {Li}}, \bibinfo {author}
+		{\bibfnamefont {P.}~\bibnamefont {H{\"{a}}nggi}}, \ and\ \bibinfo {author}
+		{\bibfnamefont {B.}~\bibnamefont {Li}},\ }\href {\doibase
+		10.1088/1367-2630/17/4/043064} {\bibfield  {journal} {\bibinfo  {journal}
+			{New Journal of Physics}\ }\textbf {\bibinfo {volume} {17}},\ \bibinfo
+		{pages} {043064} (\bibinfo {year} {2015})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Lepri}\ \emph {et~al.}(2003)\citenamefont {Lepri},
+		\citenamefont {Livi},\ and\ \citenamefont {Politi}}]{Lepri2003}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.}~\bibnamefont
+			{Lepri}}, \bibinfo {author} {\bibfnamefont {R.}~\bibnamefont {Livi}}, \ and\
+		\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Politi}},\ }\href
+	{\doibase 10.1103/PhysRevE.68.067102} {\bibfield  {journal} {\bibinfo
+			{journal} {Physical Review E}\ }\textbf {\bibinfo {volume} {68}},\ \bibinfo
+		{pages} {067102} (\bibinfo {year} {2003})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Zhong}\ \emph {et~al.}(2012)\citenamefont {Zhong},
+		\citenamefont {Zhang}, \citenamefont {Wang},\ and\ \citenamefont
+		{Zhao}}]{Zhong2012a}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont
+			{Zhong}}, \bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Zhang}},
+		\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont {Wang}}, \ and\ \bibinfo
+		{author} {\bibfnamefont {H.}~\bibnamefont {Zhao}},\ }\href {\doibase
+		10.1103/PhysRevE.85.060102} {\bibfield  {journal} {\bibinfo  {journal}
+			{Physical Review E}\ }\textbf {\bibinfo {volume} {85}},\ \bibinfo {pages}
+		{060102} (\bibinfo {year} {2012})},\ \Eprint
+	{http://arxiv.org/abs/arXiv:1107.3306v2} {arXiv:arXiv:1107.3306v2}
+	\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Das}\ \emph {et~al.}(2014)\citenamefont {Das},
+		\citenamefont {Dhar},\ and\ \citenamefont {Narayan}}]{Das2014}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {S.~G.}\ \bibnamefont
+			{Das}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Dhar}}, \ and\
+		\bibinfo {author} {\bibfnamefont {O.}~\bibnamefont {Narayan}},\ }\href
+	{\doibase 10.1007/s10955-013-0871-0} {\bibfield  {journal} {\bibinfo
+			{journal} {Journal of Statistical Physics}\ }\textbf {\bibinfo {volume}
+			{154}},\ \bibinfo {pages} {204} (\bibinfo {year} {2014})}\BibitemShut
+	{NoStop}%
+	\bibitem [{\citenamefont {Wang}\ \emph {et~al.}(2013)\citenamefont {Wang},
+		\citenamefont {Hu},\ and\ \citenamefont {Li}}]{Wang2013}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {L.}~\bibnamefont
+			{Wang}}, \bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Hu}}, \ and\
+		\bibinfo {author} {\bibfnamefont {B.}~\bibnamefont {Li}},\ }\href {\doibase
+		10.1103/PhysRevE.88.052112} {\bibfield  {journal} {\bibinfo  {journal}
+			{Physical Review E}\ }\textbf {\bibinfo {volume} {88}},\ \bibinfo {pages}
+		{052112} (\bibinfo {year} {2013})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Savin}\ and\ \citenamefont
+		{Kosevich}(2014)}]{Savin2014}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {A.~V.}\ \bibnamefont
+			{Savin}}\ and\ \bibinfo {author} {\bibfnamefont {Y.~A.}\ \bibnamefont
+			{Kosevich}},\ }\href {\doibase 10.1103/PhysRevE.89.032102} {\bibfield
+		{journal} {\bibinfo  {journal} {Physical Review E}\ }\textbf {\bibinfo
+			{volume} {89}},\ \bibinfo {pages} {032102} (\bibinfo {year}
+		{2014})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Sato}(2016)}]{Sato2016}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.~S.}\ \bibnamefont
+			{Sato}},\ }\href {\doibase 10.1103/PhysRevE.94.012115} {\bibfield  {journal}
+		{\bibinfo  {journal} {Physical Review E}\ }\textbf {\bibinfo {volume} {94}},\
+		\bibinfo {pages} {012115} (\bibinfo {year} {2016})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Cividini}\ \emph {et~al.}(2017)\citenamefont
+		{Cividini}, \citenamefont {Kundu}, \citenamefont {Miron},\ and\ \citenamefont
+		{Mukamel}}]{Cividini2017}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {J.}~\bibnamefont
+			{Cividini}}, \bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Kundu}},
+		\bibinfo {author} {\bibfnamefont {A.}~\bibnamefont {Miron}}, \ and\ \bibinfo
+		{author} {\bibfnamefont {D.}~\bibnamefont {Mukamel}},\ }\href {\doibase
+		10.1088/1742-5468/aa5337} {\bibfield  {journal} {\bibinfo  {journal} {Journal
+				of Statistical Mechanics: Theory and Experiment}\ }\textbf {\bibinfo {volume}
+			{2017}},\ \bibinfo {pages} {013203} (\bibinfo {year} {2017})},\ \Eprint
+	{http://arxiv.org/abs/1609.06614} {arXiv:1609.06614} \BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Xiong}\ \emph {et~al.}(2014)\citenamefont {Xiong},
+		\citenamefont {Zhang},\ and\ \citenamefont {Zhao}}]{Xiong2014}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
+			{Xiong}}, \bibinfo {author} {\bibfnamefont {Y.}~\bibnamefont {Zhang}}, \ and\
+		\bibinfo {author} {\bibfnamefont {H.}~\bibnamefont {Zhao}},\ }\href {\doibase
+		10.1103/PhysRevE.90.022117} {\bibfield  {journal} {\bibinfo  {journal}
+			{Physical Review E}\ }\textbf {\bibinfo {volume} {90}},\ \bibinfo {pages}
+		{022117} (\bibinfo {year} {2014})}\BibitemShut {NoStop}%
+	\bibitem [{\citenamefont {Xiong}(2016)}]{Xiong2016}%
+	\BibitemOpen
+	\bibfield  {author} {\bibinfo {author} {\bibfnamefont {D.}~\bibnamefont
+			{Xiong}},\ }\href {\doibase 10.1088/1742-5468/2016/04/043208} {\bibfield
+		{journal} {\bibinfo  {journal} {Journal of Statistical Mechanics: Theory and
+				Experiment}\ }\textbf {\bibinfo {volume} {2016}},\ \bibinfo {pages} {043208}
+		(\bibinfo {year} {2016})},\ \Eprint {http://arxiv.org/abs/arXiv:1601.02846v1}
+	{arXiv:arXiv:1601.02846v1} \BibitemShut {NoStop}%
+\end{thebibliography}%
+
+
+\end{document}
+%
+% ****** End of file apstemplate.tex ******
+

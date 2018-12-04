@@ -1,0 +1,146 @@
+\section{Representations of Human Radar Signatures}\label{sec:signalrepresentations}
+
+% Time-domain
+The human walk is periodic by nature, i.e., after taking two steps, the course of motions is repeated. One period of the human walk is referred to as gait cycle and a single stride makes up for half a gait cycle \cite{Che11}. One would expect the time-domain radar return signal from a walking person to be periodic with each gait cycle. However, the periodicity information cannot be directly accessed in time-domain, because it is 'hidden' in the observed frequency of the signal. The radar return signal contains multiple time-varying Doppler shifted versions of the transmitted signal. These Doppler components are periodic with each gait cycle, i.e., we observe a periodically frequency-modulated signal.
+
+% Spectrogram (Section ii.)
+A classical tool to reveal periodicities in a signal is the Fourier transform (FT). However, the FT does not depict the local frequency behavior, and as such, is not the proper analysis tool for studying the instantaneous frequency and time-dependent Doppler and micro-Doppler signal components. The individual components and their power distribution over time and frequency become visible when utilizing joint time-frequency representations (TFRs). For a walking person, the TFR of the radar return signal depicts the main Doppler shift due to the torso's motion along with the micro-Doppler components due to swinging arms and legs. The spectrogram, which is the energetic representation of the signal's short-time Fourier transform (STFT), is the most common TFR used for analyzing radar micro-Doppler signatures.
+
+%Cadence Velocity Domain (Section iii.)
+Since the spectrogram is a windowed FT, a periodic signal will remain periodic in its TFR, with each frequency component exhibiting the same periodicity. Therefore, the periodic structure of the cyclic motion articulations of human gait persist in the time-frequency domain, with a sparser and higher power concentration compared to the time-domain description of the signals. With this property, by taking the FT along the time variable for each frequency bin in the spectrogram, we can assess how often certain Doppler shifts appear over time. The result is known as the cadence-velocity diagram (CVD) \cite{Cle15,Bjoe15,Ric15,Ote05}, where velocity is proportional to the observed Doppler shifts. For a normal human walk, the fundamental frequency in the CVD represents the stride rate or cadence.
+
+\subsection{Radar Signal Model}
+Considering a mono-static radar system that transmits a sinusoidal signal \cite{Che11}
+\begin{equation} %transmitted signal
+s_t(t) = \cos{\left(2 \pi f_c t\right)}
+\end{equation}
+with carrier frequency $f_c$, the received radar return signal is a superposition of multiple radar scatter components, i.e.,
+\begin{equation}
+s_r(t) = \sum_i \rho_i \cos{\left(2 \pi \left(f_c + f^\mathrm{D}_i \right) t\right)}.
+\label{Eq:recSig}
+\end{equation}
+Here, $\rho_i$ denotes the path loss of the $i$th scatter component and $f^\mathrm{D}_i $ is the corresponding observed Doppler shift given by 
+\begin{equation}
+f^\mathrm{D}_i (t) \approx - f_c \frac{2 v_i(t)}{c} \cos{\theta_i}, \quad \text{for~} v_i \ll c~\forall~i,
+\label{eq:Doppler}
+\end{equation}
+where $v_i$ is the velocity of the $i$th target component, $\theta_i$ is the corresponding angle of motion relative to the radar line of sight (LOS) and $c$ is the propagation speed of the electromagnetic (EM) wave. Note that while the radar receiver remains static, the Doppler shifts are generally time-varying as the target changes its velocity over time. After a quadrature detector at the receiver we obtain
+\begin{equation}
+s(t) = \sum_i \frac{\rho_i}{2} \exp{\left(-j 2 \pi f^\mathrm{D}_i  t\right)},
+\end{equation}
+which is the baseband representation of the multi-component radar return signal in (\ref{Eq:recSig}) with each component having a distinct Doppler frequency. For further processing, $s(t)$ is sampled at an interval of $\Delta t = 1/f_s$, such that $s(n) = s(t)|_{t=n\Delta t}$ for $n = 0, \dots ,N-1$, where $f_s$ is the sampling frequency and $N \in \mathbb{N}$ is the total number of time samples in the discretized radar signal. For further processing, the mean of the radar return signal is removed such that
+\begin{equation}\label{eg:remmean}
+\tilde{s}(n) = s(n) - \frac{1}{N} \sum_{n=0}^{N-1} s(n).
+\end{equation}
+
+%FT does not reveal the periodic structure because the basis functions are not localized
+
+\subsection{Time-Frequency Representations}
+As the radar return signal of a walking person is highly non-stationary, its characteristics are best revealed in a joint-variable representation, such as the time-frequency domain. For human motion analysis, the spectrogram is employed to show the signal's prower distribution over time and frequency. For a discrete-time signal $\tilde{s}(n)$, the spectrogram is given by the squared magnitude of the STFT \cite{Opp99}
+\begin{equation}
+\mathrm{S}(n,k) = \left| \sum_{m=0}^{M-1} w(m) \tilde{s}(n+m) \exp{\left(-j 2 \pi \frac{mk}{K}\right)}\right|^2, 
+\label{eq:spectrogram}
+\end{equation}
+for $n = 0, \dots, N-1$, where $M$ is the length of the smoothing window $w(\cdot)$, $k$ is the discrete frequency index with $k = 0, \dots, K-1$, and $M, K \in \mathbb{N}$. 
+Spectrograms for different walking styles and directions relative to the sensor are shown in Fig.~\ref{fig:specs}. 
+We pointed out that normal stride signatures when moving toward the radar system are different compared to those when the radar has a back view on the target (compare Figs.~\ref{fig:specs}\subref{NW} and~\ref{fig:specs}\subref{NWa}) \cite{Sei17}. The salient micro-Doppler feature of a normal stride away from the radar is a spike, i.e., an impulsive-like behavior in the TFR. This characteristic has been overlooked in other works and was not reported in any experimental as well as simulated micro-Doppler signatures. The latter includes, for example, the approach of using a Microsoft Kinect sensor to estimate the human posture via 20 points on the skeleton \cite{Ero15}. Besides the restriction that the entire body needs to be in the field of view of the sensor, the number of discrete sensing points along the human body is not sufficient to capture fine details in human locomotion, such that strides toward the sensor look similar to those away from it. 
+Using radar, we can clearly identify deviations from a normal stride, e.g., when one of the knees is not fully bent (see Figs.~\ref{fig:specs}\subref{L1} and~\ref{fig:specs}\subref{L1a}) or a cane is used (see Figs.~\ref{fig:specs}\subref{CW} and~\ref{fig:specs}\subref{CWa}). 
+
+From the spectrogram, two other signals can be found: the envelope signal of the micro-Doppler signatures and the short-time energy signal of the radar return. Both signals are extracted from the noise-reduced spectrogram, where an adaptive thresholding technique is used to suppress the background noise in the TFR \cite{Kim09}. To extract the envelope signal an energy-based thresholding algorithm is applied \cite{Ero16}. It captures the varying maximal Doppler shifts throughout a gait cycle, irrespective of whether it corresponds to a leg or cane motion, and thus converts the time-frequency signal into a train of pulses along the time variable. In contrast, the short-time energy signal accounts for the inherent pattern of individual micro-Doppler signatures by summing over $K'$ Doppler bins in the spectrogram as
+\begin{equation}\label{eq:meanEnergy}
+E(n) = \frac{1}{K'} \sum_{k=0}^{K'-1} \tilde{\mathrm{S}}(n,k), \quad n = 0, \dots, N-1,
+\end{equation}
+where $\tilde{\mathrm{S}}$ is the noise-reduced spectrogram, and $K' < K$ is the number of relevant frequency bins corresponding to micro-Doppler shifts excluding the torso's signature.
+
+% Example of spectrograms
+\begin{figure}[!t]
+	\vspace{-1em}
+	\centering{
+		\subfloat[Normal walk]{\includegraphics[clip, trim= 0 0 20 18, width=0.5\columnwidth]{figures/S_NW.png}%
+			\label{NW}}
+		%\hfill
+		\subfloat[Normal walk]{\includegraphics[clip, trim= 0 0 20 18,width=0.5\columnwidth]{figures/S_NWa.png}%
+			\label{NWa}}\vspace{-0.7em}}
+
+	\centering{
+		\subfloat[Limping with one leg]{\includegraphics[clip, trim= 0 0 20 18,width=0.5\columnwidth]{figures/S_ANW.png}%
+			\label{L1}}
+		%\hfill
+		\subfloat[Limping with one leg]{\includegraphics[clip, trim= 0 0 20 18,width=0.5\columnwidth]{figures/S_ANWa.png}%
+			\label{L1a}}\vspace{-0.7em}}
+
+	\centering{
+		\subfloat[Walking with a cane]{\includegraphics[clip, trim= 0 0 20 18,width=0.5\columnwidth]{figures/S_1CW.png}%
+			\label{CW}}
+		%\hfill
+		\subfloat[Walking with a cane]{\includegraphics[clip, trim= 0 0 20 18,width=0.5\columnwidth]{figures/S_1CWa.png}%
+			\label{CWa}}\vspace{-0.7em}}
+
+	\centering{
+		\subfloat[Walking with a cane out of sync]{\includegraphics[clip, trim= 0 0 20 18,width=0.5\columnwidth]{figures/S_1CWoos.png}%
+			\label{CWoos}}
+		%\hfill
+		\subfloat[Walking with a cane out of sync]{\includegraphics[clip, trim= 0 0 20 18,width=0.5\columnwidth]{figures/S_1CWoosa.png}%
+			\label{CWoosa}}}
+%	\vspace{1em}
+	\caption{Examples of spectrograms for walking toward (left) and away from (right) the radar system. The color indicates the energy level in dB.}
+	\label{fig:specs}\vspace{-0.5em}
+\end{figure}
+
+
+\subsection{Cadence-Velocity Diagram}
+In order to analyze the cyclic nature and inherent periodicities of a human walk, we generate another joint-variable representation that depicts the periodic pattern of certain micro-Doppler components over time. 
+%A natural tool to reveal the period of each of these components is the FT. 
+This representation is the CVD which is obtained by taking the FT of the spectrogram along each Doppler frequency bin as \cite{Cle15}
+\begin{equation}%\mathcal{F}_n \left\{ S(n,k) \right\}
+\mathrm{C}(\epsilon,k)  = \left| \sum_{n=0}^{N-1} \tilde{\mathrm{S}}(n,k\textbf{}) \exp{\left(-j 2 \pi \frac{n \epsilon}{L}\right)} \right|, 
+\label{eq:CVD}
+\end{equation}
+where $\epsilon = 0, \cdots, L-1$ is the cadence frequency, $\tilde{\mathrm{S}}$ is the noise-reduced spectrogram, and $L \in \mathbb{N}$. Here, the velocity is directly proportional to the observed Doppler frequency as given by (\ref{eq:Doppler}). Prior to FT calculation, the mean is removed from each Doppler frequency bin to reduce the influence of stationary Doppler components. Note that, in contrast to TFRs, the CVD does not depend on the initial phase of the gait cycle, i.e., it is a time-invariant analysis method. Fig.~\ref{fig:cvds} shows the corresponding CVDs of the measurements depicted in Fig.~\ref{fig:specs}, along with the mean cadence spectra.
+
+% Example of CVDs
+\begin{figure}[!t]
+	\vspace{-1em}
+	\centering{
+		\subfloat[Normal walk]{\includegraphics[clip, trim= 0 0 20 8,width=0.5\columnwidth]{figures/CVD_NW.png}%
+			\label{CVDNW}}
+		%\hfill
+		\subfloat[Normal walk]{\includegraphics[clip, trim= 0 0 20 8,width=0.5\columnwidth]{figures/CVD_NWa.png}%
+			\label{CVDNWa}}\vspace{-0.7em}}
+
+	\centering{
+		\subfloat[Limping with one leg]{\includegraphics[clip, trim= 0 0 20 8,width=0.5\columnwidth]{figures/CVD_ANW.png}%
+			\label{CVDL1}}
+		%\hfill
+		\subfloat[Limping with one leg]{\includegraphics[clip, trim= 0 0 20 8,width=0.5\columnwidth]{figures/CVD_ANWa.png}%
+			\label{CVDL1a}}\vspace{-0.7em}}
+
+	\centering{
+		\subfloat[Walking with a cane]{\includegraphics[clip, trim= 0 0 20 8,width=0.5\columnwidth]{figures/CVD_1CW.png}%
+			\label{CVDCW}}
+		%\hfill
+		\subfloat[Walking with a cane]{\includegraphics[clip, trim= 0 0 20 8,width=0.5\columnwidth]{figures/CVD_1CWa.png}%
+			\label{CVDCWa}}\vspace{-0.7em}}
+
+	\centering{
+		\subfloat[Walking with a cane out of sync]{\includegraphics[clip, trim= 0 0 20 8,width=0.5\columnwidth]{figures/CVD_1CWoos.png}%
+			\label{CVDCWoos}}
+		%\hfill
+		\subfloat[Walking with a cane out of sync]{\includegraphics[clip, trim= 0 0 20 8,width=0.5\columnwidth]{figures/CVD_1CWoosa.png}%
+			\label{CVDCWoosa}}}
+
+	\caption{Examples of CVDs and mean cadence spectra for walking toward (left) and away from (right) the radar system. The corresponding spectrograms are given in Fig.~\ref{fig:specs}.}
+	\label{fig:cvds}\vspace{-0.5em}
+\end{figure}
+
+The mean cadence spectrum (mCS) depicts how often certain Doppler components appear throughout a gait, independent of the components' velocities. It is obtained by summing over all Doppler frequencies in the CVD, i.e., \cite{Bjoe15,Ric15}
+\begin{equation}\label{eq:meanCS}
+\bar{\zeta}(\epsilon) = \frac{1}{K} \sum_{k=0}^{K-1} \mathrm{C}(\epsilon,k), \quad \epsilon = 0, \dots, L-1.
+\end{equation}
+The highest peak of the mCS typically represents the stride rate. For example, Fig.~\ref{fig:cvds}\subref{CVDNW} reveals a stride rate of 0.9\,Hz, which is consistent with almost six strides in the 6\,s data measurement (see Fig.~\ref{fig:specs}\subref{NW}). The step rate is an important characteristic of a walk and belongs to the group of physical features, which are easily interpretable. A detailed analysis of physical features for radar-based gait recognition will be given in Section~\ref{subsec:phyfeatures}. Note that, in medical terminology of human gait analysis, the cadence is defined as the number of steps per unit time, and thus serves as a measure of the step rate \cite{Lev12}. Here, however, we draw a distinction between the cadence frequency, as a measure of the periodicity of micro-Doppler signatures, and the stride rate, which describes the number of strides per second. Therefore, the repetition frequency of micro-Doppler signatures, hereafter, is referred to as $\fmd$, which does not necessarily relate to the stride rate in assisted or pathological gait. 
+
+Similarly, we can find the mean Doppler spectrum by summing over all cadence frequencies for each Doppler frequency bin in the CVD, i.e.,
+\begin{equation}\label{eq:meanDS}
+\bar{\Gamma}(k) = \frac{1}{L} \sum_{\epsilon=0}^{L-1} \mathrm{C}(\epsilon,k), \quad k = 0, \dots, K-1.
+\end{equation}
+From the mean Doppler spectrum, features such as the average walking speed of a person or the minimal and maximal Doppler shifts, can be extracted \cite{Ric15,Bjoe12}.

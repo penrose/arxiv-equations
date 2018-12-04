@@ -1,0 +1,1770 @@
+\documentclass[a4paper,11pt]{article}
+\pdfoutput=1
+\usepackage{amssymb}
+\usepackage[utf8]{inputenc}
+\usepackage{textcomp}
+\usepackage{latexsym}
+\usepackage{epstopdf}
+\usepackage{epsfig}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{multirow}
+\usepackage{subfigure}
+\usepackage{a4wide}
+\usepackage{cite}
+\usepackage{rotating}
+\usepackage{hyperref}
+%---- page parameters ----------------------------------------------------------------------------------------------------------------------------------
+\jot = 1.5ex
+%\parskip 5pt plus 1pt
+%\parindent 0pt
+\evensidemargin -0.2in   \oddsidemargin  -0.2in
+%\textwidth 6.7in         \textheight 9.5in
+\topmargin -2.25cm        \headsep    1.0cm
+
+%---- command (re)definitions ----------------------------------------------------------------------------------------------------------------------------
+\newcommand{\capdef}{}
+\newcommand{\mycaption}[2][\capdef]{\renewcommand{\capdef}{#2}
+\caption[#1]{{\footnotesize #2}}}
+%%%%%%%%%%%%%%%%%%%% math environments %%%%%%%%%%%%
+\newcommand{\bwt}{\begin{widetext}}
+\newcommand{\ewt}{\end{widetext}}
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+ \newcommand{\bdm}{\begin{displaymath}}
+\newcommand{\edm}{\end{displaymath}}
+\newcommand{\bea}{\begin{eqnarray}}
+\newcommand{\eea}{\end{eqnarray}}
+\newcommand{\nn}{\nonumber}
+\newcommand{\red}{\color{red}}
+\newcommand{\blue}{\color{blue}}
+\newcommand{\green}{\color{green}}
+\newcommand{\mrk}{\vskip 2mm {\color{green}[MARK]}\vskip 2mm }
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%---- symbol short-hands and redefinitions -----------------------------
+\def\eq#1{{Eq.~(\ref{#1})}}
+\def\eqs#1#2{{Eqs.~(\ref{#1})--(\ref{#2})}}
+\def\fig#1{{Fig.~\ref{#1}}}
+\def\figs#1#2{{Figs.~\ref{#1}--\ref{#2}}}
+\def\Table#1{{Table~\ref{#1}}}
+\def\Tables#1#2{{Tables~\ref{#1}--\ref{#2}}}
+\def\sect#1{{Sect.~\ref{#1}}}
+\def\sects#1#2{{Sects.~\ref{#1}--\ref{#2}}}
+\def\app#1{{Appendix~\ref{#1}}}
+\def\apps#1#2{{Apps.~\ref{#1}--\ref{#2}}}
+\def\citelist#1#2{{[\citenum{#1}--\citenum{#2}]}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\vev#1{\left\langle #1 \right\rangle}
+\def\abs#1{\left| #1\right|}
+\def\mod#1{\abs{#1}}
+\def\Im{\mbox{Im}\,}
+\def\Re{\mbox{Re}\,}
+\def\Tr{\mbox{Tr}\,}
+\def\det{\mbox{det}\,}
+\def\etal{\hbox{\it et al.}}
+\def\ie{\hbox{\it i.e.}{}}
+\def\eg{\hbox{\it e.g.}{}}
+\def\etc{\hbox{\it etc}{}}
+\def\chain#1#2{\mathrel{\mathop{ell\longrightarrow}\limits^{#1}_{#2}}}
+%%%%%%%%%%%%%%%%%%%%%%% frequently used %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\def\stheta{\sin^22\theta_{13}}
+\def\dma{\Delta m_{31}^2}
+\def\dms{\Delta m_{21}^2}
+\def\deltacp{\delta_\mathrm{CP}}
+\def\GSM{SU(3)_{c}\otimes SU(2)_{L}\otimes U(1)_{Y}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%
+\newcommand{\rr}[1]{{\color{red}#1}}
+%%%%%%%%%%%%%%%%%%%%
+
+%--------------- typesetting ------------------------------------------
+\newcommand{\sepA}{\rule[-0.8cm]{0cm}{1.6cm}}
+\newcommand{\sepB}{\rule[-1cm]{0cm}{2cm}}
+\newcommand{\sepC}{\rule[-1.2cm]{0cm}{2.4cm}}
+\newcommand{\sepD}{\rule[-1.4cm]{0cm}{2.8cm}}
+\usepackage{slashed}
+\newcommand{\mathsym}[1]{{}}
+\newcommand{\unicode}{{}}
+\newcommand{\D}{\displaystyle}
+%\newcommand{\dms}{\mbox{$\Delta m^2_{\odot}$}}
+%\newcommand{\dma}{\mbox{$\Delta m^2_{\rm A}$}}
+\newcommand{\meff}{\mbox{$\langle m \rangle$}}
+\newcommand{\baz}{\begin{array}{cc}}
+\newcommand{\bad}{\begin{array}{ccc}}
+\newcommand{\ba}{\begin{array}{c}}
+\newcommand{\ea}{\end{array}}
+%\newcommand{\be}{\begin{equation}}
+%\newcommand{\ee}{\end{equation}}
+%\newcommand{\bea}{\begin{eqnarray}}
+%\newcommand{\eea}{\end{eqnarray}}
+%\newcommand{\nn}{\nonumber}
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+\newcommand{\bmt}{\begin{pmatrix}}
+\newcommand{\emt}{\end{pmatrix}}
+\newcommand{\bt}{\begin{tabular}}
+\newcommand{\et}{\end{tabular}}
+\newcommand{\hl}{\hline}
+\newcommand{\ovl}{\overline}
+\newcommand{\ul}{\underline}
+\newcommand{\noi}{\noindent}
+\newcommand{\benu}{\begin{enumerate}}
+\newcommand{\eenu}{\end{enumerate}}
+
+
+%---- fix a few hyphenation problems ----------------------------------
+\hyphenation{pa-ra-meter pa-ra-meters}
+%----------------------------------------------------------------------------------
+
+\begin{document}
+%\preprint{TTP13-007, SFB/CPP-13-14}
+
+%\begin{center}
+\title{\Large\bf {High Scale Type-II Seesaw, Dominant $W_L-W_L$ Channel Double Beta Decay  within 
+Cosmological Bound  and Verifiable LFV Decays in SU(5)}}
+
+%\pacs{12.10.-g, 12.10o.Kt, 14.80.-j}
+%\vskip 1cm
+\author{M. K. Parida$^{\dagger}$, Rajesh Satpathy $^{*}$\\
+Centre of Excllence in Theoretical and Mathematical Sciences\\
+Siksha 'O' Anusandhan Deemed to be University (SOADU), Khandagiri
+Square,\\
+ Bhubaneswar 751030, India}
+%\email{minaparida@soa.ac.in}
+%\email{
+\maketitle
+
+\begin{abstract}
+ Very recently  a novel implementation of type-II seesaw mechanism for
+neutrino mass has been proposed in SU(5) grand unified theory with a
+number of desirable new physical phenomena beyond the standard model.  
+Introducing heavy right-haded neutrinos and extra fermion singlets, in this
+work we show how the type-I seeaw cancellation mechanism works in this
+SU(5) framework.  Besides predicting verifiable
+LFV decays,  we further  show that the model predicts
+dominant double beta decay  with normal hierarchy or
+inverted hierarchy of active light neutrino masses
+in concordance with cosmological bound.  In addition, a novel
+mechanism for heavy right-handed neutrino mass generation independent of type-II seesaw
+predicted mass hierarchy is suggested in this work.
+\end{abstract}
+\noindent{${}^{\dagger}$email:minaparida@soa.ac.in}\\
+\noindent{${}^{*}$email:rajesh.rajesh.satpathy@gmail.com} 
+%-------------------------------------------------------------------------------
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Introduction}\label{sec:intr}
+Renormalisable  standard model (SM) predicts  neutrinos to be massless 
+ whereas  oscillation experiments prove them
+to be massive \cite{Salas:2017,schwetz,forero,fogli,gonzalez}. All the generational mixings have been found to be much larger than the corresponding quark mixings.
+Theoretically \cite{Alta:2014,AYS:2014,RNM:2015,RNM:2016,Valle:2016,Valle:2017,gs:2011,nurev:mkpbpn}
+%Valle:add,Valle:nuDM}
+ neutrino masses are predicted through
+various seesaw
+mechanisms\cite{Minkowski:1977,Yanagida:1979,Gell-Mann:1979,Glashow:1979,RNM-gs:1980,Valle:1980,Valle:t2,Magg:t2,Lazaridis:t2,RNM-gs:t2,RNM-mkp:t2,inv1,inv2,inv3,inv4,inv5,inv6,inv7,LG:2000,type-III,Akhmedov,mkp:hybrid,Linear,Rad,mkprad:2011,mkprad:2012}.
+%ma:2006,mkp:2011,LG:2007} such as
+ In a minimal left-right
+symmetric \cite{JCP:1974,rnmpati:1975,gs-RNM:1975} grand unified theory (GUT)
+like $SO(10)$ \cite{georgi:1974} where the
+ parity (P) violation in weak interaction is explained along with
+ fermion masses
+ \cite{babu-rnm:1993,Joshipura,Altarelli-Blankenburg,Bertollini,Goh-Mohapatra}, a number
+of these seesaw mechanisms can be naturally embedded while unifying
+ the  three frorces of the SM \cite{mkp-PLB:1983}. More recently
+ precision gauge coupling unification has been successfully implemented in
+ direct symmetry breaking of $SO(18) \to SM$ which may have high
+ potential for new physics \cite{Wilczek-Valle}.
+%mkp-PRD:1983,cmp1:1984,cmp2:1984,cmp3:1985,cmp-PLB:1984,Pal:1994,rnm-mkp:1993,l%mpr:1995,Shafi:1984,Jaydeep:1918}.
+% With natural inclusion
+%of right-handed (RH) neutrinos in its spinorial fermionic representation, the
+%model can predict the Dirac neutrino masses or Yukawa couplings by
+%fitting the charged fermion masses which play a crucial role in
+% seesaw mechanisms, lepton flavour violations (LFVs), and lepton number
+%violations (LNVs).
+
+The SO(10) model that predicts the  most popular canonical seesaw as
+well as the type-II seesaw has also the potential to explain baryon asymmetry of the universe via
+leptogenesis through heavy RH neutrino \cite{fukuyana:1986} or Higgs triplet  decays\cite{Hambye-gs}. But
+because of underlying quark lepton symmetry \cite{JCP:1974}, the
+type-I seesaw scale as well as RH$\nu$ masses are so large that the model
+predicts negligible lepton flavor violating (LFV) decays like $\mu\to e\gamma \,$, $\tau\to
+\mu\gamma \,$, $\tau\to e\gamma \,$, and $\mu \to e{\bar e}e$. Similarly
+direct mediation of large mass of scalar triplet required for type-II
+seesaw   gives negligible contribution to lepton number violating
+(LNV) and lepton flavor violating (LFV) decays.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Ever since the proposal of left-right symmetry, extensive
+investigations continue in search of experimentally observable double beta decay\cite{bbexpt1-Klapdoor,bbexpt2,bbexpt3} in the
+$W_R-W_R$ channel \cite{gs:bb,mkp-bs:2015}. Adding new dimension to such lepton number violatin g (LNV) process, the
+like-sign dilepton production  has been suggested as a
+possible means of detection of $W_R$-boson at accelerator energies \cite{Keung-gs:1983},
+particularly the LHC \cite{Bajc-gs:2007}. However, no such signals of TeV scale $W_R-$
+ have been detected so far.
+ Even if $W_R$ mass and seesaw scales are
+large and  inaccessible for direct verification, neutrinoless
+double beta decay ($0\nu 2\beta$) in the $W_L-W_L$ channel \cite{Valle:t2,Valle:bb1,Valle:nuD1,Valle:MajDM,Valle:nuD2,Valle:CPLRS,Valle:KeVDM} is predicted close to
+observable limit with $\tau_{\beta \beta} \ge 10^{25}$ yrs provided
+light neutrino masses predicted by such high-scale seesaw mechanisms
+are of quasidegenerate (QD) type with masses $m_{\nu} \ge {\cal O}(0.2)$ eV \cite{bbexpt1-Klapdoor}.
+But as noted by the recent Planck data such QD type masses   violate the
+cosmological bound \cite{Planck15}
+\be
+\Sigma_{\nu}\equiv {\sum}_{i=1}^3 {\hat m}_i\, < 0.23~(\rm  eV). \label{eq:cbound}.
+\ee
+ The fact that such
+QD type $\nu$ masses violate the cosmological bound may be unravelling another
+basic frundamental reason  why  detection of double beta decay continues to
+elude experimental observation for several decades. On the other hand if
+neutrinos have smaller NH or IH type masses there is no hope for
+detection of these LNV events in near future with RH$\nu$ extended SM.
+In other words predicting observable double beta decay in the
+$W_L-W_L$ channel with left-handed helicities of borh the beta
+particles has been a formidable problem confronting theoretical and
+experimentral physicists. However, it has been shown that in case of dynamical seesaw mechanism generating Dirac neutrinos the seesaw scale is accessible for direct experimental verification \cite{Valle:dynamical}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The path breaking discovery of  inverse seesaw \cite{inv1,inv2,inv3,inv4,inv5,inv6,inv7} with
+one extra singlet fermion per generation not only opened up
+the neutrino mass generation mechanism for direct experimental tests,
+but also  lifted up 
+lepton flavor violating (LFV) decays \cite{Valle:LFV1987} from the abysmal depth of
+experimental inaccessibility of negligible branching ratios (
+$ Br.(l_\alpha\to l_\beta \gamma) \sim 10^{-50}$) to the illuminating
+salvation of profound observability ( Br.$\simeq
+10^{-8}-10^{-16}$) \cite{lfvexpt} which has been discussed extensively \cite{ilakovac,antbnd,non-unit}.  Despite inverse seesaw,
+ observable double beta decay in the $W_L-W_L$ channel and the non-QD type
+ neutrino masses remained mutually
+exclusive until both the RH neutrinos and singlet fermions ($S_i$) were
+brought into the arena of LFV and LNV
+conundrum through the much needed extension of the Higgs sector. The King-Kang
+\cite{Kim-Kang:2006} mechanism cancelled out the ruling supremacy of canonical  
+seesaw which was profoundly explioted in SO(10) models with the
+introduction of both the SO(10) Higgs representations ${16}_H$ and ${126}^{\dagger}_H$ 
+\cite{nurev:mkpbpn,mkp-bs:2015,app:2013,Majee:2009,mkp-ARC:2010,pas:2014,bpn-mkp:2015} with successful
+prediction of  observable double beta decay in the
+$W_L-W_L$ channel \cite{Valle:t2,Valle:bb1}. Very interestingly, even though high scale type-II seesaw
+ can 
+govern light neutrino masses of any hierarchy, possibility of observable LFV and double beta
+decay prediction in the $W_L-W_L$ channel irrespective of light
+neutrino mass hierarchies has been  realized at least
+theoretically \cite{nurev:mkpbpn,bpn-mkp:2015}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The purpose of this work is to point out that there are new
+interesting physics realisations with suitable
+extensions of a non-SUSY SU(5) GUT model proposed recently \cite{scp:2018} where
+type-II seesaw, precision coupling unification, verifiable proton
+decay, scalar dark matter and vacuum stability have been already
+predicted. However with naturally large type-II seesaw scale $> 10^{9.2}$ GeV observable double beta
+decay accessible to ongoing experiments
+\cite{bbexpt1-Klapdoor,bbexpt2,bbexpt3} is possible in this model
+too with QD type neutrinos only of
+common mass
+with $|m_0| \ge 0.2$ eV like many other high scale seesaw models as noted above.
+In this work we 
+make additional prediction that dominant double beta decay in the
+$W_L-W_L$ channel  can be realised with NH or IH type
+hierarchy consistent with much lighter neutrino masses $|m_{i}|<< 0.2$
+eV. Thus this realization is  consistent with
+cosmological bound of eq.(\ref{eq:cbound}). Although such possibilities were realized earlier
+in SO(10) with TeV scale $W_R$ or $Z^{\prime}$ bosons as noted above,
+in SU(5) without any expectation of verifiable left-right symmetry, we have shown here for the first time that 
+ the dominant double beta decay is mediated by a
+sterile neutrino (Majorana fermion singlet) of ${\cal O}(1)$ GeV mass
+of first generartion. The model further predicts LFV decay branching
+ratios only $4-5$ orders smaller than the current experimental limits.
+An dditional interesting part of the present work is the first suggestion of a new
+mechanism for heavy RH$\nu$ mass generation that
+permits these masses to have hierarchies independent of conventional
+type-II seesaw prediction. Some applications of such masses are
+briefly noted. Thus the highlights of the present model are
+\begin{itemize}
+\item{First implementation of the mechanism for cancellation of type-I seesaw leading to the dominance of type-II seesaw in SU(5).}
+\item{Prediction of verifiable LFV decays only $4-5$ orders smaller
+  than the current experimental limits.}
+\item{Prediction of dominant double beta decay in the $W_L-W_L$
+  channel close to the current experimental limits for light neutrino
+  masses of NH or IH type in concordance  with cosmological bound.}
+\item{Suggestion  of a new mechanism for right-handed neutrino mass generation
+independent of type-II predicted mass hierarchy.} 
+\item{Precision gauge coupling unification with verifiable proton
+  decay which is the same as discussed in \cite{scp:2018}.}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%55
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+This paper is organised in the following manner.
+In Sec.\ref{sec:model} we briefly review the SU(5) model along with gauge coupling
+unification and predictions of the intermediate scales. In Sec.\ref{sec:cancel} we
+discuss how type-I seesaw formula for active neutrinos cancels out giving rise to dominance of
+type-II seesaw and prediction of another type-I seesaw formula for sterile neutrino mass.
+Fit to neutrino oscillation data is discussed in Sec.\ref{sec:t2fit}.
+ In Sec.\ref{sec:rhnu} we present our suggestion for a new mechanism of RH$\nu$ mass generation. Predictions on
+ LFV branching ratios is discussed in Sec.\ref{sec:lfv}.
+Lifetime prediction for double beta decay is presented in Sec.\ref{sec:bb}.
+In Sec.\ref{sec:sum}
+we discuss the results of this work and state our conclusion.
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{\bf A NON-SUPERSYMMETRIC SU(5) MODEL}\label{sec:model}
+\subsection{Extension of SU(5)}
+As noted in ref.\cite{kynshi-mkp:1993} the inclusion of
+the scalar $\kappa(3,0,8)\subset {75}_H$ with mass
+$M_{\kappa}=10^{9.23} {\rm GeV}$  in the extended non-SUSY SU(5)
+achieves precision gauge coupling unification. Then 
+  type-II seesaw ansatz for neutrino mass is realised by inserting the
+  entire Higgs multiplet ${15}_H\subset SU(5)$ containing the LH Higgs triplet
+  $\Delta_L(3,-1, 1)$ at the samae scale $ M_{15_H}=10^{12}{\rm GeV}$.
+\bea
+\kappa(3,0,8)&\subset&{75}_H, M_{\kappa}=10^{9.2} {\rm GeV},\nonumber\\
+\Delta_L(3,-1, 1)&\subset& {15}_H, M_{15_H}=10^{12}{\rm GeV},\nonumber\\
+\chi_s(1,0,1)&&,~ M_{\chi_S} \sim {\cal O} (1) {\rm TeV}.\label{eq:kappadeltachi}
+\eea
+The scalar singlet $\chi_S(1,0,1)$ has played the
+crucial interesting role of stabilising the SM scalar potential.
+The interjaction of ${15}_H$ at any scale $> 10^{9.23}$ GeV in this
+model maintains precision coupling unification.
+In the present  model we extend the model further by the inclusion of the
+following fermions and scalars. Being singlets under the SM gauge group
+they do not affect precision mixing unification  of
+ref.\cite{scp:2018}.   
+\begin{itemize}
+\item{Three right handed neutrino singlets $N_i(i=1,2,3)$,  one for
+  each generation, with  masses to be fixed by this model phenomenology.}
+\item{Three left-handed Majorana fermion singlets $S_i(i=1,2,3)$, 
+one for each generation,  similar to those introduced in case of
+inverse seesaw mechanism \cite{inv1,inv2,inv3,inv4,inv5,inv6,inv7}.}
+\item{A Higgs scalar singlet $\xi_S(1,0,1)$  
+  to generate $S-N$ mixings through its VEV and to ensure vacuum
+  stability of the scalar potential.}
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Coupling Unification, GUT Scale, and Proton Lifetime}
+As already discussed \cite{scp:2018,kynshi-mkp:1993} using renormalisatin group equations for gauge couplings and the set of  Higgs scalars of eq(\ref{eq:kappadeltachi}),
+precision unification has been achieved with the PDG values of input parameters
+\cite{PDG:2012,PDG:2014,PDG:2016} on $\sin^2\theta_W(M_Z),\alpha_S(M_Z)$ resulting in the following 
+mass scales and  the GUT
+fine-structure constant $\alpha_G$ 
+\bea
+M_U&=& 10^{15.23} {\rm GeV}     , \nonumber\\
+M_{\kappa}&=& 10^{9.23} {\rm GeV}, \nonumber\\
+M_{\Delta_L}&=& M_{{15}_H}=10^{12} {\rm GeV},\nonumber\\
+\frac{1}{\alpha_G}&=& 37.765. \label{eq:solsu5}
+\eea
+
+Using threshold effects due to superheavy Higgs scalars
+\cite{Weinberg:1980,Hall:1981,Ovrut:1982,mkp:1987,mkp-cch:1989,rnm-mkp:1993,Langacker:1993,lmpr:1995},
+ proton lifetime prediction for $p\to e^+\pi^0$ turns out to be in
+the experimentally accessible range \cite{Abe:2017}
+\be
+\tau_p(p\to e^+\pi^0)= \left(1.01\times 10^{34\pm 0.44 }- (5.5\times
+10^{35\pm 0.44 } \right) {\rm yrs}.\label{eq:taup}
+\ee
+
+Extensive investigations with number of SU(5) GUT extensions have been
+carried out with
+proton lifetime predictions
+consistent with experimental limits
+\cite{Dorsner,Nath-Perez:2007,Langacker:1981}. But implementation of type-II
+seesaw dominance due to type-I seesaw cancellation resulting in
+dominant LFV and LNV decays as dicussed below are new in the context
+of non-SUSY SU(5). 
+
+
+
+\section{CANCELLATION OF TYPE-I AND DOMINANCE OF TYPE-II SEESAW }\label{sec:cancel}
+
+Due to the introdution of heavy RH$\nu$s in the present model which were absent
+in \cite{scp:2018}, it may be natural to presume
+apriori that besides type-II seesaw, type-I
+seesaw may also contribute substantially to light neutrino masses and mixings. But
+it has been noted  that there is a natural mechanism to cancel out
+type-I seesaw contribution while maitaining dominance of inverse
+seesaw \cite{mkp-bs:2015,Kim-Kang:2006,app:2013,Majee:2009,mkp-ARC:2010,pas:2014} or type-II seesaw or even linear seesaw
+\cite{nurev:mkpbpn,bpn-mkp:2015} as the case may be. Briefly we
+discuss below how this mechanism operates in the present extended
+model resulting in
+  type-II seesaw dominance even in the presence of heavy RH$\nu$s.
+
+%In addition to the $G_{2213}$ fermions multiplets of LRS model
+%$\psi^i_L(2,1,-1,1),\psi^i_R
+%(1,2,-1,1),q_L^i(2,1,1/3,3),q_R^i(1,2,1/3,3)\subset {16}^i_F\subset
+%  SO(10) (i=1,2,3)$, we have introduced one extra fermion SO(10) singlet per ge%neration $S_i(i=1,2,3)$. 
+
+
+
+The SM invariant Yukawa Lagrangian of the   model is 
+\bea
+{\cal L}_{\rm Yuk} &=& Y^{\ell} {\overline{\psi}}_{L}\psi_{R} \Phi  
+ +f \psi^c_{L} \psi_{L} \Delta_L \nonumber\\
+&+& y_{\chi}{\overline N }^C S \chi_s 
+(1/2)M_{N}{\overline N}^C N + h.c. \label{eq:Yuk-Lag} 
+\eea 
+
+  
+  Using the VEVs of the Higgs fields and denoting 
+ $M=y_{\chi}<\chi_S> =y_{\chi}V_{\chi}$,   
+$M_D = Y<{\Phi}> $,, 
+a $9 \times 9$ neutral-fermion mass matrix has been obtained which upon
+block diagonalisation yields  $3\times 3$ mass
+matrices  for each of the light neutrino ($\nu_{\alpha}$) , the right handed
+ neutrino ($N_{\alpha}$), and the sterile neutrino
+ ($S_{\alpha}$) \cite{app:2013,pas:2014,bpn-mkp:2015}.
+The block diagonalisation of $9\times 9$ neutral fermion mass matrix
+was earler presented in  useful format in ref.\cite{LG:2000}
+which have been effectively utilised to study the type-I seesaw
+cancellation mechanism in SO(10) models.
+
+In this model the left-handed triplet $\Delta_L$ and RH neutrinos
+$M_N$ being much heavier than the other mass scales with 
+$M_{\Delta_L}\gg M_N \gg M \gg M_D$ are at first integrated out from the Lagrangian leading to 
+\begin{eqnarray}
+- \mathcal{L}_{\rm eff} &=& \left(m_{\nu}^{II}+ M_D \frac{1}{M_N} M^T_D\right)_{\alpha \beta}\, \nu^T_\alpha \nu_\beta +
+\left(M_D \frac{1}{M_N} M^T \right)_{\alpha m}\, \left(\overline{\nu_\alpha} S_m + \overline{S_m} \nu_\alpha \right)
+\nonumber \\
+&&\hspace*{4.0cm} +\left(M \frac{1}{M_N} M^T\right)_{m n}\, S^T_m S_n  \, ,
+\end{eqnarray}
+which, in the $\left(\nu,~ S\right)$ basis, gives the $6 \times 6$ mass matrix
+\begin{eqnarray}
+\mathcal{M}_{\rm eff} = \left( \begin{array}{cc}
+    M_DM_N^{-1} M^T_D+m_{\nu}^{II}  &  M_D M_N^{-1} M^T    \\
+    MM_N^{-1} M_D^T       & MM_N^{-1} M^T  
+        \end{array} \right) \, ,
+\label{eqn:eff_numatrix}       
+\end{eqnarray}
+while the $3\times 3$ heavy RH neutrino mass matrix $M_N$ is the other part of the full 
+$9 \times 9$ neutrino mass matrix. This $9 \times 9$ mass matrix $\tilde{\mathcal{M}}_{\rm 
+\tiny BD}$ which results from the first step of block diagonalization procedure as discussed 
+above and in the appendix is
+\begin{eqnarray}
+\mathcal{W}^\dagger_1 \mathcal{M}_\nu \mathcal{W}^*_1 = 
+\tilde{\mathcal{M}}_{\rm \tiny BD}
+ = \bmt \mathcal{M}_{\rm eff} & 0\\
+0& M_N
+\emt \, ,
+\end{eqnarray}
+Defining
+\bea
+ X &=& M_D\,M^{-1},\nonumber\\
+ Y&=&M\, M^{-1}_N,\nonumber\\
+ Z&=&M_D\,M^{-1}_N.\label{eq:defXYZ}
+\eea
+
+The transfrmation matrix $\mathcal{W}_1$ has been derived as shown in
+eqn.\,(\ref{app:w1})\cite{app:2013,bpn-mkp:2015}
+\bea 
+\mathcal{W}_1=\bmt
+1-\frac{1}{2}ZZ^\dagger & -\frac{1}{2}ZY^\dagger & Z \\
+-\frac{1}{2}YZ^\dagger & 1-\frac{1}{2}YY^\dagger & Y \\
+-Z^\dagger & -Y^\dagger & 1-\frac{1}{2}(Z^\dagger Z + Y^\dagger Y)
+\emt
+ \label{app:w1}
+\eea
+
+\noindent
+After the second step of block 
+diagonalization, the type-I seesaw contribution cancels out and gives in the $\left(\nu, S, N \right)$ basis
+\begin{eqnarray}
+\mathcal{W}^\dagger_2 \tilde{\mathcal{M}}_{\rm \tiny BD} \mathcal{W}^*_2 = \mathcal{M}_{\rm \tiny BD}
+= \bmt m_\nu &0&0\\
+0&m_{\cal S}&0\\
+0&0&m_{\cal N}
+\emt\, ,
+\label{eqn:block-form}    
+\end{eqnarray}
+where $\mathcal{W}_2$ has been derived in eqn.\,(\ref{app:w2})
+\cite{app:2013,bpn-mkp:2015}. We ahve used the bare mass of $S_i$ and
+VEV of $\chi_L(2,-1/2,1)$ to be vanshing i,e $\mu_S=0,<\chi_L>=0$
+to  get the form suiatable for this model building
+\bea 
+\mathcal{W}_2 
+=
+\bmt 
+1-\frac{1}{2}XX^\dagger &X & 0\\
+-X^\dagger & 1-\frac{1}{2}X^\dagger X & 0 \\
+0 & 0 & 1
+\emt
+ \label{app:w2}
+\eea
+
+In eq.(\ref{eqn:block-form}), the three $3 \times 3$ matrices are 
+\bea
+m_{\nu} & = & m_{\nu}^{II}=fv_L  \\ 
+m_{\cal S}& = &  - M M^{-1}_NM^T  \\ 
+m_{\cal N} &= &  M_N \, ,
+\label{eq:mass}
+\eea
+the first of these being the well known type-II seesaw formula and the
+second is the emergence of the corresponding type-I seesaw formula for
+sterile fermion mass. The third of the above equations represents the
+heavy RH$\nu$ mass matrix.
+
+In the third step, $m_{\nu}$, $m_{\cal S}$, and $m_{\cal N}$ are further diagonalized 
+by the respective unitary matrices to give their corresponding eigenvalues
+\begin{eqnarray}
+U^\dagger_\nu\, m_{\nu}\, U^*_{\nu}  &=& \hat{m}_\nu = 
+         \text{diag}\left(m_{1}, m_{2}, m_{3}\right)\, , \nonumber \\ 
+U^\dagger_S\, m_{\cal S}\, U^*_{S}  &=& \hat{m}_S = 
+         \text{diag}\left(m_{S_1}, m_{S_2}, m_{S_3}\right)\, , \nonumber \\
+U^\dagger_N\, m_{\cal N}\, U^*_{N}  &=& \hat{m}_N = 
+         \text{diag}\left(M_{N_1}, M_{N_2}, M_{N_3}\right)\, .
+\label{eq:nudmass}
+\end{eqnarray}
+\noindent
+The complete mixing matrix \cite{LG:2000,app:2013} diagonalizing the above $9 \times 9$ 
+neutrino mass matrix given in 
+(\ref{eqn:numatrix}) turns out to be
+ \begin{eqnarray}
+\mathcal{V}&\equiv&
+\bmt 
+{\cal V}^{\nu\hat{\nu}}_{\alpha i} & {\cal V}^{\nu{\hat{S}}}_{\alpha j} & {\cal V}^{\nu \hat{N}}_{\alpha k} \\
+{\cal V}^{S\hat{\nu}}_{\beta i} & {\cal V}^{S\hat{S}}_{\beta j} & {\cal V}^{S\hat{N}}_{\beta k} \\
+{\cal V}^{N\hat{\nu}}_{\gamma i} & {\cal V}^{N\hat{S}}_{\gamma j} & {\cal V}^{N\hat{N}}_{\gamma k} 
+\emt \\
+&=&\bmt 
+\left(1-\frac{1}{2}XX^\dagger \right) U_\nu  & 
+\left(X-\frac{1}{2}ZY^\dagger \right) U_{S} & 
+Z\,U_{N}     \\
+-X^\dagger\, U_\nu   &
+\left(1-\frac{1}{2} \{X^\dagger X + YY^\dagger \}\right) U_{S} &
+\left(Y-\frac{1}{2} X^\dagger Z\right) U_{N}   \\
+0 &-Y^\dagger\, U_{S} & \left(1-\frac{1}{2}Y^\dagger Y\right)\, U_{N} 
+\emt \, ,
+ \label{eqn:Vmix-extended}
+\end{eqnarray}
+as shown in the appendix. In eqn.\,(\ref{eqn:Vmix-extended}) $X = M_D\,M^{-1}$, $Y=M\, 
+M^{-1}_N$ and $Z=M_D\,M^{-1}_N$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The mass of the singlet fermion is aquired through a type-I seesaw mechanism 
+
+\bea
+m_S=-M\frac{1}{M_N}M^T \label{matms}
+\eea
+where $M$ is the $N-S$ mixing mass term in the Yukawa Lagrangian  eq.(\ref{Yuk-Lag}). 
+
+
+\section{ TYPE-II SEESAW FIT TO OSCILLATION DATA}\label{sec:t2fit}
+\subsection{ Neutrino Mass Matrix from Oscillation Data}
+%Using eq.(\ref{dia1}) we have the $3\times 3$ neutrino mass matrix in
+% flavor space
+Using diagonalisation of neutrino mass matrix $(m_\nu)$ by the PMNS matrix $U_{\rm PMNS}$
+\begin{equation}
+m_\nu = U_{\rm PMNS}~diag(m_1, m_2, m_3) U_{\rm PMNS}^T ,\label{mnu}
+\end{equation}
+where $m_i (i=1,2,3)$ denote the mass eigen vlaues. For neutrino mixings we use the abbreviated cyclic notations $t_i=\sin\theta_{jk},c_i=\cos\theta_{jk}$ where $i,j,k$ are cyclic permutations of generational numbers $1,2,3$.
+In the standard parametrisation  we \cite{PDG:2012,PDG:2014,PDG:2016}
+\begin{equation}
+ U_{\rm PMNS}= \left( \begin{array}{ccc} c_{3} c_{2}&
+                      t_{3} c_{2}&
+                      t_{2} e^{-i\delta_D}\cr
+-t_{3} c_{1}-c_{3} t_{1} t_{2} e^{i\delta_D}& c_{3} c_{1}-
+t_{3} t_{1} t_{2} e^{i\delta_D}&
+t_{1} c_{2}\cr
+t_{3} t_{1} -c_{3} c_{1} s_{2} e^{i\delta_D}&
+-c_{3} t_{1} -t_{3} c_{1} t_{2} e^{i\delta_D}&
+c_{1} c_{2}\cr
+\end{array}\right) 
+diag(e^{\frac{i \alpha_M}{2}},e^{\frac{i \beta_M}{2}},1)
+\end{equation}
+where  $\delta_D$ is the Dirac CP phase and $(\alpha_M,\beta_M)$ are Majorana phases. 
+
+Here we present numerical analyses within $3\sigma$ 
+limit of the neutrino oscillation data in the  type-II seesaw framework \cite{scp:2018}. As we do not have any experimental information 
+about Majorana phases, they are determined by means of random
+sampling: i,e  from the set of randomly generated values, each
+confined within the maximum allowed limit of $2\pi$  only one set of
+values for  $(\alpha_M,\beta_M)$ is chosen.
+Very recent analysis of the oscillation data has determined
+the  $3\sigma$  and $1\sigma$ 
+limits of Dirac CP phase $\delta_D$ \cite{Salas:2017},
+ The best fit values 
+of $\delta_D$ in the normally ordered (NO) and invertedly ordered (IO) cases are near $1.2\pi$ and $1.5\pi$, respectively, which we utlise for the sake of simplicity.
+
+
+ Global fit to the oscillation data \cite{Salas:2017}  is summarised below
+ including respective parameter uncertainties at  $3\sigma$ level
+\begin{eqnarray}
+&&\theta_{12}\/^{\circ}=34.5\pm 3.25,\,\, \theta_{23}\/^{\circ}({\rm NO})=41.0\pm 7.25,\nonumber \\
+&& \theta_{23}\/^{\circ}({\rm IO})=50.5\pm 7.25,\,\theta_{13}\/^{\circ}({\rm NO})=8.44\pm0.5,\nonumber\\
+&&\theta_{13}\/^{\circ}({\rm IO})=8.44\pm 0.5,\,\delta_{D}/\pi({\rm NO})=1.40\pm 1.0,\nonumber\\
+ &&\delta_{D}/\pi({\rm IO})=1.44\pm 1.0,\nonumber \\
+ &&\Delta m_{21}^2=(7.56\pm0.545)\times 10^{-5}{\rm eV}^2, \nonumber\\
+&&|\Delta m_{31}|^2({\rm NO})=(2.55\pm 0.12)\times 10^{-3}{\rm eV}^2,\nonumber\\
+&&|\Delta m_{31}|^2({\rm IO})=(2.49\pm 0.12)\times 10^{-3}{\rm eV}^2.
+\label{oscdata}
+\end{eqnarray}
+We denote the cosmologically constrained parameter, the sum of the
+three active neutrino masses, 
+\be
+\Sigma_{\nu}={\sum}_{i=1}^3 {\hat m}_i \label{eq:sumnu}
+\ee
+whose cosmologically determined upper bound has been given in eq.(\ref{eq:cbound}).
+For normally hierarchical (NH), inverted hierarchical (IH), and
+quasi-degenerate (QD) patterns, the experimental data on  mass
+squared differences have been fitted by the following  light
+neutrino mass eigen values with the respective values of the cosmological
+parameter $\Sigma_{\nu}$
+\bea
+{\hat m}_{\nu}&=& (0.00127, 0.008838 ,0.04978) ~{\rm eV}\,\, (\rm
+{NH})\nonumber\\   
+\Sigma_{\nu}&=&0.059888~{\rm eV},\nonumber\\ 
+{\hat m}_{\nu}&=& ( 0.04901,0.04978,0.00127)~{\rm eV}\,\, (\rm {IH})\nonumber\\
+\Sigma_{\nu}&=&0.059888~~{\rm eV},\nonumber\\ 
+{\hat m}_{\nu}&=& (  0.2056,0.2058,0.2) ~{\rm eV}\,\, (\rm {QD}),\nonumber\\
+\Sigma_{\nu}&=&0.6114  ~~{\rm eV}. 
+\label{eq:mnusumnu}
+\eea
+The last line clearly shows violation of cosmological bound in the QD case.
+Using oscillation data and best fit values of the mixings we have also determined the PMNS mixing matrix
+numerically
+\bea
+U_{\rm {PMNS}}=\begin{pmatrix} 0.816&0.56&-0.0199-0.0142i\\
+-0.354-0.0495i&0.675-0.0346i&0.650\\
+0.450-0.0568i&-0.485-0.0395i&0.75\end{pmatrix}.\label{eq:numupmns} 
+\eea
+\subsection{Determination of Majorana Yukawa Coupling Matrix} 
+
+Now inverting the relation ${\hat m}_\nu=U_{PMNS}^\dagger {\mathcal M}_\nu U_{PMNS}^*$
+where ${\hat m}_\nu$ is the diagonalised neutrino mass matrix, we determine ${\mathcal M}_{\nu}$ for three different cases and further determine the corresponding values of the $f$ matrix using $f={\mathcal M}_\nu/v_L$
+where we use the predicted value of $v_L=0.1$ eV.\\ 
+%Noting that $M_N=fV_R={{\mathcal M}_{\nu}V_R}/ v_L$, we have also derived eigen
+%values of the RH neutrino mass matrix  ${\hat M}_{N_i}$ as the
+%positive square root of the $i^{th}$ eigen value of the Hermitian matrix
+%$M_N^{\dag}M_N$.\\
+\par\noindent{\bf NH}\\
+\bea
+f =
+\begin{pmatrix} 0.117+0.022i & -0.124-0.003i  &   0.144+0.025i\\
+-0.124-0.003i  & 0.158-0.014i  & -0.141+0.017i\\ 0.144+0.025i &-0.141+0.017i& 0.313-0.00029i \end{pmatrix}\label{fNH}
+\eea
+%\bea
+% |{\hat M}_N| ={\rm diag}( 160, 894, 4870) ~{\rm GeV}.\,\ \label{MNNH}
+%\eea
+\vspace{0.2cm}
+\noindent{\bf IH}\\
+\bea
+f =  
+\begin{pmatrix} 0.390-0.017i & 0.099+0.01i  &  -0.16+0.05i\\
+0.099+0.01i  & 0.379+0.02i  & 0.176+0.036i\\-0.16+0.05i &0.176+0.036i& 0.21-0.011i \end{pmatrix}  \label{fIH}
+\eea
+%\bea
+% |{\hat M}_N| ={\rm diag}( 4880, 4910, 131) ~{\rm GeV}.\,\ \label{MNIH}
+%\eea
+\noindent{\bf QD}\\
+\bea
+ f =
+\begin{pmatrix} 2.02+0.02i & 0.0011+0.02i  &  -0.019+0.3i\\
+0.0011+0.02i  & 2.034+0.017i  & 0.021+0.21i\\-0.019+0.3i &0.021+0.21i& 1.99-0.04i \end{pmatrix} \label{fQD}
+\eea
+%For $v_L=0.1$ eV, we have 
+%\bea
+% |{\hat M}_N| ={\rm diag}( 21.46, 20.34, 18.87) ~{\rm TeV}\ \label{MNQDp1}
+%\eea
+%but for  $v_L=0.5$ eV, we obtain
+%\bea
+% |{\hat M}_N| ={\rm diag}( 4.3, 4.08, 3.77) ~{\rm TeV}.\ \label{MNQDp5}
+%\eea
+
+
+
+Randomly chosen Majorana phases \cite{scp:2018}
+$\alpha_M=74.84^\circ,\beta_M=112.85^\circ$ and the central value of
+the Dirac phase $\delta_D=218^\circ$ have been used in this analysis.
+Using the well known definition of the Jarlskog invariant 
+\be
+J_{CP}=-t_{3}c_{3}t_{2}c_{2}^2t_{1}c_{1} \sin \delta_D, \label{eq:jcp}
+\ee
+and keeping $\delta_D$ at its best fit values
+we have estmted the predicted allowed ranges of the CP-Violating parameter in both cases.
+\bea
+J_{CP}&=&0.0175-0.0212 \,\,(\rm NH)\, \nonumber\\
+J_{CP}&=&0.0302-0.0365\,\,(\rm IH)\,\,\label{eq:numjcp}
+\eea  
+where the variables have been permitted to acquire values within their respective $3\sigma$ ranges of the oscillation data. Besides these there are non-unitarity contributions which have been discussed extensively in the literature.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Scaling Transformation of Solutions}
+In general there could be type-II seesaw models characterizing different seesaw scales and induced VEVs  matching the given set of neutrino oscillation data represented by the same neutrino mass matrix. For two such models
+\bea
+&&m_{\nu}=f^{(1)}v_L^{(1)} \nonumber\\
+&&= f^{(2)}v_L^{(2)}, \label{eq:sc1}
+\eea
+Then the $f-$ matrix in one case is determined up to good approximation in terms of the other from the knowledge of the two seesaw scales\\
+\be
+f^{(1)} \simeq f^{(2)}\frac{M_{\Delta^{(1)}}}{M_{\Delta^{(2)}}}.\label{eq:sc2}
+\ee
+At $M_{\Delta^{(1)}}=10^{12}$ GeV our solutions are the same as in \cite{scp:2018}. 
+In view of this scaling relation,  we can determine the values of the
+Majorana Yukawa matrix in the present case from the estimations of
+\cite{scp:2018}. For example, if we choose $M_{\Delta^{(1)}}=10^{10}$ GeV in the present case compared to
+$M_{\Delta^{(2)}}=10^{12}$ GeV in \cite{scp:2018}, we rescale the solutions of
+\cite{scp:2018} by a  factor $10^{-2}$ to derive solutions in the present case. 
+Thus  graphical representations of solutions are similar to those of
+ref.\cite{scp:2018} for $M_{\Delta^{(2)}}=10^{12}$ GeV which we do not
+repeat here. The values of magnitudes of $f_{ij}$ at any new scale are
+obtained by rescaling them by the appropriate scaling factor while the
+phase angles remain the same as in \cite{scp:2018}.
+
+\subsection{Dirac Neutrino Mass Matrix}
+The Dirac neutrino mass matrix $M_D$ plays crucial role in predicting
+LFV and LNV decays. In certain SO(10) models
+\cite{babu-rnm:1993,Joshipura,bpn-mkp:2015,ap:2012} this is usually determined by
+fitting the charged fermion masses at the GUT scale and equating it with the upquark mass matrix. The fact that $M_D^0\simeq M_{u}^0$ at the GUT scale follows from the underlying quark lepton symmetry \cite{JCP:1974} of SO(10). In SU(5) itself, however, there is no
+such symmetry to dictate the structure of $M_D$ in terms of quark matrices. Also
+in this SU(5) model we do not attempt any charged fermion mass fit at the GUT
+scale or above it. Since the Dirac neutrino mass matrix is not predicted by the SU(5) symmetry itself, for the sake of simplicity and to derive maximal effects on LFV and LNV decays, we  assume $M^0_D$ to be equal to the up-quark mas
+matrix $M_u^0$ at the GUT
+scale. Noting that $N$ is SU(5) singlet fermion, in the context of
+relevant Yukawa interaction Lagrangian 
+\be
+-{\cal L}_{\rm Yuk}= [Y_{N}{\overline 5}_F.{\bf 1}_F.{5}_H + Y_{u} {10}_F.{10}_F.{5}_H+....]+h.c.,\label{eq:su5yuk}
+\ee
+this assumption is equivalent to alighment of the two Yukawa couplings
+\be
+Y_{N}\simeq Y_{u} . \label{eq:eqyuk}
+\ee 
+This alignment is naturally predicted in SO(10) or
+SO(18)\cite{Wilczek-Valle}, but in the present SU(5) case it is assumed.
+
+We realise this matrix $M_D$ using renormalisation group equations for fermion masses and gauge couplings and their numerical solutions \cite{dp:2001} starting from the PDG values \cite{PDG:2012,PDG:2014,PDG:2016} of fermion masses at the electroweak scale. 
+Following the bottom-up approach and using the down quark diagonal basis, the quark masses and the CKM mixings are 
+extrapolated from low energies using renormalisation group (RG) equations
+\cite{dp:2001,Stella:2016}. After assuming the approximate equality $M^0_D\simeq M^0_u$ at the GUT scale where $M^0_u$ is the up-quark mass matrix,  the top-down approach is
+exploited to run down this mass matrix $M^0_D$ using  RG equations
+\cite{dp:2001}. Then
+   the value of $M_D$ near $1-10$ TeV scale turns out to be  
+\bea
+M_D \simeq\footnotesize\begin{pmatrix}
+0.014&0.04-0.01i&0.109-0.3i\\
+0.04+0.01i&0.35&2.6+0.0007i\\
+0.1+0.3i&2.6-0.0007i&79.20
+\end{pmatrix}{GeV}.  \label{eq:mdmu}
+\eea
+
+As already noted above, although on the basis of SU(5) symmetry alone there may not be any reason for the rigorous validity of eq.(\ref{eq:mdmu}), in what follows  we study the implications of this assumed value of $M_D$ to examine maximum possible impact on LFV and LNV decays discussed in Sec.\ref{sec:lfv} and Sec.\ref{sec:bb}. Another
+reason is that the present assumption on $M_D$ may be justified in direct SO(10)
+breaking to the SM which we plan to pursue in a future work \cite{mkp-rs:plan}.
+
+
+\section{RIGHT-HANDED NEUTRINO  MASS IN SU(5) vs. SO(10)}\label{sec:rhnu}
+\subsection{RH$\nu$ Mass in SO(10)}
+The fermions responsible for type-I and type-II  seesaw are the  LH
+leptonic doublets and the RH fermionic singlets of three generations.
+ In SO(10) the left handed lepton doublet  $(\nu, l)^T$
+and the right-handed neutrino $N$ are in the same representation ${16}_F$.
+\bea
+(\nu, l)^T & \subset & {16}_F,\nonumber\\
+N& \subset & {16}_F.\label{eq:fermiso10}
+\eea
+In SO(10) GUT the Higgs representation ${126}^{\dagger}_H$ contains  both the left-handed and the right-handed triplets carrying $B-L=-2$,
+\be
+{126}^{\dagger}_H=\Delta_L(3,1,-2,1)+\Delta_R(1,3,-2,1)+.....\label{eq:126h}\\
+\ee
+where the quantum numbers are under the left-right symmetry group $SU(2)_L\times SU(2)_R \times U(1)_{B-L}\times SU(3)_C$. 
+The common Yukawa coupling $f_{10}$ in the Yukawa term
+\be
+-{\cal L}_{\rm Yuk10}=  f_{10} {16}_F{16}_F{126}_H^{\dagger},\label{eq:Yuk10}
+\ee
+ generates the dilepton-Higgs triplet interactios both in the left-handed and right-handed sectors giving rise to type-I and type-II seesaw mechanisms.
+The RH neutrino mass is generated through the VEV of the neutral component of the of $\Delta_R$
+\be
+M_N=f_{10} \langle \Delta_R^0 \rangle .\label{eq:MNso10}.
+\ee
+The type-II seesaw contribution to light  neutrino mass is 
+\be
+{\cal M}_{\nu}=f_{10} v_L  \label{eq:t2so10}
+\ee
+where $v_L$ is the corresponding induced VEV of $\Delta_L$
+\be
+v_L=\lambda_{10}\frac{\langle \Delta_R^0\rangle v^2_{ew}}{M_{\Delta_L}^2}. \label{eq:vlso10}
+\ee
+Here $\lambda_{10}$ is the quartic coupling in the part of the scalar
+potential
+\bea
+ V_{10}&=&\lambda_{10}\Delta_L^{\dagger}\Delta_R \Phi \Phi \nonumber\\
+&\subset& \lambda_{10}{126}_H^{\dagger}{126}_{H}{10}_H{10}_H.\label{eq:v10}
+\eea 
+Thus with type-II seesaw dominance, the predicted heavy RH neutrino masses in SO(10)  follow the same hierarchical pattern as the active light neutrino masses
+\be
+M_{N_1}:M_{N_2}:M_{N_3}::m_1:m_2:m_3 .\label{eq:rhmso10}
+\ee
+\subsection{RH$\nu$ Mass in SU(5)}
+
+Feynman diagram for type-II seesaw mechanism in the present model is
+shown in Fig.\ref{fig:su5mod2}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+ \includegraphics[width=6cm,height=4.5cm,angle=0]{feyn28.pdf}
+ \caption{Feynman diagram representing type-II seesaw mechanim for
+   neutrino mass generation in SU(5). Scalar fields $\phi, \sigma_S$ and
+   $\Delta_L$ represent SM Higgs doublet, singlet, and LH triplet as
+   defined in the text. This diagram defines the trilinear coupling
+   mass $\mu_{\Delta}=\lambda \langle \sigma_S \rangle$.}   
+\label{fig:su5mod2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In contrast to SO(10) where the LH leptonic doublet and the RH$\nu$ are
+in the single representation ${16}_F$, in SU(5) they are in different fermionic
+representations
+\bea
+(\nu, l)^T & \subset & {\overline 5}_F,\nonumber\\
+N& \subset & {\bf 1}_F.\label{eq:fermiso10}
+\eea
+In SU(5), while the dilepton Higgs interaction is given by
+\be
+-{\cal L}_{Yukll}=f {\bar 5}_F{\bar 5}_F{15}_H,\label{eq:Yukll5}
+\ee
+the RH neutrino mass is  generated through
+\be 
+-{\cal L}_{YukNN}= (1/2)f_NN N \sigma_S +h.c.\label{eq:YukNN5}
+\ee 
+The fact that $N$ is a singlet under SU(5) forces $\sigma_S$ to be a singlet too . Further 
+this singlet $\sigma_S$ must carry $B-L=-2$ as its VEV generates the
+heavy  Majorana mass
+\be 
+M_N=f_N\langle \sigma_S \rangle .\label{eq:MN}
+\ee
+In sharp contrast to SO(10) where the LH triplet $\Delta_L$
+and the RH triplet $\Delta_R$ scalars contained in the same representation
+${126}_H^{\dagger}$ generate the type-II seesaw and $M_N$ the
+situation in SU(5) is different. Since  LH
+triplet $\Delta_L(3,-1,2)$ mediating type-II seesaw belongs to Higgs
+representation ${15}_H\subset $ SU(5) and $\sigma_S$ belongs to a completely
+different representation which is a singlet ${\bf 1}\subset$ SU(5), the
+two relevant Majorana type couplings in general may not be equal
+\be
+f_N\neq f.               \label{eq:unequal}
+\ee
+Also this assertion is further strengthened if we do not assume SU(5)
+to be a remnant of SO(10).
+
+Then the RH neutrino mass hierarchy can be decoupled from  the type-II seesaw prediction.
+It is interesting to note that in SU(5)
+\be
+v_L=\frac{\mu_{\Delta}v_{\rm ew}^2}{M_{\Delta}^2}
+\ee
+where $\mu_{\Delta}$ is the trilinear coupling in the potential term
+\be
+V_{tri}=\mu_{\Delta}\Delta_L \Phi \Phi +h.c. \label{eq:tlpot}
+\ee
+ The VEV of this singlet $\sigma_S$ can explain the dynamical origin of this trilinear coupling through its VEV $v_{\sigma}=\langle \sigma_S \rangle$ 
+\be
+\mu_{\Delta}=\lambda v_{\sigma}, \label{eq:model}
+\ee
+where $\lambda$ is the quartic coupling in the potential term
+\bea
+V_{ql}&=&\lambda \sigma_S.\Delta_L\Phi\Phi + h.c.\\
+&\subset&\lambda \sigma_S. {15}_H{5}_H{5}_H+h.c \label{eq:qpot}
+\eea
+where the second line represents the SU(5) origin. For GUT-scale $U(1)_{B-L}$ symmetry breaking driving VEV $v_{\sigma}\simeq M_{GUT}$ in the absence of any intermediate symmetry, it is possible to ensure $\mu_{\Delta}\simeq M_{\Delta_L}$ for 
+\be
+\lambda \simeq \frac{M_{\Delta_L}}{M_{GUT}}. \label{eq:lamdelgut}
+\ee
+Thus the SU(5) model gives similar explanation for quartic coupling as
+in direct breaking of SO(10).
+But the predicted hierarchy of RH$\nu$ masses may not in general
+follow the same hierarchical pattern as given by SO(10) as shown in eq.(\ref{eq:rhmso10}).
+This is precisely because the eq.(\ref{eq:rhmso10}) follows because the
+same diagonalisation matrix $U_{PMNS}$ diagonalises the LH and the RH
+neutrino mass matrices which is further rooted in the fact that same
+Majorana coupling $f_{10}$ that generates the type-II seesaw mass term
+also generates $M_N$. But because of the general possibility $f_N\neq
+f$, the RH$\nu$s may acquire a completely different pattern depending
+upon the value of $f_N$. Unlike
+SO(10), these masses are also allowed to be quite different from the
+type-II seesaw scale.
+
+Even if the value of $v_{\sigma}$
+may be needed to be near $M_{\Delta_L}$, the value of $M_N$ is allowed
+to be considerably lower by finetuning the value of $f_N$.
+Our LFV and LNV decay phenomenology as discussed below may need $M_N=1-10$ TeV which is realizable using this new technique in SU(5). In contrast SO(10) needs
+$U(1)_R\times U(1)_{B-L}$ or $SU(2)_R\times U(1)_{B-L}$ gauge symmetry
+and hence new gauge bosons  near the TeV scale to generate such RH$\nu$
+masses which should be detected at LHC \cite{mkp-bs:2015,bpn-mkp:2015}.   
+Thus a new mechanism for RH$\nu$ mass emerges here by noting the
+coupling $f_N\neq f$ which has the potential to generate RH$\nu$
+masses in the range $100-10^{15}$ GeV. Thus the RH$\nu$ mass
+predictions in the two GUTs in the presence of type-II seesaw
+dominance are
+\par\noindent{\bf{\underline {Type-II Seesaw Dominated SO(10)}:-}}\\
+\be
+M_{N_i}\simeq \frac{m_i M^2_{\Delta_L}}{ v_{ew}^2}. \label{eq:mnso10}
+\ee
+\par\noindent{\bf{\underline{Type-II Seesaw Dominated SU(5)}:-}}\\
+\be
+M_{N_i}=\left[{\cal O}(10){\rm GeV} - {\cal
+    O}(M_{\Delta_L})\right].\label{eq:mnsu5}
+\ee 
+Here $m_i,i=1,2,3$ represents the three mass eigen values of light
+neutrinos. It is to be noted that $m_i$ is absent in the RHS of
+eq.(\ref{eq:mnsu5}) in the SU(5) case.
+\section{\bf LEPTON FLAVOR VIOLATIONS}\label{sec:lfv}
+In the SM extensions there has been extensive investigation of lepton
+flavor violating phenemena $l_{\alpha} \to l_{\beta}+\gamma$ and other
+processes like $\mu \to e{\bar e}e$  including
+unitarity violations \cite{ilakovac,antbnd,non-unit}. In the flavor
+basis we use the
+standard charged current Lagrangian  
+\begin{eqnarray}
+\mathcal{L}_{\rm CC} &=& -\frac{1}{\sqrt{2}}\, \sum_{\alpha=e, \mu, \tau}
+[g_{2L} \overline{\ell}_{\alpha \,L}\, \gamma_\mu {\nu}_{\alpha \,L}\, W^{\mu}_L] 
+       + \text{h.c.} 
+\label{eqn:ccint-flavor}
+\end{eqnarray}
+
+In  predicting the LFV
+branching ratios  we have used the relevant formulas of
+\cite{ilakovac}  while assuming a simplifying diagonal structure for
+M,
+\be
+M = {\rm diag.}~(M_1, M_2, M_3),\label{eq:M}
+\ee
+which, in comdination with eq.{\ref{eq:mdmu}), gives the elements of the
+  $\nu-S$ mixing matrix 
+\bea
+{\cal V}^{(lS)}=
+\begin{pmatrix}
+{M_D}_{e1}/M_1& {M_D}_{e2}/M_2&{M_D}_{e3}/M_3\\ 
+{M_D}_{\mu 1}/M_1& {M_D}_{\mu 2}/M_2&{M_D}_{\mu 3}/M_3\\ 
+{M_D}_{\tau 1}/M_1& {M_D}_{\tau 2}/M_2&{M_D}_{\tau 3}/M_3
+\end{pmatrix}.
+\label{HLMIX}
+\eea
+The $S-N$ mixing matrix 
+\be
+V^{(SN)}=\frac{M}{M_N}. \label{eq:mixsn} 
+\ee
+
+Noting that the physical neutrino flavor state $\nu_{\alpha}$ is a mixture of ${\hat \nu}$, ${\hat S}$ and ${\hat N}$
+\be
+ \nu_{\alpha}=U_{\alpha i}{\hat \nu}_i+V^{lS}_{\alpha i}{\hat S}
++V^{(SN)}_{\alpha i}{\hat N_i}.\label{eq:nusnmix}
+\ee
+where $U\sim U_{PMNS}$ and the other two mixings violate unitarity. For large $M_N\gg M$ the third term in the RHS of eq.(\ref{eq:nusnmix}} can be dropped leading to the unitarity violation parameter $\eta$
+\be
+U^{\prime}\simeq(1-\eta)U_{PMNS}.\label{eq:nonuni}
+\ee
+where
+\bea
+\eta_{\alpha\beta}&=&(1/2){(X.X^{\dagger})}_{\alpha\beta},\nonumber\\
+X&=&\frac{M_D}{M}. \label{eq:X}
+\eea
+There has been extensive discussion on the constraint imposed on this
+parameter
+\cite{antbnd,non-unit}. The largest out of these is $\eta_{\tau \tau}\le 0.0027$. Theoretically
+\be
+\frac{1}{2}\left[\sum_i \frac{{M_D}_{\tau i}.{M_D}_{\tau i}^*}{M_i^2}\right]\le 0.0027.\label{eq:etanum}
+\ee
+In the completely degenerate case of $S-N$ mixing, $M_1=M_2=M_3=M$ we get
+\be  
+M\ge 1280 {\rm GeV} \label{eq:Mdeg}
+\ee
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+ The  RH neutrinos in the present  model being degenerate of masses
+ $M_{N_i}\gg m_{S_i}$ have much less significant contributtions than the singlet fermions. The predicted branching ratios 
+being only few to four orders less than the current experimental
+limits \cite{lfvexpt} are verifiable by ongoing searches,
+
+\bea
+BR(\mu \to e\gamma)&=&5.90\times 10^{-17},\nonumber\\
+BR(\tau \to e\gamma)&=&7.80\times 10^{-16},\nonumber\\
+BR(\tau \to \mu\gamma)&=&2.39\times 10^{-12}.\label{lfvbr}
+\eea 
+For the sake of comoleteness we present the variation of LFV decay branching ratios as a function of the lightest neutrino mass in Fig. \ref{lfvbrs}. \\     
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+  \begin{figure}[htbp]
+ \includegraphics[width=10cm,height=8cm,angle=0]{lfvt2.pdf}
+ \caption{Variation of LFV decay branching ratios as a funtion of the
+   lightest neutrino mass. Colored horizontal lines represent 
+${\rm I}:BR(\mu \to e\gamma)$, ${\rm II}:BR(\tau \to e\gamma)$, and ${\rm III}:BR(\tau \to \mu\gamma)$. }   
+\label{lfvbrs}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+ In this approach the LFV decay rate
+mediated by the $W_L$ boson in the loop depends predominantly upon $N-S$ mixing matrix $M$
+and the Dirac neutrino mass matrix $M_D$, although subdominantly upon
+the RH$\nu$ mass matrix $M_N$. However in the high scale type-II seesaw
+ ansatz in this case
+ LFV decay rate is independent of  light neutrino masses. This behavior
+ of LFV decay rates are clearly exhibited in Fig.\ref{lfvbrs} where
+ the three branching ratios have maintained constancy with the
+ variation of $m_{\nu}$.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{\bf DOMINANT $W_L-W_L$-CHANNEL DOUBLE BETA DECAY WITHIN COSMOLOGICAL BOUND}\label{sec:bb}
+\subsection{Double Beta Decay Mediation by Sterle Neutrinos}  
+
+As the $W_R$ boson has mass $> 10^{15}$ GeV   and the doubly charged Higgs bosons
+have masses $> 10^{9.2}$ GeV, they have negligible contributions for direct mediations of $0\nu\beta\beta$ process.
+ Feynman diagrams for
+$0\nu\beta\beta$ decay amplitude due to the exchanges of Majorana
+fermions $\nu$, $S$, and $N$ are shown in Fig. \ref{fig:feynall}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+ \includegraphics[width=15cm,height=5cm,angle=0]{feyn_allLL.pdf}
+%{feyn_allLL.pdf}
+ \caption{Feynman diagrams representing neutrino-less double beta
+   decay due to
+exchanges of all three types of  Majorana frmions $\nu$,$S$ and $N$.}   
+\label{fig:feynall}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+In Fig.\ref{fig:feyns} we present  Feynman diagram for
+$0\nu\beta\beta$ decay amplitude due to the sterile neutrino  exchange 
+where its mass insertion has been explicitly indicated.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+ \includegraphics[width=6cm,height=4.5cm,angle=0]{sterile1c.pdf}
+ \caption{Feynman diagram representing neutrino-less double beta
+   decay amplitude due to
+exchanges of sterile neutrino $S$ with explicit mass isertion $m_s=-M\frac{1}{M_N}M^T$.}   
+\label{fig:feyns}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Mass eigen values of different sterile neutrinos for different sets of 
+ $(M_1,M_2,M_3)$ consistent  with constraints on unitarity violating parameters 
+$\eta_{\alpha \beta}$ are presented in Table \ref{tab:msMi}. We have
+used the singlet fermion  mass seesaw formula of eq.(\ref{eq:mass})
+and $M_{N_1}=M_{N_2}=M_{N_3}= 4000$ GeV. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{table}[!h]
+\caption{Prediction of singlet fermion masses for different values of
+  $(M_1,M_2,M_3)$ where we have used  $M_{N_1}=M_{N_2}=M_{N_3}= 4000$ GeV. }
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+{ $M$ (GeV)} & {$\hat{m}_s$ (GeV)} \\
+\hline
+$(60,1200,1200)$ & $(0.9,360,360)$ \\
+\hline
+$(70,1200,1200)$ & $(1.22,360,360)$ \\
+\hline
+$(80,1200,1200)$ & $(1.60,360,360)$ \\
+\hline
+$(90,1200,1200)$ & $(2.00,360,360)$ \\
+\hline
+$(100,1200,1200)$ & $(2.50,360,360)$ \\
+\hline
+$(110,1200,1200)$ & $(3.00,360,360)$ \\
+\hline
+$(120,1200,1200)$ & $(3.60,360,360)$ \\
+\hline
+$(130,1200,1200)$ & $(4.22,360,360)$ \\
+\hline
+$(140,1200,1200)$ & $(4.90,360,360)$ \\
+\hline
+$(150,1200,1200)$ & $(5.62,360,360)$ \\
+\hline
+\end{tabular}
+\end{center}
+\label{tab:msMi}
+\end{table}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+These solutions are displayed in Fig.\ref{fig:msM}. 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+ \includegraphics[width=9cm,height=12cm,angle=-90]{ms123.pdf}
+ \caption{Prediction of singlet fermion mass eigen values as a function of $N-S$ mixing mass parameters $M_i(i=1,2,3)$ for $M_{N_i}= 4\, {\rm TeV} (i=1,2,3)$. The horizontal red coloured line represents solutions for two other eigen values for $M_2=M_3=1200$ GeV.} 
+ \label{fig:msM}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+We use normalisations necassary for different contributions \cite{Vergados,Doi},  due to exchanges of
+ light-neutrinos, sterile neutrinos, and the heavy
+RH neutrinos  in the $W_L-W_L$ channel. They 
+lead to the inverse half life \cite{app:2013,pas:2014,bpn-mkp:2015},   
+\begin{eqnarray}
+  \left[T_{1/2}^{0\nu}\right]^{-1} &\simeq &
+  G_{01}|\frac{{\cal M}^{0\nu}_\nu}{m_e}|^2|({\large\bf
+    M}^{ee}_{\nu} +{\large\bf M}^{ee}_{S}+{\large\bf M}^{ee}_{N})|^2,\nonumber\\
+&=& K_{0\nu}|({\large\bf
+    M}^{ee}_{\nu} +{\large\bf M}^{ee}_{S}+{\large\bf M}^{ee}_{N})|^2,\nonumber\\
+&=& K_{0\nu}|{\large\bf
+    M}_{\rm eff} |^2.
+  \label{invhalf}
+\end{eqnarray}
+Here  $G_{01}= 0.686\times 10^{-14} {\rm yrs}^{-1}$, ${\cal
+  M}^{0\nu}_{\nu} = 2.58-6.64$, and $K_{0\nu}= 1.57\times 10^{-25} {\rm yrs}^{-1}
+{\rm eV}^{-2}$. In eq.(\ref{invhalf}) the three effective mass parametes  have been defined as 
+\begin{eqnarray}
+{\large \bf  M}^{\rm ee}_{\nu} =\sum^{}_{i} \left(\mathcal{V}^{\nu \nu}_{e\,i}\right)^2\, {m_{\nu_i}}
+\label{effmassparanus} 
+\end{eqnarray}
+\bea
+{\large \bf  M}^{\rm ee}_{S} = \sum^{}_{i} \left(\mathcal{V}^{\nu
+  S}_{e\,i}\right)^2\, \frac{|p|^2}{{\hat m}_{S_i}} 
+  \label{effmassparanus2} 
+\eea
+\begin{eqnarray}
+{\large \bf  M}^{\rm ee}_{N} = \sum^{}_{i} \left(\mathcal{V}^{\nu
+  N}_{e\,i}\right)^2\, \frac{|p|^2}{M_{N_i}},
+\label{effmassparanus3} 
+\end{eqnarray}
+with 
+\begin{eqnarray}
+&&{\large\bf M}_{\rm eff}={\large\bf M}^{ee}_{\nu} +{\large\bf
+    M}^{ee}_{S}+{\large\bf M}^{ee}_{N}.\label{sumeff}.
+\end{eqnarray}
+
+The quantity ${\hat m}_{S_i}$ is the i-th eigen value of the  $S-$ fermion mass matrix
+$m_S$. The magnitude of neutrino virtuality momentum $|p|$ has been estimated to be in the allowed range 
+$|p|= 120$ MeV$-200$ MeV \cite{Vergados,Doi}.
+The RH$\nu$s being much heavier than the singlet fermions, their
+contributions have been neglected. 
+
+\subsection{Singlet Fermion Assisted Enhanced Double Beta Decay Rate} 
+We use neutrino oscillation date to estimate $M_{\nu}^{\rm ee}$ for NH and IH cases
+with the values of Dirac phase and Majorana phases as discussed above. We further use the values of $M_i$ from Table \ref{tab:msMi} and Fig. \ref{fig:msM} and the Dirac neutrino mass matrix from eq.(\ref{eq:mdmu} to estimate $M_S^{\rm ee}$ 
+while treating the RH$\nu$ mass at its assumed degenerate value of $M_{N_i}=4 {\rm TeV} (i=1,2,3)$. 
+The variation of effective parameter $m_{\rm ee}$ as a function of
+lightest neutrino mass is shown in Fig.\ref{fig:eff2} when $m_{s_1}=2$ GeV.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+ \includegraphics[width=9cm,height=9cm,angle=-90]{bbeff2.pdf}
+ \caption{Variation of effective mass parameter as a function of
+   lightest active neutrino mass $m_1$ for $m_{s_1}=2$ GeV. For
+   comparison, predictions in the standard model suplementd by light neutrino masses
+   of NH type is shown by green dot-dashed curve. For IH pattern of
+   mass hierarchy the standard prediction is shown by red dot-dashed
+   curve.}   
+\label{fig:eff2}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+As noted from the analytic formulas the effective mass parameter in
+the singlet femion dominated case being inversely proportional to
+$m_{s_1}$, it will proportionately decrease for the larger value of
+the mediating particle mass. This feature has been shown in Fig.\ref{fig:eff4}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+ \includegraphics[width=7cm,height=8cm,angle=-90]{bbeff4.pdf}
+ \caption{Same as Fig.\ref{fig:eff2} but for for $m_{s_1}=4.0$ GeV. }   
+\label{fig:eff4}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+We present predictions of double-beta decay half life as a function of
+the singlet fermion mass in Fig.\ref{fig:bbls1}. It is clear that while for
+$m_{s_1}=2$ GeV the half life saturates the current expeerimental
+limit, for larger masses the halftife increases.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+ \includegraphics[width=9cm,height=12cm,angle=-90]{bbhnh.pdf}
+ \caption{Prediction of double beta decay half-life 
+ as a function of
+   sterile neutrino mass  $m_{s_1}$ GeV (blue shaded curve) where the NH type  light
+   neutrino and the sterile neutrino exchange contributions
+   have been included. Effects of much larger masses $(m_{S_2}, m_{S_3})\gg
+   m_{S_1}$ have been neglected. The spread in the curve reflects uncertainty in the virtuality momentum $p=120-190$ MeV. For comparison the standard
+   prediction with NH and IH pattern of light neutrino mass
+   hierarchies are shown by the two respective horizontal lines.The
+   bottom most thick red horizontal line closest to the X-axis represents 
+    overlapping experimental bounds from different groups
+   \cite{bbexpt1-Klapdoor, bbexpt2,bbexpt3}.  }   
+\label{fig:bbls1}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% 
+Neglecting heavy RH$\nu$ contribitions but including those due to the lightest
+sterile neutrino and the IH type light neutrinos our predictions of
+half life as a function of the lightest sterile neutrino mass is shown
+in Fig. \ref{fig:bbIH}  
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{figure}[htbp]
+ \includegraphics[width=9cm,height=12cm,angle=-90]{bbhin.pdf}
+ \caption{Same as Fig.\ref{fig:bbls1} but with contributions of IH type light neutrinos cambined with lightest sterile neutrinos.}
+\label{fig:bbIH}
+\end{figure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+
+Predicted lifetimes are seen to decrease with increasing sterile
+neutrino mass. The sterile neutrino exchange contribution completely
+dominates over light neutrino
+exchange contributions for 
+$m_{S_1}=1.3-7$ GeV in case of IH but for $m_{S_1}=1.5-20$ GeV in case of NH.  
+At $m_{S_1}\simeq 1.5 GeV$ both types of solutions saturate the
+current laboratory limits reached by deifferent experimental
+groups . For double beta decay half-life expectations in standard and
+non-standard scenarios see  ref.\cite{Rodejohann}. 
+
+  
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{SUMMARY, DISCUSSION AND CONCLUSION}\label{sec:sum}
+A recently proposed scalar extension of minimal non-SUSY SU(5) GUT
+has been found to realize  precision gauge coupling unification, high
+scale type-II seesaw ansatz for neutrino masses, and prediction of  a
+WIMP scalar DM candidate that also completes vacuum stability of the
+scalar potential. But the LFV decays are predicted to have negligible
+rates inaccessible to ongoing searches in foreseeable future. Like
+wise experimentally verifiable double beta decay rates measurable by
+different search experiments are possible only for quasi-degenerate
+neutrino mass spectrum with large common mass scale $|m_0| \ge 0.2$
+that violates the recently measured cosmological bound $\sum_i m_i \le
+0.1$ eV. In order to remove these deficits we have extended this model
+by the addiion of three RH$\nu$s, three extra Majorana fermion
+singlets $S_i(i=1,2,3)$ and a scalar singlet $\xi_S(1,0,1)$ that
+generates $N-S$ mixing mass term through its vacuum expectation
+value. In the original thory  of type-I seesaw cancellation mechanism,
+although the choice of particles is same as $N_i$, $S_i$ and
+$\xi_S(1,0,1)$,  the neutrino mass is given by double seesaw
+\cite{Kim-Kang:2006}. Further there is no grand unification of gauge couplings or prediction of proton decay in this model \cite{Kim-Kang:2006}, and the scalar potential of the model has vacuum instability . In addition the  
+ $N_i$ are not gauged. The model does not  predict dominant contributions to double beta decay through this mechanism with NH or IH type 
+neutrin masses. In non-SUSY  SO(10) models of unification of three forces,
+ implementing  the cancellation of type-I seesaw \cite{mkp-bs:2015,app:2013,pas:2014}, the TeV scale RH neutrinos are gauged but the neutrino masses are controlled by inverse seesaw. But in \cite{nurev:mkpbpn,bpn-mkp:2015} the RH$\nu$s are gauged and the neutrino mass formula is linear seesaw or type-II seesaw \cite{nurev:mkpbpn}.  In all type-II seesaw
+dominated  SO(10) models, the  RH$\nu$ masses have the same hierarchy
+as the left-handed neutrino
+masses:$M_{N_1}:M_{N_2}:M_{N_3}::m_1:m_2:m_3$. This happens precisely
+because the left-handed and the right-handed dilepton Yukawa
+interactions originate from the same SO(10) invariant term:
+$f{16}_F{16}_F {126}^{\dagger}$. In SU(5), however, as the LH triplet $\Delta_L(3,-1,1)$
+generating type-II seesaw and the  singlet $\sigma_S(1,0,1)$
+generating RH$\nu$s  belong to different scalar representations
+${15}_H\subset SU(5)$ and ${\bf 1}_H\subset SU(5)$, respectively, they
+can  possess different Majorana couplings in their respecive Yukawa interactions:$fll{\Delta_L}^C$ and
+$f_N\sigma_S N N$. Because of this reason the the generated RH$\nu$
+masses through $M_N=f_N\langle \sigma_s \rangle$ no longer follows the
+predicted type-II hierarchical pattern. Then the allowed fine tuning
+$|f_N|<< |f|$ permits $M_N\sim {\cal O}(1-10)$ TeV  RH neutrino mass scale even though,
+unlike SO(10) models, there are no low mss $W_R$ or $Z^{\prime}$ bosons at this scale in this SU(5) model. The apprehension of unacceptably large active neutrino mass generation through type-I seesaw mechanism is rendered inoperative
+through  the well established procedure of cancellation mechanism that is
+also shown to operate profoundly in this SU(5) model. Such RH$\nu$s  generating $N-S$  mixing mass $M\simeq {\cal O} (100-1000)$ GeV now reproduce the well known results on
+ LFV decay branching ratios only $4-5$ orders lower than the current
+ experimental limit as well as the extensively investigated
+ non-unitarity effects. Through the sterile neutrino canonical seesaw
+ formula emerging from this cancellation mechanism (in the presence of
+ $N_i$),  $m_S=-M\frac{1}{M_N}M^T$, this mechanism predicts their masses over a wide range of values, $m_{s_1}={\cal O} (1-100)$ GeV and $m_{s_2},m_{s_3} \sim {\cal O}(10-1000)$ GeV. The lightest sterile neutrino mass $m_{s_1}$ now predicts dominant double beta decay in the $W_L-W_L$ channel through the $\nu-S$ mixing close to the current experimental limits even though the light neutrino masses are of NH or IH type ($m_i << |0.2|$ eV) which satisfy the cosmological bound. For larger values of $m_{S_1}$ the predicted decay rate decreases  
+and the sterile neutrino contribution becomes negligible for $m_{s_i}>> 50$ GeV.
+In the limiting case when all the singlet fermion masses have such large values, the double beta decay rates asymptotically  approach the respective standard NH or IH type  contributions.   
+The new mechanism of RH$\nu$ mass generation also allows the second
+and the third generation sterile neutrino masses to be
+quasi-degenerate (QD) near $1-10$ TeV scale while keeping $m_{S_1}\sim
+1-10$ GeV suitable for dominant double beta decay mediation. There is a possibility that such TeV
+scale QD masses while maintaining observable predictions on LFV decays  can effectively generate baryon asymetry of the universe
+via resonant leptogenesis \cite{bpn-mkp:2015}.
+Vacuum stability of the scalar potential can be implemented though the scalar singlet
+$\xi_S(1,0,1)$ following the method of
+\cite{falkowski:2014,spc:2017}. A scalar singlet DM can be easily
+accommodated as discussed in \cite{scp:2018}. Irrespective of scalar DM,
+the model can also  accommodate a Majorana fermion singlet dark matter \cite{strumia:2006} which can emerge from the additional fermionic representation ${24}_F\subset SU(5)$ .         
+
+The predictions of new fermions has an additional advantage over scalars as 
+these masses are protected by leptonic global symmetries \cite{tHooft}.
+The predictions of such Majorana type sterile neutrinos  can be tested
+by high enegy and high luminousity accelerators through their
+like-sign dilepton production processes  \cite{bpn-mkp:arx}. For example at LHC they can mediate the process $pp\to W_L X \to l^{\pm}l^{\pm}jjX$ where the jets could manifest as mesons. It would be quite interesting to examine emergence of such SU(5) theory as a remnant of SO(10) or $E_6$ GUTs. 
+
+We conclude that even in the presence of SM as effective gauge theory
+  descending from a suitable SU(5) extension, it is possible to predict
+  experimentally accessible double beta decay rates in the $W_L-W_L$ channel satisfying the
+  cosmological bound on active neutrino masses as well as verfiable
+  LFV decays. The RH$\nu$ masses can be considerably
+  different from those constrained by conventional type-I or type-II
+  seesaw frameworks which are instrumental in predicting interesting physical phenomena even
+  if there are no non-standard heavy gauge bosons anywhere below the 
+GUT scale. 
+ 
+
+            
+\section {\bf ACKNOWLEDGMENT }
+M. K. P. thanks the Science and Engineering Research Board, Department
+of Science and Technology, Government of India for grant of research
+project SB/S2/HEP-011/2013. R.S. thanks  Siksha 'O' Anusandhan 
+University for research fellowship.\\
+
+
+\begin{thebibliography}{99}
+\bibitem{Salas:2017}
+P.F. de Salas (Valencia U., IFIC), D.V. Forero, C.A. Ternes,
+M. Tortola, J.W.F. Valle, ``{\em Status of Neutrino Oscillations 2018: First Hint for Normal Ordering and Improved CP Sensitivity }'',e-Print: arXiv:1708.01186v2[hep-ph][INSPIRE]. 
+
+
+\bibitem{schwetz} T. Schwetz, M. Tartola, J. W. F. Valle, ``{\em Global neutrino data and recent reactor fluxes:status of three-flavour oscillation parameters}'',New J. Phys. 13 (2011) 063004[arXiv:1103.0734] [INSPIRE].
+
+\bibitem{forero} D. V. Forero, M. Tartola, J. W. F. Valle, ``{\em Neutrino oscillations refitted }'',Phys. Rev. D 90(2014) 093006 [arXiv:1405.7540] [INSPIRE].
+
+\bibitem{fogli}  G. L. Fogli, E. Lisi, A. Marrone, A. Palazzo, A. M. Rotunno, ``{\em Global analysis of neutrino masses, mixings and phases: entering the era of leptonic CP-violation searches }'', Phys. Rev. {\bf D 86} (2012) 013012[arXiv:1205.5254] [INSPIRE].
+
+\bibitem{gonzalez} M.Gonzalez-Garcia, M. Maltoni, T. Schwetz, ``{\em Global Analyses of Neutrino Oscillation Experiments }'', Nucl. Phys. B 908 (2016) 199[arXiv:1512.06856][INSPIRE].
+%\bibitem{nurev} 
+%\bibitem{gs:rev:2011}
+\bibitem{Alta:2014}
+  G. Altarelli, ``{\em Neutrinos Today: An
+   Introduction}'', in Proceedings: {\em 49th Recontres de Moriond on
+ Electroweak Interactons and Unified Theories}, Thuile, Italy, March
+ 15-22, (2014);
+\bibitem{AYS:2014} A. Yu. Smirnov, ``{\em Theories of Neutrino Masses and Mixings}'',
+Nuovo Cim.\ C {\bf 037}, no. 03, 29 (2014)
+%  doi:10.1393/ncc/i2014-11761-y
+  [arXiv:1402.6580 [hep-ph]];
+%Nuovo Cim. {\bf C 037}
+%  (2014) no.3, 29-37;
+\bibitem{RNM:2015}
+R. N. Mohapatra, ``{\em From Old Symmetries to New Symmet%ries:
+    Quarks, Leptons, and B-L}'', in ``50 Years of Quarks'' pp 245-263
+  (World Scientific, 2015);
+\bibitem{RNM:2016} 
+R. N. Mohapatra, ``{\em Neutrino Mass as a
+   Signal for TeV Scale Physics}'',  Nucl. Phys. {\bf B 908} (2016)
+  423-435;
+%\bibitem{AYS:rev:2014}
+\bibitem{Valle:2016} 
+O. G. Miranda, J. W. F. Valle, ``{\em Neutrino Oscillation and
+   Seesaw Origin of Neutrino Masses}'',
+Nucl.\ Phys.\ B {\bf 908}, 436 (2016)
+%  doi:10.1016/j.nuclphysb.2016.03.027
+  [arXiv:1602.00864 [hep-ph]];  
+%   Nucl. Phys. {\bf B 908} {2016}
+%436-455;
+\bibitem{Valle:2017} J. W. F. Valle, ``{\em Neutrino Physics from A to Z : Two Lectures at Corfu  }'', PoS CORFU2016 (2017) 007 arXiiv:1705.00872.    
+\bibitem{gs:2011} G. Senjanovic, ``{\em Neutrino mass: From LHC to
+  grand unification}'', Riv. Nuovo Cim. {\bf 34}
+  (2011) 1-68. 
+\bibitem{nurev:mkpbpn} M. K. Parida, B. P. Nayak, ``{\em Singlet
+  fermion assisted dominant seesaw with lepton flavor and number
+  violations and leptogenesis }'', Adv. High Energy Phys. {\bf 2017}
+  (2017) {\bf 4023493} arXiv:1607.07236[hep-ph].
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\bibitem{Minkowski:1977} P.~Minkowski,
+ ``{\em {mu $\to$ e gamma at a Rate of One Out of 1-Billion Muon  Decays?}}'',
+ Phys. Lett. {\bf B 67}, (1977)  421.
+%%CITATION = PHLTA,B67,421;%%
+\bibitem{Yanagida:1979}
+T.~Yanagida, in {\em Workshop on Unified Theories, KEK Report
+79-18}, p.~95, 1979.
+\bibitem{Gell-Mann:1979}
+M.~Gell-Mann, P.~Ramond and R.~Slansky, {\em Supergravity},
+p.~315,
+\newblock Amsterdam: North Holland, 1979.
+\bibitem{Glashow:1979}
+S.~L. Glashow, {\em 1979 Cargese Summer Institute on Quarks and
+Leptons},
+ p.~687,
+\newblock New York: Plenum, (1980).
+\bibitem{RNM-gs:1980} R.~N.~Mohapatra and G.~Senjanovic,
+  ``{\em Neutrino Mass and Spontaneous Parity Violation},''
+  Phys.\ Rev.\ Lett.\  {\bf 44}, (1980)  912.
+\bibitem{Valle:1980} J. Schechter, J. W. F. Valle, ``{\em Neutrino Masses in $SU(2)\times U(1)$ Theories }'', Phys. Rev. {\bf D\, 22},  (1980) 2227.
+\bibitem{Valle:t2}  J. Schechter, J.W. F.  Valle, ``{\em Neutrinoless double beta decay in
+  $SU(2)\times U(1)_Y$ theories}'', Phys. Rev. {\bf D 25} (1982) 2951;
+\bibitem{Magg:t2} M. Magg, C. Wetterich, Phys. Lett. {\bf B 94},  (1980) 61 .
+\bibitem{Lazaridis:t2} G. Lazaridis, Q. Shafi, C. Wetterich,
+ Nucl. Phys. {\bf B 181}, (1981) 287.
+\bibitem{RNM-gs:t2} R. N. Mohapatra and G. Senjanovic,
+  Phys. Rev. {\bf D 23}, (1981)  165.
+\bibitem{Ma-Us:t2}  E. Ma, U. Sarkar, ``{\em Neutrino Masses and
+  Leptogenesis with Heavy Triplets}'', Phys. Rev. Lett. {\bf 80}
+  (1998) 5716, arXiv:hep-ph/9802445. 
+\bibitem{RNM-mkp:t2} R. N. Mohapatra, M. K. Parida,``{\em Type-II seesaw dominance in non-supersymmetric SO(10) grand unification}'',Phys. Rev. {\bf D  84} (2011) 095021,[arXiv:1109.2188].    
+
+\bibitem{inv1} R. N. Mohapatra, Phys. Rev. Lett.{\bf 56}
+  (1986) 561.
+\bibitem{inv2}R.N. Mohapatra,J. W. F. Valle, Phys. Rev. {\bf D 34}
+  (1986) 1642.
+\bibitem{inv3}  D. Wyler, L. Wolfenstein, `` {\em Massless neutrinos
+  in left-right symmetric models}'', Nucl. Phys. {\bf B 218} (1983)
+  205.
+
+\bibitem{inv4}C. H. Albright, `` {\em Search for solutions of superstring
+    neutrino mass problem }'',  Phys. Lett. {\bf B 178} (1986) 219;  
+
+\bibitem{inv5}  S. Nandi, U. Sarkar, `` {\em A solution to neutrino mass problem in
+  superstring $E_6$ theory }'', Phys. Rev. Lett. {\bf 56} (1986) 564.
+
+\bibitem{inv6} E. Witten, `` {\em New issues in manifolds with SU(3)
+  holonomy }'', Nucl. Phys. {\bf B 268} (1986) 79;
+\bibitem{inv7}E. Ma, `` {\em Lepton number non-conservation in $E_6$ inspired
+  superstring models }'', Phys. Lett. {\bf B 191} (1987) 287.
+\bibitem{LG:2000}  W.~Grimus, L.~Lavoura, JHEP {\bf 0011}, (2000)   042 ; arXiv:
+  0008179 [hep-ph];
+ P. M. Ferreira, W. Grimus, D. Jurciuconis,
+  L. Lavoura, ``{\em Flavor symmetries in a renormalizable
+    SO(10)}'',Nucl. Phys. {\bf B 906} (2016) 289-320,
+  arXiv:1510.02641[hep-ph].
+%\bibitem{mitra-gs-vissani:2012} M. Mitra, G. Senjanovic, F. Vissani,
+%  Nucl. Phys. {\bf B 856}, (2012)  26.
+
+\bibitem{type-III} R. Foot, H. Lew, X. G. He, G. C. Joshi,
+  Z. Phys. {\bf C 44} (1989) 441; B. Bajc,  G. Senjanovic, ``{\em
+    Seesaw at LHC}'', JHEP {\bf 0708} (2007) 014 ~arXiv:hep-ph/0612092. 
+\bibitem{Akhmedov} E.~K.~Akhmedov and M.~Frigerio,
+  %``Duality in Left-Right Symmetric Seesaw Mechanism,''
+  Phys.\ Rev.\ Lett.\  {\bf 96} (2006) 061802
+  [hep-ph/0509299]; 
+  %%CITATION = HEP-PH/0509299;%%
+  %35 citations counted in INSPIRE as of 11 Mar 2015
+  E.~K.~Akhmedov and M.~Frigerio,
+  %``Interplay of type I and type II seesaw contributions to neutrino mass,''
+  JHEP {\bf 0701} (2007) 043
+  [hep-ph/0609046].
+  %%CITATION = HEP-PH/0609046;%%
+  %24 citations counted in INSPIRE as of 11 Mar 2015
+
+\bibitem{mkp:hybrid}M. K. Parida, B. P. Nayak, R. Satpathy, R. L. Awasthi, ``{\em
+  Standard coupling unification in SO(10), hybrid seesaw neutrino mass,
+  leptogenesis, dark matter, and proton lifetime predictions}'', 
+  JHEP {\bf 1704} (2017) 075, [arXiv:1608.03956[hep-ph]][{\small IN}SPIRE].
+
+\bibitem{Linear} E. Akhmedov, M. Lindner, E. Schnapka, J. W. F. Valle,
+  `` {\em Left-right symmetry breaking in NJL approach}'',
+  Phys. Lett. {\bf B 368} (1996) 270-280, hep-ph/9507275; M. Malinsky,
+  J. C. Romao, J. W. F. Valle, `` {\em  Novel supersymmetric SO(10) seesaw
+mechanism}'', Phys. Rev. Lett. {\bf 95} (2005) 161801, hep-ph/0506296;
+  S. M. Barr, Phys. Rev. Lett. {\bf 92} (2004) 101601, hep-ph/0309152. 
+ 
+\bibitem{Rad} E. Ma, Phys. Rev. {\bf D 73} (2006) 077031; 
+\bibitem{mkprad:2011} M. K. Parida, Phys. Lett. {\bf B 704} (2011) 206;
+\bibitem{mkprad:2012}  M. K. Parida, Pramana, {\bf 79} (2012) 1271.  
+\bibitem{JCP:1974} J. C. Pati, A. Salam, Phys. Rev. {\bf D 10} (1974) 275. 
+\bibitem{rnmpati:1975}. R. N. Mohapatra, J. C. Pati, Phys. Rev. {\bf D 11},
+ 566, (1975) 2558.
+\bibitem{gs-RNM:1975}
+ G. Senjanovi\'c, R. N. Mohapatra, Phys. Rev.
+{\bf D 12},  (1975)  1502; G.~Senjanovic,
+  %``Spontaneous Breakdown of Parity in a Class of Gauge Theories,''
+  Nucl.\ Phys.\ B {\bf 153}, 334 (1979).
+  %%CITATION = NUPHA,B153,334;%%
+  %3
+\bibitem{georgi:1974} H. Georgi, Particles and Fields, {\it Proceedings of APS
+Division of Particles and Fields,} ed C. Carlson, (AIP, New York, 1975), p.575;
+ H. Fritzsch, P. Minkowski, Ann. Phys. (Berlin) {\bf 93}, 193 (1975).
+\bibitem{babu-rnm:1993} K. S. Babu and R. N. Mohapatra,
+  Phys. Rev. Lett. {\bf 70},  (1993) 2845.
+\bibitem{Joshipura} A. S. Joshipura, K. M. Patel , ``{\em Fermion
+  masses in SO(10) model}'', Phys. Rev. {\bf D 83 } (2011) 095002,
+  arXiv:1102.5148[hep-ph].
+\bibitem{Altarelli-Blankenburg} G. Altarelli,
+  G. Blankenburg,''{\em Different SO(10) paths to fermion masses and mixings}'',
+  JHEP {\bf 1103} (2011) 133, arXiv:1012.2697[hep-ph].
+
+\bibitem{Bertollini}  S. Bertolini, T. Schwetz, M. Malinsky, ``{\em Fermion masses and mixings in SO(10) models and the neutrino challenge to supersymmetric grand unified theories}'', Phys. Rev.{\bf D 73} 115012, [hep-ph/0605006v4].
+
+\bibitem{Goh-Mohapatra} H. S. Goh, R. N. Mohapatra, and S. Nasri, Phys. Rev. {\bf D\,70}, 075022 (2004).
+
+\bibitem{mkp-PLB:1983} 
+D. Chang, R. N. Mohapatra, and M. K. Parida, Phys. Rev. Lett.
+ {\bf 52}, 1072 (1984);
+%\bibitem{cmp2:1984}
+  D. Chang, R. N. Mohapatra, and M. K. Parida,
+ Phys. Rev. {\bf D 30}, 1052 (1984);
+%\bibitem{cmp3:1985}
+ D. Chang, R. N. Mohapatra, J. Gipson, R. E. Marshak,
+  and M. K. Parida, Phys. Rev. {\bf D 31}, 1718 (1985);
+%\bibitem{cmp4:PLB:1984}
+ D. Chang, R. N. Mohapatra, M. K. Parida,  Phys. Lett. {\bf 142B} (1984) 55-58;
+M. K. Parida, Phys. Lett. {\bf B 126 }, 220
+  (1983); M. K. Parida, Phys. Rev. {\bf D 17} (1983) R2383 ({\bf Rapid Communication}),
+%\bibitem{mkp-pkp:1991} 
+M. K. Parida, P.K. Patra, Phys. Rev. Lett. {\bf 66} (1991) 858 ;
+%\bibitem{mkp-pkp:1992} 
+M. K. Parida, P.K. Patra, Phys. Rev. Lett. {\bf 68} (1992)754;
+%\bibitem{rnm-PLB:1992} 
+M. K. Parida, Phys. Rev. {\bf D 57} (1998) 2762; 
+R. N. Mohapatra, Phys. Lett. {\bf B 285} (1992) 235;
+%\bibitem{Pal:1994}
+ N. Deshpande, E. Keith, P. Pal, Phys. Rev. {\bf D 47}(1993) 2892;
+% \bibitem{Shafi:1982}  
+T. W. B. Kibble, G. Lazaridis, Q. Shafi, Phys. Rev. {\bf D 26 } (1982)
+435;
+%\bibitem{Shafi:1984}
+ Q. Shafi, C. Wetterich, Phys. Rev. Lett. {\bf 52} (1984) 875;
+%bibitem{Berto:2009}
+ S. Bertolini, Luca Di Luzio, M. Malinsky, ``{\em Intermediate Mass Scales in the Non-Supersymmetric SO(10) Grand Unification: A Reappraisal }'',Phys. Rev. {\bf D 80} (2009) 015013, arXiv:0903.4049[hep-ph];
+%\bibitem{mprs:2007} 
+S.K. Majee, M. K. Parida,
+  A. Raychaudhuri, U. Sarkar, Phys. Rev. {\bf D 75 } (2007) 075003, arXiv:hep-ph/0701109;
+
+%\bibitem{Jaydeep:2018} 
+J. Chakraborty, S. K. Patra, S. Mohanty, Phys. Rev.{\bf D 97} (2018)
+{\bf no.9, 095010}, arXiv:1711.11391[hep-ph].
+\bibitem{Wilczek-Valle} M. Reig, J. W. F. Valle, C. A. Vaquera-Arazuo,
+  F. Wilczek, ``{\em A Model for Comprehensive Unification}'',Phys. Lett. {\bf B774 } (2017) 667-670, arXiv:1706.03116[hep-ph].
+
+\bibitem{fukuyana:1986} S. Fukuyama and T. Yanagida, Phys. Lett. {\bf
+  B 174} (1986) 45.
+\bibitem{Hambye-gs} T. Hambye, E. Ma, U. Sarkar, ``{\em Supersymmetric
+  Triplet Higgs Model of Neutrino Mass and Leptogenesis}'',
+  Nucl. Phys. {\bf B602} (2001) 23,hep-ph/0011192; 
+T. Hambye, G. Senjanovic, ``{ \em Consequences of
+  Triplet Seesaw for Leptogenesis }'', Phys. Lett. {\bf B582} (2004)
+73-81; G. D'Ambrosio, T. Hambye, A. Hector, A. Rossi, {\em
+  Leptogenesis in the Minimal Supersymmetric Tri[let Seesaw Model}'',
+  Phys. Lett. {\bf B604} (2004) 199-206.     
+%\bibitem{soni:1979} G. Beall, M. Bander, and A. Soni,
+ % Phys. Rev. Lett. {\bf 48}, (1982)  848. 
+
+\bibitem{bbexpt1-Klapdoor} H.V. Klapdor-Kleingrothaus, A. Dietz, L. Baudis, G. Heusser, I.V. Krivosheina, S. Kolb, B. Majorovits, H. Pas, H. Strecker, V. Alexeev, A. Balysh, A. Bakalyarov, S.T. Belyaev, V.I. Lebedev, S. Zhukov (Kurchatov Institute, Moscow, Russia)
+Eur.Phys.J. {\bf A\,12}, (2001)  147.
+
+\bibitem{bbexpt2} C. Arnaboldi et al. [CUORICINO Collaboration], Phys. Rev. {\bf C\,78}, (2008)  035502 ;
+         C. E. Aalseth et al. [ IGEX Collaboration ], Phys. Rev. {\bf D\,65},  (2002) 092007.    
+
+\bibitem{bbexpt3} J. Argyriades et al. [NEMO Collaboration], Phys. Rev. {\bf C\,80}, (2009) 032501 ;
+         I. Abt, M. F. Altmann, A. Bakalyarov, I. Barabanov, C. Bauer, E. Bellotti, S. T. Belyaev, 
+         L. B. Bezrukov et al., [hep-ex/0404039];
+\bibitem{gs:bb}M .Nemevsk, G. Senjanovic, V. Tello, Phys. Rev. Lett. {\bf B 110},  (2013) 151802.
+\bibitem{mkp-bs:2015} M. K. Parida, B. Sahoo, ``{\em Planck scale
+  induced left-right gauge theory at LHC and experimental tests}'',
+  Nucl.Phys. {\bf B 906} (2016) 77-104 arXiv:1411.6748[hep-ph]. 
+
+
+\bibitem{Keung-gs:1983} W. Y. Keung, G. Senjanovic, ``{\em Majorana
+  neutrinos and the production of right-handed charged gauge
+  bosons}'', Phys. Rev. Lett. {\bf 50} (1983) 1427.  
+\bibitem{Bajc-gs:2007} B. Bajc, G. Senjanovic, ``{\em Seesaw at LHC}'', JHEP, 
+{\bf 0708} (2007) 014 ~arXiv:hep-ph/0612029. 
+
+\bibitem{Valle:bb1}J. W. F. Valle,''{\em Neutrinoless double beta
+  decay with quasidirac neutrinos}'', Phys. Rev. {\bf D 27} (1983)
+  1672-1674.
+
+\bibitem{Valle:nuD1}J. Schechter, J.W. F.  Valle, ``{\em Neutrino Decay and Spontaneous
+  Violation of  Lepton Number}'', Phys. Rev. {\bf D 25} (1982) 774.
+\bibitem{Valle:MajDM} G. Gelmini,, David N. Schramm,
+J.W.F. Valle, `` {\em Majorons: A Simultaneous Solution to the Large and Small Scale Dark Matter Problems}'',
+Phys.Lett. 146B (1984) 311-317.
+\bibitem{Valle:nuD2} G.B. Gelmini, J.W.F. Valle, ``{ \em Fast Invisible Neutrino Decays}'', Phys.Lett. 142B (1984) 181-187
+    (1984).
+\bibitem{Valle:CPLRS} J.W.F. Valle, ``{\em 
+ Leptonic {CP} Violation and Left-right Symmetry}'', Phys.Lett. 138B (1984) 155-158.
+\bibitem{Valle:KeVDM}V. Berezinsky, J.W.F. Valle, ``{\em The KeV majoron as a dark matter particle}'' Phys.Lett. B318 (1993) 360-366, hep-ph/9309214.
+ 
+\bibitem{Planck15}{\bf Planck Collaboration}, P.A. Ade {\em et al.}, ``{ \em
+  Planck 2015 results. XIII. Cosmological parameter}'',
+  Astron. Astrophys. {\bf 594} (2016) A13, arXiv:1502.01589[astro-phy].
+\bibitem{Valle:dynamical} J. W. F. Valle, C. A. Vaquera Arajuo, ``{\em Dynamical Seesaw Mechanism for Dirac Neutrinos}'', Phys. Lett.{\bf B755} (2016) 363, arXiv:1601.05237[hep-ph]. 
+\bibitem{Valle:LFV1987} J. Bernabeu, A. Santamaria, J. Vidal, A. Mendez, J. W. F. Valle, ``{\em Lepton Flavor Non-COnservation in High Energies in a Super String Inspired Standard Model}'',Phys. Lett. {\bf B187} (1987) 303-308.
+\bibitem{lfvexpt} J. Adam {\em et al.} (MEG Collaboration),
+Phys. Rev. Lett.{\bf 107}, 171801 (2011); arxiv: 1107.5547[hep-ex];
+K. Hayasaka {\em et al,} (Belle Collaboration), Phys. Lett. {\bf B
+  666}, 16 (2008), arxiv:0705.0650[hep-ex]; M. L. Brooks et al. [MEGA Collaboration], Phys. Rev. Lett. {\bf 83}, 1521 (1999); 
+ B. Aubert [The BABAR Collaboration], arXiv:0908.2381 [hep-ex]; 
+   Y. Kuno (PRIME Working Group), Nucl. Phys. B. Proc. Suppl. {\bf
+     149}, 376 (2005);  F. R. Joaquim, A. Rossi, Nucl. Phys. {\bf B\,765}, 71 (2007).
+
+%\bibitem{hussein} N. Bakhel, T. Hussein, M. Y. Khlopov, arXiv: 1406.3254 [hep-p%h].
+
+%\bibitem{cms} S. Chatrchyan et. al. [CMS Collaboration], Phys. Rev. Lett. {\bf %B 109},  (2012) 261802.
+
+%\bibitem{snovic} G. Senjanovic, Int. J. Mod. Phys. A 20,  (2011), 1469, aXiv:10%12.4104 [hep-ph].
+\bibitem{ilakovac}
+  A.~Ilakovac, A.~Pilaftsis,
+  %``Flavor violating charged lepton decays in seesaw-type models,''
+  Nucl.\ Phys.\  {\bf B\,437}, (1995)  491 
+  [hep-ph/9403398];
+ F.~Deppisch, J.~W.~F.~Valle,
+  %``Enhanced lepton flavor violation in the supersymmetric 
+%inverse seesaw model,''
+ Phys.\ Rev.\  {\bf D\,72},  (2005) 036001  [hep-ph/0406040];  
+C.~Arina, F.~Bazzocchi, N.~Fornengo, J.~C.~Romao, J.~W.~F.~Valle,
+  %``Minimal supergravity sn
+%eutrino dark matter and inverse seesaw neutrino masses,''
+  Phys.\ Rev.\ Lett.\  {\bf 101},  (2008)  161802 ; arXiv:0806.3225 [hep-ph]; 
+ M.~Malinsky, T.~Ohlsson, Z.~Xing, H.~Zhang,
+  %``Non-unitary neutrino mixing and CP violation 
+%in the minimal inverse seesaw model,''
+  Phys.\ Lett.\  {\bf B\,679},  (2009) 242-248 ; arXiv:0905.2889 [hep-ph];
+ M.~Hirsch, T.~Kernreiter, J.~C.~Romao, A.~Villanova del Moral,
+  %``Minimal Supersymmetric Inverse Seesaw: Neutrino masses, lepton flavour violation and LHC phenomenology,''
+  JHEP {\bf 1001} (2010) 103; arXiv:0910.2435 [hep-ph];
+F.~Deppisch, T.~S.~Kosmas, J.~W.~F.~Valle,
+  %``Enhanced mu- - e- conversion in nuclei in the inverse seesaw model,''
+  Nucl.\ Phys.\  {\bf B\,752},  (2006) 80 ; arXiv:0910.3924 [hep-ph]; 
+  S. P. Das, F. F. Deppisch, O. Kittel, J. W. F. Valle, Phys. Rev. {\bf D\,86},  (2012) 055006.
+\bibitem{antbnd} S. Antusch, J. P. Baumann, and E. Fernandez-Martinez,
+  Nucl. Phys. {\bf B 180}, (2009) 369 ; S. Antusch, J. P. Baumann, and
+  E. Fernandez-Martinez,and J. Lopez-Pavon, Nucl. Phys. {\bf B 810}  (2009) 369 ;
+S. Antush,~C. Biggio, E. Fernandez-Martinez, M. Belen Gavela, 
+J. Lopez-Pavon, J. High Energy Phys. {\bf 10} (2006) 084; D.V. Forero,
+S. Morisi, M. Tartola and J. W. F. Valle, J. High Energy Phys. {\bf 09} (2011) 142.
+\bibitem{non-unit} E. Fernandez-Martinez, M. B. Gavela, J. Lopez-Pavon and O. Yasuda, Phys. Lett. {\bf B\,649}, (2007)  427 ;  
+                   K. Kanaya, Prog. Theor. Phys.,{\bf 64}, (1980)  2278; 
+                   J. Kersten and A. Y. Smirnov, Phys. Rev. {\bf D\,76},  (2007) 073005 ; 
+                   M. Malinsky, T. Ohlsson, H. Zhang, Phys. Rev. {\bf D\, 79},  (2009) 073009; 
+                   G. Altarelli and D. Meloni, Nucl. Phys. {\bf B\, 809},  (2009) 158 ; 
+                   F. del Aguila and J. A. Aguilar-Saavedra, Phys. Lett. {\bf B\, 672},  (2009) 158 ; 
+                   F. del Aguila and J. A. Aguilar-Saavedra and J. de Blas, Acta Phys. Polon. {\bf B\,40}, 
+                    (2009) 2901 ; arXiv:0910.2720 [hep-ph]; 
+                   A. van der Schaaf, J. Phys. {\bf G\, 29},  (2003) 2755; Y. Kuno, Nucl. Phys. {\bf B}, Proc. Suppl. {\bf 149},  (2005) 376.
+
+\bibitem{Kim-Kang:2006}S. K. Kang and C. S. Kim, Phys. Lett. {\bf B\,646}, 248 (2007)       
+
+\bibitem{app:2013}R. L. Awasthi, M. K. Parida, and  S. Patra, J. High
+Energy Phys. {\bf 1308} (2013) 122, arXiv:1302.0672[hep-ph];
+M. K. Parida, S. Patra, Phys. Lett {\bf B 718} (2013)
+1407,arXiv:1211.5000 [hep-ph]. 
+%\bibitem{hussein} N. Bakhel, T. Hussein, M. Y. Khlopov, arXiv: 1406.3254 [hep-p%h].
+\bibitem{Majee:2009} S. K. Majee, M. K. Parida, A. Raychaudhuri,
+  Phys. Lett. {\bf B 668 }(4) (2008) 299-302, arXiv:0807.3959[hep-ph].
+
+\bibitem{mkp-ARC:2010} M. K. Parida and A. Raychaudhuri, Phys. Rev. {\bf D\,82}, 093017 (2010);  arXiv:1007.5085[hep-ph]. 
+                 
+\bibitem{pas:2014} M.~K.~Parida, R.~L.~Awasthi, P.~K.~Sahu, JHEP {\bf 1501} (2015) 045, arXiv:1401.1412 [hep-ph].
+\bibitem{bpn-mkp:2015}
+B.P.Nayak and M.K.Parida, Eur. Phys. J. {\bf C 75},  (2015) 5,183,
+arxiv:1312.3185 [hep-ph]
+\bibitem{scp:2018} Biswonath Sahoo, Mainak Chakraborty, M. K. Parida, ``{\em
+  Neutrino mass, Coupling Unification, Verifiable Proton Decay, Vacuum
+  Stability and WIMP Dark Matter in SU(5)}'', Adv. High Energy
+  Phys.{\bf 2018} (2018) 4078657 [arXiv:1404.01803[hep-ph]].
+\bibitem{kynshi-mkp:1993} M.L. Kynshi, M.K. Parida, ``{\em Higgs
+  Scalar in the Grand Desert with Observable Proton Lifetime in SU(5)
+  and Small Neutrino Masses in SO(10)  }'',Phys.Rev. {\bf D 47} (1993)
+  4830 ({\bf Rapid Communication}).
+\bibitem{PDG:2012} Particle Data Group,
+ J. Beringer et al., ``{\em Review of Particle Physics (RPP) }'',
+ Phys. Rev. {\bf D 86} (2012) 010001. 
+\bibitem{PDG:2014} K. A. Olive {\em et al.} (Particle Data Group), ``{\em Review of Particle Physics (RPP) }'', Chin.
+  Phys. {\bf C 38 } (2014) 090001. 
+\bibitem{PDG:2016} C. Patrignani {\em et al} (Particle
+  Data Group), ``{\em Review of Particle Physics (RPP) }'',
+  Chin. Phys. {\bf C 40} (2016) no.10, 100001.
+
+\bibitem{Weinberg:1980} S. Weinberg, ``{\em Effective Gauge Theories  }'' Phys. Lett. {\bf B  91 } (1980) 51.
+\bibitem{Hall:1981} L. Hall, ``{\em Grand Unification of Effective Gauge Theories  }'', Nucl. Phys. {\bf B  178} (1981) 75.
+\bibitem{Ovrut:1982} B. Ovrut, H. Schnitzer, ``{\em Effective Field Theory in Background Field Gauge }'',Phys. Lett. {\bf B 110} (1982) 139.
+\bibitem{mkp:1987} M. K. Parida, ``{\em Heavy Particle Effects in Grand
+  Unified Theories with Fine-Structure Constant
+  Matching}'',Phys. Lett. {\bf B 196 } (1987) 163.
+\bibitem{mkp-cch:1989} M. K. Parida, C. C. Hazra,
+M. K. Parida, C. C. Hazra, `` {\em Superheavy
+  Higgs Scalar Effects in Effective Gauge Theories From SO(10) Grand
+  Unification With Low Mass Right-handed Gauge Bosons}'',
+  Phys.Rev. D40 (1989) 3074-3085.
+
+\bibitem{rnm-mkp:1993} R. N. Mohapatra, M. K. Parida, Phys. Rev. {\bf
+  D 47 } (1993) 264, arXiv:hep-ph/9204234; 
+
+\bibitem{Langacker:1993} P. Langacker, N. Polonsky, Phys. Rev. {\bf D 49} (1994) 1454, arXiv:hep-ph/9306235.
+\bibitem{lmpr:1995}  Dae-Gyu Lee,
+  R. N. Mohapatra, M. K. Parida, M. Rani, Phys. Rev. {\bf D 51} (1995)
+  229, arXiv:hep-ph/9404238.
+\bibitem{Abe:2017}{\bf Superkamiokande Collaboration}, K. Abe, Y. Haga,
+  Y. Hayato, M. Ikeda, K. Iyogi {\it et al.}, `` {\em Search for Proton Decay via
+  $p\to e^+\pi^0$ and $ p\to \mu^+\pi^0$ in 0.31 Megaton Years
+  Exposoure of Water Cherenkov Detector}'', Phys. Rev. {\bf D 95} 
+  (2017) {\bf no.1} 012004 arXiv:1610.03597[hep-ex][INSPIRE].
+  
+\bibitem{Dorsner} 
+  I.~Doršner, S.~Fajfer, A.~Greljo, J.~F.~Kamenik and N.~Košnik,
+  ``{\em Physics of leptoquarks in precision experiments and at particle colliders}'',
+  Phys.\ Rept.\  {\bf 641}, 1 (2016)
+%  doi:10.1016/j.physrep.2016.06.001
+  [arXiv:1603.04993 [hep-ph]];
+%  I. Dorsner, S. Fajfer, A. Greljo, Phs. Rept. {\bf
+%   64} (2016) 1-68;
+ I.~Dorsner,
+  ``{\em A scalar leptoquark in SU(5)}'',
+  Phys.\ Rev.\ D {\bf 86}, 055009 (2012)
+%  doi:10.1103/PhysRevD.86.055009
+  [arXiv:1206.5998 [hep-ph]];
+%   I. Dorsner, Phys. Rev. {\bf D 86} (2012) 055009;
+I.~Dorsner, S.~Fajfer and I.~Mustac,
+  ``{\em Light vector-like fermions in a minimal SU(5) setup}'',
+  Phys.\ Rev.\ D {\bf 89}, no. 11, 115004 (2014)
+%  doi:10.1103/PhysRevD.89.115004
+  [arXiv:1401.6870 [hep-ph]];
+ M. K. Parida, P. K. Patra, A. K. Mohanty, ``{\em
+  Gravity induced large grand unification mass in SU(5) with higher
+  dimensional operator}'', Phys. Rev. {\bf D 39} (1989) 316-322; 
+ 
+I.~Doršner, S.~Fajfer and N.~Košnik,
+  ``{\em Leptoquark mechanism of neutrino masses within the grand unification framework}'',
+  Eur.\ Phys.\ J.\ C {\bf 77}, no. 6, 417 (2017)
+%  doi:10.1140/epjc/s10052-017-4987-2
+  [arXiv:1701.08322 [hep-ph]];  
+%  I. Dorsner, S. Fajfer, N. Kosnik, EPJC {\bf 77}
+%   (2017) 417; 
+  I.~Dorsner, S.~Fajfer and N.~Kosnik,
+  ``{\em Heavy and light scalar leptoquarks in proton decay}'',
+  Phys.\ Rev.\ D {\bf 86}, 015013 (2012)
+%  doi:10.1103/PhysRevD.86.015013
+  [arXiv:1204.0674 [hep-ph]]; 
+%   I. Dorsner, S. Fajfer, N. Kosnik, Phys. Rev. {\bf D 86}
+%   (2012) 015013;
+I.~Dorsner and P.~Fileviez Perez,
+  ``{\em Upper Bound on the Mass of the Type III Seesaw Triplet in an SU(5) Model}'',
+  JHEP {\bf 0706}, 029 (2007)
+%  doi:10.1088/1126-6708/2007/06/029
+  [hep-ph/0612216];
+%   I. Dorsner, P. Filviez Perez, JHEP {\bf 0706} (2007)
+%   029;
+P.~Fileviez Perez,
+  ``{\em Supersymmetric Adjoint SU(5)}'',
+  Phys.\ Rev.\ D {\bf 76}, 071701 (2007)
+%  doi:10.1103/PhysRevD.76.071701
+  [arXiv:0705.3589 [hep-ph]]   .
+%   P. Filviez Perez, Phys. Rev. {\bf D 76} (2007) 071701. 
+
+
+ \bibitem{Nath-Perez:2007} P. Nath, P. Filviez Perez, Phys. Rep. {\bf 441} (2007) 191, arXiv:hep-ph/0601023.
+ 
+\bibitem{Langacker:1981}  
+ P. Langacker, Phys. Rept.{\bf 72 }, 185 (1981).
+
+
+\bibitem{dp:2001}C. R. Das and M. K. Parida, ``{\em New Formulas and
+  Predictions for Running Fermion Masses in SM, 2HDM, and MSSM}'' Eur. Phy. J. {\bf C 20}
+  (2001) 121, arXiv:0010004[hep-ph]; M. K. Parida, B. Purkayastha, Eur. Phy. J. {\bf C 14}
+  (2000) 159, arXiv:9902374[hep-ph]; M. K. Parida, N. N. Singh,
+  Phys. Rev. {\bf D 59} (1999) 032002, arXiv:9710328[hep-ph].
+\bibitem{Stella:2016} D. Meloni, T. Ohlsson, S. Riad, ``{\em
+  Renormalization Group Running of Fermion Observables in an Extended
+  Non-Supersymmetric SO(10) Model }'', JHEP {\bf 03} (2017)
+  045,arXiv:1612.07973[hep-ph] [{\small IN}SPIRE].
+  
+\bibitem{ap:2012} R. L. Awasthi  and M. K. Parida ,Phys.Rev.{\bf D 86}
+  , (2012)  093004, e-Print:arXiv:1112.1286[hep-ph].
+
+\bibitem{mkp-rs:plan} M. K. Parida, Rajesh Satpathy, Under Preparation.
+
+\bibitem{Vergados} G. Pantis, F. Simkovic, J. Vergados, and A. Faessler, Phys. Rev. {\bf C\,53},  (1996) 695 ; 
+arXiv:nucl-th/9612036 [nucl-th]; 
+J. Suhonen and O. Civitarese, Phys. Rept.{\bf C 300} (1998) 123; 
+J. Kotila and F. Iachello, Phys. Rev. {\bf C\,85},  (2012)  034316 ;
+arXiv:1209.5722 [nucl-th].
+\bibitem{Doi}R. N. Mohapatra, Phys. Rev. {\bf D 34 } (1986) 3457; M. Doi, T. Kotani, and E. Takasugi, Prog. Theor. Phys. Suppl. {\bf 83} (1985) 1;
+F. Simkovic, G. Pantis, J. Vergados, and A. Faessler, Phys. Rev. {\bf C\,60},  (1999)  055502 ;
+arXiv:hep-ph/9905509 [hep-ph]; A. Faessler, A. Meroni, S. T. Petcov, F. SimkovicNucl. Phys. {\bf B 692} (2004) 303; arXiv:hep-ph/0309342.  
+\bibitem{falkowski:2014} A. Falkowski, C. Gross, O. Lebedev, ``{\em A
+  Second Higgs from Higgs Portal}'', JHEP {\bf 05} (2015) 057,
+  arXiv:1502.01361 [hep-ph].
+\bibitem{spc:2017} B. Sahoo, M. K. Parida, M. Chakraborty, ``{\em
+  Matter Parity Violating Dark Matter Decay in Minimal SO(10),
+  Unification, Vacuum Stability and Verifiable Proton Decay }'',
+  e-Print: arXiv:1707.01286[hep-ph].  
+\bibitem{strumia:2006} M.~Cirelli, A.~Strumia and M.~Tamburini,
+  ``{\em Cosmology and Astrophysics of Minimal Dark Matter}'',
+  Nucl.\ Phys.\ B {\bf 787}, 152 (2007)
+  [arXiv:0706.4071 [hep-ph]].
+
+\bibitem{tHooft}G. 't Hooft, in Proceedings of the 1979 Cargese Summer Institute on Recent Developments in Gauge Theories, edited by
+ G. t Hooft et al. (Plenum Press, New York, 1980).
+\bibitem{Rodejohann} Shao-Feng Ge, W. Rodejohann, K. Zuber, ``{\em
+  Half-life Expectations of Neutrinoless Double Beta Decay in Standard
+  and Non-Standard Secnarios}'', Phys. Rev. {\bf D 96} (2017) {\bf
+  no.5}, 055019 [arXiv:1707.07904'[hep-ph]]. 
+\bibitem{bpn-mkp:arx} B. P. Nayak, M. K. Parida, ``{\em Dilepton
+  Events with Displaced Vertices, Double Beta Decay, and Resonant
+  Leptogenesis with Type-II Seesaw Dominance, TeV Scale $Z^{\prime}$
+  and Heavy Neutrinos }'', e-Print:arXiv:1509.06192 [hep-ph].  
+
+\end{thebibliography}
+
+
+\end{document}
+
+

@@ -1,0 +1,658 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Trim Size: 9.75in x 6.5in
+%% Text Area: 8in (include Runningheads) x 5in
+%% ws-ijmpe.tex   :   23-04-2015
+%% Tex file to use with ws-ijmpe.cls written in Latex2E.
+%% The content, structure, format and layout of this style file is the
+%% property of World Scientific Publishing Co. Pte. Ltd.
+%% Copyright 2015 by World Scientific Publishing Co.
+%% All rights are reserved.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%
+\documentclass{ws-ijmpe}
+\usepackage[super,compress]{cite}
+\usepackage{hyperref}
+\begin{document}
+
+\markboth{Anthony W. Thomas}{Reflections on the Origin of the EMC Effect}
+
+%%%%%%%%%%%%%%%%%%%%% Publisher's Area please ignore %%%%%%%%%%%%%%%
+\catchline{}{}{}{}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Reflections on the Origin of the EMC Effect}%\footnote{For the title,
+%try not to use more than 3 lines. Typeset the title in 10 pt
+%Times roman, uppercase and boldface.}}
+
+\author{Anthony W. Thomas}%\footnote{Typeset names in
+%10~pt Times roman, uppercase. Use the footnote to indicate
+%the present or permanent address of the author.}}
+
+\address{CSSM and CoEPP, Department of Physics, The University of Adelaide\\
+Adelaide, SA 5005,
+Australia}%\footnote{State completely without abbreviations, the
+%affiliation and mailing address, including country. Typeset in 8~pt
+%Times italic.}\\
+%first\_author@university.edu}
+
+%\author{Second Author}
+
+%\address{Group, Laboratory, Address\\
+%City, State ZIP/Zone, Country\\
+%second\_author@group.com}
+
+\maketitle
+
+%\begin{history}
+%\received{Day Month Year}
+%\revised{Day Month Year}
+%\accepted{Day Month Year}
+%\comby{(xxxxxxxxxx)}
+%\end{history}
+
+\begin{abstract}
+In the 35 years since the European Muon Collaboration announced the astonishing result that the valence 
+structure of a nucleus was very different from that of a free nucleon, many explanations have been 
+suggested. The first of the two most promising explanations is based upon the different effects of the strong 
+Lorentz scalar and vector mean fields known to exist in a nucleus on the internal structure of the nucleon-like clusters which occupy shell model states. The second links the effect to the modification of the structure of nucleons involved 
+in short-range correlations, which are far off their mass shell. We explore some of the methods which 
+have been proposed to give complementary information on this puzzle, especially the spin-dependent 
+EMC effect  and the isovector EMC effect, both proposed by Clo\"et, Bentz and Thomas. It is shown that 
+the predictions for the spin dependent EMC effect, in particular, differ substantially within the mean-field 
+and short-range correlation approaches. Hence the measurement of the spin dependent EMC effect 
+at Jefferson Lab should give us a deeper understanding of the origin of the EMC effect and, indeed, 
+of the structure of atomic nuclei.
+\end{abstract}
+
+\keywords{nuclear structure; deep inelastic scattering; EMC effect; polarized EMC effect; isovector EMC effect; short-range correlations}
+
+\ccode{PACS numbers: 24.85.+p, 25.30.Mr, 24.10.Jv, 11.80.Jy, 12.39.K}
+
+%\tableofcontents
+
+\section{Dedication}
+
+This manuscript is part of a volume intended to honor Professor Ernest Henley and his remarkable 
+contributions to nuclear physics. I am especially pleased to be able to contribute as Ernest played a 
+very significant role in my early development as a nuclear theorist. Since I was appointed, with Harold 
+Fearing, to start the Theory Group at TRIUMF at the tender age of 25, Erich Vogt realized that while I 
+knew rather a lot about pion-deuteron scattering and solving the Faddeev equations there were 
+considerable gaps in my knowledge, especially when it came to experimental physics. So I was appointed 
+as Secretary of the TRIUMF Experiment Evaluation Committee (EEC), commonly known as 
+a PAC at other laboratories. In the late 70's and early 80's the EEC typically considered 10-20 new 
+experimental proposals at each meeting (held twice per year), 
+on topics ranging from nucleon-nucleon scattering to pion nucleus
+scattering, rare muon decays, the measurement of Michel parameters, muonic atoms and $\mu$-SR. 
+
+The physics being probed ranged from traditional nuclear physics, to strong interaction phenomena 
+for which the meson factories were especially suited, to the search for physics beyond the Standard Model. 
+Thus I was immersed at an impressionable age in a wonderful playground full of exciting new ideas and 
+outstanding physicists, with experimental proposals from David Bugg, Ken Crowe and Wim van Oers amongst many others. The discussions in the closed sessions of the EEC provided a remarkable education 
+as well as a unique opportunity to grow as a physicist. Amongst the 
+experimenters on the EEC who provided their 
+insights, I particularly remember Andy Bacher and Jules Deutsch as well as Alan Astbury a little later. But as 
+a theorist the person from whom I learned the most was Ernest Henley. Time and again he provided deep 
+new perspectives on the importance of an experimental proposal, explaining carefully to the rest of us the 
+information that one might hope to extract and why it mattered in the broader context of subatomic 
+physics. He was especially interested in symmetries and symmetry breaking as a way of winning new 
+information about a system and, for example, he was an enthusiastic supporter of Wim van Oers' 
+ambitious program of measurements of charge symmetry violation in the nucleon-nucleon system. Certainly 
+a good part of the motivation for my later work in symmetry violation stemmed from this early exposure 
+to Ernest. 
+
+There were many later interactions with Ernest, although we never actually jointly authored a paper. He 
+visited my group in Adelaide for an enjoyable month. At the time when the INT was being formed and 
+Ernest was acting Director he invited Jerry Miller and me to organise the first workshop and I believe that 
+the topics covered included the EMC effect. It is a pleasure to dedicate this manuscript as a tribute to Ernest.
+
+\section{Introduction}
+
+My introduction to the EMC effect~~\cite{Aubert:1983xm,Bodek:1983ec,Geesaman:1995yd,Malace:2014uea} 
+may be of some interest. 
+In 1982 I was a relatively young staff member in the 
+Theory Division at CERN and by chance the office of the EP Division Leader, Erwin Gabathuler, was just 
+down the corridor. One day Erwin walked into my office and after introducing himself proceeded to show me 
+the puzzling data they had on nuclear structure functions. I had been chosen because I was one of the few 
+theorists at CERN at the time who was not afraid to be associated with nuclear physics. On that day I had no 
+idea what might be causing the effect but I was fascinated by it and still am! Incidentally, I have had another 
+member of the EMC tell me later how wrong it was for Erwin to discuss unpublished data with me in that way. 
+In my view this sort of honest discussion of challenging new results, 
+as they arise, is a vital part of the practice
+of physics and I wish there was more of it. The discussion that day stimulated the exciting work with Magda 
+Ericson~\cite{Ericson:1983um} and Chris Llewellyn Smith~\cite{LlewellynSmith:1983vzz} on 
+the important question of whether an enhancement of the pion field in a nucleus might 
+be responsible. This in turn led to many further calculations and new experiments and even though it appears 
+at present as though this is not the explanation we all learned a great deal.
+
+While many exciting and imaginative ideas about the origin of the EMC effect were explored soon after its 
+discovery~\cite{Nachtmann:1983py,Close:1983tn,Kondratyuk:1984qj,Celenza:1984ew,Bickerstaff:1985mp,Frankfurt:1985cv,Krzywicki:1985fd,Saito:1985ct,Gupta:1985mg,Dunne:1985ks,Hoodbhoy:1986fn,Efremov:1986mt,Bickerstaff:1989ch}, 
+very few are still widely considered viable. We focus on two possibilities here, namely the change in internal structure generated by the mean scalar field in a nucleus and alternatively the potential effect on highly correlated nucleons of being far off-mass shell. At the start I must confess a bias, albeit one that I like to believe is primarily based in physics, rather than the fact that it is the approach on which I have expended a great deal of effort. 
+
+Briefly, we have known for 40 years, based upon studies using dispersion theory, that the intermediate range attraction between two nucleons is a Lorentz scalar~\cite{Cottingham:1973wt}. The dominant short distance repulsion has a Lorentz vector character. Relativistic studies of atomic nuclei, whether based upon Quantum 
+Hadrodynamics~\cite{Serot:1997xg}, relativistic Brueckner-Hartree-Fock~\cite{vanDalen:2004pn}, or any other variation, invariably conclude that these two very different contributions are both remarkably large, typically between 300-500 MeV. In many ways, the average nuclear binding of 8 MeV per nucleon is then the result of an accidental cancellation. The dynamical effect of scalar and vector potentials is very 
+different~\cite{Guichon:1987jp,Thomas:2016bxx}, with the simplest implementation of the vector field simply shifting the energy scale, while the scalar potential modifies the masses and hence the dynamics of the confined quarks dramatically. It is the latter which, within the framework of QMC (the quark-meson coupling 
+model~\cite{Guichon:1987jp,Guichon:1995ue,Saito:2005rv}), leads to important changes in the internal structure of a bound nucleon. In comparison with this  scalar field, with a strength up to half the mass of the nucleon itself, the degree to which one nucleon in a correlated pair, say with relative momentum 400 MeV/c, is off-shell is considerably smaller (around 80 MeV). This is the quantitative reason why I expect the dominant contribution to the EMC effect to come from  mean-field effects.
+
+Over the past 30 years numerous applications of the QMC 
+model~\cite{Saito:2005rv,Guichon:2008zz,Cloet:2015tha,Tsushima:1998qw}, both in its original form based upon the 
+MIT bag model~\cite{Guichon:1987jp,Guichon:1995ue} and in its later re-incarnation starting with the covariant 
+NJL model~\cite{Bentz:2001vc}, have shown that it can describe the EMC effect quantitatively across the periodic 
+table~\cite{Thomas:1989vt,Saito:1992rm,Miller:2001tg,Mineo:2003vc,Cloet:2005rt,Cloet:2006bq,Cloet:2009qs}. The predictive capacity of the short-range correlation (SRC) idea is much less developed but it certainly is consistent with the observed dependence on A~\cite{Weinstein:2010rt,Hen:2016kwk}. What is clearly important is to find new, as yet unobserved phenomena, related to the EMC effect, for which these approaches make definite predictions. In this way one can hope to distinguish between them. We consider two examples here, the spin dependent EMC effect and the isovector EMC effect, both originally suggested by Clo\"et {\it et al.}.
+%
+\begin{figure}[th]
+\centerline{\includegraphics[width=12cm]{fig1}}
+\caption{Predictions of the EMC effect in $^7$Li for the regular EMC effect (in comparison with data for $^9$Be) and for the spin dependent EMC effect. Note that the effect is shown with our understanding of the nuclear structure for $^7$Li used so that the proton polarization has been corrected to 100\%. The calculations were carried out by 
+Clo\"et {\it et al.}~\cite{Cloet:2006bq} using the NJL model to describe the nucleon structure 
+and are reported at a scale of 5 GeV$^2$.}
+\label{fig:fig1}
+\end{figure}
+%
+
+\section{The Spin EMC Effect}
+The history of strong interaction physics has often demonstrated that the measurement of a spin dependent quantity can destroy a perfectly good theory. Alternatively, just occasionally, it may re-inforce one's faith in one. This line of thinking  led to the suggestion that one might gain important insight into the EMC effect by measuring the spin structure function of a selected nucleus. This is a difficult measurement because in an ideal case the spin is carried essentially by a single, unpaired valence nucleon and it is therefore an effect of order $1/A$. In order to have a chance of interpreting the result one really must have control of the nuclear structure so that the effective polarization of this valence nucleon is well known. Furthermore, because the spin structure function of the proton, $g_1^p$, is significantly larger than that of the neutron, the nucleus really must be one with a valence proton. However, if all of these conditions can be satisfied one can hope to compare the change in the spin dependent structure function of a bound nucleon against theoretical models.
+%
+\begin{figure}[th]
+\centerline{\includegraphics[width=10cm]{fig2}}
+\caption{Comparison of the spin dependent and spin independent EMC effects for the idealised case of a proton in nuclear matter (at a scale of 10 GeV$^2$). The calculations were carried out within the QMC model as reported recently by 
+Tronchin {\it et al.}~\cite{Tronchin:2018mvu}.}
+\label{fig:tronchin}
+\end{figure}
+%
+
+The first investigation of this effect by Clo\"et {\it et al.}~\cite{Cloet:2005rt,Cloet:2006bq} found the remarkable result that the polarized EMC effect, defined as the ratio of the structure function for a 100\% polarised bound proton (i.e., corrected for nuclear depolarization) to that of a free proton, was significantly larger than the unpolarized EMC effect. Even though Li is a little light for a mean field treatment, it is ideal for a first experiment and will be investigated at Jefferson Lab in the near future~\cite{bosted}. The prediction of Clo\"et {\it et al.}, shown in Fig.~\ref{fig:fig1}, is based upon the self-consistent modification of the structure of the bound proton in the NJL model and suggests that the spin EMC effect in Li should be very similar to the spin independent effect for the same nucleus.
+
+Even though the QMC model was developed using the MIT bag model for the nucleon and this was indeed the basis for the first calculations of the EMC effect, there had been no calculations of the spin dependent EMC effect in that model until very recently. This lack was recently remedied~\cite{Tronchin:2018mvu} and Fig.~\ref{fig:tronchin} shows the resultant calculation of the EMC effects (spin independent and spin dependent) for a proton immersed in nuclear matter, using QMC. The key point is that both effects are clearly of the same size, so that in this approach, in which the internal structure of the bound nucleon is self-consistently modified in-medium, one does expect to find a sizeable polarized EMC effect. One aspect of the recent calculation which needs further work is that the spin saturation found earlier by Clo\"et {\it et al.}, using the NJL model was considerably larger than that found using the bag model. As this reduction will have important consequences for a number of current problems, such as neutrino-nucleus scattering and double $\beta$-decay, this needs to be resolved.
+
+\subsection{Short-range correlations}
+While the consequences for the spin dependent EMC effect of a modification of nucleon structure because of the large scalar mean field in-medium are clear, as illustrated above, the situation has been less clear for the case where SRC drive the EMC effect. We suggest that in the case of SRC, if they were indeed the sole source of the EMC effect, there should be little or no spin dependent EMC effect. This would make the up-coming measurement of the structure function of a polarized $^7$Li target a key test of this fundamental issue in modern nuclear physics.
+
+It is well established through the important program of experiments at Jefferson Lab that the dominant source of high momentum nucleons in nuclei (i.e., well above the Fermi level) is 
+tensor correlations~\cite{Subedi:2008zz,Arrington:2011xs}, involving a neutron-proton pair in the $^3S_1 - ^3D_1$ state. The angular momentum barrier means that the highest momentum nucleons in a correlated pair will be in $D$-wave. That is, they may meet with low relative momentum in a shell model configuration, where their relative  angular momentum is $S$-wave, but through SRC they will be scattered into a high relative momentum $D$-wave state by the tensor force. If this picture is correct, and it is certainly true that the $p^L$ behaviour of the relative wave function must support higher momentum in $D$-wave, then one can easily work out the effective polarization of a valence nucleon once it has scattered through a SRC into a high momentum state. 
+
+Assuming the valence nucleon to be 100\% polarized and in $S$-wave with respect to the nucleon it strikes in the SRC, then the z-component of total angular momentum will be 50\% $J_z=0$ and 50\% $J_z=+1$. After the short-distance tensor interaction $J_z$ is preserved. However, the Clebsch-Gordan coefficients  for orbital angular momentum $L=2$ overwhelmingly favour the spin down configurations. This significantly depolarizes the correlated struck proton which is a fair way off-mass-shell because of the high momentum carried away by its partner. In fact, its polarization will be of order -10 to -15\% instead of +100\%. Thus the structure function of this weakly polarized proton cannot exhibit a strong spin dependence.
+
+To summarize, SRC will depolarize the valence proton so that, if the EMC-type modification of structure functions does arise only through the change of the structure function of a high momentum, far off-mass-shell nucleon in a correlated pair, there can be very little EMC effect on the nuclear spin structure function. Once one divides the measured nuclear structure function by the effective nucleon polarization one expects little nuclear modification of the spin structure function and hence no significant spin-dependent EMC effect in this model.
+
+\section{Isovector EMC Effect}
+%
+\begin{figure}[th]
+\centerline{\includegraphics[width=12cm]{fig3}}
+\caption{Illustration of the effects of the isovector nuclear force on structure functions and PDFs in nuclear matter with 
+an $N/Z$ ratio corresponding to Pb (at a scale of 5 GeV$^2$), as calculated in Refs.~\cite{Cloet:2009qs,Cloet:2012td}. While the difference between the electromagnetic and parity violating structure functions should be measureable in a precise experiment, a direct determination of the separate $u$ and $d$ distributions would be definitive.}
+\label{fig:fig3}
+\end{figure}
+%
+Within a mean field picture of the EMC effect, the Lorentz vector potentials enter the calculation of structure functions in a relatively simple way. This led Clo\"et {\it et al.}~\cite{Cloet:2009qs,Cloet:2012td}
+ to realize that the existence of an isovector mean field in a nucleus with N not equal to Z, which is well understood in nuclear structure physics, would shift the $d$ and $u$-quark PDFs in opposite ways, with the every one of the former, feeling repulsion from the excess of $d$-quarks in the nucleus, {\em regardless of whether they were in a proton or a neutron}. Similarly, all of the $u$-quarks must fell additional attraction {\em regardless of which nucleon they call home}. Thus, while this difference in energies is completely consistent with isospin symmetry, to a naive observer it looks remarkably like an increase in the well-known charge symmetry violation of the PDFs arising from the fact that $m_d>m_u$~\cite{Londergan:2009kj,Rodionov:1994cg}
+. It naturally leads to a transfer of light-cone momentum from all of 
+the $u$-quarks in a nucleus with $N\neq Z$ to the $d$-quarks. This observation can account for a significant fraction of the NuTeV anomaly~\cite{Cloet:2009qs,Bentz:2009yy}.
+
+The rather significant effects of this shift of momentum are illustrated in Fig.~\ref{fig:fig3}. The definitive measurement would involve a separate determination of the total $u$ and the total $d$-quark distributions in a nucleus like Pb, where as shown the difference in the respective EMC ratios is as large as 20\%. Charged current weak interactions would be the ideal tool for studying this phenomenon. A measurement of the somewhat smaller difference between the parity-violating $\gamma-Z$ interference structure function and the normal electromagnetic structure function would also be extremely valuable. The latter is certainly feasible at Jefferson Lab following its 12 GeV upgrade.
+
+At present I find the discussion of this phenomenon with the SRC approach confusing. Certainly the discussion focusses on the fraction of momentum carried by protons and neutrons, whereas in the mean field approach the shift of momentum from $u$ to $d$-quarks is independent of which nucleon contains the quark in question.
+
+\section{Concluding Remarks}
+The EMC effect is fundamental to our understanding of nuclear structure. Nuclear theory needs to provide a clear understanding of the results found, no matter what probe is used to investigate it. The theory used should also provide a quantitative description of nuclear structure. It is therefore gratifying that the QMC approach, in which the structure of a bound nucleon is self-consistently modified by the scalar fields generated by the other nucleons, which had early success in application to the EMC effect, has since been used to generate very realistic energy 
+density functionals~\cite{Guichon:2006er,Guichon:2004xg}. Indeed, the energy density functional (EDF) derived from the QMC model has been shown to reproduce the binding energies of nuclei across the periodic table at the 0.3\% level, with superheavies even better at 0.1\%~\cite{Stone:2016qmi,Stone:2017oqt,Guichon:2018uew}. Quite reasonable results have also been obtained for charge radii, deformations and two-nucleon and alpha particle separation energies. It is particularly interesting that, while the level of accuracy is not quite as good as the best phenomenological EDFs, the number of parameters in the QMC approach is less than half the number typically used there. 
+
+We have reviewed the predictions of the mean field approach to the EMC effect for new phenomena, such as the polarized  or spin dependent EMC effect and found that it is expected to be at least as large as the unpolarized EMC effect on a given nucleus. As our examination of the proposed explanation in terms of SRC suggest that this will produce little or no spin dependent EMC effect this is a critical test of the underlying physics. It makes the upcoming experimental test at Jefferson Lab particularly important.
+
+A second important test of the physics of the EMC effect involves the so-called isovector EMC effect. In the mean field approach this involves a shift of momentum from every $u$-quark to every $d$-quark, regardless of whether it is in a proton or a neutron. Parity violating electron scattering and charged current weak interactions with nuclei are the ideal tools to investigate the predictions in this area and once again we look to Jefferson Lab for leadership in those investigations. 
+
+After 35 years there are still many challenges associated with understanding the origin of the EMC effect. Nevertheless, the substantial theoretical and experimental progress in recent years gives us confidence that we can resolve these challenges before much longer. Our understanding of the structure of atomic nuclei will be much deeper as a result.
+
+\section*{Acknowledgements}
+
+This work was supported by the University of Adelaide and by the Australian Research Council through the 
+ARC Centre of Excellence for Particle Physics at the Terascale (CE110001104) and Discovery Projects 
+DP150103101 and DP180100497.
+
+%
+\begin{thebibliography}{0}
+%
+%\cite{Aubert:1983xm}
+\bibitem{Aubert:1983xm} 
+  J.~J.~Aubert {\it et al.} [European Muon Collaboration],
+  %``The ratio of the nucleon structure functions $F2_n$ for iron and deuterium,''
+  Phys.\ Lett.\  {\bf 123B}, 275 (1983).
+  doi:10.1016/0370-2693(83)90437-9
+  %%CITATION = doi:10.1016/0370-2693(83)90437-9;%%
+%
+%\cite{Bodek:1983ec}
+\bibitem{Bodek:1983ec} 
+  A.~Bodek {\it et al.},
+  %``A Comparison of the Deep Inelastic Structure Functions of Deuterium and Aluminum Nuclei,''
+  Phys.\ Rev.\ Lett.\  {\bf 51}, 534 (1983).
+  doi:10.1103/PhysRevLett.51.534
+  %%CITATION = doi:10.1103/PhysRevLett.51.534;%%
+%
+%\cite{Geesaman:1995yd}
+\bibitem{Geesaman:1995yd} 
+  D.~F.~Geesaman, K.~Saito and A.~W.~Thomas,
+  %``The nuclear EMC effect,''
+  Ann.\ Rev.\ Nucl.\ Part.\ Sci.\  {\bf 45}, 337 (1995).
+  doi:10.1146/annurev.ns.45.120195.002005
+  %%CITATION = doi:10.1146/annurev.ns.45.120195.002005;%%
+%
+%\cite{Malace:2014uea}
+\bibitem{Malace:2014uea} 
+  S.~Malace, D.~Gaskell, D.~W.~Higinbotham and I.~Cloet,
+  %``The Challenge of the EMC Effect: existing data and future directions,''
+  Int.\ J.\ Mod.\ Phys.\ E {\bf 23}, no. 08, 1430013 (2014)
+  doi:10.1142/S0218301314300136
+  [arXiv:1405.1270 [nucl-ex]].
+  %%CITATION = doi:10.1142/S0218301314300136;%%
+%
+%\cite{Ericson:1983um}
+\bibitem{Ericson:1983um} 
+  M.~Ericson and A.~W.~Thomas,
+  %``Pionic Corrections and the EMC Enhancement of the Sea in Iron,''
+  Phys.\ Lett.\  {\bf 128B}, 112 (1983).
+  doi:10.1016/0370-2693(83)90085-0
+  %%CITATION = doi:10.1016/0370-2693(83)90085-0;%%
+%
+%\cite{LlewellynSmith:1983vzz}
+\bibitem{LlewellynSmith:1983vzz} 
+  C.~H.~Llewellyn Smith,
+  %``A Possible Explanation of the Difference Between the Structure Functions of Iron and Deuterium,''
+  Phys.\ Lett.\  {\bf 128B}, 107 (1983).
+  doi:10.1016/0370-2693(83)90084-9
+  %%CITATION = doi:10.1016/0370-2693(83)90084-9;%%
+%
+%\cite{Nachtmann:1983py}
+\bibitem{Nachtmann:1983py} 
+  O.~Nachtmann and H.~J.~Pirner,
+  %``Color Conductivity in Nuclei and the Emc Effect,''
+  Z.\ Phys.\ C {\bf 21}, 277 (1984).
+  doi:10.1007/BF01577042
+  %%CITATION = doi:10.1007/BF01577042;%%
+%
+%\cite{Close:1983tn}
+\bibitem{Close:1983tn} 
+  F.~E.~Close, R.~G.~Roberts and G.~G.~Ross,
+  %``The Effect of Confinement Size on Nuclear Structure Functions,''
+  Phys.\ Lett.\  {\bf 129B}, 346 (1983).
+  doi:10.1016/0370-2693(83)90679-2
+  %%CITATION = doi:10.1016/0370-2693(83)90679-2;%%
+%
+%\cite{Kondratyuk:1984qj}
+\bibitem{Kondratyuk:1984qj} 
+  L.~A.~Kondratyuk and M.~Shmatikov,
+  %``Emc Effect And Multi - Quark Bags In Nuclei,''
+  Yad.\ Fiz.\  {\bf 41}, 222 (1985)
+  [Sov.\ J.\ Nucl.\ Phys.\  {\bf 41}, 141 (1985)].
+  %%CITATION = YAFIA,41,222;%%
+%
+%\cite{Celenza:1984ew}
+\bibitem{Celenza:1984ew} 
+  L.~S.~Celenza, A.~Rosenthal and C.~M.~Shakin,
+  %``Symmetry Breaking, Quark Deconfinement and the Emc Effect,''
+  Phys.\ Rev.\ Lett.\  {\bf 53}, 892 (1984).
+  doi:10.1103/PhysRevLett.53.892
+  %%CITATION = doi:10.1103/PhysRevLett.53.892;%%
+%
+%\cite{Bickerstaff:1985mp}
+\bibitem{Bickerstaff:1985mp} 
+  R.~P.~Bickerstaff and G.~A.~Miller,
+  %``Origins And Q**2 Dependence Of The Emc Effect,''
+  Phys.\ Lett.\  {\bf 168B}, 409 (1986).
+  doi:10.1016/0370-2693(86)91654-0
+  %%CITATION = doi:10.1016/0370-2693(86)91654-0;%%
+%
+%\cite{Frankfurt:1985cv}
+\bibitem{Frankfurt:1985cv} 
+  L.~L.~Frankfurt and M.~I.~Strikman,
+  %``Point - Like Configurations In Hadrons And Nuclei And Deep Inelastic Reactions With Leptons: Emc And Emc Like Effects,''
+  Nucl.\ Phys.\ B {\bf 250}, 143 (1985).
+  doi:10.1016/0550-3213(85)90477-8
+  %%CITATION = doi:10.1016/0550-3213(85)90477-8;%%
+%
+%\cite{Krzywicki:1985fd}
+\bibitem{Krzywicki:1985fd} 
+  A.~Krzywicki,
+  %``The Emc Effect,''
+  Nucl.\ Phys.\ A {\bf 446}, 135 (1985).
+  doi:10.1016/0375-9474(85)90585-8
+  %%CITATION = doi:10.1016/0375-9474(85)90585-8;%%
+%
+%\cite{Saito:1985ct}
+\bibitem{Saito:1985ct} 
+  K.~Saito and T.~Uchiyama,
+  %``Effect of the Fermi Motion on Nuclear Structure Functions and the Emc Effect,''
+  Z.\ Phys.\ A {\bf 322}, 299 (1985).
+  doi:10.1007/BF01411895
+  %%CITATION = doi:10.1007/BF01411895;%%
+%
+%\cite{Gupta:1985mg}
+\bibitem{Gupta:1985mg} 
+  S.~Gupta and K.~V.~L.~Sarma,
+  %``Partial Deconfinement of Quarks in Nuclei and the Emc Effect,''
+  Z.\ Phys.\ C {\bf 29}, 329 (1985).
+  doi:10.1007/BF01550834
+  %%CITATION = doi:10.1007/BF01550834;%%
+%
+%\cite{Dunne:1985ks}
+\bibitem{Dunne:1985ks} 
+  G.~V.~Dunne and A.~W.~Thomas,
+  %``On the Interpretation of the Emc Effect,''
+  Phys.\ Rev.\ D {\bf 33}, 2061 (1986).
+  doi:10.1103/PhysRevD.33.2061
+  %%CITATION = doi:10.1103/PhysRevD.33.2061;%%
+%
+%\cite{Hoodbhoy:1986fn}
+\bibitem{Hoodbhoy:1986fn} 
+  P.~Hoodbhoy and R.~L.~Jaffe,
+  %``Quark Exchange in Nuclei and the Emc Effect,''
+  Phys.\ Rev.\ D {\bf 35}, 113 (1987).
+  doi:10.1103/PhysRevD.35.113
+  %%CITATION = doi:10.1103/PhysRevD.35.113;%%
+%
+%\cite{Efremov:1986mt}
+\bibitem{Efremov:1986mt} 
+  A.~V.~Efremov,
+  %``On the Nature of the Emc Effect,''
+  Phys.\ Lett.\ B {\bf 174}, 219 (1986).
+  doi:10.1016/0370-2693(86)90745-8
+  %%CITATION = doi:10.1016/0370-2693(86)90745-8;%%
+%
+%\cite{Bickerstaff:1989ch}
+\bibitem{Bickerstaff:1989ch} 
+  R.~P.~Bickerstaff and A.~W.~Thomas,
+  %``The {EMC} Effect: With Emphasis on Conventional Nuclear Corrections,''
+  J.\ Phys.\ G {\bf 15}, 1523 (1989).
+  doi:10.1088/0954-3899/15/10/006
+  %%CITATION = doi:10.1088/0954-3899/15/10/006;%%
+%
+%\cite{Cottingham:1973wt}
+\bibitem{Cottingham:1973wt} 
+  W.~N.~Cottingham, M.~Lacombe, B.~Loiseau, J.~M.~Richard and R.~Vinh Mau,
+  %``Nucleon nucleon interaction from pion nucleon phase shift analysis,''
+  Phys.\ Rev.\ D {\bf 8}, 800 (1973).
+  doi:10.1103/PhysRevD.8.800
+  %%CITATION = doi:10.1103/PhysRevD.8.800;%%
+%
+%\cite{Serot:1997xg}
+\bibitem{Serot:1997xg} 
+  B.~D.~Serot and J.~D.~Walecka,
+  %``Recent progress in quantum hadrodynamics,''
+  Int.\ J.\ Mod.\ Phys.\ E {\bf 6}, 515 (1997)
+  doi:10.1142/S0218301397000299
+  [nucl-th/9701058].
+  %%CITATION = doi:10.1142/S0218301397000299;%%
+%
+%\cite{vanDalen:2004pn}
+\bibitem{vanDalen:2004pn} 
+  E.~N.~E.~van Dalen, C.~Fuchs and A.~Faessler,
+  %``The Relativistic Dirac-Brueckner approach to asymmetric nuclear matter,''
+  Nucl.\ Phys.\ A {\bf 744}, 227 (2004)
+  doi:10.1016/j.nuclphysa.2004.08.019
+  [nucl-th/0407070].
+  %%CITATION = doi:10.1016/j.nuclphysa.2004.08.019;%%
+%
+%\cite{Guichon:1987jp}
+\bibitem{Guichon:1987jp} 
+  P.~A.~M.~Guichon,
+  %``A Possible Quark Mechanism for the Saturation of Nuclear Matter,''
+  Phys.\ Lett.\ B {\bf 200}, 235 (1988).
+  doi:10.1016/0370-2693(88)90762-9
+  %%CITATION = doi:10.1016/0370-2693(88)90762-9;%%
+%
+%\cite{Thomas:2016bxx}
+\bibitem{Thomas:2016bxx} 
+  A.~W.~Thomas,
+  %``QCD and a New Paradigm for Nuclear Structure,''
+  EPJ Web Conf.\  {\bf 123}, 01003 (2016)
+  doi:10.1051/epjconf/201612301003
+  [arXiv:1606.05956 [nucl-th]].
+  %%CITATION = doi:10.1051/epjconf/201612301003;%%
+%
+%\cite{Guichon:1995ue}
+\bibitem{Guichon:1995ue} 
+  P.~A.~M.~Guichon, K.~Saito, E.~N.~Rodionov and A.~W.~Thomas,
+  %``The Role of nucleon structure in finite nuclei,''
+  Nucl.\ Phys.\ A {\bf 601}, 349 (1996)
+  doi:10.1016/0375-9474(96)00033-4
+  [nucl-th/9509034].
+  %%CITATION = doi:10.1016/0375-9474(96)00033-4;%%
+%
+%\cite{Saito:2005rv}
+\bibitem{Saito:2005rv} 
+  K.~Saito, K.~Tsushima and A.~W.~Thomas,
+  %``Nucleon and hadron structure changes in the nuclear medium and impact on observables,''
+  Prog.\ Part.\ Nucl.\ Phys.\  {\bf 58}, 1 (2007)
+  doi:10.1016/j.ppnp.2005.07.003
+  [hep-ph/0506314].
+  %%CITATION = doi:10.1016/j.ppnp.2005.07.003;%%
+%
+%\cite{Guichon:2008zz}
+\bibitem{Guichon:2008zz} 
+  P.~A.~M.~Guichon, A.~W.~Thomas and K.~Tsushima,
+  %``Binding of hypernuclei in the latest quark-meson coupling model,''
+  Nucl.\ Phys.\ A {\bf 814}, 66 (2008)
+  doi:10.1016/j.nuclphysa.2008.10.001
+  [arXiv:0712.1925 [nucl-th]].
+  %%CITATION = doi:10.1016/j.nuclphysa.2008.10.001;%%
+%
+%\cite{Cloet:2015tha}
+\bibitem{Cloet:2015tha} 
+  I.~C.~Cloet, W.~Bentz and A.~W.~Thomas,
+  %``Relativistic and Nuclear Medium Effects on the Coulomb Sum Rule,''
+  Phys.\ Rev.\ Lett.\  {\bf 116}, no. 3, 032701 (2016)
+  doi:10.1103/PhysRevLett.116.032701
+  [arXiv:1506.05875 [nucl-th]].
+  %%CITATION = doi:10.1103/PhysRevLett.116.032701;%%
+%
+%\cite{Tsushima:1998qw}
+\bibitem{Tsushima:1998qw} 
+  K.~Tsushima, D.~H.~Lu, A.~W.~Thomas and K.~Saito,
+  %``Are eta and omega nuclear states bound?,''
+  Phys.\ Lett.\ B {\bf 443}, 26 (1998)
+  doi:10.1016/S0370-2693(98)01336-7
+  [nucl-th/9806043].
+  %%CITATION = doi:10.1016/S0370-2693(98)01336-7;%%
+%
+%\cite{Bentz:2001vc}
+\bibitem{Bentz:2001vc} 
+  W.~Bentz and A.~W.~Thomas,
+  %``The Stability of nuclear matter in the Nambu-Jona-Lasinio model,''
+  Nucl.\ Phys.\ A {\bf 696}, 138 (2001)
+  doi:10.1016/S0375-9474(01)01119-8
+  [nucl-th/0105022].
+  %%CITATION = doi:10.1016/S0375-9474(01)01119-8;%%
+%
+%\cite{Thomas:1989vt}
+\bibitem{Thomas:1989vt} 
+  A.~W.~Thomas, A.~Michels, A.~W.~Schreiber and P.~A.~M.~Guichon,
+  %``A New Approach To Nuclear Structure Functions,''
+  Phys.\ Lett.\ B {\bf 233}, 43 (1989).
+  doi:10.1016/0370-2693(89)90612-6
+  %%CITATION = doi:10.1016/0370-2693(89)90612-6;%%
+%
+%\cite{Saito:1992rm}
+\bibitem{Saito:1992rm} 
+  K.~Saito, A.~Michels and A.~W.~Thomas,
+  %``Towards a microscopic understanding of nuclear structure functions,''
+  Phys.\ Rev.\ C {\bf 46}, R2149 (1992).
+  doi:10.1103/PhysRevC.46.R2149
+  %%CITATION = doi:10.1103/PhysRevC.46.R2149;%%
+%
+%\cite{Miller:2001tg}
+\bibitem{Miller:2001tg} 
+  G.~A.~Miller and J.~R.~Smith,
+  %``Return of the EMC effect,''
+  Phys.\ Rev.\ C {\bf 65}, 015211 (2002)
+  Erratum: [Phys.\ Rev.\ C {\bf 66}, 049903 (2002)]
+  doi:10.1103/PhysRevC.66.049903, 10.1103/PhysRevC.65.015211
+  [nucl-th/0107026].
+  %%CITATION = doi:10.1103/PhysRevC.66.049903, 10.1103/PhysRevC.65.015211;%%
+%
+%\cite{Mineo:2003vc}
+\bibitem{Mineo:2003vc} 
+  H.~Mineo, W.~Bentz, N.~Ishii, A.~W.~Thomas and K.~Yazaki,
+  %``Quark distributions in nuclear matter and the EMC effect,''
+  Nucl.\ Phys.\ A {\bf 735}, 482 (2004)
+  doi:10.1016/j.nuclphysa.2004.02.011
+  [nucl-th/0312097].
+  %%CITATION = doi:10.1016/j.nuclphysa.2004.02.011;%%
+%
+%\cite{Cloet:2005rt}
+\bibitem{Cloet:2005rt} 
+  I.~C.~Cloet, W.~Bentz and A.~W.~Thomas,
+  %``Spin-dependent structure functions in nuclear matter and the polarized EMC effect,''
+  Phys.\ Rev.\ Lett.\  {\bf 95}, 052302 (2005)
+  doi:10.1103/PhysRevLett.95.052302
+  [nucl-th/0504019].
+  %%CITATION = doi:10.1103/PhysRevLett.95.052302;%%
+%
+%\cite{Cloet:2006bq}
+\bibitem{Cloet:2006bq} 
+  I.~C.~Cloet, W.~Bentz and A.~W.~Thomas,
+  %``EMC and polarized EMC effects in nuclei,''
+  Phys.\ Lett.\ B {\bf 642}, 210 (2006)
+  doi:10.1016/j.physletb.2006.08.076
+  [nucl-th/0605061].
+  %%CITATION = doi:10.1016/j.physletb.2006.08.076;%%
+%
+%\cite{Cloet:2009qs}
+\bibitem{Cloet:2009qs} 
+  I.~C.~Cloet, W.~Bentz and A.~W.~Thomas,
+  %``Isovector EMC effect explains the NuTeV anomaly,''
+  Phys.\ Rev.\ Lett.\  {\bf 102}, 252301 (2009)
+  doi:10.1103/PhysRevLett.102.252301
+  [arXiv:0901.3559 [nucl-th]].
+  %%CITATION = doi:10.1103/PhysRevLett.102.252301;%%
+%
+%\cite{Cloet:2012td}
+\bibitem{Cloet:2012td} 
+  I.~C.~Cloet, W.~Bentz and A.~W.~Thomas,
+  %``Parity-violating DIS and the flavour dependence of the EMC effect,''
+  Phys.\ Rev.\ Lett.\  {\bf 109}, 182301 (2012)
+  doi:10.1103/PhysRevLett.109.182301
+  [arXiv:1202.6401 [nucl-th]].
+  %%CITATION = doi:10.1103/PhysRevLett.109.182301;%%
+%
+%\cite{Weinstein:2010rt}
+\bibitem{Weinstein:2010rt} 
+  L.~B.~Weinstein, E.~Piasetzky, D.~W.~Higinbotham, J.~Gomez, O.~Hen and R.~Shneor,
+  %``Short Range Correlations and the EMC Effect,''
+  Phys.\ Rev.\ Lett.\  {\bf 106}, 052301 (2011)
+  doi:10.1103/PhysRevLett.106.052301
+  [arXiv:1009.5666 [hep-ph]].
+  %%CITATION = doi:10.1103/PhysRevLett.106.052301;%%
+%
+%\cite{Hen:2016kwk}
+\bibitem{Hen:2016kwk} 
+  O.~Hen, G.~A.~Miller, E.~Piasetzky and L.~B.~Weinstein,
+  %``Nucleon-Nucleon Correlations, Short-lived Excitations, and the Quarks Within,''
+  Rev.\ Mod.\ Phys.\  {\bf 89}, no. 4, 045002 (2017)
+  doi:10.1103/RevModPhys.89.045002
+  [arXiv:1611.09748 [nucl-ex]].
+  %%CITATION = doi:10.1103/RevModPhys.89.045002;%%
+%
+%\cite{Tronchin:2018mvu}
+\bibitem{Tronchin:2018mvu} 
+  S.~Tronchin, H.~H.~Matevosyan and A.~W.~Thomas,
+  %``Polarized EMC Effect in the QMC Model,''
+  Phys.\ Lett.\ B {\bf 783}, 247 (2018)
+  doi:10.1016/j.physletb.2018.06.065
+  [arXiv:1806.00481 [nucl-th]].
+  %%CITATION = doi:10.1016/j.physletb.2018.06.065;%%
+%
+\bibitem{bosted}
+P.~E.~Bosted, W.~Brooks, V.~Dharmawardane, R.~Ent, S.~Kuhn and D.~Crabb,
+"The EMC effect in spin structure functions", Jefferson Lab proposal PR12-14-001 / PR12-14-001.pdf.
+\url{https://www.jlab.org/exp_prog/proposals/14/PR12-14-001.pdf}
+%
+%\cite{Subedi:2008zz}
+\bibitem{Subedi:2008zz} 
+R.~Subedi {\em et al.}, Science {\bf 320}, 1476 (2008)
+  %``Probing Cold Dense Nuclear Matter,''
+ % Science {\bf 320}, 1476 (2008)
+  doi:10.1126/science.1156675
+%  [arXiv:0908.1514 [nucl-ex]].
+  %%CITATION = doi:10.1126/science.1156675;%%
+%
+%\cite{Arrington:2011xs}
+\bibitem{Arrington:2011xs} 
+  J.~Arrington, D.~W.~Higinbotham, G.~Rosner and M.~Sargsian,
+  %``Hard probes of short-range nucleon-nucleon correlations,''
+  Prog.\ Part.\ Nucl.\ Phys.\  {\bf 67}, 898 (2012)
+  doi:10.1016/j.ppnp.2012.04.002
+  [arXiv:1104.1196 [nucl-ex]].
+  %%CITATION = doi:10.1016/j.ppnp.2012.04.002;%%
+%
+%\cite{Bentz:2009yy}
+\bibitem{Bentz:2009yy} 
+  W.~Bentz, I.~C.~Cloet, J.~T.~Londergan and A.~W.~Thomas,
+  %``Reassessment of the NuTeV determination of the weak mixing angle,''
+  Phys.\ Lett.\ B {\bf 693}, 462 (2010)
+  doi:10.1016/j.physletb.2010.09.001
+  [arXiv:0908.3198 [nucl-th]].
+  %%CITATION = doi:10.1016/j.physletb.2010.09.001;%%
+%
+%\cite{Londergan:2009kj}
+\bibitem{Londergan:2009kj} 
+  J.~T.~Londergan, J.~C.~Peng and A.~W.~Thomas,
+  %``Charge Symmetry at the Partonic Level,''
+  Rev.\ Mod.\ Phys.\  {\bf 82}, 2009 (2010)
+  doi:10.1103/RevModPhys.82.2009
+  [arXiv:0907.2352 [hep-ph]].
+  %%CITATION = doi:10.1103/RevModPhys.82.2009;%%
+%
+%\cite{Rodionov:1994cg}
+\bibitem{Rodionov:1994cg} 
+  E.~N.~Rodionov, A.~W.~Thomas and J.~T.~Londergan,
+  %``Charge asymmetry of parton distributions,''
+  Mod.\ Phys.\ Lett.\ A {\bf 9}, 1799 (1994).
+  doi:10.1142/S0217732394001659
+  %%CITATION = doi:10.1142/S0217732394001659;%%
+%
+%\cite{Guichon:2006er}
+\bibitem{Guichon:2006er} 
+  P.~A.~M.~Guichon, H.~H.~Matevosyan, N.~Sandulescu and A.~W.~Thomas,
+  %``Physical origin of density dependent force of the skyrme type within the quark meson coupling model,''
+  Nucl.\ Phys.\ A {\bf 772}, 1 (2006)
+  doi:10.1016/j.nuclphysa.2006.04.002
+  [nucl-th/0603044].
+  %%CITATION = doi:10.1016/j.nuclphysa.2006.04.002;%%
+%
+%\cite{Guichon:2004xg}
+\bibitem{Guichon:2004xg} 
+  P.~A.~M.~Guichon and A.~W.~Thomas,
+  %``Quark structure and nuclear effective forces,''
+  Phys.\ Rev.\ Lett.\  {\bf 93}, 132502 (2004)
+  doi:10.1103/PhysRevLett.93.132502
+  [nucl-th/0402064].
+  %%CITATION = doi:10.1103/PhysRevLett.93.132502;%%
+%
+%\cite{Stone:2016qmi}
+\bibitem{Stone:2016qmi} 
+  J.~R.~Stone, P.~A.~M.~Guichon, P.~G.~Reinhard and A.~W.~Thomas,
+  %``Finite Nuclei in the Quark-Meson Coupling Model,''
+  Phys.\ Rev.\ Lett.\  {\bf 116}, no. 9, 092501 (2016)
+  doi:10.1103/PhysRevLett.116.092501
+  [arXiv:1601.08131 [nucl-th]].
+  %%CITATION = doi:10.1103/PhysRevLett.116.092501;%%
+%
+%\cite{Stone:2017oqt}
+\bibitem{Stone:2017oqt} 
+  J.~Stone, P.~Guichon and A.~Thomas,
+  %``Superheavy Nuclei in the Quark-Meson-Coupling Model,''
+  EPJ Web Conf.\  {\bf 163}, 00057 (2017)
+  doi:10.1051/epjconf/201716300057
+  [arXiv:1706.01153 [nucl-th]].
+  %%CITATION = doi:10.1051/epjconf/201716300057;%%
+%
+%\cite{Guichon:2018uew}
+\bibitem{Guichon:2018uew} 
+  P.~A.~M.~Guichon, J.~R.~Stone and A.~W.~Thomas,
+  %``Quark–Meson-Coupling (QMC) model for finite nuclei, nuclear matter and beyond,''
+  Prog.\ Part.\ Nucl.\ Phys.\  {\bf 100}, 262 (2018)
+  doi:10.1016/j.ppnp.2018.01.008
+  [arXiv:1802.08368 [nucl-th]].
+  %%CITATION = doi:10.1016/j.ppnp.2018.01.008;%%
+%
+\end{thebibliography}
+%
+\end{document}
+%

@@ -1,0 +1,334 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The FATALIC Architecture}
+\label{sec:strategy}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{figure}[b]
+\centering
+  \includegraphics[height=0.25\textheight]{figures/asic/fatalic5.jpg}
+  \caption{Photograph of a prototype \gls{fatalic} unit.\label{fig:fatalic}}
+\end{figure}
+
+\gls{fatalic} (Fig.\,\ref{fig:fatalic}) is an ASIC, based on \SI{130}{nm} GlobalFoundries (GF) Complementary Metal-Oxide-Semiconductor 
+(CMOS) technology, proposed to replace the current discrete \gls{fe} readout electronics of the \gls{TileCal}. The proposal of an ASIC, 
+embedding both analog signal processing and digitisation, is motivated by its significant advantages in terms of simplicity, radiation 
+tolerance, power consumption and production cost for a large number of units. On the other hand, since the operating low voltage 
+(\SI{1.6}{V}) is dictated by the technology, \gls{fatalic} must rely on a current-driven, rather than a voltage-driven architecture in 
+order to handle the large input dynamic range. Hence, an input stage employing current conveyors is implemented to adjust the impedance 
+and distribute the signal to the different channels.
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.8\textwidth]{figures/asic/fatalic_5}
+  \caption{Block diagram of \gls{fatalic}.}
+  \label{fig:fatalic5}
+\end{figure}
+
+The specifications of \gls{fatalic} are listed in Table\,\ref{tab:f5_specs}, while a block diagram summarising the architecture is given 
+in Fig.\,\ref{fig:fatalic5}. In order to handle the large input range (up to \SI{1.2}{nC}), \gls{fatalic} provides three fast channels to
+process the \gls{pmt} signal at the \SI{40}{MHz} LHC clock rate, with relative amplification $\times$1 (low gain), $\times$8 (medium gain)
+and $\times$64 (high gain). This three-gain scheme is chosen, instead of using two gains, in order to improve the energy resolution (at the
+Tile cell level) across the input range, as shown by the related study in Section\,\ref{sec:2gain}. In parallel, the signal is routed to an 
+additional, slow channel for integration over a large ($\SI{100}{\mu s}$) time constant.
+
+\begin{table}[t]
+	\begin{center}
+		\begin{tabular}{l c}
+			\toprule
+			Technology & 130\,nm CMOS GF \\
+			Number of channels per ASIC & 1 \\
+			Polarity & negative \\
+			Fast channel dynamic range in charge & \SI{25}{fC} - \SI{1.2}{nC}\\
+			Fast channel dynamic range in current peak& \SI{1.25}{\mu A} - \SI{60}{mA}\\
+			Rise time of the current peak & \SI{4}{ns}\\
+			Fall time of the current peak & \SI{36}{ns} \\
+			Fast channel noise (rms) & <\SI{12.5}{fC} \\
+			Slow channel dynamic range in average current & \SI{0.5}{nA} - \SI{1}{\mu A} \\
+			Slow channel Noise (rms) & 0.25\,nA \\
+			Power consumption & $\sim$\SI{200}{mW} \\
+			Power supply      & 1.6\,V \\
+			Output            & 12-bit words \\
+			\bottomrule
+		\end{tabular}
+		\caption{Specifications of \gls{fatalic}.\label{tab:f5_specs}}
+	\end{center}
+\end{table}
+
+%---------------------------------
+\subsection{Fast channels}
+%---------------------------------
+In the fast channels the signal is read by three current conveyors with different input impedances in order to define the respective gain ratios. 
+Current integration and current-to-voltage conversion follow at the transimpedance-shaping stage by three identical shapers, composed by a 
+differential amplifier with RC feedback loop. A \SI{25}{ns} time constant is used to produce an asymmetric output pulse with \SI{25}{ns} 
+peaking time, as shown in Fig.\,\ref{fig:pulse}. The digitisation is carried out in the ASIC, by 12-bit \SI{40}{MS/s} \glspl{adc}, to avoid 
+degradation of the signal during transmission to an external converter. This establishes an effective 18-bit dynamic range and defines the
+range of each channel as: $\SI{25}{fC}-\SI{20}{pC}$ (high gain), $\SI{200}{fC}-\SI{164}{pC}$ (medium gain) and $\SI{1.6}{pC}-\SI{1.3}{nC}$ (low gain).
+
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.6\textwidth]{figures/energyreco/fatalic_pulse}
+  \caption{Output analog pulse from the fast channel shapers. At the \SI{40}{MHz} clock rate, the 2$^\text{nd}$ sample coincides with the pulse peak.\label{fig:pulse}}
+\end{figure}
+
+%---------------------------------
+\subsection{Slow channel}
+%---------------------------------
+The slow channel is designed to integrate low amplitude currents in the range from \SI{0.5}{nA} to $\SI{1}{\mu A}$ with minimum contamination
+from $\sfrac{1}{f}$ noise, induced by the input stage. A current conveyor with low input impedance is therefore used to drive approximately 87\% 
+of the \gls{pmt} signal to the slow channel, while current integration and current-to-voltage conversion are carried out by a differential 
+amplifier with large time-constant ($\SI{100}{\mu s}$) RC feedback. The integrated signal is then sampled by a 12-bit \SI{833}{kS/s} \gls{adc}. 
+Finally, to minimise the contamination from white noise in the measurement of such low amplitude currents, the data are obtained after averaging
+over a time interval of \SI{10}{ms}, as described in Section\,\ref{sec:cards}.
+
+%---------------------------------
+\subsection{Outputs}
+\label{sec:output}
+%---------------------------------
+
+The 12-bit fast channel samples are read-out from 12 respective output pins. In order to comply with the bandwith of the
+uplink to the back-end electronics (see Section\,\ref{sec:cards}), \gls{fatalic} is restricted to provide the data of only 
+two of the three channels; the 12-bit data of the medium-gain channel are always delivered upon the rising edge of the \SI{40}{MHz} 
+clock, while the data of either the low- or the high-gain channel (alternative gain) are delivered upon the falling edge. 
+The selection of the alternative gain is made by the embedded digital block, depending on the saturation of the most sensitive 
+channel (dynamic gain switch), and is declared by an output flag. The dynamic gain switch can however be forced to provide 
+only low gain readout by a dedicated input bit. On the other hand, slow channel data are delivered serially, at \SI{10}{Mbps} 
+(\SI{833}{kHz} for the 12 bits), through a single readout pin.
+
+\clearpage
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Development of the integrated circuit}
+\label{sec:ASICdev}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Current conveyor system}
+\label{subsec:Conveyor}
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The current conveyor system, schematically depicted in Fig.~\ref{iconv}, consists of one input stage and four output stages, 
+which provide differential signal to each of the \gls{fatalic} channels. At the input stage, a current mirror sets the biasing 
+current to the nominal value of \SI{0.5}{mA}. The \gls{pmt} signal is read at the source of four common-gate NMOS\footnote{
+%------------------------------------------
+Negative channel Metal Oxide Semiconductor}
+%------------------------------------------
+with the same length (L) but with different widths: $\mathrm{W_{fast}/1}$ (high gain), $\mathrm{W_{fast}}/8$ (medium gain), $\mathrm{W_{fast}}/64$ 
+(low gain) and $\mathrm{W_{slow}=8\,W_{fast}}$ (slow channel). A PMOS\footnote{
+%------------------------------------------
+Positive channel Metal Oxide Semiconductor}
+%------------------------------------------
+current mirror is then used to replicate the current from the drain of each NMOS onto the respective output stage, while a replica of 
+the input stage (dummy) is implemented to return just the biasing current to be subtracted from the final output.
+
+In terms of noise, the performance of such current-conveyor is modest compared to a charge preamplifier, but well adequate, 
+given the large dynamic range of input stage. The input impedance is kept below $\SI{70}{\Omega}$ for the entire input range, 
+as presented in Fig.\,\ref{fig:Zin_vs_Idc}. Finally, to account for the open-loop configuration of the input stage, which 
+induces large dispersion among the pedestal values, a tuning system with a \gls{dac} is also added to the above design.
+
+\begin{figure}[b]
+	\begin{center}
+		\includegraphics[width=\textwidth]{figures/asic/ConvF5_v2.pdf}
+		\caption{The current conveyor system, consisting of the input stage, the four output stages and a replica 
+        (dummy) of the input stage in order to subtract the biasing current from the differential output.}
+		\label{iconv}
+	\end{center}
+\end{figure}
+
+\begin{figure}[t]
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{figures/performance/simu_impd}
+		\caption{Input impedance as a function of the input charge for the nominal biasing current, $\Ibias=0.5$\,nA, 
+        and for a test value of $\Ibias=0.2$\,nA.}
+		\label{fig:Zin_vs_Idc}
+	\end{center}
+\end{figure}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Signal shaping}
+\label{subsec:Shaping}
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The shaper (Fig.\,\ref{fig:amp_a}) is a differential amplifier with RC feedback loop, with a time constant of \SI{25}{ns} 
+($R=\SI{5}{k\Omega}$, $C=\SI{5}{pF}$) in the fast channels and $\SI{100}{\mu s}$ ($R=\SI{500}{k\Omega}$, $C=\SI{200}{pF}$) 
+in the slow channel. The amplifier is based on a folded-cascode boosted architecture, depicted in Fig.\,\ref{fig:amp_b}, 
+with two differential input pairs, one NMOS and one PMOS, and Common Mode FeedBack (CMFB) to control the output common mode. 
+Its open-loop characteristics are listed in Table\,\ref{tab:opamp}. 
+
+\begin{table}[h]
+	\centering
+	\begin{tabular}{l c}
+		\toprule
+		Open-loop gain       & \SI{84}{dB}\\
+		-3db bandwidth       & \SI{38}{kHz}\\
+		Unity-gain bandwidth & \SI{650}{MHz}\\
+		Slew rate            & $\SI{220}{V/\mu s}$\\
+		Phase margin         & 85$^\circ$\\
+		Supply voltage       & \SI{1.6}{V}\\
+		Consumption          & \SI{2.3}{mA}\\
+		\bottomrule
+	\end{tabular}
+\caption{\label{tab:opamp}Open-loop characteristics of the shaper with the \gls{adc} input capacitive load of \SI{1.6}{pF}.}
+\label{amp_charac}
+\end{table}	
+
+\begin{figure}[t]
+  \centering
+  \subfloat[][]{\includegraphics[width=0.6\textwidth]{figures/asic/shap}\label{fig:amp_a}}\\
+  \subfloat[][]{\includegraphics[width=0.8\textwidth]{figures/asic/Ampli}\label{fig:amp_b}}
+  \caption{(a) Schematic of the shaper, consisting of a differential amplifier with RC feedback loop. 
+           (b) Architecture of the differential amplifier.\label{fig:amp}}
+\end{figure}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Signal digitisation}
+\label{subsec:ADC}
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The shaper output is sampled by three 12-bit \SI{40}{MS/s} \glspl{adc} in the fast channels and one 12-bit \SI{833}{kS/s} 
+\gls{adc} in the slow channel. The \gls{adc} design by LPC is based on the pipeline architecture
+%, which is well adequate for the particular resolution and sampling rate, 
+with 1.5-bit-per-stage resolution.
+%. is chosen to avoid degradation of the performance due to the comparator offsets. 
+Among the various efficient \gls{adc} architectures developed and improved over the last ten years, the pipelined \gls{adc} 
+has been adapted for high resolution, speed and dynamic range with relatively low power consumption and low component count. 
+In CMOS technologies, resolutions in the range of 10-14 bits with a sampling frequency up to \SI{100}{MS/s} are typically 
+achieved with power consumption lower than \SI{100}{mW}.
+
+Fig.\,\ref{fig:adc} presents the block diagram of the pipelined ADC, with two output bits per stage, displaying the architecture
+of one of the stages. Each stage receives a differential input voltage, in the range $\pm$\SI{500}{mV}, which is read by a 
+sample-and-hold (S/H) and a 2-bit flash \gls{adc}. The flash \gls{adc} compares the input to two threshold voltages ($\pm$\SI{125}{mV}) 
+and outputs a 2-bit word, while a \gls{dac} and a residue amplifier provide the input to the next stage, as presented in 
+Table\,\ref{tab:adc_stage}. Although a 2-bit word is delivered, the effective resolution is 1.5-bit since the combination \texttt{11} is 
+avoided. This bit redundancy limits the degradation of the Integral Non-Linearity\footnote{
+%------------------------------------------------------------
+The INL is defined as the deviation, in Least-Significant-Bits (LSBs), of the output code from the ideal transfer-function.}
+%------------------------------------------------------------
+(INL) due to variations of the residue amplifier gain or the comparator offsets (the INL is unaffected by variations of the offset 
+voltage for up to $\pm$12.5\% of the full-scale input voltage). The complete architecture includes 12 cascading stages and is 
+followed by the digital correction block (see Section\,\ref{subsec:DigitalBlock}), which delivers the final digital code. The 
+estimated power consumption of the \gls{adc} is \SI{48}{mW}.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{rcl c c c}
+  \toprule
+                      & $V_\mathrm{in}^i$  &  & $[b_2b_1]$  & DAC          & $V_\mathrm{in}^{i+1}$\\
+  \midrule
+  $ V_\mathrm{ref}/4$ &-& $ V_\mathrm{ref}$   & [10] & $V_\mathrm{ref}/2$  & $2V_\mathrm{in}^i - V_\mathrm{ref}$\\
+  $-V_\mathrm{ref}/4$ &-& $ V_\mathrm{ref}/4$ & [01] & 0                   & $2V_\mathrm{in}^i$\\
+  $-V_\mathrm{ref}$   &-& $-V_\mathrm{ref}/4$ & [00] & $-V_\mathrm{ref}/2$ & $2V_\mathrm{in}^i + V_\mathrm{ref}$\\
+  \bottomrule
+  \end{tabular}
+  \caption{Each stage $i$ of the pipeline converts the input voltage $V_\mathrm{in}^{i}$, in the dynamic range $\pm V_\mathrm{ref}$, 
+           into a 2-bit word $[b_2b_1]$ and feeds the amplified residual $V_\mathrm{in}^{i+1}=2(V_\mathrm{in}^i-\mathrm{DAC})$ to the 
+           next stage.\label{tab:adc_stage}}
+\end{table}
+
+\begin{figure}[tb]
+	\centering
+	\includegraphics[width=0.9\textwidth]{figures/asic/adc}
+	\caption{Block diagram of the 12-bit pipelined ADC with two output bits per stage.}
+	\label{fig:adc}
+\end{figure}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsubsection*{The comparator}
+
+The architecture of the comparator is presented in Fig.\,\ref{fig:comp_adc}. The transconductance input stage is fully differential, 
+comparing the differential input signal to the differential threshold voltage, while isolating the input from kick-back noise, 
+induced by the switching of the subsequent latched stage. The latched stage performs the comparison when the switch-transistors are 
+OFF and a reset when they are ON. The state of the comparator, when it is latched, is memorised thanks to the bistable third stage. Lastly, 
+two NOT gates perform the final digital shaping of the output signal. The main characteristics of the comparator are given in 
+Table\,\ref{tab:comp}.
+
+%The latch state of the comparator is memorised by a bi-stable third stage.
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=0.9\textwidth]{figures/asic/Comp}
+  \caption{Architecture of the comparator (single-ended representation for simplicity).}
+  \label{fig:comp_adc}
+\end{figure}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsubsection*{The \gls{dac}}
+
+The \gls{dac} employs a set of switches, controlled by the comparators, to select the differential reference voltage to 
+be applied on the feedback capacitor of the residue amplifier. Given the $\pm$\SI{500}{mV} input dynamic range, the 
+reference voltages are set to $\pm$\SI{250}{mV}.
+
+\begin{table}[h]
+\centering
+	\vspace{0.5cm}
+	\begin{tabular}{l c}
+	\toprule
+	Clocking frequency & 40\,MHz\\
+	Sensitivity        & 50\,$\mu$V\\
+	Power supply       & 1.6\,V\\
+	Power consumption  & 2.1\,mW\\
+	\bottomrule
+	\end{tabular}
+	\caption{\label{tab:comp}Characteristics of the comparator.}
+\end{table}	
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsubsection*{The gain-2 residue amplifier}
+
+The residue amplifier, displayed in Fig.\,\ref{fig:adc}, is a differential amplifier with capacitive feedback. Capacitive, 
+rather than resistive feedback is used for better component matching, which is crucial for the accuracy of the amplification 
+and, therefore, the linearity of the \gls{adc}. A capacitance of \SI{800}{fF} is sufficient to minimise both the thermal 
+noise ($kT/C$) and the component mismatch ($\sim$$1/\sqrt{C}$). On the other hand, the design requires a small die surface 
+and low supply current for dynamic performance. To match both the sampling ($C_\mathrm{S}$) and feedback ($C_\mathrm{F}$) 
+capacitance to \SI{800}{fF}, with an accuracy better than 0.1\%, an array of four \SI{1600}{fF} MIM capacitor unit cells is 
+drawn in common-centroid layout, while dummy switches are added to counterbalance parasitic capacitors introduced by the 
+reset switches. Lastly, the timing sequence, controlling the sample, hold/amplification and reset phases of each stage, has 
+been carefully defined to prevent charge disruption.
+
+%\begin{figure}[bt]
+%\centering
+%\includegraphics[width=0.8\textwidth]{figures/asic/etage_adc}
+%\caption{One stage of the pipelined ADC (single-ended representation for simplicity).}
+%\label{fig:ADC_stage}
+%\end{figure}
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{Digital block}
+\label{subsec:DigitalBlock}
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+\begin{figure}[tb]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/asic/Fatalic5_digital}
+\caption{Architecture of the digital block.}
+\label{bloc_digital2}
+\end{figure}
+
+Each \gls{adc} delivers twelve 2-bit words at the \SI{40}{MHz} clock rate. The result of the complete conversion is therefore 
+a 24-bit word with 12 redundant bits. The digital block (Fig.\,\ref{bloc_digital2}) synchronises the outputs using shift 
+registers to compensate for the delay due to the position of each stage in the pipeline. The total latency of this process is
+equal to eight clock cycles (\SI{200}{ns}) and it is fixed for every power cycle. Digital summation (with carry-save) of the
+most-significant bit of each stage with the least-significant bit of the previous stage is then performed to the final 12-bit 
+code every \SI{25}{ns} for the fast channels and $\SI{1.2}{\mu s}$) for the slow channel. The second function of the digital block 
+is to select the alternative gain output between the high-gain and the low-gain channel data (see Section\,\ref{sec:output}). 
+This selection is made according to the output of the low-gain channel; if it is equal or higher (lower) than \SI{600}{ADC} counts, 
+then the low-gain (high-gain) channel data are delivered.
+
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+\subsection{The Floorplan}
+%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The floorplan of \gls{fatalic} (Fig.\,\ref{fig:fatalic_floor}) is optimized for minimum surface, while preserving signal 
+integrity. Two main regions are distinguished; the region hosting the input stage and the shapers (analog block), and 
+the region hosting the \glspl{adc} and the digital block. The two regions are isolated by a high impedance (BFMOAT) layer 
+to reduce the coupling. The analog power and reference voltage rails are also decoupled by embedded large capacitors. The 
+total surface of the chip measures $\SI{6.3}{mm^2}$, while the core area is limited to $\SI{2.3}{mm^2}$.
+
+\begin{figure}[tb]
+\bigskip
+\centering
+  \includegraphics[width=0.9\textwidth]{figures/asic/F5.png}
+  \caption{The floorplan of \gls{fatalic}. Two main regions are distinguished; the region hosting the analog blocks
+  (left) and the region hosting the \glspl{adc} and the digital block.\label{fig:fatalic_floor}}
+\end{figure}
+

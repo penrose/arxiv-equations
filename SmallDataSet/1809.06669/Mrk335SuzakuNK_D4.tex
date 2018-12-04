@@ -1,0 +1,461 @@
+%%%%%%%%%%%%%%     NOTE TO EDITOR     %%%%%%%%%%%%%%
+%%%                                                                                                      %%%
+%%% Please keep the plots trimmed and clipped as they are here %%%
+%%%																							   %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[aps,prd,twocolumn,superscriptaddress,nofootinbib,amsmath,amssymb]{revtex4-1}
+
+
+%%%%%%%%%%%%%%% DRAFT HIGHLIGHT %%%%%%%%%%%%%%%%%%
+%\usepackage{background}
+%\backgroundsetup{
+ % position=current page.west,
+ %angle=90,
+ %nodeanchor=east,
+ %vshift=-2mm,
+ %opacity=0.5,
+ %scale=5,
+ %contents=Draft-v4
+%}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%% DECLARING A TRANSLATED $\chi^2$ SYMBOL %%%%%%%%%
+
+\DeclareRobustCommand{\rchi}{{\mathpalette\irchi\relax}}
+\newcommand{\irchi}[2]{\raisebox{\depth}{$#1\chi$}} % inner command, used by \rchi
+
+%\usepackage[minnames=2,maxnames=3,style=authoryear,backend=bibtex]{biblatex}
+%%%%%%% PREAMBLE FOR BIBTEX FILE JOURNALS RENAMING %%%%%%%
+%@preamble{"\def\mnras{MNRAS}"} %%for .bib file preambling instead
+\newcommand{\mnras}{MNRAS}
+\newcommand{\aap}{A\&A}
+\newcommand{\apjl}{Astrophys. J. Letters}
+\newcommand{\apjs}{Astrophys. J. Supplement}
+\newcommand{\araa}{Ann. Rev. of A\&A}
+\newcommand{\pasj}{Publ. Astron. Soc. Japan}
+\newcommand{\jcap}{Journal Cosmo. \& Astroparticle Phy.}
+\newcommand{\pasp}{Publ. Astron. Soc. Pac.}
+
+
+%%%%%%%For Paragraphs%%%%%%%%
+%\usepackage{indentfirst}
+%\setlength{\parindent}{1cm}
+%\setlength{\parskip}{3pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%%%%%%%%For tables%%%%%%%%%%%
+\usepackage{tabularx}
+%\setlength{\tabcolsep}{21pt}
+\usepackage{threeparttable}
+\usepackage{multirow}
+%\usepackage{dcolumn}% Align table columns on decimal point
+\renewcommand{\arraystretch}{1.45}
+%\renewcommand{\baselinestretch}{0.7}
+
+%%Symbols and Math Mode%%
+%\usepackage{amssymb}
+%\usepackage{amsmath}
+%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%For graphics%%%%%%%%%%%%
+%\usepackage{graphicx,color}
+\usepackage{graphicx,subfigure}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\newcommand{\note}[1]{{\color{red}\textbf{#1}}}
+
+
+\usepackage{url}
+
+
+%%%%%For bibliography%%%%%
+\usepackage{natbib}
+\usepackage{xcolor}
+\usepackage{hyperref}
+%\usepackage{makeidx}
+\definecolor{grassy}{rgb}{0,0.65,0}
+\definecolor{winered}{rgb}{0.7,0,0}
+\hypersetup{
+%citebordercolor={0 1 0},
+%urlbordercolor={0 0 1},
+%linkbordercolor={1 0 0},
+colorlinks,
+citecolor=grassy,
+linkcolor=winered,
+urlcolor=blue,
+%pdfborder={0 0 1}
+}
+
+
+
+\begin{document}
+
+\title{Testing the Kerr metric\\with X-ray Reflection Spectroscopy of Mrk~335 \textit{Suzaku} data}
+
+\author{Kishalay~Choudhury}
+ \affiliation{Center for Field Theory and Particle Physics and Department of Physics, Fudan University, 200438 Shanghai, China}  %%%%%%%%%%%%%%%%%%%%%%
+
+\author{Sourabh~Nampalliwar}
+\affiliation{Theoretical Astrophysics, Eberhard-Karls Universit{\"a}t T{\"u}bingen, 72076 T{\"u}bingen, Germany}  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author{Askar~B.~Abdikamalov}
+\affiliation{Center for Field Theory and Particle Physics and Department of Physics, Fudan University, 200438 Shanghai, China}   %%%%%%%%%%%%%%%%%%%%%%
+
+\author{Dimitry~Ayzenberg}
+\affiliation{Center for Field Theory and Particle Physics and Department of Physics, Fudan University, 200438 Shanghai, China}  %%%%%%%%%%%%%%%%%%%%%%
+
+\author{Cosimo~Bambi}
+\email[Corresponding~author: ]{bambi@fudan.edu.cn}
+%\thanks{Alexander~von~Humboldt Fellow}
+\affiliation{Center for Field Theory and Particle Physics and Department of Physics, Fudan University, 200438 Shanghai, China}
+\affiliation{Theoretical Astrophysics, Eberhard-Karls Universit{\"a}t T{\"u}bingen, 72076 T{\"u}bingen, Germany} 
+  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author{Thomas~Dauser}
+\affiliation{Remeis Observatory \& ECAP, Universit{\"a}t Erlangen-N{\"u}rnberg, 96049 Bamberg, Germany}  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author{Javier~A.~Garc{\'{\i}}a}
+%\thanks{Alexander~von~Humboldt Fellow}
+\affiliation{Cahill Center for Astronomy and Astrophysics, California Institute of Technology, Pasadena, CA 91125, USA}
+\affiliation{Remeis Observatory \& ECAP, Universit{\"a}t Erlangen-N{\"u}rnberg, 96049 Bamberg, Germany}  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+%\date\today          %%% Add only for prelim drafts
+
+
+\begin{abstract}
+
+Einstein's gravity has undergone extensive tests in the weak field gravitational limit, with results in agreement with theoretical predictions. There exist theories beyond general relativity (GR) which modify gravity in the strong field regime but agree with GR in the weak field. Astrophysical black holes are believed to be described by the Kerr metric and serve as suitable candidates to test strong gravity with electromagnetic radiation. We perform such a test by fitting one \textit{Suzaku} dataset of the narrow-line Seyfert 1 (NLS1) galaxy Mrk~335 with X-ray reflection spectroscopy, using the Johannsen metric to model the black hole spacetime and test for deviations from Kerr. We find the data is best modeled with a hybrid model that includes both partial covering absorption and a reflection component. This is the first time such a model has been proposed for a high-flux Mrk~335 dataset. We constrain the Johannsen deformation parameter $\alpha_{13}$ to $-1.5<\alpha_{13}<0.6$ with spin parameter $a_{*}>0.8$, and the $\alpha_{22}$ parameter to $-0.2<\alpha_{22}<2.0$ with $0.72<a_{*}<0.95$, both at a $99\%$ confidence level. Hence, our results are in agreement with Einstein's predictions in the strong field limit and the claim that the supermassive compact object at the center of Mrk~335 can be described by the Kerr metric.
+
+\end{abstract}
+
+\maketitle
+
+
+
+\section{\label{intro}Introduction}
+
+Over a hundred years old, Albert Einstein's theory of general relativity has been tested with observations since it was proposed and agreement has been found in numerous cases spanning across a multitude of domains, notably in weak field experiments of the Solar System and for radio observations of binary pulsars \citep{Will2014}. Testing gravity in the strong field regime has gained popularity among both the electromagnetic (EM) radiation and the gravitational wave community, with astrophysical black holes proving to be the perfect candidates for carrying out such tests \citep{Yunes2013,Yagi2016,Johannsen2016,Bambi2016b,Bambi2017a,Bambi2017b}. 
+
+In four-dimensional Einstein gravity, the Kerr metric is the only vacuum black hole solution of the field equations which is regular on and outside the event horizon, under standard assumptions like stationarity and asymptotic flatness; a consequence of the no-hair theorem \citep{Kerr1963,Carter1971,Robinson1975}. General consensus is that the Kerr metric describes the spacetime around astrophysical black holes \citep{Price1972,Bambi2009,Bambi2014}. But a number of alternative theories predict macroscopic deviations from the Kerr spacetime \citep{Mathur2005,Dvali2011,Giddings2014,Berti2015,Giddings2017}. 
+
+This makes it imperative to conduct tests on the Kerr hypothesis. Observations of the X-ray reflection spectrum from the black hole neighborhood are particularly interesting as they can be used to test strong gravity by studying radiation emitted from regions very close to the black hole \citep{Fabian2000}. This method has been developed over the years assuming the Kerr metric describes the spacetime around the central compact object, in both active galactic nuclei (AGN) and black hole binaries (BHB). Blurred and distorted emission features can be seen around the reflecting regions of the accretion disk due to relativistic effects, leading to measurements of inner disk radius and black hole spin \citep{Fabian1989,Laor1991,BR2006,Rey2008}. The most notable and interesting feature is the Fe-\textrm{K$\alpha$} emission complex \citep[e.g.,][]{LW1988,GR1988,Fabian1989,GF1991}. The utilization of X-ray reflection spectroscopy for strong gravity tests has been examined in the last decade \citep{Schee2009,JP2013,Bambi2013,Jiang2015a,Jiang2015b,Bambi2016a,
+Zhou2016,Ni2016,Nampalliwar2018}.
+
+The X-ray blurring code \textsc{relxill} is currently the most popular relativistic reflection model in use that describes the reflection spectrum of optically thick, geometrically thin accretion disks around black holes \citep{Garcia2014}. The code is the combination of the convoluted (\textsc{relconv}) flavor of the \textsc{relline} relativistic smearing model \citep{Dauser2010,Dauser2013} and the emission angle-dependent, non-relativistic, local disk reflection code \textsc{xillver} \citep{GK2010,Garcia2013}. \textsc{relconv} was recently modified by some of us to allow for the use of a non-Kerr metric for the purpose of testing gravity \citep{Bambi2017b}. Our relativistic blurring code \textsc{relxill\_nk} has been designed to incorporate any well-behaved, stationary, axisymmetric, and asymptotically-flat spacetimes, including parametrized metrics that deform Kerr and solutions in modified gravity theories. Recent results obtained with the code on quantifying  possible Kerr deviations with X-ray data of multiple sources have been summarized in \cite{Bambi2018}.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The paper is structured as follows-- we review the Johannsen metric (expressed in the convention assuming the natural units $G_{\textrm{N}}=c=1$) in Section~\ref{metric} for the blurring code used. Our source is presented in Section~\ref{source}. We explain the data reduction methodology in Section~\ref{red}, followed by listing and briefly explaining the model components used for the data analysis in Section~\ref{mod}. Justification of components, key observations and results are discussed in Section~\ref{discuss}. Finally, we express our concluding remarks and mention possible shortcomings in Section~\ref{conc}.
+
+
+\section{\label{metric}\textsc{relxill\_nk}: The Metric}
+
+One parametrically-deformed metric to test the Kerr hypothesis is the Johannsen metric \citep{Johannsen2013} that we implement in our code \textsc{relxill\_nk}. The metric is neither a solution of Einstein's field equations nor of any well-motivated modified theory of gravity. We can, however, consider it as a phenomenological hypothesis and conduct strong field tests of the no-hair theorem in general classes of gravity theories.
+
+The line element of the Johannsen metric in Boyer-Lindquist coordinates, with the convention ($- + + +$), is given as:
+\begin{align}
+ds^2       =       &-\frac{\tilde{\Sigma}\left(\Delta - a^2 A_2^{2}~\sin^2\theta\right)}{\left[\left(r^2+a^2\right)A_1 - a^2A_2\sin^2\theta\right]^2}~dt^2 + \tilde{\Sigma} ~d\theta^2 \nonumber \\
+                        &-\frac{2a\left[\left(r^2+a^2\right)A_1A_2 - \Delta\right]\tilde{\Sigma}\sin^2\theta}{\left[\left(r^2+a^2\right)A_1 - a^2A_2\sin^2\theta\right]^2}~dtd\phi + \frac{\tilde{\Sigma}}{\Delta A_5}~dr^2   \nonumber \\
+                        &+ \frac{\left[\left(r^2+a^2\right)^2~A_1^{2} - a^2\Delta\sin^2\theta\right]\tilde{\Sigma}\sin^2\theta}{\left[\left(r^2+a^2\right)A_1 - a^2A_2\sin^2\theta\right]^2}~d\phi^2   \label{JM}
+ \end{align}
+where, 
+\begin{align}                        
+A_1(r) =  1 + \sum_{n=3}^{\infty} \alpha_{1n}\left(\frac{M}{r}\right)^n &; \hspace{1mm} A_2(r) = 1+ \sum_{n=2}^{\infty} \alpha_{2n}\left(\frac{M}{r}\right)^n   \nonumber \\ 
+A_5(r) = 1+ \sum_{n=2}^{\infty} \alpha_{5n}\left(\frac{M}{r}\right)^n  &; \hspace{1mm} \Delta \equiv r^2-2Mr+a^2  \nonumber \\
+\tilde{\Sigma} = r^2+a^2\cos^2\theta + f(r) \hspace{2mm} &; \hspace{1mm} f(r) = \sum_{n=3}^{\infty}\epsilon_n\left(\frac{M^n}{r^{n-2}}\right) \label{DEVS}
+\end{align}
+with the mass $M$ and the spin parameter $a =J/M$ of the black hole, where $J$ is the spin angular momentum of the black hole. We show the effects of two deformation parameters $\alpha_{13}$ and $\alpha_{22}$ because they are expected to impact the reflection spectrum the most, with $\alpha_{13}$ having a relatively stronger effect \citep{Bambi2017b}. Note that when the deviation functions $A_1=A_2=A_5=1$ and $f(r)=0$, eqn.~\ref{JM} reduces to the Kerr metric line element.
+
+In order to avoid pathologies in the spacetime, the following limits on $\alpha_{13}$ and $\alpha_{22}$ are imposed \citep{Johannsen2013,Bambi2017b}:
+\begin{align}
+   \hspace{7mm} \alpha_{13} ~> -\frac{1}{2}&\left(1+\sqrt{1 - a_*^2}\right)^4 \label{13low} \\ 
+    -\left(1+\sqrt{1 - a_*^2}\right)^2 < ~& \alpha_{22} ~< \frac{\left(1+\sqrt{1 - a_*^2}\right)^4}{a_*^2} \label{22}
+\end{align} 
+where, $a_* = a/M$ is the dimensionless spin parameter present in our code.
+%%%%%%%%%%%%%%%%%% Section 2 %%%%%%%%%%%%%%%%%%%%%
+
+\section{\label{analysis}Data Analysis}
+
+\subsection{\label{source}S\lowercase{ource} \& O\lowercase{bservation}}
+
+The narrow-line Seyfert 1 (NLS1) AGN Mrk~335 ($z=0.0258$) has been found to host a supermassive black hole at its center with reverberation-mapped mass M$_{\bullet} \approx 2.6\times10^7$~M$_{\odot}$ \citep{Grier2012}. First detected in X-rays by UHURU \citep{Tanambaum1978}, Mrk~335 has been observed and studied numerous times by various X-ray observatories like \textit{ASCA}, \textit{Swift}, \textit{Suzaku}, \textit{XMM Newton} and \textit{NuSTAR} \citep[e.g.,][]{Ballantyne2001,Gondoin2002,Crummy2006,Grupe2007,Longinotti2007b,
+ONeill2007,Larsson2008,Grupe2008,Patrick2011,Grupe2012,Gallo2013,W13,Longinotti2013,Parker2014,
+Gallo2015,WG2015,Keek2016,Beheshtipour2017,Ballantyne2017}. It is an extremely variable source, exhibiting more than a factor of 10 fluctuation in the X-ray flux over the past 15~years. The source has been confirmed to have a Compton reflection component, and a strong soft excess and Fe-\textrm{K$\alpha$} line broadening. AGN exhibit highest complexity in low-flux states. Mrk~335 was observed in a high-flux state on June 21, 2006 (ObsID: 701031010) with \textit{Suzaku} \citep{Mitsuda2007} for an X-ray Imaging Spectrometer (XIS, \cite{Koyama2007}) net exposure time of 151~ks. It is this dataset that we shall use owing to its least complexity for our tests of gravity, based on the analysis presented in \cite{W13}.
+
+\subsection{\label{red}R\lowercase{eduction}}
+
+\textsc{heasoft}~v6.22 reduction and analysis package was used to process unfiltered event files of the XIS CCDs following the \textit{Suzaku} Data Reduction Guide\footnote{\url{https://heasarc.gsfc.nasa.gov/docs/suzaku/analysis/abc/}}, using latest XIS CALDB \texttt{v20160607}. Task \texttt{aepipeline} was run to create cleaned event files for the front-illuminated (FI) CCDs XIS0, XIS2 (non-operational since November 2006), and XIS3. Back-illuminated (BI) CCD XIS1 was not used since its sensitivity is relatively low at Fe K energies. Source (on-center) and background regions of 3.5~arcmin radii were extracted for each FI CCD on \texttt{SAOImage DS9} imaging and data visualization application.\footnote{\url{http://ds9.si.edu/site/Home.html}} Backgrounds were selected from the same CCD by avoiding the source and the $^{55}$Fe calibration sources at the corners of the CCD. Unbinned source and background spectra for each CCD were extracted using the \textsc{xselect} tool, ensuring the cutoff-rigidity was set $>6$~GeV \citep{W13} to account for proper non X-ray background (NXB) subtraction. The redistribution matrix file (RMF) and the ancillary response file (ARF) were created using the tools \textsc{xisrmfgen} and \textsc{xisarfgen},\footnote{\url{ftp://legacy.gsfc.nasa.gov/suzaku/doc/xrt/suzakumemo-2011-01.pdf}} respectively. Since we are interested in average spectral properties, the FI CCD spectra and responses were co-added using the \textsc{ftool addascaspec}. The spectra and response files were physically rebinned using the tools \textsc{rbnpha} and \textsc{rbnrmf}, respectively, with the variable binning scheme shown in the aforementioned guide. On top of this, to reduce bias imposed by a minimum grouping technique (e.g., see Fig~7 in \citep{K17}) and ensure high signal-to-noise ratio (SNR), we grouped our time-averaged XIS dataset to 100~cts~bin$^{-1}$ using the \textsc{ftool grppha}. Apart from data below 0.6~keV and above 10~keV, that between 1.7--2.5~keV were also ignored due to uncertainties in detector calibration around Si K edge. The resulting dataset had $\approx 5\times10^5$ total photon counts between 0.6--10~keV with a net count rate of $1.222 \pm 0.002$~s$^{-1}$ and a very low background contamination (1.2\%).
+
+HXD/PIN \citep{Takahashi2007} data was also reduced similarly: employing \texttt{aepipeline} and then the \textsc{ftool hxdpinxbpi} using latest CALDB \texttt{v20110913}. However, owing to poor statistics ($\sim$6\% of total counts between 0.6--25~keV) with data below 15~keV and above 25~keV having high error bars, and no significant contribution to the analysis of the reflection spectrum, the PIN dataset was not included.
+
+
+
+\subsection{\label{mod}M\lowercase{odeling}}
+
+For our work in this paper we made use of the X-ray spectral fitting package \textsc{xspec} \texttt{v12.9.1u} \citep{XSPEC}. The latest (as of September~4, 2017, \textsc{atomdb} \texttt{v3.0.9}) atomic database was imported additionally to be able to properly account for up to date modeling of X-ray emission and absorption from complex spectra.\footnote{\url{http://www.atomdb.org/download.php}}
+
+To bring out features in our 0.6--10~keV spectrum, we first try a phenomenological model-- an absorbed powerlaw fit (Fig.~\ref{phenom}). The galactic H I column has been fixed to $3.56 \times 10^{20}$~cm$^{-2}$ \citep{Kalberla2005} with the ISM grain absorption model \textsc{tbabs}. The cross-sections are set by the \texttt{abund wilm} command \citep{Wilms2000}. The data shows clear signs of a broad Fe K region with a strong soft excess. We ran the fit and obtained poor statistics ($\rchi^2$/d.o.f. = 8011.66/971). The 2--10~keV absorbed powerlaw flux is $\simeq 1.39 \times 10^{-11}$~ergs~cm$^{-2}$~s$^{-1}$. Following what we see, we tested out several model combinations on the XIS dataset. But we only display results from the physically and statistically relevant models, and explain why others were not favored. 
+
+For every combination we start with the possibility that only one deformation ($\alpha_{13}$ or $\alpha_{22}$) in the Johannsen metric (see Eqn.~\ref{JM}) is non-zero, leaving it as a fit parameter and assuming all other deformation parameters are equal to 0. For the sake of avoiding unphysically extreme inner disk inclination fits to a Seyfert 1 AGN \citep[e.g., ][]{Nandra1997,Rakshit2017}, we limit the upper hard limit of the inclination parameter in \textsc{relxill\_nk} to $75^\circ$ instead. Tables \ref{T1} and \ref{T2} display the best-fit parameters obtained for all models with $\alpha_{13} \neq 0$ and $\alpha_{22} \neq 0$, respectively. 
+
+
+
+
+\begin{figure}[!t] 
+\centering
+\includegraphics[width=0.475\textwidth ,trim={3mm 3mm 0 0 },clip]{Po_ratio10sig_DOUBLE-BIGF.pdf}
+\caption{A phenomenological powerlaw fit to the time-averaged \textit{Suzaku} XIS Mrk~335 spectrum with $\Gamma\simeq2.09$. The shaded energy range\footnote{Energy axis not scaled according to number of bins} implies the 1.7--2.5~keV band that was not included due to calibration issues. The spectrum was fit from 2.5--4.0 and 8--10~keV, and then plotted after introducing 0.6--1.7 and 4--8~keV bands, to bring out the Fe and soft band features. Plot was rebinned on \textsc{xspec} for clarity purpose. Plot inset shows the soft band and its excess.}\label{phenom}
+\end{figure}
+%\twocolumngrid
+
+
+\subsubsection{Model A}\label{ModA}
+\begin{center}
+\textsc{tbabs * (zpowerlw + relxill\_nk)}
+\end{center}
+
+We added our non-Kerr blurred reflection model \textsc{relxill\_nk} here with the deformation parameter value left free to vary and the reflection fraction (R$_f$) parameter fixed at -1, corresponding to a pure reflection signal. The redshifted powerlaw component (PLC) takes into account the continuum signal separately, with the photon indices $\Gamma$ linked between the two.
+%\footnote{As an independent estimate, we find that the data is $\gtrsim 75\%$ reflection-dominated} 
+Since an E~$<10$~keV dataset  is not suited to attempt constraining the high-energy cutoff ($E_{\textrm{cut}}$) in AGN (e.g., refer to \citep{Tortosa2018} for typical values), $E_{\textrm{cut}}$ was fixed at the default value of 300~keV \citep{Keek2016}. From Model A ratio plots in Fig.~\ref{R1} and Fig.~\ref{R2}, respectively, for the $\alpha_{13}$ and $\alpha_{22}$ cases, we can clearly see the immense improvement in the fits with $\Delta\rchi^2 > 6,800$. Most of the soft excess is accounted for by the blurred reflector \citep{Miller2007}. This suggests the need for a reflection-dominated component (RDC). Still the convergence is poor and it suggests the necessity to consider narrow emission residuals as well.
+
+
+%%%%%%%%%%%%%%%%%% TABLES %%%%%%%%%%%%%%%%%%%%%
+
+\begingroup
+\begin{table*}[!t]
+%\squeezetable
+\small
+     \begin{ruledtabular}
+     \caption{Best-fit parameter values obtained employing models A to D with only deformation parameter $\alpha_{13} \neq 0$. Errors are given for 90\% confidence, unless explicitly stated. A single emissivity profile was adopted \cite{W13}.}
+     \begin{tabular}{ccccccc} \label{T1}
+     \multirow{2}*{Component} & \multirow{2}*{Parameter [\textsf{Unit}]} &  \multicolumn{4}{c}{\begin{small}Model Values \footnote{``$(P)$'' against error values implies the parameter has no bound there}\end{small}} \\ \cline{3-6} %\hline
+ & & \begin{small}A\end{small} & \begin{small}B\end{small} & \begin{small}C\end{small} & \begin{small}D\end{small}\\ \hline
+   
+      \multirow{2}*{\textsc{zpcfabs}} & $n_{\textrm{H}}$ [\textsf{10$^{22}$~cm$^{-2}$}] & --& --& --&  $6.59^{+0.64}_{-0.69}$ \\
+ 											& $CvrFract$ & --& --& --& $0.24^{+0.02}_{-0.03}$ \\ \hline 
+											
+     \multirow{2}*{\textsc{zpowerlw}} & $PhoIndex$ & $2.35 \pm 0.01$ & $2.35 \pm 0.01$ & $2.35 \pm 0.01$ & $2.50 \pm 0.01$ \\
+                                                 & $norm_1$ [\textsf{10$^{-2}$~\begin{footnotesize}ph~cm$^{-2}$~s$^{-1}$~keV$^{-1}$]\end{footnotesize}} & $0.80 \pm 0.01$ & $0.80 \pm 0.01$ & $0.80 \pm 0.01$ & $1.09^{+0.05}_{-0.06}$ \\ \hline
+                                                 
+     \multirow{7}*{\textsc{relxill\_nk}} & $q$ & $7.08^{+0.42}_{-0.36}$ & $7.36^{+0.93}_{-0.06}$ & $4.11^{+0.39}_{-0.31}$ & $9.46^{~(P)}_{-0.78}$ \\
+   												& $a_{*}$ & $0.998^{~~(P)}_{-0.001}$ & $0.998^{~~(P)}_{-0.001}$ & $0.961^{+0.008}_{-0.018}$ &  $0.998^{~~(P)}_{-0.115}$ \\
+   												& $i$ [\textsf{deg}] & $74.2^{~(P)}_{-1.5}$ & $75.0^{~(P)}_{-1.6}$ & $55.8^{+0.9}_{-0.3}$ & $66.3^{+2.3}_{-0.9}$ \\
+   												& $log~\xi$ & $1.23^{+0.08}_{-0.11}$ & $1.30^{+0.01}_{-0.14}$ & $1.25 \pm 0.05$ & $1.30^{+0.02}_{-0.18}$ \\
+   												& $A_{\textrm{Fe}}$ & $2.30^{+0.32}_{-0.34}$ & $1.61^{+0.44}_{-0.38}$ & $1.39^{+0.20}_{-0.40}$ &  $0.83^{+0.17}_{-0.07}$ \\
+   												
+   												%& $\alpha_{13}$ \footnote{scaled in \textsc{xspec} with range $[-0.99,0.99]$} & $-0.47^{+0.01}_{-0.02}$ & $-0.45^{+0.04}_{-0.01}$ & $-0.90^{+0.01}_{-0.02}$ & $0.04^{+0.04}_{-0.02}$ \\
+   												
+   												& $\alpha_{13}$ & $-0.299^{+0.006}_{-0.025}$ & $-0.286^{+0.025}_{-0.018}$ & $-1.195^{+0.121}_{-0.256}$ & $0.211^{+0.104}_{-1.086}$ \\
+   												& $norm_2$ [\textsf{10$^{-4}$~\begin{footnotesize}ph~cm$^{-2}$~s$^{-1}$~keV$^{-1}$]\end{footnotesize}} & $3.54 \pm 0.17$ & $3.20^{+0.20}_{-0.26}$ & $2.74^{+0.19}_{-0.10}$ & $2.87^{+0.19}_{-0.29}$ \\ \hline
+
+   \textsc{xillver} & $norm_3$ [\textsf{10$^{-5}$~\begin{footnotesize}ph~cm$^{-2}$~s$^{-1}$~keV$^{-1}$]\end{footnotesize}} & --& $3.33^{+1.10}_{-1.19}$ & $3.45^{+0.88}_{-0.86}$ & $11.02^{+2.21}_{-2.20}$ \\ \hline
+
+   \multirow{3}*{\textsc{zgauss}} & $LineE$ [\textsf{keV}] & --& --& $6.65^{+0.04}_{-0.05}$ & $6.66^{+0.03}_{-0.04}$ \\
+   											& $flux$ [\textsf{10$^{-6}$~\begin{footnotesize}ph~cm$^{-2}$~s$^{-1}$]\end{footnotesize}} & --& --& $2.99^{+1.40}_{-1.34}$ & $4.64\pm1.39$ \\
+   											& EW$_{\textrm{XXV}}$ [\textsf{eV}] & --& --& $18.4^{+9.1}_{-9.0}$ & $28.8^{+9.5}_{-9.3}$ \\ \hline \hline
+   			$\rchi^2/d.o.f.$ & -- & 1155.28/964 & 1128.78/963 & 1119.02/961 & 1024.92/959 \\
+   			& -- & $\approx$~1.198 & $\approx$~1.172 & $\approx$~1.164 & $\approx$~1.069 \\
+   											
+       \end{tabular}
+       \end{ruledtabular}
+\end{table*}
+\endgroup
+
+\begin{figure*}[!t]
+\begin{center}
+        \subfigure[]{
+
+            \includegraphics[width=0.55\textwidth, trim={2mm 0 0 1cm},clip]{ALPHA13_ratio-BIGF.pdf}\label{R1}
+        }
+        \quad
+        \subfigure[]{
+
+            \includegraphics[width=0.4\textwidth, trim={1.3cm 0 4.3cm 2.7cm},clip]{W13_Po-Rel-Xilv-Gauss-1zpcfabs_Ecut300_posterr2_XIS_Gamma-nH-stepparBEST10x10-BIGF2.pdf}\label{C1}
+        }
+        
+     \caption{Panel (a) shows the ratio plots between models A, C and D for the $\alpha_{13} \neq 0$ fits. Parameter best-fits for the corresponding models are shown in Table~\ref{T1}. Plot was rebinned on \textsc{xspec} for clarity purpose. Panel (b) shows the contour plot between the spectral photon index parameter $\Gamma$ versus the partial covering hydrogen column $n_{\textrm{H}}$ with model D. The red, green and blue contour lines indicate the 68\%, 90\% and 99\% confidence contours, respectively, with the black ``\textbf{+}'' marking the best-fit point.} 
+     \label{D1}
+\end{center}
+\end{figure*}
+
+
+
+
+
+
+
+
+\begingroup
+\begin{table*}[!t]
+%\squeezetable
+\small
+     \begin{ruledtabular}
+     \caption{Best-fit parameter values obtained employing models A to D with only deformation parameter $\alpha_{22} \neq 0$. Errors are given for 90\% confidence, unless explicitly stated. A single emissivity profile was adopted \cite{W13}.}
+     \begin{tabular}{ccccccc} \label{T2}
+     \multirow{2}*{Component} & \multirow{2}*{Parameter [\textsf{Unit}]} &  \multicolumn{4}{c}{\begin{small}Model Values \footnote{``$(P)$'' against error values implies the parameter has no bound there}\end{small}} \\ \cline{3-6} %\hline
+ & & \begin{small}A\end{small} & \begin{small}B\end{small} & \begin{small}C\end{small} & \begin{small}D\end{small}\\ \hline
+
+      \multirow{2}*{\textsc{zpcfabs}} & $n_{\textrm{H}}$ [\textsf{10$^{22}$~cm$^{-2}$}] & --& --& --&  $6.61^{+0.84}_{-0.72}$ \\
+ 											& $CvrFract$ & --& --& --& $0.23 \pm 0.03$ \\ \hline
+											
+     \multirow{2}*{\textsc{zpowerlw}} & $PhoIndex$ & $2.36 \pm 0.01$ & $2.36 \pm 0.01$ & $2.36 \pm 0.01$ & $2.50 \pm 0.02$ \\
+                                                 & $norm_1$ [\textsf{10$^{-2}$~\begin{footnotesize}ph~cm$^{-2}$~s$^{-1}$~keV$^{-1}$]\end{footnotesize}} & $0.80 \pm 0.01$ & $0.80 \pm 0.01$ & $0.80 \pm 0.01$ & $1.09^{+0.03}_{-0.06}$ \\ \hline
+                                                 
+     \multirow{7}*{\textsc{relxill\_nk}} & $q$ & $10.00^{~~(P)}_{-2.12}$ & $10.00^{~~(P)}_{-0.39}$ & $10.00^{~~(P)}_{-0.47}$ & $8.72^{~~(P)}_{-3.88}$ \\
+   												& $a_{*}$ & $0.965^{+0.013}_{-0.029}$ & $0.977^{+0.016}_{-0.022}$ & $0.975^{+0.005}_{-0.016}$ &  $0.932^{+0.033}_{-0.037}$ \\
+   												& $i$ [\textsf{deg}] & $68.2 \pm 1.5$ & $69.9^{+1.45}_{-1.70}$ & $70.3^{+0.8}_{-1.7}$ & $66.8^{+4.3}_{-4.6}$ \\
+   												& $log~\xi$ & $1.24^{+0.06}_{-0.10}$ & $1.29^{+0.01}_{-0.15}$ & $1.29^{+0.02}_{-0.14}$ & $1.29^{+0.03}_{-0.17}$ \\
+   												& $A_{\textrm{Fe}}$ & $2.16^{+0.32}_{-0.33}$ & $1.45^{+0.41}_{-0.28}$ & $1.18^{+0.48}_{-0.19}$ &  $0.83^{+0.16}_{-0.08}$ \\
+   												
+   												%& $\alpha_{22}$ \footnote{scaled in \textsc{xspec} with range $[-0.99,0.99]$} & $0.004^{+0.043}_{-0.042}$ & $-0.020 \pm 0.032$ & $-0.002 \pm 0.044$ & $0.309^{+0.384}_{-0.859}$ \\
+   												
+   												& $\alpha_{22}$ & $0.010^{+0.089}_{-0.055}$ & $-0.027^{+0.044}_{-0.183}$ & $-0.003^{+0.083}_{-0.073}$ & $0.311^{+0.742}_{-0.286}$ \\
+   												& $norm_2$ [\textsf{10$^{-4}$~\begin{footnotesize}ph~cm$^{-2}$~s$^{-1}$~keV$^{-1}$]\end{footnotesize}} & $3.37 \pm 0.18$ & $3.02^{+0.09}_{-0.27}$ & $2.89^{+0.18}_{-0.29}$ & $2.83^{+0.20}_{-0.31}$ \\ \hline
+
+   \textsc{xillver} & $norm_3$ [\textsf{10$^{-5}$~\begin{footnotesize}ph~cm$^{-2}$~s$^{-1}$~keV$^{-1}$]\end{footnotesize}} & --& $4.08^{+1.18}_{-1.11}$ & $4.50^{+1.32}_{-1.19}$ & $11.01^{+2.19}_{-2.46}$ \\ \hline
+
+   \multirow{3}*{\textsc{zgauss}} & $LineE$ [\textsf{keV}] & --& --& $6.65 \pm 0.04$ & $6.66^{+0.03}_{-0.04}$ \\
+   											& $flux$ [\textsf{10$^{-6}$~\begin{footnotesize}ph~cm$^{-2}$~s$^{-1}$]\end{footnotesize}} & --& --& $2.99^{+1.40}_{-1.37}$ & $4.60^{+1.42}_{-1.43}$ \\
+   											& EW$_{\textrm{XXV}}$ [\textsf{eV}] & --& --& $18.4 \pm 9.0$ & $28.5 \pm 9.2$ \\ \hline \hline
+   			$\rchi^2/d.o.f.$ & -- & 1188.04/964 & 1145.12/963 & 1133.14/961 & 1024.90/959 \\
+   			& -- & $\approx$~1.232 & $\approx$~1.189 & $\approx$~1.179 & $\approx$~1.069 \\
+   											
+       \end{tabular}
+       \end{ruledtabular}
+\end{table*}
+\endgroup
+
+\begin{figure*}[!t]
+\begin{center}
+        \subfigure[]{
+
+            \includegraphics[width=0.55\textwidth, trim={2mm 0 0 1cm},clip]{ALPHA22_ratio-BIGF.pdf}\label{R2}
+        }
+        \quad
+        \subfigure[]{
+
+            \includegraphics[width=0.4\textwidth, trim={1.3cm 0 4.3cm 2.7cm},clip]{W13_Po-Rel-Xilv-Gauss-1zpcfabs_ALPHA22_Ecut300_posterr_XIS_Gamma-nH-stepparBEST10x10-BIGF2.pdf}\label{C2}
+        }
+        
+     \caption{Panels (a) and (b) refer to the same for the $\alpha_{13} \neq 0$ case, respectively, as mentioned in the caption for Fig~\ref{D1}.} \label{D2}
+\end{center}
+\end{figure*}
+
+\begin{figure*}[!t]
+\begin{center}
+        \subfigure[]{
+
+            %\includegraphics[width=0.325\textwidth, angle=-90, trim={4.6mm 3mm 7mm 1cm},clip]{W13_Po-Rel-Xilv-Gauss-1zpcfabs_XISfull_stepparBEST15x15_a13-0p99to0p3_ZOOM-Hlvtc.eps}
+           \includegraphics[width=0.475\textwidth, trim={3cm 3cm 3cm 2.2cm},clip]{W13_Po-Rel-Xilv-Gauss-1zpcfabs_XISfull_stepparBEST15x15_a13-0p99to0p3_ZOOM-Hlvtc2.pdf} \label{A13Z}
+        }
+        \quad
+        \subfigure[]{
+
+            %\includegraphics[width=0.325\textwidth, angle=-90, trim={4.6mm 3mm 7mm 1cm},clip]{W13_Po-Rel-Xilv-Gauss-1zpcfabs_ALPHA22_XISfull_stepparBEST15x15_a22-0p2to0p5_posterr-ZOOM-Hlvtc.eps}
+            \includegraphics[width=0.475\textwidth, trim={3cm 3cm 3cm 2.2cm},clip]{W13_Po-Rel-Xilv-Gauss-1zpcfabs_ALPHA22_XISfull_stepparBEST15x15_a22-0p4to0p5_posterr-ZOOM-Hlvtc2.pdf}\label{A22Z}
+        }
+        
+     \caption{Panels (a) and (b) show the constraints between the dimensionless spin parameter $a_*$ and Johannsen deformation parameters $\alpha_{13}$ and $\alpha_{22}$, respectively, from the \textit{Suzaku} XIS dataset studied in this work for the NLS1 Mrk~335 with the best-fit model D. The $\alpha_{13}=0=\alpha_{22}$ line marks the border where the metric reduces to Kerr. The red, green and blue contour lines indicate the 68\%, 90\% and 99\% confidence contours, respectively, with the purple ``\textbf{+}'' marking the best-fit from model D. The shaded regions in gray are forbidden regions within the metric that avoid some pathological properties as mentioned in Section~\ref{metric}. No contour lines were seen at lower spin values.}\label{ALPHA}
+\end{center}
+\end{figure*}
+
+
+\subsubsection{Model B}\label{ModB}
+\begin{center}
+\textsc{tbabs * (zpowerlw + relxill\_nk + xillver)}
+\end{center}
+
+We made use of the \textsc{xillver} reflection code here to account for narrow, non-relativistic reflected emission in the spectrum. From preliminary fits we find that leaving ionization parameter free here leads to fits of $log~\xi_{\textrm{unblurred}} \approx 0$. Similarly, the fit is insensitive to the value of the inclination parameter of the distant reflector. Hence, we fixed ionization to 0 and inclination to the default. The iron abundance $A_{\textrm{Fe}}$ was linked to that of the blurred reflector with the general idea that the cold reflector could well be part of the same galaxy. The addition is $>4\sigma$ significant for $\alpha_{13}$ ($\Delta\rchi^2 \simeq 26$) and $>5.5\sigma$ significant for $\alpha_{22}$ ($\Delta\rchi^2 \simeq 43$), for 1 extra degree of freedom (d.o.f.). Model B ratio plots have not been shown because they are very similar to Model C's.
+
+
+
+
+
+\subsubsection{Model C}\label{ModC}
+\begin{center}
+\textsc{tbabs * (zpowerlw + relxill\_nk + xillver + zgauss)}
+\end{center}
+
+We detected the presence of a narrow ($\sigma=10$~eV) Fe-\textrm{XXV} emission line at E~$\simeq 6.65$~keV for both $\alpha_{13}$ and $\alpha_{22}$ cases. Existence of this residual was also mentioned in \cite{Patrick2011} and \cite{W13}, who analyzed the same dataset in Kerr spacetime. The improvement in delta-fit statistic with both deformation parameters agrees with \cite[Table~8 therein]{Patrick2011} at $\Delta\rchi^2 \simeq 10$.
+
+
+
+\subsubsection{Model D}\label{ModD}
+\begin{center}
+\textsc{tbabs * [zpcfabs * (zpowerlw + relxill\_nk + xillver + zgauss)]}
+\end{center}
+
+After Model C, we tried alternative RDC combinations, briefly described in Section~\ref{discuss}. But none of them seemed to improve the fit statistic. However, hints of absorption can be seen in the spectra. We turned to this possibility, and different absorbers and their combinations were examined. But the simplest inclusion of one partial covering (\textsc{zpcfabs}) proved satisfactory.\footnote{Details in Section~\ref{discuss}.} The $\Delta\rchi^2$ in the $\alpha_{13}$ and $\alpha_{22}$ cases were, respectively, 94 and 108 for 2 extra d.o.f. The parameters of the covering model are well-constrained as can be seen in Tables \ref{T1} and \ref{T2}, and from Fig~\ref{C1} and Fig~\ref{C2}. The inclusion proved to be of high significance ($>7\sigma$) in improving the fit (Fig~\ref{ALPHA}).
+
+
+
+%%%%%%%%%%%%%%%%%% Section 3 %%%%%%%%%%%%%%%%%%%%
+
+
+
+\section{\label{discuss}Discussion}
+
+We now discuss some aspects of the models we used to fit the data. Absorption in the $1-3$~keV band is evident from the absorbed powerlaw fits in Fig~\ref{R1} and Fig~\ref{R2}, with a strong soft excess $<1$~keV \citep{Keek2016}. From model fits A to C we see tight parameter constraints, possibly indicating overestimation of error bars. Comparing with \cite{Patrick2011} and \cite{W13}, we observe a rise in $\Gamma$ and drop in $\xi$ with all four models. This line-continuum trade-off is possible with \textsc{relxill} \citep{K17}. Recovering a relatively colder disk can also be responsibe for causing the soft excess at lower energies, resulting from blending of multiple narrow emission lines that can be fit by blurred reflection \cite{Miller2007}. The model here prefers the combination of a high emissivity index ($q$) and inner disk inclination ($i$). This piece is important here because, in contradiction to expectations that a Seyfert 1 AGN (especially a NLS1) would be seen more face-on than edge-on, we retrieve a best-fit $i \simeq 66^\circ$. This is comparatively higher than what \cite{W13} report at similar reduced statistic, but we have higher precision. However, the fit values in both \cite{Patrick2011} and \cite{W13} seem to follow the $i-q$ degeneracy trend shown in \cite[Fig~11 therein]{Parker2014} for time-averaged spectrum analyzed with \textsc{relxill}. We find a preference for $i > 55$~deg at 99\% confidence with our best-fit model (Fig~\ref{i-q}; similar for the $\alpha_{13}\neq0$ case), comparable to what \cite{Parker2014} show at higher angles. Owing to limited spectral resolution, there could exist a preference for both parameters to yield high fit values in such case. Another possible explanation is the broad-line region is either absent or hidden from the observer which makes us recover a higher angle \citep{Giannuzzo1996}. Alternatively, high $i$ could also be fitting for the observed, highly skewed Fe-\textrm{K$\alpha$} line profile as relativistic effects become stronger at higher angles. Fig~\ref{ModelDspec} shows the unfolded spectrum with the contribution of the additive model components for our best-fit model D. This, in addition to Fig~\ref{phenom}, shows that the relativistic effects smear the Fe emission complex down with a red wing extending to lower energies $<6$~keV.
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.475\textwidth, trim={1.2cm 5mm 3cm 1.5cm},clip]{W13_Po-Rel-Xilv-Gauss-1zpcfabs_ALPHA22_Ecut300_posterr_XIS_q-i_stepparBEST10x15-BIGF2.pdf}
+\caption{Contour plot between the inner disk inclination $i$ and emissivity index $q$ from Model D fit. $\textrm{Index1}$ is the inner emissivity index parameter in \textsc{relxill\_nk}, tied to the outer index ($\textrm{Index2}$) assuming a single emissivity profile as in \cite{W13}. The red, green and blue contour lines indicate the 68\%, 90\% and 99\% confidence, respectively, with the black ``\textbf{+}'' marking the best-fit for the $\alpha_{22}\neq0$ case. The trend shows a strong preference for $i>55^{\circ}$ and $q>4$.} \label{i-q}
+\end{figure}
+
+Although Model C is analogous to the model in \cite{W13} (who employ \textsc{reflionx} instead \citep{RF2005}), we see that the fits are not satisfactory. We attempted to fit a doubly-blurred reflection model (a second \textsc{relxill\_nk}) with all parameters linked, except for the ionization and normalization \citep{Cao2018,TripathiArk564}, both with and without the distant reflector. We also inspected with multiple distant reflectors. The inclusions did not improve the fits, implying there may be no accretion disk inhomogeneities as such. A general (or multi-component) PLC+RDC model combination cannot account for this dataset with \textsc{relxill\_nk}. The spectra still had significant residuals beyond $2\sigma$ significance at energies $<3$~keV, which contains $\sim80\%$ of the total XIS counts. Local absorption at the source frame seems possible as mentioned by \citep{Longinotti2013}, in opposition to what \cite{Patrick2011} find. We tried using warm (ionized) absorbers generated on \textsc{xstar} \citep{XSTAR} with the default setup, and the \textsc{zxipcf xstar} photoionization code incorporated into \textsc{xspec} that mimics a warm partial covering. Partial covering with \textsc{zpcfabs} was also tested for. All combinations with multiple absorbers and/or partial covering were not only statistically unfavorable (minor fit improvements for added fit parameters on additional inclusions), but also they would have heightened complex dependencies among model components. This is something we wanted to avoid as it could very well lead to biased estimates on parameters even with an excellent fit.
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.475\textwidth, trim={0 2mm 2.5cm 2.5cm},clip]{XIS-EUF-ModelD.pdf}
+\caption{Plot shows the unfolded XIS time-averaged spectrum with the best-fit model D. The vertical axis $E.f(E)$ refers to the photon flux in units of photons~cm$^{-2}$~s$^{-1}$ at each energy $E$. Contribution from the additive model components have been displayed.} \label{ModelDspec}
+\end{figure}
+
+With one \textsc{zxipcf} we did manage to get a better fit over the use of \textsc{zpcfabs} or other absorbers. However, no constraint was obtained for the hydrogen (\textrm{H I}) column $n_{\textrm{H}}$ of the ionized covering against the X-ray continuum index $\Gamma$. Among all absorbers, only the \textsc{zpcfabs} model provided good constraints on $n_{\textrm{H}}$ (Fig~\ref{C1} and Fig~\ref{C2}), which indicates that the model is statistically restrained. Moreover, it is \textsc{zpcfabs} that produced decent constraints on both deformation parameters (Fig~\ref{ALPHA}) with comparatively 1 less d.o.f. than \textsc{zxipcf}. Additionally, we do not obtain any closed contour for the $\alpha_{22}\neq0$ case with \textsc{zxipcf}. Fig~\ref{zxipcf} shows the constraint obtained with Model D in case \textsc{zxipcf} was used instead. No other contour lines or local minima islands were seen here at lower $a_*$ or higher $\alpha_{13}$. The fit pushes up against the boundary of the allowed spin range and contains an unrealistically small range of non-vanishing $\alpha_{13}$ at 99\% confidence given the quality of the analyzed data. The fit here is exceptional  ($\Delta\rchi^2$/d.o.f. = 986.78/958 $\sim$~1.03). Nevertheless, in addition to strangely-tight contours we found a possible physical loophole in this model combination with our dataset. Testing the effect of both \textsc{zpcfabs} and \textsc{zxipcf} absorption on Model C with \textsc{relxill} instead, we confirmed that in the astrophysical limit both absorbers perform similarly with a difference of 1 d.o.f., yield equally good constraints for $n_{\textrm{H}}$ versus $\Gamma$ in the Kerr case, and give out reduced statistics comparable to those for the two non-Kerr cases (Model D, tables~\ref{T1} and \ref{T2}). In addition to the model combination showing no constraints on the \textsc{zxipcf} column density, this tells us that the ionized partial covering is unable to fit the data. Complemented by the size and location of the contours in Fig~\ref{zxipcf}, the large inconsistency between the Kerr and non-Kerr fits with \textsc{zxipcf} asserts the physical disfavoring of the ionized partial covering scenario. Additionally, the possibility of warm absorption for the soft excess has been discarded, as also stated in \cite{Larsson2008} (but proposed in \cite{Keek2016}). 
+
+\begin{figure}[!t]
+\centering
+\includegraphics[width=0.475\textwidth, trim={3.2cm 3cm 2.2cm 2.2cm},clip]{W13_Po-Rel-Xilv-Gauss-1zxipcf_XISfull_stepparBEST15x15_a13-0p99to0p3_ZOOM_2-Hlvtc-BIGF.pdf}
+\caption{Plot shows the strange constraint obtained between the dimensionless spin parameter $a_*$ and Johannsen deformation parameter $\alpha_{13}$ from the \textit{Suzaku} XIS dataset studied in this work for the NLS1 Mrk~335 with the best-fit model D, using \textsc{zxipcf} instead. Kerr solution is not recovered. The red, green and blue contour lines indicate the 68\%, 90\% and 99\% confidence contours, respectively, with the purple cross marking the best-fit. The shaded region in gray is forbidden within the metric to avoid some pathological properties as mentioned in Section~\ref{metric}.} \label{zxipcf}
+\end{figure}
+
+We have seen that a mild continuum absorption of the reflection data improves fits for the data and reflection model used, even in the Kerr case. Very recent work on the NLS1 Mrk~766 shows that this hybrid scenario is possible and yields more reasonable estimates on the X-ray continuum absorption \citep{Buisson2018}. The referred work finds parameter constraints in-line with ours after introducing a partial covering to their reflection model. One of the effects of such absorption is the increase in uncertainty on some or all parameters of interest. We can see such an effect on the estimation of the deformation parameters between Model D and all other models (see Tab.~\ref{T1} and Tab.~\ref{T2}). 
+%Moreover, $\alpha_{13}$ and $\alpha_{22}$ in A, B and C were found to lie in very compact local minima, possibly resulting from numerical contention.
+
+Model D gives us a similar converging best-fit statistic ($\sim$1.07) as the best-fit model in \cite{W13} does. Moreover, in Model D both the Fe-\textrm{XXV} line energy and the equivalent width (EW$_{\textrm{XXV}}$) of the line are similar to that reported in \cite{W13}, after possible broadening introduced due to the adjustment offered by the partial covering, reducing the need for narrow emission lines. Additionally, we see in Model D enhanced signal (rise in the intensity of distant reflector from $\sim$12\% in Model C to $\sim$28\% in Model D compared to the total RDC contribution; a rise in $\Gamma$ by $\sim$6\%) as a compensation for the flux absorbed, possibly from both the continuum and the cold reflector. At high $i\simeq66^\circ$, the partial covering barely affects the net model complexity with a Compton-thin continuum absorption under a low $\sim$25\% covering, pointing at possible line-of-sight obstruction by local (cold) matter. The net X-ray flux absorbed at the source rest frame from Model C to D is also low ($\Delta L_{\textsf{0.6-10~\textrm{keV}}}\simeq10^{-2}$~ergs~s$^{-1}$).
+
+Taking all arguments into consideration, we can assert \textsc{zpcfabs},  and by extension, Model D to be both statistically and physically acceptable. 
+%since it provides plausible constraints.
+
+
+
+
+%%%%%%%%%%%%%%%%%% Section 4 %%%%%%%%%%%%%%%%%%%%%
+
+\section{\label{conc}Conclusions}
+
+
+The main goal of this work is to test how well we can recover the Kerr metric if we introduce a deformation in the Kerr spacetime around the  supermassive black hole of NLS1 Mrk~335, using observational data. We modified the relativistic smearing kernel of the most widely-used relativistic reflection code \textsc{relxill} to include a phenomenologically-motivated metric and used X-ray reflection spectroscopy to carry out our Mrk~335 study on the average spectral properties using \textit{Suzaku} FI XIS dataset based on previous work in \cite{W13}. 
+
+We find differences from the previous work, i.e., a PLC+RDC model does not explain the data and partial covering is needed to account for absorption at similar converging statistic but at a higher recovered inclination. We obtain good constraints on $a_*$, $\alpha_{13}$ and $\alpha_{22}$, as shown in Fig~\ref{ALPHA}. Spin recovered is high, but is consistent with literature where Mrk~335 can be seen to have wide uncertainties on $a_*$ in the Kerr background (e.g., $a_*>0.7$ in \cite{Gallo2013}). We roughly recover $0.9 \lesssim a_* \lesssim 0.95$ at Kerr ($\alpha_{13}=\alpha_{22}=0$) from both Fig~\ref{A13Z} and Fig~\ref{A22Z} at 99\% confidence. In short, our results are in agreement with the Kerr hypothesis for the central compact object of Mrk~335 within the limits of observational and statistical errors. The constraints on the deformation parameters obtained at 99\% confidence from Fig~\ref{ALPHA} are as follows:
+\begin{align}
+\alpha_{13} &\neq 0: \hspace{11mm} a_* > 0.8      &    -1.5 < \alpha_{13} < 0.6 \nonumber \\
+\alpha_{22} &\neq 0: \hspace{4.5mm} 0.72 < a_* < 0.95    &   -0.2 < \alpha_{22} < 2.0
+\end{align}
+
+We can make some comparisons for $\alpha_{13}$ with constraints from other studies. The constraints obtained here  are better than those in \cite[Fig~2 and Fig~3]{Bambi2018}, which are the updated versions of the same in \cite{Cao2018} for both 2011 XMM-Newton data and simultaneous \textit{NuSTAR}+\textit{Swift} results of the NLS1 1H0707--495. The contours with MCMC runs in \cite{Jingyi2018} for the popular X-ray BHB GX~339--4 with \textit{RXTE} PCU-2 data are comparable to ours here. For both deformation parameters, results from \cite{TripathiArk564} on the NLS1 Ark~564 \textit{Suzaku} XIS and from \cite{Xu2018tbp} on the low-mass X-ray binary GS~1354--645 \textit{NuSTAR} FPM analyses are stronger than ours here.\\
+
+\textbf{\textit{Caveats--}} Our constraints from this work establish that the Kerr metric in Einstein's gravity is recovered at 99\% confidence with the data analyzed. However, care needs to be taken while interpreting the results as there are simplifications involved. There could well exist degeneracies other than the ones we discussed (Section~\ref{discuss}), since we include multiple components. This is the first time that a partial covering of the reflection spectrum has been proposed for this source in a high-flux dataset, which in itself requires further verification but is beyond the scope of current work. Partial absorption and relativistic emission are degenerate cases with respect to the spectral shape, which requires a more arduous approach like MCMC to further investigate. The assumption that the source intensity profile is a powerlaw is also an approximation. Even though we have sampled high counts per bin with $\rchi^2$-statistics here, we can still be subject to bias in results since our total number of data bins to be fitted (973) is not lower than the squared-root of the total number of counts in the analyzed energy range \citep{cstat2009}. The data takes into account statistical uncertainties but we cannot guarantee accountability of all possible systematic errors. Inner accretion disk studies like these can be conducted best with low-flux AGN data constraints \citep[e.g.,][]{BR2006}. The data quality also plays a role in deciding the degree of constraint one can put on tests of gravity. Improvements to the model in the future should enhance the precision in our constraints in general, but the choice of the type of best-fit model combination is unlikely to alter with this particular dataset.\\
+
+
+\begin{acknowledgments}
+We thank Michael Parker and Matteo Guainazzi for their helpful comments on the data analysis part. The work of K.C., D.A., A.B.A. and C.B. was supported by the National Natural Science Foundation of China (NSFC), Grant No. U1531117, and Fudan University, Grant No. IDH1512060. K.C. also acknowledges support from the China Scholarship Council (CSC), Grant No. 2015GXYD34. S.N. acknowledges support from the Excellence Initiative at Eberhard-Karls Universit{\"a}t T{\"u}bingen. A.B.A. also acknowledges the support from the Shanghai Government Scholarship (SGS). C.B.and J.A.G. also acknowledge support from the Alexander~von~Humboldt Foundation.
+\end{acknowledgments}
+
+
+\bibliography{Mrk335SuzakuNK_D4_ref}
+
+\end{document}
