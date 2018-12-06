@@ -47,6 +47,7 @@ def get_metadata(arxiv_uid):
     return result
 
 def countFigures(tex, regexp='\\begin{figure}'):
+     tex = str(tex)
      commented = tex.count("% "+ regexp) + tex.count("%" + regexp)
      return tex.count(regexp) - commented
 
@@ -81,7 +82,7 @@ def extract_tex(input_file):
         return tex.decode('utf-8')
     except:
         return tex.decode("ISO-8859-1")
-
+    return tex
 
 def read_file(filename, mode="r"):
     with open(filename,mode) as filey:
