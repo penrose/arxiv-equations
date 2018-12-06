@@ -70,7 +70,7 @@ for input_file in input_files:
 
     # Extract latex
     results = extract_tex(input_file)
-    if len(tex) == 0:
+    if len(results) == 0:
         continue
 
     number_files = len(results)
