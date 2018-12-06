@@ -78,10 +78,13 @@ def extract_tex(input_file):
         if member.name.lower().endswith('tex'):
             with tar.extractfile(member) as m:
                 tex = m.read()
-    try:
-        return tex.decode('utf-8')
-    except:
-        return tex.decode("ISO-8859-1")
+
+    if tex != None:
+        try:
+            return tex.decode('utf-8')
+        except:
+            pass
+
     return tex
 
 def read_file(filename, mode="r"):
