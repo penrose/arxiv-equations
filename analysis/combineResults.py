@@ -3,7 +3,7 @@
 import os
 import pickle
 import time
-from analysis.helpers import ( recursive_find, here )
+from analysis.helpers import ( recursive_find, here, has_docs )
 
 # git clone https://www.github.com/penrose/arxiv-miner && cd arxiv-miner
 # module load python/3.6.1
@@ -14,6 +14,46 @@ base = "/regal/users/vsochat/WORK/arxiv-miner"
 database = os.path.abspath('counts')
 
 input_pkls = recursive_find(database, '*.pkl')
+
+
+################################################################################
+## Step 1. How many papers missing page counts?
+################################################################################
+
+missing = 0
+total = 0
+for input_pkl in input_pkls:
+    df = pickle.load(open(input_pkl, 'rb'))
+    for row in df.iterrows():
+        if row[1].numberPages == None:
+           missing += 1
+        total += 1
+
+# missing
+# 408603
+
+# total in npages.csv cat src/npages.csv | wc -l
+# 1460335
+
+# total papers
+# 1328467
+
+
+################################################################################
+## Step 2. How many total papers, and papers that are doc and docx?
+################################################################################
+
+# Find our input files
+input_files = recursive_find('../arxiv/data', pattern='*.tar.gz')
+
+docs = 0
+total_papers = 0
+for input_file in input_files:
+    if has_docs(input_file):
+        docs += 1
+    total_papers += 1
+
+# still running
 
 # Global Counts
 global_counts = {

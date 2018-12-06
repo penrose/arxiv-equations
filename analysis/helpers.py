@@ -86,6 +86,17 @@ def extract_tex(input_file):
     return results
 
 
+def has_docs(input_file):
+    '''count files that end in doc or docx
+    '''
+    tar = tarfile.open(input_file, "r:gz")
+
+    for member in tar.getmembers():
+        if re.search('doc|docx', member.name.lower()):
+            return True
+    return False    
+
+
 def read_file(filename, mode="r"):
     with open(filename,mode) as filey:
         content = filey.read()
