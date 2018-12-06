@@ -65,11 +65,3 @@ for input_dir in input_dirs:
         else:
             jobs.append(file_name)
             time.sleep(1)
-
-# Submit remaining
-
-while len(jobs) > 0:
-    count = count_queue()
-    while count < job_limit:
-        job = jobs.pop(0)
-        os.system("sbatch -p owners %s" % job)
