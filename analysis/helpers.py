@@ -68,24 +68,23 @@ def extract_tex(input_file):
        Parameters
        ==========
        input_file: full (or relative path) to the .tar.gz with a tex in it
-       @returns tex: a full string extraction of the tex
+       @returns results: a list of extracted tex files
     '''
     tar = tarfile.open(input_file, "r:gz")
 
-    # Find the tex file
-    tex = None
+    # There can be more than one!
+    results = []
+
     for member in tar.getmembers():
         if member.name.lower().endswith('tex'):
             with tar.extractfile(member) as m:
-                tex = m.read()
+                results.append(tex)
+            try:
+                tex = tex.decode('utf-8')
+            except:
+                pass
+    return results
 
-    if tex != None:
-        try:
-            return tex.decode('utf-8')
-        except:
-            pass
-
-    return tex
 
 def read_file(filename, mode="r"):
     with open(filename,mode) as filey:

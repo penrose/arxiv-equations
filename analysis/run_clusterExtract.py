@@ -8,6 +8,7 @@ from analysis.helpers import ( find_folders, here )
 # git clone https://www.github.com/penrose/arxiv-miner && cd arxiv-miner
 # module load python/3.6.1
 # module load py-pandas/0.23.0_py36
+# module load py-ipython/6.1.0_py36
 
 base = "/regal/users/vsochat/WORK/arxiv-miner"
 

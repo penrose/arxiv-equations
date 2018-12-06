@@ -58,6 +58,7 @@ columns = ['uid',
            'inputFile', 
            'numberPages', 
            'numberLines',
+           'numberFiles',
            'numberFigures']
 
 df = pandas.DataFrame(columns=columns)
@@ -68,12 +69,14 @@ input_files = recursive_find(input_dir, pattern='*.tar.gz')
 for input_file in input_files:
 
     # Extract latex
-    tex = extract_tex(input_file)
-    if tex is None:
+    results = extract_tex(input_file)
+    if len(tex) == 0:
         continue
 
+    number_files = len(results)
+
     # Metadata based on uid from filename
-    tex = str(tex)
+    tex = ''.join([str(t) for t in results])
     uid = get_uid(input_file)
 
     # We count a figure as \begin{figure}
@@ -82,7 +85,7 @@ for input_file in input_files:
     number_pages = getOrNone(npages, uid, 'count')  
     number_lines = len(tex.split('\n'))
     number_chars = len(tex)
-    row =[uid, topic, input_file, number_pages, number_lines, number_figures]
+    row =[uid, topic, input_file, number_pages, number_lines, number_files, number_figures]
     df.loc[uid] = row
 
 # Save to pickle
