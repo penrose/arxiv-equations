@@ -34,6 +34,13 @@ for tarfile in $(ls *.tar)
 done
 ```
 
+Then I cloned the repository with code, and we will work from its root:
+
+```bash
+git clone git@github.com:penrose/arxiv-miner.git
+cd arxiv-miner
+```
+
 Our general strategy will be to do the following:
 
  - extract summary metrics on a per archive basis

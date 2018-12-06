@@ -11,7 +11,8 @@
 #         src/npages.csv  # number of pages
 #
 # This script is located under analysis, and expected to be run with the run*
-# equivalent:
+# equivalent. We also expect this to be the present working directory, to 
+# import from helpers.py (this is handled in the run_* script)
 #
 #         analysis/run_clusterExtract.py
 #         analysis/clusterExtract.py
@@ -22,32 +23,35 @@ import re
 import pandas
 from helpers import ( 
     extract_tex, 
-    get_metadata, 
-    read_number_pages,
+    get_uid,
     recursive_find,
-    count_figures 
+    countFigures 
 )
 
 
 input_dir = sys.argv[1]
 output_file = sys.argv[2]
-npages_file = sys.argv[3]
-topics_file = sys.argv[4]
+pages_file = sys.argv[3]
+topic_file = sys.argv[4]
 
 # Full path of file to work with
 input_dir = os.path.abspath(input_dir)
 
 # Ensure that all inputs exist.
-for dirname in [npages_file, topics_file, input_dir]:
-    if not os.path.exists(dirna,e):
+for dirname in [pages_file, topic_file, input_dir]:
+    if not os.path.exists(dirname):
         print('Cannot find %s, exiting!' % dirname)
+        sys.exit(1)
 
-npages = pandas.read_csv(npages_file, header=None)
-topics = pandas.read_csv(topics_file, header=None)
+npages = pandas.read_csv(pages_file, index_col=0, header=None, low_memory=False)
+topics = pandas.read_csv(topic_file, index_col=0, header=None, low_memory=False)
+
+npages.columns = ['count']
+topics.columns = ['topic']
 
 # Create a data frame to hold all input files, parse through .tar.gz found
 columns = ['uid', 
-           'category',
+           'topic',
            'inputFile', 
            'numberPages', 
            'numberLines',
@@ -56,7 +60,14 @@ columns = ['uid',
 df = pandas.DataFrame(columns=columns)
 
 # Find our input files
-input_files = recursive_find(input_dir, pattern='tar.gz')
+input_files = recursive_find(input_dir, pattern='*.tar.gz')
+
+# Function to try and return None to handle missing data
+def getOrNone(dataFrame, key, colname):
+    try:
+        return dataFrame.loc[key][colname]
+    except:
+        pass
 
 for input_file in input_files:
 
@@ -64,17 +75,15 @@ for input_file in input_files:
     tex = extract_tex(input_file)
  
     # Metadata based on uid from filename
-    uid = os.path.basename(input_file).replace('.tar.gz','')
-    metadata = get_metadata(uid)
+    uid = get_uid(input_file)
 
     # We count a figure as \begin{figure}
     number_figures = countFigures(tex)
-    number_pages = read_number_pages(uid)
+    topic = getOrNone(topics, uid, 'topic')
+    number_pages = getOrNone(npages, uid, 'count')  
     number_lines = len(tex.split('\n'))
     number_chars = len(tex)
-    category = metadata['arxiv_primary_category']['term']
-
-    row =[uid, category, input_file, number_pages, number_lines, number_figures]
+    row =[uid, topic, input_file, number_pages, number_lines, number_figures]
     df.loc[uid] = row
 
 # Save to pickle
