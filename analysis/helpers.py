@@ -80,7 +80,8 @@ def extract_tex(input_file):
     try:
         return tex.decode('utf-8')
     except:
-        return tex
+        return tex.decode("ISO-8859-1")
+
 
 def read_file(filename, mode="r"):
     with open(filename,mode) as filey:

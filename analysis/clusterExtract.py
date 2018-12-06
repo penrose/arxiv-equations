@@ -69,9 +69,12 @@ for input_file in input_files:
     # For debugging
     print(input_file)
 
-    # Extract latex as a long string
-    tex = extract_tex(input_file)
- 
+    # Extract latex as a long string - if can't decode, skip
+    try:
+        tex = extract_tex(input_file)
+    except:
+        continue
+
     # Metadata based on uid from filename
     uid = get_uid(input_file)
 
