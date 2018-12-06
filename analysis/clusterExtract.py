@@ -66,9 +66,6 @@ input_files = recursive_find(input_dir, pattern='*.tar.gz')
 
 for input_file in input_files:
 
-    # For debugging
-    print(input_file)
-
     # Extract latex
     tex = extract_tex(input_file)
     if tex is None:
