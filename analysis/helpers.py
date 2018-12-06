@@ -77,8 +77,9 @@ def extract_tex(input_file):
         if member.name.lower().endswith('tex'):
             with tar.extractfile(member) as m:
                 tex = m.read()
-    return tex.decode('utf-8')
-
+    try:
+        return tex.decode('utf-8')
+    return tex
 
 def read_file(filename, mode="r"):
     with open(filename,mode) as filey:
