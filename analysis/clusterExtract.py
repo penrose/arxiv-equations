@@ -20,9 +20,11 @@
 import json
 import os
 import re
+import sys
 import pandas
 from helpers import ( 
     extract_tex, 
+    getOrNone,
     get_uid,
     recursive_find,
     countFigures 
@@ -61,13 +63,6 @@ df = pandas.DataFrame(columns=columns)
 
 # Find our input files
 input_files = recursive_find(input_dir, pattern='*.tar.gz')
-
-# Function to try and return None to handle missing data
-def getOrNone(dataFrame, key, colname):
-    try:
-        return dataFrame.loc[key][colname]
-    except:
-        pass
 
 for input_file in input_files:
 

@@ -50,6 +50,15 @@ def countFigures(tex, regexp='\\begin{figure}'):
      commented = tex.count("% "+ regexp) + tex.count("%" + regexp)
      return tex.count(regexp) - commented
 
+# Function to try and return None to handle missing data
+def getOrNone(dataFrame, key, colname):
+    '''get a key from a pandas DataFrame in a col (colname) or return None
+    '''
+    try:
+        return dataFrame.loc[key][colname]
+    except:
+        pass
+
 
 def extract_tex(input_file):
     '''given an input file, a compressed tar.gz, de-compress into memory,
