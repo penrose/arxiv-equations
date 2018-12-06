@@ -30,6 +30,7 @@ counts_template = global_counts.copy()
 topic_counts = dict()
 
 for input_pkl in input_pkls:
+    print('Parsing %s' %input_pkl)
     df = pickle.load(open(input_pkl, 'rb'))
     for row in df.iterrows():
         uid = row[0]

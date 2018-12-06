@@ -70,6 +70,14 @@ was to find a txt file with a note about the paper being withdrawn:
 '%auto-ignore\r\nThis paper has been withdrawn by the author,\r\ndue a publication.'
 ```
 
+Another kind of "withdrawl" I found later was identified based on papers with 
+only one line!
+
+```
+
+```
+
 **Some LaTex files end in TEX**
 
 And so the function should convert to lowercase before any string checking.
+

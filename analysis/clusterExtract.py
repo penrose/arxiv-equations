@@ -76,14 +76,19 @@ for input_file in input_files:
     number_files = len(results)
 
     # Metadata based on uid from filename
-    tex = ''.join([str(t) for t in results])
+    tex = ''.join(['%r' %t for t in results])
     uid = get_uid(input_file)
 
     # We count a figure as \begin{figure}
     number_figures = countFigures(tex)
+
+    # If it's zero, check for macros
+    if number_figures == 0:
+        countFigures(tex, regexp='\\def\\figure')
+
     topic = getOrNone(topics, uid, 'topic')
-    number_pages = getOrNone(npages, uid, 'count')  
-    number_lines = len(tex.split('\n'))
+    number_pages = getOrNone(npages, uid, 'count')
+    number_lines = len(tex.split('\n')) 
     number_chars = len(tex)
     row =[uid, topic, input_file, number_pages, number_lines, number_files, number_figures]
     df.loc[uid] = row
