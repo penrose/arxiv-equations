@@ -22,6 +22,7 @@ import os
 import re
 import sys
 import pandas
+import pickle
 from helpers import ( 
     extract_tex, 
     getOrNone,
