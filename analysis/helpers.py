@@ -79,7 +79,8 @@ def extract_tex(input_file):
                 tex = m.read()
     try:
         return tex.decode('utf-8')
-    return tex
+    except:
+        return tex
 
 def read_file(filename, mode="r"):
     with open(filename,mode) as filey:
