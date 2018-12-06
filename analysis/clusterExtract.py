@@ -75,6 +75,7 @@ for input_file in input_files:
         continue
 
     # Metadata based on uid from filename
+    tex = str(tex)
     uid = get_uid(input_file)
 
     # We count a figure as \begin{figure}
