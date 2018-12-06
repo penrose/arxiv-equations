@@ -71,6 +71,8 @@ for input_file in input_files:
 
     # Extract latex
     tex = extract_tex(input_file)
+    if tex is None:
+        continue
 
     # Metadata based on uid from filename
     uid = get_uid(input_file)
