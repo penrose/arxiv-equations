@@ -57,7 +57,7 @@ for input_dir in input_dirs:
                 filey.writelines("#SBATCH --mem=2000\n")
                 filey.writelines('module load python/3.6.1\n')
                 filey.writelines('module load py-pandas/0.23.0_py36\n')
-                filey.writelines('cd %s' % here)
+                filey.writelines('cd %s\n' % here)
                 filey.writelines("python3 clusterExtract.py %s %s %s %s\n" % (input_dir, output_file, pages_file, topic_file))
                 filey.writelines("rm %s" % os.path.abspath(file_name))
             os.system("sbatch -p owners .job/%s.job" %name)
