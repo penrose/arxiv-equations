@@ -49,7 +49,12 @@ Our general strategy will be to do the following:
 
 If we find interesting (topic level) statistics, we can use the data to create meaningful
 visualizations on the [arxiv catalog](https://vsoch.github.io/arxiv-catalog/). 
- 
+The final data (summary) files were copied to the local machine (for final visualization)
+as follows:
+
+```bash
+scp vsochat@login.sherlock.stanford.edu:/scratch/users/vsochat/WORK/arxiv-miner/arxiv-count-results.pkl arxiv-count-results.pkl
+``` 
 
 ## Notes about the data
 

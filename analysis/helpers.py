@@ -97,6 +97,15 @@ def has_docs(input_file):
     return False    
 
 
+def getNumberPages(metadata, original):
+    contenders = re.findall('[0-9]+ pages', metadata['arxiv_comment'])
+    if len(contenders) > 0:
+        pages = re.match('[0-9]+', contenders[0]) 
+        if pages != None:
+            original = int(pages.string[pages.start():pages.end()])
+    return original
+
+
 def read_file(filename, mode="r"):
     with open(filename,mode) as filey:
         content = filey.read()
