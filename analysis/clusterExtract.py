@@ -78,7 +78,7 @@ for input_file in input_files:
 
     uid = get_uid(input_file)
     
-    # Derive output file, month, year, from uid
+    # Derive output file, month, year, from uid (should be consistent across files)
     year = os.path.basename(uid)[0:2]
     month = os.path.basename(uid)[2:4]
 
@@ -140,5 +140,9 @@ for input_file in input_files:
     df.loc[uid] = row
 
 # Save to pickle
+basename = os.path.basename(output_dir):
+if not os.path.exists(basename):
+    os.makedirs(basename)
+
 pickle.dump(df, open(output_file,'wb'))
 df.to_csv(output_file.replace('.pkl','.tsv'), sep='\t')

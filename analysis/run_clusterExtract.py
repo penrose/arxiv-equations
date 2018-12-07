@@ -57,12 +57,12 @@ for input_dir in input_dirs:
                 filey.writelines('module load python/3.6.1\n')
                 filey.writelines('module load py-pandas/0.23.0_py36\n')
                 filey.writelines('cd %s\n' % here)
-                filey.writelines("python3 clusterExtract.py %s %s %s %s %s\n" % (input_dir, 
-                                                                                 output,
-                                                                                 output_file, 
-                                                                                 pages_file, 
-                                                                                 topic_file, 
-                                                                                 meta_folder))
+                filey.writelines("python3 clusterExtract.py %s %s %s %s %s %s\n" % (input_dir, 
+                                                                                    output,
+                                                                                    output_file, 
+                                                                                    pages_file, 
+                                                                                    topic_file, 
+                                                                                    meta_folder))
                 filey.writelines("rm %s" % os.path.abspath(file_name))
             os.system("sbatch -p owners .job/%s.job" %name)
         else:
