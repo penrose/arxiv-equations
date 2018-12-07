@@ -119,7 +119,7 @@ for input_file in input_files:
 
     # Try to get tags from API metadata, fall back to None
     try:
-        tags = ','.join([x['term'] for x in metadata['metadata']['tags']])
+        tags = ','.join([x['term'] for x in metadata['tags']])
     except:
         tags = None
     
