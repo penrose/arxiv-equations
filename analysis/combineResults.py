@@ -53,13 +53,12 @@ for input_file in input_files:
         docs += 1
     total_papers += 1
 
-# still running
+# job was cut, need to do another way
 
 # Global Counts
 global_counts = {
     "papers": 0,
     "pages": 0,
-    "lines": 0,
     "files": 0,
     "figure_papers": 0,
     "figures": 0,
@@ -75,9 +74,12 @@ for input_pkl in input_pkls:
     for row in df.iterrows():
         uid = row[0]
 
+        # Skip page counts of none
+        if row[1].numberPages == None:
+            continue
+
         # Update global counts
         global_counts['papers'] += 1
-        global_counts['lines'] += row[1].numberLines
         global_counts['files'] += row[1].numberFiles
 
         # A figure paper has one or more figures
@@ -92,7 +94,6 @@ for input_pkl in input_pkls:
         if topic not in topic_counts:
             topic_counts[topic] = counts_template.copy()
         topic_counts[topic]['papers'] += 1
-        topic_counts[topic]['lines'] += row[1].numberLines
         topic_counts[topic]['files'] += row[1].numberFiles
 
         # A figure paper has one or more figures
@@ -109,3 +110,6 @@ for topic, values in topic_counts.items():
     topic_counts[topic] = values
 
 global_counts['figures_per_page'] = global_counts['figures'] / global_counts['pages']
+results = {'global': global_counts,
+           'topic': topic_counts }
+pickle.dump(results, open('arxiv-count-results.pkl','wb'))
