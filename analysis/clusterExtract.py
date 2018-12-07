@@ -35,11 +35,10 @@ from helpers import (
 
 
 input_dir = sys.argv[1]
-output_dir = sys.argv[2]
-output_file = sys.argv[3]
-pages_file = sys.argv[4]
-topic_file = sys.argv[5]
-meta_folder = sys.argv[6]
+output_file = sys.argv[2]
+pages_file = sys.argv[3]
+topic_file = sys.argv[4]
+meta_folder = sys.argv[5]
 
 # Full path of file to work with
 input_dir = os.path.abspath(input_dir)
@@ -81,9 +80,6 @@ for input_file in input_files:
     # Derive output file, month, year, from uid (should be consistent across files)
     year = os.path.basename(uid)[0:2]
     month = os.path.basename(uid)[2:4]
-
-    # Full output file includes month and year
-    output_file = os.path.join(output_dir, year, month, output_file)
 
     # Extract latex
     results = extract_tex(input_file)

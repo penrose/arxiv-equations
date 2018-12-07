@@ -42,7 +42,7 @@ job_limit = 1000
 for input_dir in input_dirs:
     count = count_queue()
     name = os.path.basename(input_dir)    
-    output_file = 'counts_%s.pkl' % name
+    output_file = os.path.join(output, 'counts_%s.pkl' % name)
     file_name = ".job/%s.job" %(name)
     if not os.path.exists(output_file):
         if count < job_limit:
@@ -57,12 +57,11 @@ for input_dir in input_dirs:
                 filey.writelines('module load python/3.6.1\n')
                 filey.writelines('module load py-pandas/0.23.0_py36\n')
                 filey.writelines('cd %s\n' % here)
-                filey.writelines("python3 clusterExtract.py %s %s %s %s %s %s\n" % (input_dir, 
-                                                                                    output,
-                                                                                    output_file, 
-                                                                                    pages_file, 
-                                                                                    topic_file, 
-                                                                                    meta_folder))
+                filey.writelines("python3 clusterExtract.py %s %s %s %s %s\n" % (input_dir, 
+                                                                                 output_file, 
+                                                                                 pages_file, 
+                                                                                 topic_file, 
+                                                                                 meta_folder))
                 filey.writelines("rm %s" % os.path.abspath(file_name))
             os.system("sbatch -p owners .job/%s.job" %name)
         else:
