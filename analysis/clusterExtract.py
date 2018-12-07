@@ -140,7 +140,7 @@ for input_file in input_files:
     df.loc[uid] = row
 
 # Save to pickle
-basename = os.path.basename(output_dir):
+basename = os.path.basename(output_dir)
 if not os.path.exists(basename):
     os.makedirs(basename)
 
