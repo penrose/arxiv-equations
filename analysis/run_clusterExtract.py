@@ -14,15 +14,15 @@ base = "/scratch/users/vsochat/WORK/arxiv-miner"
 
 # Create directories if they don't exist
 os.chdir(base)
-output = os.path.join(base, 'counts')
-for dirname in ['.job', '.out', 'counts']:
+output = os.path.join(base, 'counts0')
+for dirname in ['.job', '.out', 'counts0']:
     if not os.path.exists(dirname):
         os.mkdir(dirname)
 
 database = os.path.abspath('../arxiv/data')
 
-# Step 1. Find all the top level (topic) folders
-input_dirs = find_folders(database)
+# Step 1. Find all the top level (topic) folders (N=175)
+input_dirs = find_folders(database, level=1)
 
 # Step 2: point to figure counts file
 pages_file = os.path.abspath('src/npages.csv')
@@ -52,8 +52,8 @@ for input_dir in input_dirs:
                 filey.writelines("#SBATCH --job-name=%s\n" %name)
                 filey.writelines("#SBATCH --output=.out/%s.out\n" %name)
                 filey.writelines("#SBATCH --error=.out/%s.err\n" %name)
-                filey.writelines("#SBATCH --time=60:00\n")
-                filey.writelines("#SBATCH --mem=2000\n")
+                filey.writelines("#SBATCH --time=24:00:00 \n")
+                filey.writelines("#SBATCH --mem=8000\n")
                 filey.writelines('module load python/3.6.1\n')
                 filey.writelines('module load py-pandas/0.23.0_py36\n')
                 filey.writelines('cd %s\n' % here)
@@ -67,3 +67,11 @@ for input_dir in input_dirs:
         else:
             jobs.append(file_name)
             time.sleep(1)
+
+# Submit remaining
+
+while len(jobs) > 0:
+    count = count_queue()
+    while count < job_limit:
+        job = jobs.pop(0)
+        os.system("sbatch -p owners %s" % job)

@@ -136,9 +136,5 @@ for input_file in input_files:
     df.loc[uid] = row
 
 # Save to pickle
-basename = os.path.basename(output_file)
-if not os.path.exists(basename):
-    os.makedirs(basename)
-
 pickle.dump(df, open(output_file,'wb'))
 df.to_csv(output_file.replace('.pkl','.tsv'), sep='\t')

@@ -98,11 +98,13 @@ def has_docs(input_file):
 
 
 def getNumberPages(metadata, original):
-    contenders = re.findall('[0-9]+ pages', metadata['arxiv_comment'])
-    if len(contenders) > 0:
-        pages = re.match('[0-9]+', contenders[0]) 
-        if pages != None:
-            original = int(pages.string[pages.start():pages.end()])
+    comment = metadata['arxiv_comment']
+    if comment not in [None, '']:
+        contenders = re.findall('[0-9]+ pages', comment)
+        if len(contenders) > 0:
+            pages = re.match('[0-9]+', contenders[0]) 
+            if pages != None:
+                original = int(pages.string[pages.start():pages.end()])
     return original
 
 
@@ -122,15 +124,30 @@ def write_file(filename, content, mode="w"):
     return filename
 
 
-def find_folders(base, pattern=None):
+def find_folders(base, pattern=None, level=None):
     '''Use os.listdir (as an interator) so we don't stress the file
        system
+  
+       Parameters
+       ==========
+       level: if not None, only look this number levels
+       base: the root directory to start at
+       pattern: a pattern to match
     '''
     if pattern is None:
         pattern = "*"
+    start_sep = base.count(os.path.sep)
     for root, dirnames, filenames in os.walk(base):
-        for dirname in dirnames:
-            yield os.path.join(root, dirname)
+        number_seps = root.count(os.path.sep) - start_sep
+        # We don't want to go any deeper than specified additional levels
+        if level != None:
+            if number_seps < level:        
+                for dirname in dirnames:
+                    yield os.path.join(root, dirname)
+        # We traverse all levels
+        else:
+            for dirname in dirnames:
+                yield os.path.join(root, dirname)
 
 
 

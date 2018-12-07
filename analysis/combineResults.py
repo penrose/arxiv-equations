@@ -15,7 +15,6 @@ database = os.path.abspath('counts')
 
 input_pkls = recursive_find(database, '*.pkl')
 
-
 ################################################################################
 ## Step 1. How many papers missing page counts?
 ################################################################################
@@ -60,13 +59,42 @@ global_counts = {
     "papers": 0,
     "pages": 0,
     "files": 0,
+    "lines": 0,
+    "chars": 0,
     "figure_papers": 0,
     "figures": 0,
     "figures_per_page": 0
 }
 
+# uid                                               quant-ph/0312047
+# topic                                                     quant-ph
+# month                                                           12
+# year                                                            03
+# tags                                                      quant-ph
+# inputFile        /scratch/users/vsochat/WORK/arxiv/data/quant-p...
+# numberPages                                                      8
+# numberLines                                                    706
+# numberChars                                                  38228
+# numberFiles                                                      1
+# numberFigures                                                    8
+
 counts_template = global_counts.copy()
 topic_counts = dict()
+date_counts = dict()
+
+def update_counts(counts, row):
+
+    counts['papers'] += 1
+    counts['files'] += row[1].numberFiles
+
+    # A figure paper has one or more figures
+    if row[1].numberFigures > 0:
+        counts['figure_papers'] += 1
+    counts['figures'] += row[1].numberFigures
+    counts['lines'] += row[1].numberLines
+    counts['chars'] += row[1].numberChars
+    counts['pages'] += row[1].numberPages
+    return counts
 
 for input_pkl in input_pkls:
     print('Parsing %s' %input_pkl)
@@ -79,29 +107,21 @@ for input_pkl in input_pkls:
             continue
 
         # Update global counts
-        global_counts['papers'] += 1
-        global_counts['files'] += row[1].numberFiles
+        global_counts = update_counts(global_counts, row)
 
-        # A figure paper has one or more figures
-        if row[1].numberFigures > 0:
-            global_counts['figure_papers'] += 1
-
-        global_counts['figures'] += row[1].numberFigures
-        global_counts['pages'] += row[1].numberPages
-
-        # Update topic conunts (redundant, I know)
+        # Update topic counts
         topic = row[1].topic
         if topic not in topic_counts:
             topic_counts[topic] = counts_template.copy()
-        topic_counts[topic]['papers'] += 1
-        topic_counts[topic]['files'] += row[1].numberFiles
+        topic_counts[topic] = update_counts(topic_counts[topic], row)
 
-        # A figure paper has one or more figures
-        if row[1].numberFigures > 0:
-            topic_counts[topic]['figure_papers'] += 1
-
-        topic_counts[topic]['figures'] += row[1].numberFigures
-        topic_counts[topic]['pages'] += row[1].numberPages
+        # Update monthly counts
+        datestr = "%s%s" %(row[1].year, row[1].month)
+        if datestr not in date_counts:
+            date_counts[datestr] = counts_template.copy()
+            date_counts[datestr]['month'] = row[1].month
+            date_counts[datestr]['year'] = row[1].year
+        date_counts[datestr] = update_counts(date_counts[datestr], row)
 
 
 # Now calculate average figures per page
@@ -109,7 +129,13 @@ for topic, values in topic_counts.items():
     values['figures_per_page'] = values['figures'] / values['pages']
     topic_counts[topic] = values
 
+for datestr, values in date_counts.items():
+    values['figures_per_page'] = values['figures'] / values['pages']
+    date_counts[datestr] = values
+
 global_counts['figures_per_page'] = global_counts['figures'] / global_counts['pages']
 results = {'global': global_counts,
-           'topic': topic_counts }
+           'topic': topic_counts,
+           'dates': date_counts }
+
 pickle.dump(results, open('arxiv-count-results.pkl','wb'))
