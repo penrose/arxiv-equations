@@ -11,7 +11,7 @@ from analysis.helpers import ( recursive_find, here, has_docs )
 # module load py-ipython/6.1.0_py36
 
 base = "/regal/users/vsochat/WORK/arxiv-miner"
-database = os.path.abspath('counts')
+database = os.path.abspath('counts0')
 
 input_pkls = recursive_find(database, '*.pkl')
 
@@ -29,30 +29,17 @@ for input_pkl in input_pkls:
         total += 1
 
 # missing
-# 408603
+# 48
+# (originally was 408603 without using arxiv API metadata)
 
-# total in npages.csv cat src/npages.csv | wc -l
-# 1460335
-
+# I might have missing tar.gz from the original NAS - we need an inventory
 # total papers
-# 1328467
+# 418808
 
 
 ################################################################################
-## Step 2. How many total papers, and papers that are doc and docx?
+## Step 2. Counts
 ################################################################################
-
-# Find our input files
-input_files = recursive_find('../arxiv/data', pattern='*.tar.gz')
-
-docs = 0
-total_papers = 0
-for input_file in input_files:
-    if has_docs(input_file):
-        docs += 1
-    total_papers += 1
-
-# job was cut, need to do another way
 
 # Global Counts
 global_counts = {
@@ -96,9 +83,13 @@ def update_counts(counts, row):
     counts['pages'] += row[1].numberPages
     return counts
 
+input_pkls = recursive_find(database, '*.pkl')
+compiled = pandas.DataFrame()
+
 for input_pkl in input_pkls:
     print('Parsing %s' %input_pkl)
     df = pickle.load(open(input_pkl, 'rb'))
+    compiled = compiled.append(df)
     for row in df.iterrows():
         uid = row[0]
 
@@ -138,4 +129,6 @@ results = {'global': global_counts,
            'topic': topic_counts,
            'dates': date_counts }
 
+pickle.dump(compiled, open('compiled_counts_df.pkl','wb'))
+compiled.to_csv('compiled_counts_df.tsv', sep='\t')
 pickle.dump(results, open('arxiv-count-results.pkl','wb'))
