@@ -61,33 +61,6 @@ def getOrNone(dataFrame, key, colname):
         pass
 
 
-def extract_inventory(input_file, gzip=False):
-    '''extract just the members of a tarfile, meaning we treat each included
-       .tar.gz as a paper, and return a list of unique ids to add to our
-       data frame
-
-       Parameters
-       ==========
-       input_file: the .tar folder of .tar.gz (each a paper) from arxiv
-       gzip: if the top file to read is gzipped (default is False)
-    '''
-
-    fmt = 'r:gz'
-    if gzip is False:
-        fmt = 'r'
-    tar = tarfile.open(input_file, fmt)
-    members = []
-
-    # Add each .tar.gz member
-    for member in tar.getmembers():
-        if member.isfile():
-            uid = os.path.basename(member.name).replace('.tar.gz', '')
-            members.append([input_file, member.name, uid])
-        else:
-            print('Skipping %s, not tar.gz' % member.name)
-    return members
-
-
 def extract_tex(input_file):
     '''given an input file, a compressed tar.gz, de-compress into memory,
        and return tex content (if found) in the file. Returns None if not found.
