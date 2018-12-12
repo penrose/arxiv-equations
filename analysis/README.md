@@ -21,3 +21,13 @@ can include all data.
 The files were copied from the NAS in Josh Sunshine's office ultimately to the Sherlock
 cluster using sftp. An [inventory](inventory.tsv) is included here, which is a basic listing
 of the files. We generate this inventory with [generateInventory.py](generateInventory.py).
+
+
+### .tar found corrupt
+I will try to transfer these again, but it could be the originals were corrupt:
+
+ - '/scratch/users/vsochat/DATA/arxiv/1508.tar'
+
+**Update** I have re-transferred the file, and I was able to extract (I think most)
+of the contents, but the end of the file has a `ReadError` so likely we lost a small
+subset.

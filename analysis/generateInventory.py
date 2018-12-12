@@ -28,13 +28,9 @@ for input_file in files:
     df = pandas.DataFrame(result, columns=['archive', 'subdirectory', 'uid'])
     inventory = inventory.append(df)
 
-# Finally, parse the one .tar.gz
-files = recursive_find(base, '*.tar.gz')
-for input_file in files:
-    result = extract_inventory(input_file, gzip=True)
-    df = pandas.DataFrame(result, columns=['archive', 'subdirectory', 'uid'])
-    inventory = inventory.append(df)
-
+# For now, we will ignore the .tar.gz, it seems much bigger (different?)
 print(inventory.shape)
+# (947943, 3)
 
-inventory.to_csv('arxiv-inventory-newonly.tsv', sep='\t')
+
+inventory.to_csv('arxiv-inventory-newonly.tsv', sep='\t', index=None)

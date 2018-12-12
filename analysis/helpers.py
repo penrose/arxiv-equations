@@ -2,6 +2,7 @@ import os
 import arxiv
 import tarfile
 import fnmatch
+from tarfile import ReadError
 import re
 
 try:
@@ -79,12 +80,16 @@ def extract_inventory(input_file, gzip=False):
     members = []
 
     # Add each .tar.gz member
-    for member in tar.getmembers():
-        if member.isfile():
-            uid = os.path.basename(member.name).replace('.tar.gz', '')
-            members.append([input_file, member.name, uid])
-        else:
-            print('Skipping %s, not tar.gz' % member.name)
+    try:
+        for member in tar:
+            if member.isfile():
+                uid = os.path.basename(member.name).replace('.tar.gz', '')
+                members.append([input_file, member.name, uid])
+            else:
+                print('Skipping %s, not tar.gz' % member.name)
+    except:
+        pass 
+
     return members
 
 
