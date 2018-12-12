@@ -1,8 +1,8 @@
 import os
 import arxiv
 import tarfile
+import requests
 import fnmatch
-from tarfile import ReadError
 import re
 
 try:
@@ -93,31 +93,6 @@ def extract_inventory(input_file, gzip=False):
     return members
 
 
-def extract_tex(input_file):
-    '''given an input file, a compressed tar.gz, de-compress into memory,
-       and return tex content (if found) in the file. Returns None if not found.
- 
-       Parameters
-       ==========
-       input_file: full (or relative path) to the .tar.gz with a tex in it
-       @returns results: a list of extracted tex files
-    '''
-    tar = tarfile.open(input_file, "r:gz")
-
-    # There can be more than one!
-    results = []
-
-    for member in tar.getmembers():
-        if member.name.lower().endswith('tex'):
-            with tar.extractfile(member) as m:
-                results.append(m.read())
-            try:
-                tex = tex.decode('utf-8')
-            except:
-                pass
-    return results
-
-
 def has_docs(input_file):
     '''count files that end in doc or docx
     '''
@@ -129,15 +104,23 @@ def has_docs(input_file):
     return False    
 
 
-def getNumberPages(metadata, original):
-    comment = metadata['arxiv_comment']
-    if comment not in [None, '']:
-        contenders = re.findall('[0-9]+ pages', comment)
-        if len(contenders) > 0:
-            pages = re.match('[0-9]+', contenders[0]) 
-            if pages != None:
-                original = int(pages.string[pages.start():pages.end()])
-    return original
+def getNumberPages(uid, tmpdir):
+
+    npages = 0
+    response = requests.get('https://arxiv.org/pdf/%s.pdf' % uid)
+    output_pdf = os.path.join(tmpdir, '%s.pdf' % uid)
+
+    if response.status_code == 200:
+        with open(output_pdf, 'wb') as filey:
+            filey.write(response._content)
+
+    if os.path.exists(output_pdf):
+        pdfFile = open(output_pdf, 'rb') 
+        pdfReader = PyPDF2.PdfFileReader(pdfFile) 
+        npages = pdfReader.numPages
+        os.remove(output_pdf)
+
+    return npages
 
 
 def read_file(filename, mode="r"):
