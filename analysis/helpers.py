@@ -2,6 +2,7 @@ import os
 import arxiv
 import tarfile
 import fnmatch
+from tarfile import ReadError
 import re
 
 try:
@@ -59,6 +60,37 @@ def getOrNone(dataFrame, key, colname):
         return dataFrame.loc[key][colname]
     except:
         pass
+
+
+def extract_inventory(input_file, gzip=False):
+    '''extract just the members of a tarfile, meaning we treat each included
+       .tar.gz as a paper, and return a list of unique ids to add to our
+       data frame
+
+       Parameters
+       ==========
+       input_file: the .tar folder of .tar.gz (each a paper) from arxiv
+       gzip: if the top file to read is gzipped (default is False)
+    '''
+
+    fmt = 'r:gz'
+    if gzip is False:
+        fmt = 'r'
+    tar = tarfile.open(input_file, fmt)
+    members = []
+
+    # Add each .tar.gz member
+    try:
+        for member in tar:
+            if member.isfile():
+                uid = os.path.basename(member.name).replace('.tar.gz', '')
+                members.append([input_file, member.name, uid])
+            else:
+                print('Skipping %s, not tar.gz' % member.name)
+    except:
+        pass 
+
+    return members
 
 
 def extract_tex(input_file):
