@@ -21,7 +21,12 @@ can include all data.
 The files were copied from the NAS in Josh Sunshine's office ultimately to the Sherlock
 cluster using sftp. An [inventory](inventory.tsv) is included here, which is a basic listing
 of the files. We generate this inventory with [generateInventory.py](generateInventory.py).
+The inventory [arxiv-inventory-newonly.tsv](arxiv-inventory-newonly.tsv) is included here.
 
+ > The new archive data (in the arxiv folder on the NAS) has 947,943 subfolders.
+
+We can be sure of having these subfolders, each a .tar.gz, and it remains to be seen if each
+one has data inside (or could be empty, for example).
 
 ### .tar found corrupt
 I will try to transfer these again, but it could be the originals were corrupt:
