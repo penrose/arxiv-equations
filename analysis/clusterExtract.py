@@ -70,6 +70,7 @@ columns = ['uid',                     # 1306.2580
 
 
 df = pandas.DataFrame(columns=columns)
+rows = []
 
 # Read in the tar
 # '/scratch/users/vsochat/DATA/arxiv/1306.tar'
@@ -79,14 +80,15 @@ tar = tarfile.open(input_tar, 'r')
 missing = []
 
 # And each .tar.gz member
-try:
-    for member in tar:
-        # <TarInfo '1306/1306.3882.tar.gz' at 0x7fb747558e58>
-        if member.isfile():
+for member in tar:
+    if member.isfile():
 
-            # Return lookup dictionary of fields for data frame
-            result = extract_paper(tar, member)
-            '''
+        # <TarInfo '1306/1306.3882.tar.gz' at 0x7fb747558e58>
+        uid = get_uid(member.name)
+
+        # Return lookup dictionary of fields for data frame
+        result = extract_paper(tar, member)
+        '''
                 {'folder': '1306',
                  'inputFile': '1306/1306.5867.tar.gz',
                  'month': '06',
@@ -100,35 +102,49 @@ try:
                  'topic': 'math.RT',
                  'uid': '1306.5867',
                  'year': '13'}
-            '''
-            if result == None:
-                missing_name = "%s|%s" %(tar.name, member.name)
-                missing.append(missing_name)
-                print("No LaTeX found in %s" % missing_name)
-            else:
-                uid = get_uid(member.name)
-                df.loc[uid] = [ uid,
-                                result['topic'],
-                                result['month'],
-                                result['year'],
-                                result['tags'],
-                                result['folder'],
-                                result['tarfile'],
-                                result['inputFile'], 
-                                result['numberPages'], 
-                                result['numberLines'],
-                                result['numberChars'],
-                                result['numberFiles'],
-                                result['numberFigures']]
-
+        '''
+        if result == None:
+            missing_name = "%s|%s" %(tar.name, member.name)
+            missing.append(missing_name)
+            print("No LaTeX found in %s" % missing_name)
         else:
-            print('Skipping %s, not tar.gz' % member.name)
-except:
-    pass 
+            row = [ uid,
+                    result['topic'],
+                    result['month'],
+                    result['year'],
+                    result['tags'],
+                    result['folder'],
+                    result['tarfile'],
+                    result['inputFile'], 
+                    result['numberPages'], 
+                    result['numberLines'],
+                    result['numberChars'],
+                    result['numberFiles'],
+                    result['numberFigures']]
+            rows.append(row)
+    else:
+        print('Skipping %s, not tar.gz' % member.name)
+
+# Turn into data frame
+dfx = pandas.DataFrame(rows)
+dfx.columns = columns
+dfx.index = dfx.uid
+
+# Which ones are missing?
+missing = []
+total = 0
+for member in tar:
+    if member.isfile():
+        uid = get_uid(member.name)
+        total += 1
+        if uid not in dfx.index.tolist():
+            missing.append(uid)
 
 # Save to pickle
-pickle.dump(df, open(output_file, 'wb'))
-df.to_csv(output_file.replace('.pkl','.tsv'), sep='\t')
+pickle.dump(dfx, open(output_file, 'wb'))
+dfx.to_csv(output_file.replace('.pkl','.tsv'), sep='\t')
+with open(output_file.replace('.pkl','_missing.txt'), 'w') as filey:
+    filey.writelines(missing)
 
 
 def extract_paper(tar, member):
@@ -150,7 +166,7 @@ def extract_paper(tar, member):
 
     # Extract latex
     if len(texs) == 0:
-        return
+        return None
 
     try:
         tex = ''.join(texs)
@@ -163,7 +179,10 @@ def extract_paper(tar, member):
     month = os.path.basename(uid)[2:4]
 
     # Count number of pages
-    number_pages = getNumberPages(uid, tmpdir)
+    try:
+        number_pages = getNumberPages(uid, tmpdir)
+    except: # can't find EOF and can't read PDF errors
+        number_pages = 0
 
     # Count number of figures
     numberFigures = countFigures(tex)
@@ -213,7 +232,7 @@ def extract_paper(tar, member):
         "tarfile": tar.name,
         "inputFile": member.name, 
         "numberFiles": len(texs),
-        'numberPages': getNumberPages(uid, tmpdir), 
+        'numberPages': number_pages, 
         'numberLines': numberLines,
         'numberChars': len(tex),
         'numberFigures': numberFigures
