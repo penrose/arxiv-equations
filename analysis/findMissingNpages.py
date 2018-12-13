@@ -3,7 +3,8 @@
 import os
 import pickle
 import time
-from analysis.helpers import ( recursive_find, get_uid )
+import tarfile
+import pandas
 
 # git clone https://www.github.com/penrose/arxiv-miner && cd arxiv-miner
 # module load python/3.6.1
@@ -14,6 +15,9 @@ base = "/scratch/users/vsochat/WORK/arxiv-miner"
 
 # Create directories if they don't exist
 os.chdir(base)
+
+from analysis.helpers import ( recursive_find, get_uid )
+
 npages_file = os.path.abspath('src/npages.csv')
 npages = pandas.read_csv(npages_file, header=None, low_memory=False)
 npages.columns = ['uid', 'page_count']
