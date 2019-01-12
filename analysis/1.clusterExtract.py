@@ -110,6 +110,18 @@ for member in tar:
             missing.append(missing_name)
             print("No LaTeX found in %s" % missing_name)
         else:
+
+            # Save metadata
+            meta_dir = os.path.join(meta_folder, result['year'], result['month'])
+            if not os.path.exists(meta_dir):
+                os.makedirs(meta_dir)
+
+            # Save the metadata if we don't have it yet
+            meta_file = os.path.join(meta_dir, "extracted_%s.pkl" % uid)
+            if not os.path.exists(meta_file):
+                pickle.dump(result['metadata'], open(meta_file, 'wb'))
+
+            # Keep parsing dataframe
             row = [ uid,
                     result['topic'],
                     result['month'],

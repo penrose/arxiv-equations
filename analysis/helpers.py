@@ -265,20 +265,10 @@ def extract_paper(tar, member):
     numberLines = len(tex.split('\\n'))
     if numberLines == 1:
         numberLines = len(tex.split('\n'))
-
-    # Metadata file (can regenerate with get_metadata), created with arxiv-equations
-    meta_dir = os.path.join(meta_folder, year, month)
-    if not os.path.exists(meta_dir):
-        os.makedirs(meta_dir)
  
     # Extract metadata using arxiv API, save for later use
     metadata = get_metadata(uid)
     metadata['equations'] = raw
-
-    # Save the metadata if we don't have it yet
-    meta_file = os.path.join(meta_dir, "extracted_%s.pkl" % uid)
-    if not os.path.exists(meta_file):
-        pickle.dump(metadata, open(meta_file, 'wb'))
     
     try:
         topic = metadata['arxiv_primary_category']['term']
@@ -295,7 +285,7 @@ def extract_paper(tar, member):
     results = { 
         "numberFiles": len(texs),
         "uid": uid,
-        "equations": raw,
+        "metadata": metadata,
         "folder": os.path.dirname(member.name),
         "year": year,
         "month": month,
