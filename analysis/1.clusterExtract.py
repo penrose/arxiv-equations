@@ -27,6 +27,7 @@ import tarfile
 import tempfile
 import PyPDF2 
 from helpers import ( 
+    extract_paper,
     find_equations,
     getNumberPages,
     getOrNone,
@@ -146,102 +147,3 @@ pickle.dump(dfx, open(output_file, 'wb'))
 dfx.to_csv(output_file.replace('.pkl','.tsv'), sep='\t')
 with open(output_file.replace('.pkl','_missing.txt'), 'w') as filey:
     filey.writelines(missing)
-
-
-def extract_paper(tar, member):
-    
-    # This second tar is a folder with one paper
-    subtar = tarfile.open(mode='r|gz', fileobj=tar.extractfile(member))
-
-    # Each submember can be a paper
-    texs = []
-    for submember in subtar:
-        if submember.name.endswith('tex'):
-            with subtar.extractfile(submember) as m:
-                raw = m.read()
-                try:
-                    raw = raw.decode('utf-8')
-                except:
-                    pass
-                texs.append(raw)
-
-    # Extract latex
-    if len(texs) == 0:
-        return None
-
-    try:
-        tex = ''.join(texs)
-    except:
-        tex = ''.join(['%r' %t for t in texs])
-
-    # Unique identifier
-    uid = get_uid(member.name)
-    year = os.path.basename(uid)[0:2]
-    month = os.path.basename(uid)[2:4]
-
-    # Count number of pages
-    try:
-        number_pages = getNumberPages(uid, tmpdir)
-    except: # can't find EOF and can't read PDF errors
-        number_pages = 0
-
-    # Count number of figures
-    numberFigures = countFigures(tex)
-
-    # Extract equations (remove additional escaping, will need to remove /r,/n)
-    equations = find_equations(tex) 
-    raw =  [e.replace('\\\\','\\') for e in equations]
-
-    # If it's zero, check for macros
-    if numberFigures == 0:
-        numberFigures = countFigures(tex, regexp='\\def\\figure')
-
-    # Count number of lines
-    numberLines = len(tex.split('\\n'))
-    if numberLines == 1:
-        numberLines = len(tex.split('\n'))
-
-    # Metadata file (can regenerate with get_metadata), created with arxiv-equations
-    meta_dir = os.path.join(meta_folder, year, month)
-    if not os.path.exists(meta_dir):
-        os.makedirs(meta_dir)
- 
-    # Extract metadata using arxiv API, save for later use
-    metadata = get_metadata(uid)
-    metadata['equations'] = raw
-
-    # Save the metadata if we don't have it yet
-    meta_file = os.path.join(meta_dir, "extracted_%s.pkl" % uid)
-    if not os.path.exists(meta_file):
-        pickle.dump(metadata, open(meta_file, 'wb'))
-    
-    try:
-        topic = metadata['arxiv_primary_category']['term']
-    except:
-        topic = None
-
-    # Try to get tags from API metadata, fall back to None
-    try:
-        tags = ','.join([x['term'] for x in metadata['tags']])
-    except:
-        tags = None
-    
-    # Return dictionary of results
-    results = { 
-        "numberFiles": len(texs),
-        "uid": uid,
-        "equations": raw,
-        "folder": os.path.dirname(member.name),
-        "year": year,
-        "month": month,
-        "topic": topic,
-        "tags": tags,
-        "tarfile": tar.name,
-        "inputFile": member.name, 
-        "numberFiles": len(texs),
-        'numberPages': number_pages, 
-        'numberLines': numberLines,
-        'numberChars': len(tex),
-        'numberFigures': numberFigures
-    }
-    return results
