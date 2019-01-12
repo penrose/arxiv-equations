@@ -20,7 +20,7 @@ def get_uid(input_file):
        style 1 (based on numbers) xxxx.xxxx
        style 2 (with string topic) /<topic>/xxxx/xxxxxxx
     '''
-    if re.search('[0-9]{4}[.][0-9]{4}.tar.gz$',os.path.basename(input_file)):
+    if re.search('[0-9]{4}[.][0-9]+.tar.gz$',os.path.basename(input_file)):
         return os.path.basename(input_file).replace('.tar.gz','')
 
     # The difference is the identifier for the file
@@ -60,6 +60,38 @@ def getOrNone(dataFrame, key, colname):
         return dataFrame.loc[key][colname]
     except:
         pass
+
+
+def find_equations(tex):
+    '''find equations. We assume an equation is either between $$ tags, or
+       a begin/end align or equation.'''
+
+    # Extract the equations from the tex
+    regexps = [
+               r"\$.*?(?<!\\\\)\$",
+               r"\\\[.*?(?<!\\\\)\\\]",
+               r"\\\(.*?(?<!\\\\)\\\)",
+               r"\\begin[{]align[}](.*?(?<!\\\\))\\end[{]align[}]",
+               r"\\begin[{]align[*][}](.*?(?<!\\\\))\\end[{]align\*[}]",
+               r"\\begin[{]equation[}](.*?(?<!\\\\))\\end[{]equation[}]",
+               r"\\begin[{]equation[*][}](.*?(?<!\\\\))\\end[{]equation[*][}]",
+               r"\\begin[{]displaymath[}](.*?(?<!\\\\))\\end[{]displaymath[}]",
+               r"\\begin[{]displaymath[*][}](.*?(?<!\\\\))\\end[{]displaymath[*][}]",
+               r"\\begin[{]eqnarray[}](.*?(?<!\\\\))\\end[{]eqnarray[}]",
+               r"\\begin[{]eqnarray[*][}](.*?(?<!\\\\))\\end[{]eqnarray[*][}]",
+               r"\\begin[{]multline[}](.*?(?<!\\\\))\\end[{]multline[}]",
+               r"\\begin[{]multline[*][}](.*?(?<!\\\\))\\end[{]multline[*][}]",
+               r"\\begin[{]gather[}](.*?(?<!\\\\))\\end[{]gather[}]",
+               r"\\begin[{]gather[*][}](.*?(?<!\\\\))\\end[{]gather[*][}]",
+               r"\\begin[{]falign[}](.*?(?<!\\\\))\\end[{]falign[}]",
+               r"\\begin[{]falign[*][}](.*?(?<!\\\\))\\end[{]falign[*][}]",
+               r"\\begin[{]alignat[}](.*?(?<!\\\\))\\end[{]alignat[}]",
+               r"\\begin[{]alignat[*][}](.*?(?<!\\\\))\\end[{]alignat[*][}]",
+    ]
+    equations = []
+    for regexp in regexps:
+        equations = equations + re.findall(regexp, "%r"%str(tex))
+    return equations
 
 
 def extract_inventory(input_file, gzip=False):

@@ -14,8 +14,8 @@
 # equivalent. We also expect this to be the present working directory, to 
 # import from helpers.py (this is handled in the run_* script)
 #
-#         analysis/run_clusterExtract.py
-#         analysis/clusterExtract.py
+#         analysis/1.run_clusterExtract.py
+#         analysis/1.clusterExtract.py
 
 import json
 import os
@@ -27,6 +27,7 @@ import tarfile
 import tempfile
 import PyPDF2 
 from helpers import ( 
+    find_equations,
     getNumberPages,
     getOrNone,
     get_uid,
@@ -187,6 +188,10 @@ def extract_paper(tar, member):
     # Count number of figures
     numberFigures = countFigures(tex)
 
+    # Extract equations (remove additional escaping, will need to remove /r,/n)
+    equations = find_equations(tex) 
+    raw =  [e.replace('\\\\','\\') for e in equations]
+
     # If it's zero, check for macros
     if numberFigures == 0:
         numberFigures = countFigures(tex, regexp='\\def\\figure')
@@ -203,6 +208,7 @@ def extract_paper(tar, member):
  
     # Extract metadata using arxiv API, save for later use
     metadata = get_metadata(uid)
+    metadata['equations'] = raw
 
     # Save the metadata if we don't have it yet
     meta_file = os.path.join(meta_dir, "extracted_%s.pkl" % uid)
@@ -224,6 +230,7 @@ def extract_paper(tar, member):
     results = { 
         "numberFiles": len(texs),
         "uid": uid,
+        "equations": raw,
         "folder": os.path.dirname(member.name),
         "year": year,
         "month": month,

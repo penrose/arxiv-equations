@@ -31,6 +31,11 @@ input_files = recursive_find(database, '*.tar')
 # Let's keep a list of missing
 notpresent = []
 
+total = 0
+for input_file in input_files:
+    if input_file == "/scratch/users/vsochat/DATA/arxiv/1110.tar"
+        break
+
 # Read in each tar
 total = 0
 for input_file in input_files:
@@ -39,6 +44,7 @@ for input_file in input_files:
 
     # '/scratch/users/vsochat/DATA/arxiv/1306.tar'
     tar = tarfile.open(input_file, 'r')
+
     for member in tar:
 
         # Skip over top level folder (e.g., 1306)
