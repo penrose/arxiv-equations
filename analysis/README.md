@@ -2,12 +2,12 @@
 
 Here we will mine papers from [arxiv](https://arxiv.org/help/bulk_data) to derive the following:
 
- 1. a count of the number of figures
- 2. summary statistics and change over time
- 3. To develop a visualization (catalog) that can nicely portray how groups of papers map to domains of math / methods, by way of the equations they use (this will be the final result in the [arxiv-catalog](https://www.github.com/vsoch/arxiv-catalog) repository.
- 
+ 1. a count of the number of figures, and summary statistics over time
+ 2. extraction of equations
+ 3. extraction of article summaries
+
 This work was modified from [vsoch/arxiv-equations](https://www.github.com/vsoch/arxiv-equations) to run
-in an HPC environment.
+in an HPC environment. The goal is to generate embeddings from the equations, and find associations with terms so that a user can search using words to find equations, and vice versa.
 
 ## Development
 

@@ -53,33 +53,9 @@ if not os.path.exists(input_tar):
     print('Cannot find %s, exiting!' % input_tar)
     sys.exit(1)
 
-
-# Create a data frame to hold all input files, parse through .tar.gz found
-
-columns = ['uid',                     # 1306.2580
-           'topic',                   # math.RT
-           'month',                   # 06
-           'year',                    # 13
-           'tags',                    # 'math.RT,math.AG'
-           'folder',                  # 1306
-           'tarfile',                 # '/scratch/users/vsochat/DATA/arxiv/1306.tar'
-           'inputFile',               # '1306/1306.5867.tar.gz'
-           'numberPages',             # 14 
-           'numberLines',             # 124
-           'numberChars',             # 59385
-           'numberFiles',             # 1
-           'numberFigures']           # 0
-
-
-df = pandas.DataFrame(columns=columns)
-rows = []
-
 # Read in the tar
 # '/scratch/users/vsochat/DATA/arxiv/1306.tar'
 tar = tarfile.open(input_tar, 'r')
-
-# Missing tex files
-missing = []
 
 # And each .tar.gz member
 for member in tar:
@@ -93,6 +69,7 @@ for member in tar:
         '''
                 {'folder': '1306',
                  'inputFile': '1306/1306.5867.tar.gz',
+                 'metadata': {}...
                  'month': '06',
                  'numberChars': 59385,
                  'numberFigures': 0,
@@ -106,56 +83,18 @@ for member in tar:
                  'year': '13'}
         '''
         if result == None:
-            missing_name = "%s|%s" %(tar.name, member.name)
-            missing.append(missing_name)
-            print("No LaTeX found in %s" % missing_name)
-        else:
+            result = {'uid': uid,
+                      'status': "no latex found"}
 
-            # Save metadata
-            meta_dir = os.path.join(meta_folder, result['year'], result['month'])
-            if not os.path.exists(meta_dir):
-                os.makedirs(meta_dir)
+        # Create metadata folder
+        meta_dir = os.path.join(meta_folder, result['year'], result['month'])
+        if not os.path.exists(meta_dir):
+            os.makedirs(meta_dir)
 
-            # Save the metadata if we don't have it yet
-            meta_file = os.path.join(meta_dir, "extracted_%s.pkl" % uid)
-            if not os.path.exists(meta_file):
-                pickle.dump(result['metadata'], open(meta_file, 'wb'))
+        # Save the metadata if we don't have it yet
+        meta_file = os.path.join(meta_dir, "extracted_%s.pkl" % uid)
+        if not os.path.exists(meta_file):
+            pickle.dump(result, open(meta_file, 'wb'))
 
-            # Keep parsing dataframe
-            row = [ uid,
-                    result['topic'],
-                    result['month'],
-                    result['year'],
-                    result['tags'],
-                    result['folder'],
-                    result['tarfile'],
-                    result['inputFile'], 
-                    result['numberPages'], 
-                    result['numberLines'],
-                    result['numberChars'],
-                    result['numberFiles'],
-                    result['numberFigures']]
-            rows.append(row)
     else:
         print('Skipping %s, not tar.gz' % member.name)
-
-# Turn into data frame
-dfx = pandas.DataFrame(rows)
-dfx.columns = columns
-dfx.index = dfx.uid
-
-# Which ones are missing?
-missing = []
-total = 0
-for member in tar:
-    if member.isfile():
-        uid = get_uid(member.name)
-        total += 1
-        if uid not in dfx.index.tolist():
-            missing.append(uid)
-
-# Save to pickle
-pickle.dump(dfx, open(output_file, 'wb'))
-dfx.to_csv(output_file.replace('.pkl','.tsv'), sep='\t')
-with open(output_file.replace('.pkl','_missing.txt'), 'w') as filey:
-    filey.writelines(missing)
