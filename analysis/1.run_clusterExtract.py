@@ -53,7 +53,8 @@ for row in inventory.iterrows():
     output_file = "/".join(fileparts)
     output_file = os.path.join(meta_folder, output_file)
     if not os.path.exists(output_file):
-        file_name = ".job/%s.job" %(name.replace('/','-'))
+        name = name.replace('/','-')
+        file_name = ".job/%s.job" %(name)
         if count < job_limit:
             print("Processing %s" % name)
             with open(file_name, "w") as filey:
