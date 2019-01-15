@@ -40,7 +40,7 @@ from helpers import (
 
 input_tar = sys.argv[1]
 output_file = sys.argv[2]
-meta_folder = sys.argv[3]
+uid = sys.argv[3]
 
 # Full path of file (.tar) to work with
 input_tar = os.path.abspath(input_tar)
@@ -62,7 +62,11 @@ for member in tar:
     if member.isfile():
 
         # <TarInfo '1306/1306.3882.tar.gz' at 0x7fb747558e58>
-        uid = get_uid(member.name)
+        this_uid = get_uid(member.name)
+
+        # Each job only processes one
+        if this_uid != uid:
+            continue
 
         # Return lookup dictionary of fields for data frame
         result = extract_paper(tar, member)
@@ -87,14 +91,13 @@ for member in tar:
                       'status': "no latex found"}
 
         # Create metadata folder
-        meta_dir = os.path.join(meta_folder, result['year'], result['month'])
-        if not os.path.exists(meta_dir):
-            os.makedirs(meta_dir)
+        output_dir = os.path.dirname(output_file)
+        if not os.path.exists(output_dir):
+            os.makedirs(output_dir)
 
-        # Save the metadata if we don't have it yet
-        meta_file = os.path.join(meta_dir, "extracted_%s.pkl" % uid)
-        if not os.path.exists(meta_file):
-            pickle.dump(result, open(meta_file, 'wb'))
+        pickle.dump(result, open(output_file, 'wb'))
 
     else:
         print('Skipping %s, not tar.gz' % member.name)
+
+tar.close()

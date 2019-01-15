@@ -3,6 +3,7 @@
 import os
 import pickle
 import time
+import pandas
 from analysis.helpers import ( recursive_find, here )
 
 # git clone https://www.github.com/penrose/arxiv-miner && cd arxiv-miner
@@ -14,8 +15,7 @@ base = "/scratch/users/vsochat/WORK/arxiv-miner"
 
 # Create directories if they don't exist
 os.chdir(base)
-output = os.path.join(base, 'counts')
-for dirname in ['.job', '.out', 'counts']:
+for dirname in ['.job', '.out', 'metadata']:
     if not os.path.exists(dirname):
         os.mkdir(dirname)
 
@@ -23,6 +23,11 @@ database = os.path.abspath('../../DATA/arxiv')
 
 # Step 1. Find all the top level (topic) folders (N=175)
 input_files = recursive_find(database, '*.tar')
+
+# Step 2: run jobs based on our inventory
+inventory = pandas.read_csv('arxiv-inventory-newonly.tsv', sep='\t')
+# inventory.shape
+# (947943, 3)
 
 def count_queue():
     user = os.environ['USER']
@@ -37,12 +42,18 @@ if not os.path.exists(meta_folder):
 jobs = []
 job_limit = 1000
 
-for input_file in input_files:
+for row in inventory.iterrows():
+    input_file = row[1].archive
+    uid = row[1].uid
+    subdirectory = row[1].subdirectory
     count = count_queue()
-    name = os.path.basename(input_file).replace('.tar','')
-    output_file = os.path.join(output, 'counts_%s.pkl' % name)
-    file_name = ".job/%s.job" %(name)
+    name = subdirectory.replace('.tar.gz', '')
+    fileparts = name.split('/')
+    fileparts[-1] = "extracted_%s.pkl" % fileparts[-1]
+    output_file = "/".join(fileparts)
+    output_file = os.path.join(meta_folder, output_file)
     if not os.path.exists(output_file):
+        file_name = ".job/%s.job" %(name.replace('/','-'))
         if count < job_limit:
             print("Processing %s" % name)
             with open(file_name, "w") as filey:
@@ -50,14 +61,14 @@ for input_file in input_files:
                 filey.writelines("#SBATCH --job-name=%s\n" %name)
                 filey.writelines("#SBATCH --output=.out/%s.out\n" %name)
                 filey.writelines("#SBATCH --error=.out/%s.err\n" %name)
-                filey.writelines("#SBATCH --time=24:00:00 \n")
-                filey.writelines("#SBATCH --mem=8000\n")
+                filey.writelines("#SBATCH --time=48:00:00 \n")
+                filey.writelines("#SBATCH --mem=12000\n")
                 filey.writelines('module load python/3.6.1\n')
                 filey.writelines('module load py-pandas/0.23.0_py36\n')
                 filey.writelines('cd %s\n' % here)
-                filey.writelines("python3 1.clusterExtract.py %s %s %s\n" % (input_file, 
-                                                                             output_file, 
-                                                                             meta_folder))
+                filey.writelines("python3 1.clusterExtract.py %s %s %s\n" % (input_file,
+                                                                             output_file,
+                                                                             uid))
                 filey.writelines("rm %s" % os.path.abspath(file_name))
                 filey.writelines("rm .out/%s.out" % name)
                 filey.writelines("rm .out/%s.err" % name)

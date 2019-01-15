@@ -16,11 +16,11 @@ for @dormaayan original analysis, and also can be used here to develop and test.
 extraction (without complete data) was done in [test](../test), and hopefully here @vsoch
 can include all data.
 
-## Inventory of files
+## Step 1. Inventory of files
 
 The files were copied from the NAS in Josh Sunshine's office ultimately to the Sherlock
 cluster using sftp. An [inventory](inventory.tsv) is included here, which is a basic listing
-of the files. We generate this inventory with [generateInventory.py](generateInventory.py).
+of the files. We generate this inventory with [0.generateInventory.py](0.generateInventory.py).
 The inventory [arxiv-inventory-newonly.tsv](arxiv-inventory-newonly.tsv) is included here.
 
  > The new archive data (in the arxiv folder on the NAS) has 947,943 subfolders.
@@ -36,3 +36,13 @@ I will try to transfer these again, but it could be the originals were corrupt:
 **Update** I have re-transferred the file, and I was able to extract (I think most)
 of the contents, but the end of the file has a `ReadError` so likely we lost a small
 subset.
+
+## Step 2. Extraction
+
+We use the following scripts for this step:
+
+ - [1.clusterExtract.py](1.clusterExtract.py)
+ - [1.run_clusterExtract.py](1.run_clusterExtract.py)
+
+Specifically, each input file is associated with an extracted archive, and we can determine
+which jobs need to be run based on the existence of the output folder.

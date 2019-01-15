@@ -8,7 +8,7 @@
 import os
 import pickle
 import pandas
-from analysis.helpers import ( recursive_find, here )
+from analysis.helpers import ( recursive_find, here, extract_inventory )
 
 # module load python/3.6.1
 # module load py-pandas/0.23.0_py36
