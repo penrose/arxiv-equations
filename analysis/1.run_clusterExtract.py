@@ -33,6 +33,11 @@ def count_queue():
     user = os.environ['USER']
     return int(os.popen('squeue -u %s | wc -l' %user).read().strip('\n'))
 
+def get_running_jobs():
+    user = os.environ['USER']
+    running_jobs = os.popen('squeue -t R -O name -u %s' %user).read().strip('\n')
+    return [x.strip() for x in running_jobs.split('\n')[1:]]
+
 # The base of the metadata directory (organized in same way)
 meta_folder = os.path.abspath(os.path.join(base, "metadata"))
 if not os.path.exists(meta_folder):
@@ -41,6 +46,7 @@ if not os.path.exists(meta_folder):
 # Step 2. Generate jobs, add any that don't get to run to list
 jobs = []
 job_limit = 1000
+running_jobs = get_running_jobs()
 
 for row in inventory.iterrows():
     input_file = row[1].archive
@@ -52,8 +58,14 @@ for row in inventory.iterrows():
     fileparts[-1] = "extracted_%s.pkl" % fileparts[-1]
     output_file = "/".join(fileparts)
     output_file = os.path.join(meta_folder, output_file)
-    if not os.path.exists(output_file):
-        name = name.replace('/','-')
+    name = name.replace('/','-')
+    log_file = ".out/%s.out" % name
+    # Ensure that job isn't running and isn't completed
+    if os.path.exists(output_file):
+        print('%s is finished.' % name)
+    elif name in running_jobs:
+        print('%s is running.' % name)
+    else:
         file_name = ".job/%s.job" %(name)
         if count < job_limit:
             print("Processing %s" % name)
