@@ -38,6 +38,14 @@ def get_running_jobs():
     running_jobs = os.popen('squeue -t R -O name -u %s' %user).read().strip('\n')
     return [x.strip() for x in running_jobs.split('\n')[1:]]
 
+def clean_up(name):
+    output_file = ".out/%s.out\n" % name
+    error_file = ".out/%s.err\n" % name
+    job_file = ".job/%s.job\n" % name
+    for fname in [output_file, error_file, job_file]:
+        if os.path.exists(fname):
+            os.remove(fname)
+
 # The base of the metadata directory (organized in same way)
 meta_folder = os.path.abspath(os.path.join(base, "metadata"))
 if not os.path.exists(meta_folder):
@@ -62,7 +70,7 @@ for row in inventory.iterrows():
     log_file = ".out/%s.out" % name
     # Ensure that job isn't running and isn't completed
     if os.path.exists(output_file):
-        print('%s is finished.' % name)
+        clean_up(name)
     elif name in running_jobs:
         print('%s is running.' % name)
     else:
@@ -82,9 +90,10 @@ for row in inventory.iterrows():
                 filey.writelines("python3 1.clusterExtract.py %s %s %s\n" % (input_file,
                                                                              output_file,
                                                                              uid))
-                filey.writelines("rm %s" % os.path.abspath(file_name))
-                filey.writelines("rm .out/%s.out" % name)
-                filey.writelines("rm .out/%s.err" % name)
+                filey.writelines('cd %s\n' % base)
+                filey.writelines("rm %s\n" % os.path.abspath(file_name))
+                filey.writelines("rm .out/%s.out\n" % name)
+                filey.writelines("rm .out/%s.err\n" % name)
             os.system("sbatch -p owners .job/%s.job" %name)
         else:
             jobs.append(file_name)
