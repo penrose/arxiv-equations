@@ -100,7 +100,7 @@ for member in tar:
     else:
         print('Skipping %s, not tar.gz' % member.name)
         result = {'uid': member.name,
-                  'status': "no latex found"}
+                  'status': "member is not file"}
         pickle.dump(result, open(output_file, 'wb'))
 
 tar.close()
